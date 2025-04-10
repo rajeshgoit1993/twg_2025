@@ -1,0 +1,69 @@
+@media (min-width: 992px) {
+/*Desktop Subscription Starts*/
+  .mSubsCont {
+    background-color: #fff;
+    padding: 30px 20px;
+    /*box-shadow: 0px 2px 6px rgb(0 0 0 / 10%);*/
+    }
+  .mSubsCont h5 {
+    font-size: 16px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 15px;
+    }
+  .mSubsBox {
+    display: flex;
+    height: 44px;
+    }
+  .mSubsBox input[type=email] {
+    background-color: #fff;
+    border: 1px solid #f1f1f1;
+    outline: 0;
+    border-radius: 4px 0 0 4px;
+    color: #4a4a4a;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 5px 10px;
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 2px 6px rgb(0 0 0 / 10%);
+    }
+  .mSubsBox input[type=email]:focus {
+    border: 1px solid #08b2ed;
+    }
+  .mbtn-subscribe {
+    display: inline-block;
+    outline: 0;
+    text-transform: none;
+    background-color: #08b2ed;
+    border: 1px solid #08b2ed;
+    box-shadow: 0px 2px 6px rgb(0 0 0 / 10%);
+    border-radius: 0 4px 4px 0;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+    font-weight: 600;
+    cursor: default;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    letter-spacing: 0.64px;
+    width: 120px;
+    height: auto;
+    cursor: pointer;
+    }
+  .mbtn-subscribe:hover {
+    background-color: #08b2ed;
+    color: #fff;
+    }
+/*Desktop Subscription Ends*/
+  }

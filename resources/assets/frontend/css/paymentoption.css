@@ -1,0 +1,889 @@
+/*common*/
+.guestInputCont {
+	margin-bottom: 20px;
+	}
+.guestInputCont label {
+    display: block;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 600;
+    color: #000001 !important;
+    margin-right: 0px !important;
+    margin-bottom: 8px;
+	}
+.guestInputCont input[type=text] {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #4a4a4a;
+    font-weight: 500;
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    -ms-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    cursor: text;
+    height: 36px;
+    background: #fff;
+    text-transform: capitalize;
+    width: 100%;
+	outline: 0;
+	}
+.guestInputCont input[type=text]:focus {
+	border-color: #4a4a4a;
+	}
+
+@media (max-width: 992px) {
+/*Mobile bottom display*/
+.mBar, .mFooter {
+	display: none;
+	}
+.reviewCont {
+	margin-bottom: 0;
+	}
+.reviewbox {
+	padding: 15px;
+	background: #fff;
+	border-top: 1px solid #CED0D4;
+	border-bottom: 1px solid #CED0D4;
+	display: flex;
+	align-items: center;
+	}
+.fa-arrow-left:before {
+	content: "\f060";
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+	color: #A1A1A1;
+	font-size: 18px;
+	line-height: 1;
+	cursor: unset;
+	margin-right: 20px;
+	}
+.reviewTitle {
+	font-size: 18px;
+	line-height: 18px;
+	color: #000001;
+	font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	text-transform: capitalize;
+	}
+.paymentWrapperBG {
+	background: #f2f2f2;
+	padding: 15px 15px 50px;
+	}
+.paymentWrapper {
+	display: flex;
+	flex-direction: column;
+	padding-top: 0;
+	}
+.leftContainer {
+	flex: 1;
+	width: 100%;
+	}
+.PanCardCont {
+	margin-top: 0;
+	margin-bottom: 20px;
+	}
+.PanCardCont h2 {
+	font-size: 20px;
+	line-height: 20px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 10px;
+	}
+.PanCardCont p {
+	font-size: 12px;
+	line-height: 18px;
+	color: #747474;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.PanCardVerifyBox {
+	padding: 25px;
+	margin-top: 15px;
+	border: 1px solid #CED0D4;
+	border-radius: 5px;
+	background: #fff;
+	}
+.panCardLogoBox {
+    /*width: 34px;
+    height: auto;
+    overflow: hidden;
+    margin: 0 10px 20px 0;
+    border-radius: 3px;
+    display: flex;
+    flex-shrink: 0;*/
+	display: none;
+	}
+.panCardLogo {
+    height: 20px;
+    width: 100%;
+    vertical-align: middle;
+    border: 0;
+    border-radius: 3px;
+    pointer-events: none !important;
+    display: flex;
+    flex-shrink: 0;
+	}
+.panCheckCont {
+	display: flex;
+	}
+.panCheckCont input[type="checkbox"] {
+	width: 14px;
+	height: 20px;
+	margin: 0px 10px 0px 0px !important;
+	flex-shrink: 0;
+	}
+.panCheckCont label {
+	font-size: 12px;
+	color: #747474 !important;
+	font-weight: 600;
+	}
+.paymentModeCont {
+	margin-top: 0;
+	}
+.paymentModeCont h2 {
+	font-size: 20px;
+	line-height: 20px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 10px;
+	}
+.paymentModeCont h3 {
+	font-size: 14px;
+	line-height: 14px;
+	color: #9B9B9B;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 20px;
+	}
+.slectPayModeCont {
+	padding: 20px;
+	border: 1px solid #e7e7e7;
+	border-radius: 10px;
+	background: #fff;
+	}
+.paymentBox {
+	padding: 14px;
+	background: #fff;
+	border: 1px solid #e7e7e7;
+	border-radius: 3px;
+	margin-bottom: 20px;
+	cursor: default;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	}
+.paymentBox:last-child {
+	margin-bottom: 0;
+	}
+.paymentBox:active {
+	background-color: #F2FFFB;
+	border-color: #CCEAFF;
+	}
+.paymentBox:hover {
+	background-color: #F2FFFB;
+	border-color: #CCEAFF;
+	color: #000001;
+	}
+.payModeLogoBox {
+    width: 34px;
+    height: auto;
+    overflow: hidden;
+    margin: 0 10px 0 0;
+    border-radius: 3px;
+    display: flex;
+    flex-shrink: 0;
+	}
+.payModeLogo {
+    height: 20px;
+    width: 100%;
+    vertical-align: middle;
+    border: 0;
+    border-radius: 3px;
+    pointer-events: none !important;
+    display: flex;
+    flex-shrink: 0;
+	}
+.paymentoption {
+	color: #747474;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 600
+	}
+.selectPay {
+	color: #0061E6;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 600;
+	}
+.rightContainer {
+	margin-top: 25px;
+	width: 100%;
+	}
+.mBkngContTtl {
+	font-size: 16px;
+	line-height: 16px;
+	color: #4A4A4A;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 15px;
+	}
+.bkngSumryCont {
+	border: 1px solid #e7e7e7;
+	border-radius: 10px;
+	background: #fff;
+	margin-bottom: 20px;
+	cursor: default;
+	}
+.bkngSumryContTtl {
+	padding: 15px;
+	font-size: 14px;
+	line-height: 16px;
+	color: #000001;
+	font-weight: 900;
+	text-align: left;
+	margin-bottom: 0;
+	text-transform: none;
+	}
+.bkngSumryBox {
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+	border-top: 2px solid #e7e7e7;
+	border-bottom: 1px solid #e7e7e7;
+	}
+.bkngSumryBox h3 {
+	font-size: 16px;
+	line-height: 20px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 20px;
+	}
+.bkngSumryOrigin {
+	font-size: 14px;
+	line-height: 14px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 5px;
+	}
+.bkngSumryDate {
+	font-size: 18px;
+	line-height: 18px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 5px;
+	}
+.bkngSumryDays {
+	font-size: 14px;
+	line-height: 14px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	opacity: .75;
+	}
+.bkngSumryTrvlrsBox {
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+	border-top: 0;
+	border-bottom: 0;
+	}
+.bkngSumryTrvlrsBox h3 {
+	font-size: 16px;
+	line-height: 20px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 15px;
+	}
+.bkngSumryTrvlrsBox h4 {
+	font-size: 12px;
+	line-height: 14px;
+	color: #4a4a4a;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	text-transform: uppercase;
+	}
+.bkngSumryTrvlrsBox h5 {
+	font-size: 14px;
+	line-height: 14px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 5px;
+	}
+.bkngSumryTrvlrsBox h6 {
+	font-size: 12px;
+	line-height: 14px;
+	color: #4a4a4a;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 5px;
+	}
+.fareSumryCont {
+	border: 1px solid #e7e7e7;
+	border-bottom: 0;
+	border-radius: 10px 10px 0 0;
+	background: #fff;
+	margin-bottom: 0;
+	cursor: default;
+	}
+.fareSumryContTtl {
+	padding: 15px;
+	font-size: 14px;
+	line-height: 16px;
+	color: #000001;
+	font-weight: 900;
+	text-align: left;
+	margin-bottom: 0;
+	border-bottom: 1px solid #e7e7e7;
+	text-transform: none;
+	}
+.fareSumryBox {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	padding: 15px;
+	border-top: 1px solid #e7e7e7;
+	}
+.fareSumryBox h3 {
+	font-size: 16px;
+	line-height: 20px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.fareSumryBox h5 {
+	font-size: 12px;
+	line-height: 20px;
+	color: #a1a1a1;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.fareSumryBox h2 {
+	font-size: 18px;
+	line-height: 18px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.amountPayBox {
+	border: 1px solid #e7e7e7;
+	border-bottom: 0;
+	border-radius: 0;
+	/*background: #F2FFFB;*/
+	background: #fff;
+	margin-bottom: 0;
+	cursor: default;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	padding: 15px;
+	}
+.amountPayBox h2 {
+	font-size: 20px;
+	line-height: 24px;
+	color: #000001;
+	font-weight: 900;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.amountDueBox {
+	border: 1px solid #e7e7e7;
+	border-top: 0;
+	border-radius: 0 0 10px 10px;
+	background: #FFFDF5;
+	margin-bottom: 20px;
+	cursor: default;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	padding: 20px 15px;
+	}
+.amountDueBox h2, .amountPaidBox h2 {
+	font-size: 16px;
+	line-height: 16px;
+	color: #F79F1A;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.amountPaidBox {
+	border: 1px solid #e7e7e7;
+	border-top: 0;
+	border-radius: 10px;
+	background: #FFFDF5;
+	margin-bottom: 20px;
+	cursor: default;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	padding: 20px 15px;
+	}
+/*Price Bar*/
+.mReivewPriceBarCont {
+	width: 100%;
+	height: 60px;
+	background: #000001;
+	position: fixed;
+	z-index:999;
+	bottom: 0;
+	}
+.mReivewPriceBarBox {
+	padding: 10px 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	}
+.mReviewPriceBox {
+	display: flex;
+	align-items: flex-end;
+	}
+.mPayblPrcVal {
+    font-size: 20px;
+    line-height: 20px;
+	color: #fff;
+	font-weight: 600;
+    text-align: left;
+	margin-bottom: 0;
+	}
+.mPayblPrcValTag {
+    font-size: 10px;
+    line-height: 11px;
+	color: #CED0D4;
+	font-weight: 600;
+    text-align: left;
+	margin-bottom: 0;
+	margin-left: 5px;
+	}
+.mLineSeprtr {
+	border-left: 1px solid #fff;
+	height: 35px;
+	margin-left: -5%;
+	position: absolute;
+	}
+.btnProceedMob {
+	flex-shrink: 0;
+	outline: 0;
+	background: #01b7f2;
+	border: 1px solid #08B2ED;
+    border-radius: 20px;
+	padding: 4px 12px;
+    font-size: 16px;
+    line-height: 18px;
+	color: #fff;
+	font-weight: 600;
+	cursor: default;
+	width: 100px;
+	height: 36px;
+	}
+}
+
+@media (min-width: 992px) {
+.reviewCont {
+	margin-bottom: 0;
+	}
+.reviewbox {
+	background: #0a223d;
+	height: 65px;
+	display: flex;
+	align-items: center;
+	}
+.pageContainer {
+    width: 1200px;
+    margin: 0 auto;
+	}
+.fa-arrow-left:before {
+	display: none;
+	}
+.reviewTitle {
+	font-size: 22px;
+	line-height: 22px;
+	color: #fff;
+	font-weight: 900;
+	text-align: left;
+	margin-bottom: 0;
+	text-transform: capitalize;
+	}
+.paymentWrapperBG {
+	background: #f2f2f2;
+	padding-bottom: 40px;
+	}
+.paymentWrapper {
+	display: flex;
+	flex-direction: row;
+	padding-top: 20px;
+	}
+.leftContainer {
+	flex: 1;
+	padding-right: 30px;
+	}
+.PanCardCont {
+	margin-top: 0;
+	margin-bottom: 20px;
+	}
+.PanCardCont h2 {
+	font-size: 20px;
+	line-height: 20px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 3px;
+	}
+.PanCardCont p {
+	font-size: 12px;
+	line-height: 18px;
+	color: #747474;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.PanCardVerifyBox {
+	padding: 25px;
+	margin-top: 15px;
+	border: 1px solid #CED0D4;
+	border-radius: 5px;
+	background: #fff;
+	}
+.panCardLogoBox {
+    width: 34px;
+    height: auto;
+    overflow: hidden;
+    margin: 0 10px 20px 0;
+    border-radius: 3px;
+    display: flex;
+    flex-shrink: 0;
+	}
+.panCardLogo {
+    height: 20px;
+    width: 100%;
+    vertical-align: middle;
+    border: 0;
+    border-radius: 3px;
+    pointer-events: none !important;
+    display: flex;
+    flex-shrink: 0;
+	}
+.panCheckCont {
+	display: flex;
+	}
+.panCheckCont input[type="checkbox"] {
+	width: 26px;
+	height: 22px;
+	margin: 0px 10px 0px 0px !important;
+	}
+.panCheckCont label {
+	font-size: 12px;
+	color: #747474 !important;
+	font-weight: 600;
+	}
+.paymentModeCont {
+	margin-top: 0;
+	}
+.paymentModeCont h2 {
+	font-size: 24px;
+	line-height: 24px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 10px;
+	}
+.paymentModeCont h3 {
+	font-size: 14px;
+	line-height: 14px;
+	color: #9B9B9B;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 20px;
+	}
+.slectPayModeCont {
+	padding: 30px;
+	border: 1px solid #e7e7e7;
+	border-radius: 10px;
+	background: #fff;
+	}
+.paymentBox {
+	padding: 20px;
+	background: #ffffff;
+	border: 1px solid #e7e7e7;
+	border-radius: 3px;
+	margin-bottom: 20px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	}
+.paymentBox:active {
+	background-color: #F2FFFB;
+	border-color: #CCEAFF;
+	}
+.paymentBox:hover {
+	background-color: #F2FFFB;
+	border-color: #CCEAFF;
+	color: #000001;
+	}
+.payModeLogoBox {
+    width: 34px;
+    height: auto;
+    overflow: hidden;
+    margin: 0 10px 0 0;
+    border-radius: 3px;
+    display: flex;
+    flex-shrink: 0;
+	}
+.payModeLogo {
+    height: 20px;
+    width: 100%;
+    vertical-align: middle;
+    border: 0;
+    border-radius: 3px;
+    pointer-events: none !important;
+    display: flex;
+    flex-shrink: 0;
+	}
+.paymentoption {
+	margin: 0px;
+	color: #747474;
+	font-size: 18px;
+	line-height: 20px;
+	font-weight: 600
+	}
+.selectPay {
+	color: #0061E6;
+	font-size: 18px;
+	line-height: 20px;
+	font-weight: 600;
+	}
+.rightContainer {
+	width: 350px;
+	}
+.mBkngContTtl {
+	font-size: 16px;
+	line-height: 16px;
+	color: #4A4A4A;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 15px;
+	}
+.bkngSumryCont {
+	border: 1px solid #e7e7e7;
+	border-radius: 10px;
+	background: #fff;
+	margin-bottom: 20px;
+	cursor: default;
+	}
+.bkngSumryContTtl {
+	padding: 15px 30px;
+	font-size: 14px;
+	line-height: 16px;
+	color: #000001;
+	font-weight: 900;
+	text-align: left;
+	margin-bottom: 0;
+	text-transform: none;
+	}
+.bkngSumryBox {
+	display: flex;
+	flex-direction: column;
+	padding: 10px 30px 20px;
+	border-top: 2px solid #e7e7e7;
+	border-bottom: 1px solid #e7e7e7;
+	}
+.bkngSumryBox h3 {
+	font-size: 15px;
+	line-height: 20px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 20px;
+	}
+.bkngSumryOrigin {
+	font-size: 14px;
+	line-height: 16px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 5px;
+	}
+.bkngSumryDate {
+	font-size: 15px;
+	line-height: 18px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 5px;
+	}
+.bkngSumryDays {
+	font-size: 13px;
+	line-height: 14px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	opacity: .75;
+	}
+.bkngSumryTrvlrsBox {
+	display: flex;
+	flex-direction: column;
+	padding: 10px 30px 20px;
+	border-top: 0;
+	border-bottom: 0;
+	}
+.bkngSumryTrvlrsBox h3 {
+	font-size: 16px;
+	line-height: 20px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 15px;
+	}
+.bkngSumryTrvlrsBox h4 {
+	font-size: 12px;
+	line-height: 14px;
+	color: #4a4a4a;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	text-transform: uppercase;
+	}
+.bkngSumryTrvlrsBox h5 {
+	font-size: 14px;
+	line-height: 14px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 5px;
+	}
+.bkngSumryTrvlrsBox h6 {
+	font-size: 12px;
+	line-height: 14px;
+	color: #4a4a4a;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 5px;
+	}
+.fareSumryCont {
+	border: 1px solid #e7e7e7;
+	border-bottom: 0;
+	border-radius: 10px 10px 0 0;
+	background: #fff;
+	margin-bottom: 0;
+	cursor: default;
+	}
+.fareSumryContTtl {
+	padding: 15px 30px;
+	font-size: 14px;
+	line-height: 16px;
+	color: #000001;
+	font-weight: 900;
+	text-align: left;
+	margin-bottom: 0;
+	border-bottom: 1px solid #e7e7e7;
+	text-transform: none;
+	}
+.fareSumryBox {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	padding: 15px 30px;
+	border-top: 1px solid #e7e7e7;
+	}
+.fareSumryBox h3 {
+	font-size: 16px;
+	line-height: 20px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.fareSumryBox h5 {
+	font-size: 12px;
+	line-height: 20px;
+	color: #a1a1a1;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.fareSumryBox h2 {
+	font-size: 18px;
+	line-height: 18px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.amountPayBox {
+	border: 1px solid #e7e7e7;
+	border-bottom: 0;
+	border-radius: 0;
+	/*background: #F2FFFB;*/
+	background: #fff;
+	margin-bottom: 0;
+	cursor: default;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	padding: 20px 30px;
+	}
+.amountPayBox h2 {
+	font-size: 18px;
+	line-height: 24px;
+	color: #000001;
+	font-weight: 900;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.amountDueBox {
+	border: 1px solid #e7e7e7;
+	border-top: 0;
+	border-radius: 0 0 10px 10px;
+	background: #FFFDF5;
+	margin-bottom: 20px;
+	cursor: default;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	padding: 20px 30px;
+	}
+.amountDueBox h2, .amountPaidBox h2 {
+	font-size: 16px;
+	line-height: 16px;
+	color: #F79F1A;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.amountPaidBox {
+	border: 1px solid #e7e7e7;
+	border-top: 0;
+	border-radius: 10px;
+	background: #FFFDF5;
+	margin-bottom: 20px;
+	cursor: default;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	padding: 20px 30px;
+	}
+/*Price Bar*/
+.mReivewPriceBarCont, .dFooter {
+	display: none;
+	}
+}

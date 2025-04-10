@@ -1,0 +1,280 @@
+/*Modal Pop up Search Inputs with Js*/
+/* The Modal (background) */
+@media (max-width: 1024px) {
+	/* Modal Search Inputs */
+	.search-inputs-modal {
+		display: none;
+		position: fixed;
+		z-index: 1111;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0,0.7);
+		}
+	/*Modal-Content Starts*/
+	.search-inputs-modal-content {
+	    background-color: #f2f2f2;
+	    padding: 0;
+	    border-radius: 5px;
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	    /*max-width: 80%;*/
+	    width: 100%;
+	    height: 100%;
+	    display: flex;
+	    flex-direction: column;
+		}
+	/*Modal-Header Starts*/
+	.mStickyBar {
+		position: sticky;
+		top: 0;
+		z-index: 11;
+		background: #fff;
+		}
+	.mSearchInputsModalHeader {
+		padding: 15px 10px;
+		border-bottom: 1px solid #e5e5e5;
+		display: flex;
+		/*align-items: center;*/
+		}
+	.close-searchInputs-modal {
+		display: inline-block;
+		background: transparent;
+		border-radius: 50%;
+		padding: 12px;
+		cursor: default;
+		box-shadow: 0 0px 4px 0 rgb(255 255 255 / 90%);
+		/*border: 1px solid #ffff00;*/
+		width: 30px;
+		height: 35px;
+		}
+	.close-searchInputs-modal:before {
+		border: solid #000;
+		border-width: 0 2px 2px 0;
+		display: inline-block;
+		padding: 5px;
+		transform: rotate(-225deg);
+		-webkit-transform: rotate(-225deg);
+		position: relative;
+		left: 0;
+		top: 0;
+		content: '';
+		}
+	/*Modal-Header Ends*/
+	/*Modal-Body Starts*/
+	.search-inputs-modal-body {
+		height: 100%;
+		overflow-y: auto;
+		}
+	.item-container {
+		background-color: #fff;
+		margin-top: 15px;
+		border: 1px solid #d7d7d7;
+		}
+	.item-container-box {
+		max-width: 540px;
+		margin: auto;
+		}
+	.item-container-traveller {
+		border-color: #eee;
+		box-shadow: rgba(51, 0, 0, 0.1) 1px 1px 5px;
+		border-radius: 5px;
+		overflow: hidden;
+		user-select: none;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		}
+	.search-input-item-room-alert {
+		font-size: 12px;
+		line-height: 14px;
+		color: #cf8102;
+		text-align: center;
+		padding: 5px;
+		background-color: #ffedd1;
+		}
+	.edit-traveller {
+		font-size: 14px;
+		line-height: 14px;
+		color: #01b7f2;
+		text-align: left;
+		font-weight: 600;
+		text-transform: capitalize;
+		margin-left: 10px;
+		}
+	.search-input-item-cont {
+		background-color: #fff;
+		padding: 20px 15px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		}
+	.search-input-sub-item {
+		display: flex;
+		align-items: flex-start;
+		flex-direction: column;
+		}
+	.search-input-sub-item > .head {
+		font-size: 12px;
+		line-height: 12px;
+		color: #a1a1a1;
+		text-align: left;
+		text-transform: uppercase;
+		margin-bottom: 15px;
+		}
+	.item-name {
+		font-size: 15px;
+		line-height: 17px;
+		color: #000;
+		font-weight: 600;
+		text-align: left;
+		text-transform: capitalize;
+		}
+	.item-name input {
+		/*border: 1px solid #9b9b9b;
+		padding: 12px 16px;*/
+		border: none;
+		padding: 0;
+		background-color: #fff;
+		border-radius: 4px;
+		font-size: 14px;
+		line-height: 14px;
+		outline: 0;
+		height: auto;
+	}
+	.btn-edit {
+		font-size: 12px;
+		line-height: 12px;
+		color: #01b7f2;
+		font-weight: 600;
+		text-align: center;
+		text-transform: uppercase;
+		cursor: default;
+		user-select: none;
+		}
+	.add-travellers-box {
+		padding-right: 15px;
+		padding-left: 15px;
+		display: flex;
+		flex-direction: column;
+		row-gap: 15px;
+		}
+	.traveller-item-name {
+		font-size: 15px;
+		line-height: 17px;
+		color: #000;
+		font-weight: 600;
+		text-align: left;
+		text-transform: none;
+		}
+	.traveller-item-name-tag {
+		font-size: 12px;
+		line-height: 14px;
+		color: #a1a1a1;
+		text-align: left;
+		text-transform: capitalize;
+		margin-top: 3px;
+		}
+	.mTravellerBox {
+		border: 1px solid #eee;
+		border-radius: 4px;
+		}
+	.mTravellerMinus, .mTravellerPlus {
+		font-size: 20px;
+		line-height: 20px;
+		color: #9B9B9B;
+		padding: 12px;
+		font-weight: 900;
+		cursor: default;
+		user-select: none;
+		}
+	.mTravellerValue {
+		font-size: 20px;
+		line-height: 20px;
+		color: #000001;
+		padding: 10px 12px;
+		font-weight: 900;
+		user-select: none;
+		}
+	/*Modal-Body Ends*/
+	/*Modal Footer Starts*/
+	.footer-cont {
+		width: 100%;
+		height: auto;
+		background-color: transparent;
+		/*position: sticky;*/
+		bottom: 0px;
+		z-index: 1111;
+		position: relative;
+		}
+	.traveller-modal-footer {
+		padding: 15px;
+		text-align: center;
+		border-top: unset;
+		outline: 0;
+		}
+	.btn-search-input-apply {
+		outline: 0;
+		text-transform: uppercase;
+		font-size: 16px;
+		line-height: 16px;
+		color: #fff;
+		font-weight: 900;
+		cursor: default;
+		padding: 8px 20px;
+		border: none;
+		border-radius: 5px;
+		background-color: #01b7f2;
+		height: 43px;
+		white-space: nowrap;
+		vertical-align: middle;
+		-ms-touch-action: manipulation;
+		touch-action: manipulation;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		background-image: none;
+		letter-spacing: 0.64px;
+		margin-bottom: 0;
+		width: 100%;
+		}
+	.btn-search-input-apply:hover {
+		background-color: #01b7f2;
+		color: #fff;
+		}
+	.btn-add-room {
+		outline: 0;
+		text-transform: uppercase;
+		font-size: 16px;
+		line-height: 16px;
+		color: #01b7f2;
+		font-weight: 900;
+		cursor: default;
+		padding: 8px 20px;
+		border: none;
+		border-radius: 0;
+		background-color: transparent;
+		height: auto;
+		white-space: nowrap;
+		vertical-align: middle;
+		-ms-touch-action: manipulation;
+		touch-action: manipulation;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		background-image: none;
+		letter-spacing: 0.64px;
+		margin-bottom: 0;
+		}
+	.btn-add-room:hover {
+		background-color: transparent;
+		color: #01b7f2;
+		}
+	/*Modal Footer Ends*/
+	/*Modal-Content Ends*/
+	}

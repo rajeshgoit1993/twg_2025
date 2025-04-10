@@ -1,0 +1,705 @@
+/* Custom styles for the select option */
+  .age-select-wrapper select option {
+    padding: 16px;
+    font-size: 14px;
+    line-height: 16px;
+    background-color: #fff;
+    color: #333;
+    }
+/* Custom styles for the select option on hover */
+  .age-select-wrapper select option:hover {
+    background-color: #e0e0e0;
+    color: #000;
+    }
+@media (max-width: 992px) {
+/*Only changes in guestsDetailsWrapper for Mobile (means code can be combined)*/
+/*Travel Insurance Starts*/
+  .guestsDetailsCont {
+    position: absolute;
+    z-index: 1;
+    top: 160px;
+    right: 31px;
+    width: 425px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+    }
+  .guestsDetailsTopSection {
+    padding: 20px;
+    margin-bottom: 20px;
+    }
+  .guestsDetailsHeading h4, .mroomGuestHeading {
+    font-size: 15px;
+    line-height: 15px;
+    color: #000001;
+    font-weight: 600;
+    margin-bottom: 0px;
+    }
+  .guestsCountInputWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    }
+  .guestsCountInputTtl {
+    font-size: 16px;
+    line-height: 18px;
+    color: #000001;
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 0;
+    }
+  .guestsCountInputWrapper p {
+    font-size: 16px;
+    line-height: 18px;
+    color: #000001;
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 0;
+    }
+  .guestsCountInputWrapper p .subtag {
+    font-size: 12px;
+    line-height: 14px;
+    color: #a1a1a1;
+    }
+  .minusGuestCount {
+    font-size: 26px;
+    line-height: 5px;
+    color: #9B9B9B;
+    padding: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    }
+  .totalGuestCount {
+    font-size: 20px;
+    line-height: 20px;
+    color: #08B2ED;
+    font-weight: 900;
+    padding: 12px;
+    }
+  .plusGuestCount {
+    font-size: 26px;
+    line-height: 5px;
+    color: #9B9B9B;
+    padding: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    }
+  /*Guest Age Starts*/
+  .guestsCountInputWrapper input[type=text] {
+    width: 50px;
+    height: auto;
+    padding: 5px;
+    font-size: 26px;
+    line-height: 28px;
+    color: #000001;
+    text-align: center;
+    font-weight: 600;
+    text-transform: none;
+    border: 0;
+    outline: 0;
+    }
+  .guestsDetailsWrapper {
+    position: absolute;
+    z-index: 1;
+    top: 36px;
+    left: 20px; /*Changed in M*/
+    width: 430px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+    }
+  .guests-detail-top-section {
+    padding: 20px;
+    margin-bottom: 0;
+    }
+  .guest-age {
+    /*width: 100%;*/
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    }
+  .age-selection-item label {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4a4a4a;
+    text-align: left;
+    font-weight: 700;
+    margin-bottom: 5px;
+    padding: 0;
+    text-transform: none;
+    }
+  .age-select-wrapper {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4a4a4a;
+    text-align: left;
+    font-weight: 700;
+    width: 90px;
+    border: 1px solid #e7e7e7;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%);
+    border-radius: 3px;
+    padding: 0;
+    text-transform: none;
+    margin-right: 0;
+    margin-bottom: 5px;
+    position: relative;
+    }
+  .age-select-wrapper:after {
+    top: 14px;
+    right: 10px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-top-color: #000000;
+    border-width: 4px;
+    /*margin-left: -15px;*/
+    }
+  .guest-age select {
+    width: 100%;
+    height: 32px;
+    border-radius: 4px;
+    background-color: #fff;
+    /*box-shadow: 0 0 6px 0 rgb(0 0 0 / 20%);*/
+    outline: 0;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 5px 5px 5px 8px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #4a4a4a;
+    }
+  .age-select-wrapper:focus, .age-select-wrapper:hover {
+    border-color: #08B2ED;
+    }
+  .age-select-wrapper:hover {
+    border-color: #08B2ED;
+    }
+  /*Guest Age Starts*/
+  .guestAge, .childAge, .mchildAge {
+    /*width: 100%;*/
+    position: relative;
+    }
+  .guestAge p, .ageHeading {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4a4a4a;
+    text-align: left;
+    font-weight: 700;
+    margin-bottom: 5px;
+    padding: 0;
+    text-transform: none;
+    }
+  .guestAge label, .labelAge {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4a4a4a;
+    text-align: left;
+    font-weight: 700;
+    width: 80px;
+    box-shadow: 0 0 6px 0 rgb(0 0 0 / 20%);
+    padding: 0;
+    text-transform: none;
+    margin-right: 0;
+    margin-bottom: 5px;
+    }
+  .guestAge:after, .labelAge:after {
+    top: 30px;
+    right: 10px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-top-color: #000000;
+    border-width: 4px;
+    margin-left: -15px;
+    }
+  .guestAge select, .childAge select {
+    width: 100%;
+    height: 32px;
+    border-radius: 4px;
+    background-color: #fff;
+    /*box-shadow: 0 0 6px 0 rgb(0 0 0 / 20%);*/
+    outline: 0;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 5px 10px 5px 15px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #4a4a4a;
+    }
+  .roomGuestBottomSection {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 15px 20px;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+    }
+  .btnAddMore {
+    flex-shrink: 0;
+    outline: 0;
+    text-transform: uppercase;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #08B2ED;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%);
+    border-radius: 5px;
+    padding: 8px;
+    /**/
+    color: #08B2ED;
+    cursor: pointer;
+    height: 32px;
+    display: inline-block;
+    text-transform: none;
+    border-radius: 3px;
+    padding: 6px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 900;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    letter-spacing: 0.64px;
+    margin-bottom: 0;
+    }
+  .btnAddMore:hover {
+    color: #01b7f2;
+    border-color: #01b7f2;
+    }
+  .btnApply {
+    flex-shrink: 0;
+    outline: 0;
+    text-transform: uppercase;
+    background-color: #08B2ED;
+    background-image: none;
+    border: 1px solid #01b7f2;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%);
+    padding: 8px;
+    /*color: #01b7f2;*/
+    cursor: pointer;
+    height: 32px;
+    display: inline-block;
+    text-transform: none;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 20px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+    font-weight: 900;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    letter-spacing: 0.64px;
+    margin-bottom: 0;
+    }
+  .btnApply:hover {
+    background-color: #01b7f2;
+    }
+  .btnMain {
+    display: inline-block;
+    text-transform: none;
+    border-radius: 3px;
+    padding: 6px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    letter-spacing: 0.64px;
+    margin-bottom: 0;
+    height: auto;
+    }
+/*Travel Insurance Ends*/
+}
+@media (min-width: 992px) {
+/*Travel Insurance Starts*/
+  .guestsDetailsCont {
+    position: absolute;
+    z-index: 1;
+    top: 160px;
+    right: 31px;
+    width: 425px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+    }
+  .guestsDetailsTopSection {
+    padding: 20px;
+    margin-bottom: 20px;
+    }
+  .guestsDetailsHeading h4, .mroomGuestHeading {
+    font-size: 15px;
+    line-height: 15px;
+    color: #000001;
+    font-weight: 600;
+    margin-bottom: 0px;
+    }
+  .guestsCountInputWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    }
+  .guestsCountInputTtl {
+    font-size: 16px;
+    line-height: 18px;
+    color: #000001;
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 0;
+    }
+  .guestsCountInputWrapper p {
+    font-size: 16px;
+    line-height: 18px;
+    color: #000001;
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 0;
+    }
+  .guestsCountInputWrapper p .subtag {
+    font-size: 12px;
+    line-height: 14px;
+    color: #a1a1a1;
+    }
+  .minusGuestCount {
+    font-size: 26px;
+    line-height: 5px;
+    color: #9B9B9B;
+    padding: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    }
+  .totalGuestCount {
+    font-size: 20px;
+    line-height: 20px;
+    color: #08B2ED;
+    font-weight: 900;
+    padding: 12px;
+    }
+  .plusGuestCount {
+    font-size: 26px;
+    line-height: 5px;
+    color: #9B9B9B;
+    padding: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    }
+  /*Guest Age Starts*/
+  .guestsCountInputWrapper input[type=text] {
+    width: 50px;
+    height: auto;
+    padding: 5px;
+    font-size: 26px;
+    line-height: 28px;
+    color: #000001;
+    text-align: center;
+    font-weight: 600;
+    text-transform: none;
+    border: 0;
+    outline: 0;
+    }
+  .guestsDetailsWrapper {
+    position: absolute;
+    z-index: 1;
+    /*top: 36px;
+    left: 20px;*/ /*Changed in M*/
+    top: 115px;
+    right: 31px;
+    width: 430px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+    }
+  .guests-detail-top-section {
+    padding: 20px;
+    margin-bottom: 0;
+    }
+  .guest-age {
+    /*width: 100%;*/
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    }
+  .age-selection-item label {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4a4a4a;
+    text-align: left;
+    font-weight: 700;
+    margin-bottom: 5px;
+    padding: 0;
+    text-transform: none;
+    }
+  .age-select-wrapper {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4a4a4a;
+    text-align: left;
+    font-weight: 700;
+    width: 90px;
+    border: 1px solid #e7e7e7;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%);
+    border-radius: 3px;
+    padding: 0;
+    text-transform: none;
+    margin-right: 0;
+    margin-bottom: 5px;
+    position: relative;
+    }
+  .age-select-wrapper:after {
+    top: 14px;
+    right: 10px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-top-color: #000000;
+    border-width: 4px;
+    /*margin-left: -15px;*/
+    }
+  .guest-age select {
+    width: 100%;
+    height: 32px;
+    border-radius: 4px;
+    background-color: #fff;
+    /*box-shadow: 0 0 6px 0 rgb(0 0 0 / 20%);*/
+    outline: 0;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 5px 5px 5px 8px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #4a4a4a;
+    }
+  .age-select-wrapper:focus, .age-select-wrapper:hover {
+    border-color: #08B2ED;
+    }
+  .age-select-wrapper:hover {
+    border-color: #08B2ED;
+    }
+  /*Guest Age Starts*/
+  .guestAge, .childAge, .mchildAge {
+    /*width: 100%;*/
+    position: relative;
+    }
+  .guestAge p, .ageHeading {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4a4a4a;
+    text-align: left;
+    font-weight: 700;
+    margin-bottom: 5px;
+    padding: 0;
+    text-transform: none;
+    }
+  .guestAge label, .labelAge {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4a4a4a;
+    text-align: left;
+    font-weight: 700;
+    width: 80px;
+    box-shadow: 0 0 6px 0 rgb(0 0 0 / 20%);
+    padding: 0;
+    text-transform: none;
+    margin-right: 0;
+    margin-bottom: 5px;
+    }
+  .guestAge:after, .labelAge:after {
+    top: 30px;
+    right: 10px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-top-color: #000000;
+    border-width: 4px;
+    margin-left: -15px;
+    }
+  .guestAge select, .childAge select {
+    width: 100%;
+    height: 32px;
+    border-radius: 4px;
+    background-color: #fff;
+    /*box-shadow: 0 0 6px 0 rgb(0 0 0 / 20%);*/
+    outline: 0;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 5px 10px 5px 15px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #4a4a4a;
+    }
+  .roomGuestBottomSection {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 15px 20px;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+    }
+  .btnAddMore {
+    flex-shrink: 0;
+    outline: 0;
+    text-transform: uppercase;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #08B2ED;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%);
+    border-radius: 5px;
+    padding: 8px;
+    /**/
+    color: #08B2ED;
+    cursor: pointer;
+    height: 32px;
+    display: inline-block;
+    text-transform: none;
+    border-radius: 3px;
+    padding: 6px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 900;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    letter-spacing: 0.64px;
+    margin-bottom: 0;
+    }
+  .btnAddMore:hover {
+    color: #01b7f2;
+    border-color: #01b7f2;
+    }
+  .btnApply {
+    flex-shrink: 0;
+    outline: 0;
+    text-transform: uppercase;
+    background-color: #08B2ED;
+    background-image: none;
+    border: 1px solid #01b7f2;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%);
+    padding: 8px;
+    /*color: #01b7f2;*/
+    cursor: pointer;
+    height: 32px;
+    display: inline-block;
+    text-transform: none;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 20px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+    font-weight: 900;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    letter-spacing: 0.64px;
+    margin-bottom: 0;
+    }
+  .btnApply:hover {
+    background-color: #01b7f2;
+    }
+  .btnMain {
+    display: inline-block;
+    text-transform: none;
+    border-radius: 3px;
+    padding: 6px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    letter-spacing: 0.64px;
+    margin-bottom: 0;
+    height: auto;
+    }
+  }
+/*Travel Insurance Ends*/
+
+.guest-input {
+  /*display: flex;
+  align-items: center;*/
+  }
+.icon {
+  /*cursor: pointer;
+  margin: 0 5px;*/
+  }
+.date-inputBoxArrow:after {
+    /*display: inline-block;
+    padding: 3px;
+    content: '';
+    border: solid #08b2ed;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    vertical-align: top;
+    margin-left: 8px;
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    top: 1px;*/
+  }

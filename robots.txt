@@ -1,0 +1,28 @@
+User-agent: *
+
+Disallow: /login
+Disallow: /packages-detail
+Disallow: /holidays/*
+Disallow: /holidays/
+Disallow: /holidays-india/search*
+Disallow: /holidays-international/search*
+Disallow: /backbutton*
+Disallow: /website/
+Disallow: /hotels/
+Disallow: /blog/search/site/*
+Disallow: /blog/en/* 
+Disallow: /blog/hi/*
+Disallow: /blog*
+Disallow: /promos/*
+Disallow: /backbutton*
+Disallow: /index.html
+Disallow: /shop*
+Disallow: /quotes/*
+Disallow: /img_gallery
+
+User-agent: Googlebot-Image
+Disallow: /
+
+Sitemap: https://www.theworldgateway.com/sitemap-home.xml
+Sitemap: https://www.theworldgateway.com/sitemap-indiaHolidays.xml
+Sitemap: https://www.theworldgateway.com/sitemap-internationalHolidays.xml

@@ -1,0 +1,13 @@
+User-agent: *
+
+Disallow: /login
+Disallow: /packages-detail
+Disallow: /holidays/*
+Disallow: /holidays/
+Disallow: /holidays-india/search*
+Disallow: /holidays-international/search*
+Disallow: /backbutton*
+Disallow: /website/
+Disallow: /hotels/
+
+Sitemap: https://www.theworldgateway.com/sitemap.xml

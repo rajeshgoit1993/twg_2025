@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>24-Hour Time Input with Hours, Minutes, and Seconds</title>
+</head>
+<body>
+
+<form action="/submit" method="post" onsubmit="return validateTime()">
+  <label for="timeInput">Select a time (24-hour format with hh:mm:ss):</label>
+  <input type="text" id="timeInput" name="timeInput" pattern="^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$" required>
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+  function validateTime() {
+    var timeInput = document.getElementById('timeInput');
+    var pattern = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/;
+
+    if (!pattern.test(timeInput.value)) {
+      alert('Please enter a valid time in the format hh:mm:ss (24-hour).');
+      return false;
+    }
+
+    return true;
+  }
+</script>
+
+</body>
+</html>

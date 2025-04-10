@@ -1,0 +1,752 @@
+@media (max-width: 992px) {
+/*Mobile Subscription Starts*/
+  .myBookingBG {
+    background: #f9f9f9;
+    }
+  .myBookingBreadCrumpCont {
+    padding-top: 20px;
+    background-image: linear-gradient(262deg,#7dbfcd,#5ee7ce);
+    height: 200px;
+    margin-bottom: 40px;
+    }
+  .myBookingBreadCrump {
+    font-size: 15px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    }
+  .rightArrow {
+    border-width: 2px 2px 0 0;
+    transition: all .3s linear;
+    width: 7px;
+    height: 7px;
+    border-top: 2px solid #00000099;
+    border-right: 2px solid #00000099;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg) skew(7deg,7deg);
+    margin-left: 5px;
+    margin-right: 5px;
+    }
+  .tripHeading {
+    background: #ffffff;
+    padding: 30px 20px 40px 30px;
+    box-shadow: 0 3px 30px 0 rgb(0 0 0 / 10%);
+    border-radius: 5px 5px 0px 0px;
+    font-size: 16px;
+    line-height: 16px;
+    position: sticky;
+    top: 0;
+    margin-top: -155px;
+    z-index: 1;
+    }
+  .tripHeading > ul {
+    /*display: flex;
+    flex-direction: column;*/
+    }
+  .tripHeading > ul > li.active {
+    color: #008cff;
+    padding-bottom: 25px;
+    border-bottom: 4px solid #008cff;
+    }
+  .tripHeading > ul > li:hover, ul > li:focus {
+    color: #008cff;
+    }
+  .tripStatus {
+    margin: 0 30px 0 0;
+    color: #a1a1a1;
+    font-weight: 900;
+    padding-bottom: 15px;
+    cursor: pointer;
+    white-space: nowrap;
+    }
+  .searchBookingCont {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    }
+  .searchBooking {
+    width: 250px;
+    }
+  .searchBooking input[type=text] {
+    background: #fff;
+    border: 1px solid #9b9b9b;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 12px 16px;
+    outline: 0;
+    height: auto;
+    width: 100%;
+    }
+  .searchBooking input:focus {
+    box-shadow: none;
+    }
+  .myBookingCont {
+    /*padding: 40px 30px 30px 45px;
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: 0 3px 30px 0 rgb(0 0 0 / 10%);
+    background-color: #fff;
+    margin-bottom: 350px;*/
+    }
+  .myBookingList {
+    box-shadow: 0 1px 6px 0 #00000033;
+    background-color: #fff;
+    padding: 40px 50px 20px;
+    position: relative;
+    }
+  .myBookingList > .myBkngServiceIcon {
+    width: 54px;
+    height: 54px;
+    background-color: #fff;
+    border: 3px solid #f1f1f1;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    }
+  .myBkngServiceIcon {
+    position: absolute;
+    left: -31px;
+    top: 18px;
+    }
+  .myBkngSummary {
+    box-shadow: 0 1px 6px 0 #00000033;
+    background-color: #fff;
+    padding: 40px 50px 20px;
+    position: relative;
+    }
+  .myBkngSummaryBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    }
+  .summaryLeftPart {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 580px;
+    }
+  .travelDtls, .bkngDtls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    }
+  .travelDtlsHead {
+    font-size: 14px;
+    line-height: 18px;
+    color: #a1a1a1;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 10px;
+    }
+  .travelDtlsDate {
+    font-size: 16px;
+    line-height: 16px;
+    color: #000001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 10px;
+    }
+  .travelDtlsCity {
+    font-size: 14px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 0;
+    }
+  .summaryRightPart {
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 16px;
+    color: #008cff;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 190px;
+    }
+  .myBookingTitle {
+    font-size: 22px;
+    font-weight: 900;
+    color: #202e4a;
+    max-width: 515px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0px;
+    }
+  .myBookingUpcomingDays_tag {
+    border-radius: 4px;
+    padding: 5px 8px;
+    background-color: #d6f6f3;
+    color: #1a7971;
+    margin-left: 10px;
+    flex-shrink: 0;
+    font-size: 11px;
+    line-height: 11px;
+    font-weight: 700;
+    }
+  .myBookingRefId {
+    font-size: 14px;
+    line-height: 18px;
+    color: #747474;
+    font-weight: 500;
+    text-align: left;
+    margin-top: 5px;
+    margin-bottom: 0;
+    }
+  .manageBkngBox {
+    width: 190px;
+    display: flex;
+    align-items: flex-start;
+    }
+  .btnManageBooking {
+    display: inline-block;
+    outline: 0;
+    background-color: #008cff;
+    border: 0;
+    border-radius: 20px;
+    padding: 10px 12px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    letter-spacing: 0.64px;
+    cursor: pointer;
+    margin-bottom: 0;
+    width: 100%;
+    height: auto;
+    }
+  .btnManageBooking:hover {
+    background: #008cff;
+    color: #fff;
+    }
+  .btnTripPlan {
+    display: inline-block;
+    outline: 0;
+    background-color: #008cff;
+    border: 0;
+    border-radius: 20px;
+    padding: 10px 12px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    letter-spacing: 0.64px;
+    cursor: pointer;
+    margin-bottom: 0;
+    min-width: 150px;
+    height: auto;
+    }
+  .btnTripPlan:hover {
+    background: #008cff;
+    color: #fff;
+    }
+  .fa-cog:before {
+    color: #4a4a4a;
+    }
+  .bkngDtlsDuration {
+    font-size: 14px;
+    line-height: 18px;
+    color: #008cff;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    }
+  .travellerIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    }
+  .travellerIcon > .bigFace {
+    text-align: center;
+    margin: 0px;
+    border: 1px solid #4a4a4a;
+    padding: 2px;
+    border-radius: 50%;
+    }
+  .travellerIcon > .bigBody {
+    text-align: center;
+    border: 1px solid #4a4a4a;
+    padding: 2px;
+    border-radius: 3px 3px 0px 0px;
+    border-bottom: none !important;
+    width: 10px;
+    }
+  .travellerIcon > .smallFace {
+    text-align: center;
+    margin: 0px;
+    border: 1px solid #4a4a4a;
+    padding: 1px;
+    border-radius: 50%;
+    }
+  .travellerIcon > .smallBody {
+    text-align: center;
+    border: 1px solid #4a4a4a;
+    padding: 2px;
+    border-radius: 3px 3px 0px 0px;
+    border-bottom: none !important;
+    width: 8px;
+    }
+  .bkngDtlsGuest {
+    font-size: 14px;
+    line-height: 18px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    margin-left: 10px;
+    }
+  .emptyTripBucket {
+    background: #fff;
+    display: flex;
+    justify-content: center; /*changed in M*/
+    padding: 60px 20px 70px 40px;
+    box-shadow: 0 3px 30px 0 rgb(0 0 0 / 10%);
+    border-radius: 0px 0px 5px 5px;
+    font-size: 16px;
+    line-height: 16px;
+    margin-bottom: 330px;
+    }
+  .emptyTripBucket > .bucketContainer {
+    display: flex;
+    align-items: center !important;
+    padding: 40px 30px 30px 45px
+    }
+  .bucketTitle {
+    font-size: 20px;
+    line-height: 24px;
+    color: #000001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 15px;
+    }
+  .bucketSubTitle {
+    font-size: 14px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 0;
+    }
+  .fa-suitcase:before {
+    /*color: #4a4a4a;*/
+    }
+  .upcomingSuitcase {
+    font-size: 60px;
+    color: #4a4a4a;
+    }
+  .tripTabContent {
+    display: none;
+    }
+/*Mobile Subscription Ends*/
+  .tripTabContent {
+    display: none;
+    }
+  }
+
+@media (min-width: 992px) {
+/*Desktop Subscription Starts*/
+  .myBookingBG {
+    background: #f9f9f9;
+    }
+  .myBookingBreadCrumpCont {
+    padding-top: 20px;
+    background-image: linear-gradient(262deg,#7dbfcd,#5ee7ce);
+    height: 200px;
+    margin-bottom: 40px;
+    }
+  .myBookingBreadCrump {
+    font-size: 15px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    }
+  .rightArrow {
+    border-width: 2px 2px 0 0;
+    transition: all .3s linear;
+    width: 7px;
+    height: 7px;
+    border-top: 2px solid #00000099;
+    border-right: 2px solid #00000099;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg) skew(7deg,7deg);
+    margin-left: 5px;
+    margin-right: 5px;
+    }
+  .tripHeading {
+    background: #ffffff;
+    padding: 30px 20px 40px 30px;
+    box-shadow: 0 3px 30px 0 rgb(0 0 0 / 10%);
+    border-radius: 5px 5px 0px 0px;
+    font-size: 16px;
+    line-height: 16px;
+    position: sticky;
+    top: 0;
+    margin-top: -155px;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    }
+  .tripHeading > ul {
+    display: flex;
+    flex-direction: row;
+    }
+  .tripHeading > ul > li.active {
+    color: #008cff;
+    padding-bottom: 25px;
+    border-bottom: 4px solid #008cff;
+    }
+  .tripHeading > ul > li:hover, ul > li:focus {
+    color: #008cff;
+    }
+  .tripStatus {
+    margin: 0 30px 0 0;
+    color: #a1a1a1;
+    font-weight: 900;
+    padding-bottom: 15px;
+    cursor: pointer;
+    }
+  .searchBookingCont {
+    /*margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;*/
+    }
+  .searchBooking {
+    width: 250px;
+    }
+  .searchBooking input[type=text] {
+    background: #fff;
+    border: 1px solid #9b9b9b;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 12px 16px;
+    outline: 0;
+    height: auto;
+    width: 100%;
+    }
+  .searchBooking input:focus {
+    box-shadow: none;
+    }
+  .myBookingCont {
+    /*padding: 40px 30px 30px 45px;
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: 0 3px 30px 0 rgb(0 0 0 / 10%);
+    background-color: #fff;
+    margin-bottom: 350px;*/
+    }
+  .myBookingList {
+    box-shadow: 0 1px 6px 0 #00000033;
+    background-color: #fff;
+    padding: 40px 50px 20px;
+    position: relative;
+    }
+  .myBookingList > .myBkngServiceIcon {
+    width: 54px;
+    height: 54px;
+    background-color: #fff;
+    border: 3px solid #f1f1f1;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    }
+  .myBkngServiceIcon {
+    position: absolute;
+    left: -31px;
+    top: 18px;
+    }
+  .myBkngSummary {
+    box-shadow: 0 1px 6px 0 #00000033;
+    background-color: #fff;
+    padding: 40px 50px 20px;
+    position: relative;
+    }
+  .myBkngSummaryBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    }
+  .summaryLeftPart {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 580px;
+    }
+  .travelDtls, .bkngDtls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    }
+  .travelDtlsHead {
+    font-size: 14px;
+    line-height: 18px;
+    color: #a1a1a1;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 10px;
+    }
+  .travelDtlsDate {
+    font-size: 16px;
+    line-height: 16px;
+    color: #000001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 10px;
+    }
+  .travelDtlsCity {
+    font-size: 14px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 0;
+    }
+  .summaryRightPart {
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 16px;
+    color: #008cff;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 190px;
+    }
+  .myBookingTitle {
+    font-size: 22px;
+    font-weight: 900;
+    color: #202e4a;
+    max-width: 515px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0px;
+    }
+  .myBookingUpcomingDays_tag {
+    border-radius: 4px;
+    padding: 5px 8px;
+    background-color: #d6f6f3;
+    color: #1a7971;
+    margin-left: 10px;
+    flex-shrink: 0;
+    font-size: 11px;
+    line-height: 11px;
+    font-weight: 700;
+    }
+  .myBookingRefId {
+    font-size: 14px;
+    line-height: 18px;
+    color: #747474;
+    font-weight: 500;
+    text-align: left;
+    margin-top: 5px;
+    margin-bottom: 0;
+    }
+  .manageBkngBox {
+    width: 190px;
+    display: flex;
+    align-items: flex-start;
+    }
+  .btnManageBooking {
+    display: inline-block;
+    outline: 0;
+    background-color: #008cff;
+    border: 0;
+    border-radius: 20px;
+    padding: 10px 12px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    letter-spacing: 0.64px;
+    cursor: pointer;
+    margin-bottom: 0;
+    width: 100%;
+    height: auto;
+    }
+  .btnManageBooking:hover {
+    background: #008cff;
+    color: #fff;
+    }
+  .btnTripPlan {
+    display: inline-block;
+    outline: 0;
+    background-color: #008cff;
+    border: 0;
+    border-radius: 20px;
+    padding: 10px 12px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    letter-spacing: 0.64px;
+    cursor: pointer;
+    margin-bottom: 0;
+    min-width: 150px;
+    height: auto;
+    }
+  .btnTripPlan:hover {
+    background: #008cff;
+    color: #fff;
+    }
+  .fa-cog:before {
+    color: #4a4a4a;
+    }
+  .bkngDtlsDuration {
+    font-size: 14px;
+    line-height: 18px;
+    color: #008cff;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    }
+  .travellerIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    }
+  .travellerIcon > .bigFace {
+    text-align: center;
+    margin: 0px;
+    border: 1px solid #4a4a4a;
+    padding: 2px;
+    border-radius: 50%;
+    }
+  .travellerIcon > .bigBody {
+    text-align: center;
+    border: 1px solid #4a4a4a;
+    padding: 2px;
+    border-radius: 3px 3px 0px 0px;
+    border-bottom: none !important;
+    width: 10px;
+    }
+  .travellerIcon > .smallFace {
+    text-align: center;
+    margin: 0px;
+    border: 1px solid #4a4a4a;
+    padding: 1px;
+    border-radius: 50%;
+    }
+  .travellerIcon > .smallBody {
+    text-align: center;
+    border: 1px solid #4a4a4a;
+    padding: 2px;
+    border-radius: 3px 3px 0px 0px;
+    border-bottom: none !important;
+    width: 8px;
+    }
+  .bkngDtlsGuest {
+    font-size: 14px;
+    line-height: 18px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    margin-left: 10px;
+    }
+  .emptyTripBucket {
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 60px 20px 70px 40px;
+    box-shadow: 0 3px 30px 0 rgb(0 0 0 / 10%);
+    border-radius: 0px 0px 5px 5px;
+    font-size: 16px;
+    line-height: 16px;
+    margin-bottom: 330px;
+    }
+  .emptyTripBucket > .bucketContainer {
+    display: flex;
+    align-items: center !important;
+    padding: 40px 30px 30px 45px
+    }
+  .bucketTitle {
+    font-size: 20px;
+    line-height: 24px;
+    color: #000001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 15px;
+    }
+  .bucketSubTitle {
+    font-size: 14px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 0;
+    }
+  .fa-suitcase:before {
+    color: #4a4a4a;
+    }
+  .upcomingSuitcase {
+    font-size: 60px;
+    color: #4a4a4a;
+    }
+  .tripTabContent {
+    display: none;
+    }
+/*Desktop Subscription Ends*/
+
+  }

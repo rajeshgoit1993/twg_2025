@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Picker Calendar with CS and JS</title>
+</head>
+
+  <!--Link to external CSS stylesheet datepicker css-->
+  <link rel="stylesheet" type="text/css" as="style" href="datepicker-calendar.css" />
+  <!-- <link rel="stylesheet" type="text/css" as="style" href="{{ asset('/resources/assets/slick/css/datepicker-calendar.css') }}" /> -->
+  
+<body>
+  <!-- datepicker-calendar starts -->
+  <div class="calendar-container">
+    <div class="DayPicker">
+    <div class="DayPicker-Wrapper" tabindex="0">
+    <div class="DayPicker-NavBar">
+      <span tabindex="0" role="button" class="nav-button DayPicker-NavButton-Previous" id="prevButton"></span>
+      <span tabindex="0" role="button" class="today-button DayPicker-NavButton-Today" id="todayButton">Today</span>
+      <span tabindex="0" role="button" class="nav-button DayPicker-NavButton-Next" id="nextButton"></span>
+    </div>
+    <div class="DayPicker-MonthCont" id="calendar"></div>
+    </div>
+    </div>
+  </div>
+  <!-- datepicker-calendar Ends -->
+
+  <!-- Link to external JavaScript file -->
+  <script src="datepicker-calendar.js"></script>
+  <!-- <script rel="preload" as="script" type="text/javascript" src='{{ asset ("/resources/assets/frontend/js/datepicker-calendar.js") }}'></script> -->
+</body>
+</html>

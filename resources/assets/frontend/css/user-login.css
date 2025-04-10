@@ -1,0 +1,528 @@
+@media (min-width: 0px) {
+/*Guest Login Starts*/
+  .link-color {
+    color: #01b7f2 !important;
+    }
+  .guest-login-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1055;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    }
+  .guest-login-modal .modal-dialog {
+    max-width: 525px;
+    margin: 30px auto;
+    }
+  .guest-login-modal .login-modal-content {
+    width: 100%;
+    max-width: 525px;
+    min-height: 575px;
+    box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.4);
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #fff;
+    overflow: hidden;
+    }
+  .guest-login-modal .login-modal-header {
+    padding: 0;
+    /*border-bottom: 1px solid #e5e5e5;*/
+    margin-bottom: 15px;
+    }
+  .guest-login-modal .login-modal-header h4 {
+    font-size: 26px;
+    line-height: 26px;
+    color: #000001;
+    text-align: left;
+    font-weight: 600;
+    margin: 0;
+    }
+  .close-login {
+    background-color: #e7e7e7;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 30px;
+    right: 30px;
+    width: 26px;
+    height: 26px;
+    border: 0;
+    border-radius: 50%;
+    z-index: 1;
+    /*opacity: 0.2;*/
+    cursor: default;
+    }
+  .close-login:hover {
+    cursor: pointer;
+    }
+  .close-login:before {
+    transform: rotate(45deg);
+    }
+  .close-login:before, .close-login:after {
+    position: absolute;
+    left: 12px;
+    content: ' ';
+    height: 13px;
+    width: 2px;
+    background-color: #8b8b8b;
+    }
+  .close-login:after {
+    transform: rotate(-45deg);
+    }
+  .login-modal-body {
+    position: relative;
+    padding-top: 15px;
+    }
+  .user-login-field {
+    margin-bottom: 15px;
+    }
+  .user-login-field label {
+      display: inline-block;
+      max-width: 100%;
+      font-size: 14px;
+      line-height: 14px;
+      color: #4a4a4a;
+      font-weight: 700;
+      text-align: left;
+      margin-bottom: 10px;
+    }
+  .user-input-group {
+      position: relative;
+      display: table;
+      border-collapse: separate;
+      height: 43px;
+      border: 1px solid #c8c8c8;
+      border-radius: 4px;
+      overflow: hidden;
+      width: 100%;
+    }
+  .user-input-group-addon {
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1;
+      color: #555;
+      text-align: center;
+      background-color: #f9f9f9;  
+    width: 1%;
+      white-space: nowrap;
+      vertical-align: middle;
+    display: table-cell;
+    /*border-right: none !important;
+    border-radius: 4px 0px 0px 4px;
+    border: 1px solid #9b9b9b;*/
+    height: auto;
+    border-right: 1px solid #c8c8c8;
+    }
+  .user-input-group input {
+      background-color: #fff;
+      /*border: 1px solid #9b9b9b;
+      border-radius: 0px 4px 4px 0px;*/
+      border: none;
+      border-radius: 0;
+      font-size: 14px;
+      line-height: 14px;
+      color: #000001;
+      padding: 12px 16px;
+      outline: 0;
+      height: auto;
+    width: 100%;
+    -moz-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+      -o-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+      -webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+      -ms-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+      transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    cursor: text;
+    }
+  .user-input-group input::placeholder {
+    color: #9b9b9b;
+    }
+  /*.user-input-group input::-ms-input-placeholder {
+    color: #9b9b9b; // older versions of IE
+    }*/
+  .email-icon:before {
+    content: "\2709";
+    }
+  .envelope-icon {
+    fill: none;
+    stroke: #000000; /* Change color as needed */
+    stroke-width: 2px; /* Change stroke width as needed */
+    }
+  .envelope-shape {
+    fill: none;
+    stroke: #4a4a4a; /* Change color as needed */
+    stroke-width: 2px; /* Change stroke width as needed */
+    }
+  .user-input-group:focus, .user-input-group input[type=email]:focus {
+      border-color: #08b2ed;
+    }
+  .lock-icon {
+    fill: none;
+    stroke: #4a4a4a; /* Change color as needed */
+    stroke-width: 2px; /* Change stroke width as needed */
+    }
+  .lock-body{
+    fill: #fff; /* Change color as needed */
+    }
+  .lock-shackle {
+    fill: none;
+    stroke: #4a4a4a; /* Change color as needed */
+    stroke-width: 2px; /* Change stroke width as needed */
+    }
+  .resetCont {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    }
+  .btn-otp-login {
+      background-color: #fff;
+      border: 0;
+      outline: 0;
+      font-size: 13px;
+      line-height: 15px;
+      color: #08B2ED;
+      font-weight: 500;
+      text-align: left;
+    }
+  .btn-otp-login.disabled {
+      color: #9b9b9b;
+    }
+  .forgot-password {
+    font-size: 13px;
+    line-height: 15px;
+    color: #9b9b9b;
+    font-weight: 500;
+    text-align: right;
+    }
+  .forgot-password a:hover {
+    color: #9b9b9b;
+    }
+  .btn-login-cont {
+    margin-bottom: 25px;
+    }
+  .disabled {
+    /*color: #c2c2c2 !important;
+    opacity: 0.6;
+    pointer-events: none;
+    text-decoration-color: #c2c2c2 !important;*/
+    }
+  .btn-login, .btn-reset-pwd, .btnCreate {
+      display: inline-block;
+      padding: 6px 12px;
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
+      border: 0;
+    /*border: 1px solid #2e6da4;*/
+      border-radius: 30px;
+      font-size: 16px;
+      line-height: 16px;
+    color: #fff;
+    font-weight: 600;
+      text-align: center;
+      text-transform: uppercase;
+    margin-bottom: 0;
+      white-space: nowrap;
+      vertical-align: middle;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      background-image: none;
+      background-color: #08b2ed;
+      -webkit-appearance: button;
+      outline: 0;
+    width: 100%;
+      height: 42px;
+      cursor: pointer;
+    }
+  .btn-login.disabled, .btn-reset-pwd.disabled, .btnCreate.disabled {
+      box-shadow: none;
+      background-color: #c2c2c2;
+      opacity: 0.6;
+    }
+  .btn-login:hover, .btn-reset-pwd:hover, .btnCreate:hover {
+    background-color: #08b2ed;
+    color: #fff;
+    }
+  .btn-login.disabled:hover, .btn-reset-pwd.disabled:hover, .btnCreate.disabled:hover {
+    background-color: #c2c2c2;
+    }
+  .email-signup-cont {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    }
+  .email-signup-cont p {
+    font-size: 13px;
+    line-height: 15px;
+    color: #9b9b9b;
+    font-weight: 500;
+    text-align: center;
+    }
+  .goto-signup {
+      font-size: 13px;
+      line-height: 15px;
+      color: #01b7f2;
+      font-weight: 500;
+      text-align: left;
+    }
+  .socialMediaLoginBar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #d8d8d8;
+    margin-bottom: 26px;
+    }
+  .socialMediaLoginBar > span {
+    display: inline-flex;
+    padding: 0 10px;
+    background-color: #fff;
+    font-size: 12px;
+    line-height: 14px;
+    color: #9b9b9b;
+    font-weight: 700;
+    margin-bottom: -7px;
+    }
+  .socialMedia-enrollment-buttons {
+    display: flex;
+    position: relative;
+    padding: 0 8px 0 52px;
+    background: #fff;
+    align-items: center;
+    width: 100%;
+    font-size: 16px;
+    font-family: inherit;
+    height: 52px;
+    border: 1px solid #c2c8d0;
+    border-radius: 3px;
+    color: #2d333a;
+    cursor: pointer;
+    outline: 0;
+    transition: box-shadow .15s ease-in-out,background-color .15s ease-in-out;
+    }
+  .socialMedia-enrollment-button {
+    /*display: inline-block;*/
+    position: relative;
+    /*background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50%;*/
+    border: 1px solid #e7e7e7;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 10px 20px;
+    width: 250px;
+    height: 46px;
+    user-select: none;
+    -webkit-user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+  .social-media-cont, .social-media-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+  .google-icon {
+    width: 20px;
+    height: 20px;
+    }
+  .icon-tag-line {
+    font-family: "Google Sans",arial,sans-serif;
+    font-size: 14px;
+    line-height: 14px;
+    color: #9b9b9b;
+    font-weight: 500;
+    text-align: left;
+    margin-left: 10px;
+    white-space: nowrap;
+    }
+  .login-footer-cont {
+    margin-top: 45px;
+    }
+  .login-footer-cont p, .login-modal-footer p {
+    font-size: 12px;
+    line-height: 18px;
+    color: #000001;
+    text-align: left;
+    font-weight: 500;
+    margin: 0;
+    }
+  .login-modal-footer {
+    padding: 20px;
+    }
+/*Guest Login Starts*/
+
+/*OTP Login Starts*/
+  .login-modal-body-title {
+    margin-bottom: 25px;
+    }
+  .login-modal-body-title h3 {
+    font-size: 20px;
+    line-height: 28px;
+    color: #000001;
+    text-align: left;
+    font-weight: 500;
+    margin-bottom: 2px;
+    }
+  .login-modal-body-title p {
+    font-size: 13px;
+    line-height: 18px;
+    color: #4a4a4a;
+    text-align: left;
+    font-weight: 500;
+    margin: 0;
+    /*width: 250px;*/
+    }
+  .otp-timer {
+    font-size: 13px;
+    line-height: 13px;
+    color: #9b9b9b;
+    text-align: left;
+    font-weight: 500;
+    margin: 0;
+    position: relative;
+    top: 15px;
+    right: 15px;
+    float: right;
+    }
+  .resendOTP {
+    font-size: 12px;
+    line-height: 12px;
+    color: #08b2ed;
+    font-weight: 600;
+    cursor: pointer;
+    }
+  .otp-validity {
+    font-size: 12px;
+    line-height: 14px;
+    color: red;
+    text-align: left;
+    font-weight: 500;
+    margin: 0;
+    }
+  /*Swal alignment starts (login)*/
+  .swal-modal {
+    vertical-align: inherit;
+    }
+  .swal-button {
+    background-color: #08b2ed;
+    outline: 0;
+    }
+  .swal-icon--error {
+    width: 60px;
+    height: 60px;
+    border-width: 3px;
+    border-color: red;
+    }
+  .swal-icon--error__line {
+    background-color: red;
+    position: absolute;
+    height: 3px;
+    width: 28px;
+    display: block;
+    top: 28px;
+    border-radius: 2px;
+    }
+  .swal-text {
+    text-align: center;
+    }
+  /*Swal alignment ends*/
+/*OTP Login Ends*/
+
+/*Forgot Password Starts*/
+  .reset-password-instructions {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    }
+  .reset-password-instructions p {
+    font-size: 14px;
+    line-height: 18px;
+    color: #000001;
+    text-align: left;
+    font-weight: 500;
+    margin: 0;
+    }
+/*Forgot Password Ends*/
+
+/*Email Signup Starts*/
+  .existing-user-cont {
+    margin-top:20px;
+    margin-bottom: 10px;
+    }
+  .existing-user-cont p {
+    font-size: 13px;
+    line-height: 18px;
+    color: #000001;
+    text-align: left;
+    font-weight: 500;
+    margin: 0;
+    }
+  .showPassword {
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    font-size: 20px;
+    color: #c8c8c8;
+    outline: 0;
+    border: none;
+    background: none;
+    }
+/*Email Signup Ends*/
+
+/*Email Signup Error Starts*/
+  .innerField.error, .innerField-login-password.error, .innerField-pwd-reset.error, .innerField-signup-firstName.error, .innerField-signup-lastName.error, .innerField-signup.error, .innerField-signup-password.error, .innerField-signup-password2.error, .innerField-enter-otp.error, .innerField-enter-signup-otp.error {
+    border-color: #eb2026;
+    }
+  .error-icon {
+    background-color: #eb2026;
+    position: relative;
+    z-index: 1;
+    width: 13px;
+    height: 13px;
+    border: 0;
+    border-radius: 50%;
+    margin-top: 5px;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+  .error-icon:before {
+    transform: rotate(45deg);
+    }
+  .error-icon:before, .error-icon:after {
+    position: absolute;
+    left: 6px;
+    content: ' ';
+    height: 7px;
+    width: 1px;
+    background-color: #fff;
+    }
+  .error-icon:after {
+    transform: rotate(-45deg);
+    }
+  .error-message {
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 2px;
+    font-weight: 500;
+    text-align: left;
+    color: red;
+    }
+/*Email Signup Error Ends*/
+
+/*Checkmark Cont Starts*/
+  .acceptance-cont {
+      margin-bottom: 5px;
+      }
+/*Checkmark Cont Ends*/
+}

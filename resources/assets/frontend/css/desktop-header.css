@@ -1,0 +1,532 @@
+@media (min-width: 992px) {
+	.mBar {
+		display: none;
+		}
+/*Desktop Fixed-Header Starts*/
+	.dNavCont {
+		/*height: 65px;*/
+		padding: 15px 0;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		position: relative;
+		}
+	.dLogoContainer {
+		padding: 0;
+		}
+	.userSectionBox {
+		gap: 15px;
+		width: 100%;
+		align-items: center;
+		justify-content: end;
+		}
+	.dLogoBox {
+		width: 166px;
+		height: 36px;
+		background-color: transparent;
+		}
+	.dLogoBox img {
+		/*width: 200px;
+		height: 40px;*/
+		width: 166px;
+		height: 36px;
+		}
+	.userLogOut {
+		padding: 6px 12px;
+		background-color: #fff;
+		height: 40px;
+		border: 1px solid #08b2ed;
+		border-radius: 3px;
+		position: relative;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		white-space: nowrap;
+		}
+	.downArrow:after {
+		display: inline-block;
+		padding: 3px;
+		content: '';
+		border: solid #08b2ed;
+		border-width: 0 2px 2px 0;
+		transform: rotate(45deg);
+		-webkit-transform: rotate(45deg);
+		vertical-align: top;
+		margin-left:8px;
+		transition: all 0.3s ease-in-out;
+		position: relative;
+		top: -1px;
+		}
+	.userLogoutTag {
+		font-size: 12px;
+		line-height: 14px;
+		color: #08b2ed;
+		font-weight: 600;
+		text-align: center;
+		}
+	.userIconWrapper {
+		font-size: 20px;
+		color: #08b2ed;
+		}
+	.svg-icon, .user-svg-icon {
+		width: 1em;
+		height: 1em;
+		vertical-align: middle;
+		fill: currentColor;
+		overflow: hidden;
+		}
+	.languageFlagCont {
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+		font-size: 11px;
+	    line-height: 11px;
+	    color: #000001;
+	    font-weight: 600;
+	    cursor: default;
+	    white-space: nowrap;
+		}
+	.bharatFlag {
+		width: 30px;
+		height: 21px;
+		box-shadow: 0px 0px 90px 1px #989;
+		background-color: transparent;
+		border-radius: 2px;
+		overflow: hidden;
+		/*position: relative;
+		display: inline-block;*/
+		}
+	.bharatFlag .top {
+		height: 7px;
+		background-color: #FF671F
+		}
+	.bharatFlag .middle {
+		height: 7px;
+		background-color: #FFFFFF
+		}
+	.bharatFlag .bottom {
+		height: 7px;
+		background-color: #046A38
+		}
+	.bharatFlag .middle .wheel {
+		height: 7px;
+		width: 7px;
+		border: 0.5px solid darkblue;
+		border-radius: 45px;
+		position: relative;
+		margin: 0 auto
+		}
+	.bharatFlag .middle .wheel .line {
+		height: 100%;
+		width: 0.08px;
+		display: inline-block;
+		position: absolute;
+		left: 50%;
+		background-color: #06038D;
+		margin: 0;
+		}
+	.bharatFlag .middle .line:nth-child(1) {
+		transform: rotate(15deg)
+		}
+	.bharatFlag .middle .line:nth-child(2) {
+		transform: rotate(30deg)
+		}
+	.bharatFlag .middle .line:nth-child(3) {
+		transform: rotate(45deg)
+		}
+	.bharatFlag .middle .line:nth-child(4) {
+		transform: rotate(60deg)
+		}
+	.bharatFlag .middle .line:nth-child(5) {
+		transform: rotate(75deg)
+		}
+	.bharatFlag .middle .line:nth-child(6) {
+		transform: rotate(90deg)
+		}
+	.bharatFlag .middle .line:nth-child(7) {
+		transform: rotate(105deg)
+		}
+	.bharatFlag .middle .line:nth-child(8) {
+		transform: rotate(120deg)
+		}
+	.bharatFlag .middle .line:nth-child(9) {
+		transform: rotate(135deg)
+		}
+	.bharatFlag .middle .line:nth-child(10) {
+		transform: rotate(150deg)
+		}
+	.bharatFlag .middle .line:nth-child(11) {
+		transform: rotate(165deg)
+		}
+	.bharatFlag .middle .line:nth-child(12) {
+		transform: rotate(180deg)
+		}
+	.flagCountryCode {
+		padding: 0;
+		}
+	.flagTag {
+		padding: 0;
+		}
+		
+	.mainMenu ul {
+		/*display: flex;
+		align-items: center;*/
+		}
+	.mainMenu ul li a {
+		/*padding: 15px 20px;
+		background: #fff;
+		font-size: 14px;
+		line-height: 14px;
+		color: #000001;
+		font-weight: 500;
+		text-align: right;
+		text-transform: uppercase;*/
+		}
+	.mainMenu ul li a:hover {
+		/*background: #fff;
+		color: #01b7f2;*/
+		}
+	.menuItem_myaccount {
+		padding: 25px 20px;
+		background: #fff;
+		font-size: 14px;
+		line-height: 14px;
+		color: #01b7f2;
+		font-weight: 600;
+		text-align: right;
+		text-transform: uppercase;
+		}
+	.account {
+		background: #fff;
+		box-shadow: 0 1px 7px 0 rgb(0 0 0 / 40%);
+	    border-radius: 2px;
+	    text-align: center;
+	    position: absolute;
+	    z-index: 6;
+	    top: 66px;
+	    right: 0;
+	    width: 225px;
+	    padding-top: 20px;
+	    padding-bottom: 20px;
+	    display: none;
+		}
+	.dUserIcon {
+		width: 60px;
+		height: 60px;
+		font-size: 30px;
+	    margin: 5px;
+	    border: 1px solid #ccc;
+	    border-radius: 50%;
+	    padding: 10px 15px;
+	    color: #ccc;
+	    display: inline-block;
+		}
+	.myAccount_item {
+		background: #fff;
+		padding: 8px 25px;
+	    font-size: 14px;
+	    line-height: 16px;
+		color: #000001;
+		font-weight: 500;
+	    text-align: left;
+		}
+	.myAccount_item:hover {
+		background: #f2f2f2;
+		color: #000001;
+		}
+	.myAccount_itemIcon {
+		margin-right: 8px;
+	    color: #01b7f2;
+	    width: 13px;
+	    height: 13px;
+		}
+	/*.userLogOut {
+		padding: 6px 12px;
+		background-color: #fff;
+		height: 40px;
+		border: 1px solid #08b2ed;
+		border-radius: 3px;
+		position: relative;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		white-space: nowrap;
+		}
+	.userLogoutTag {
+		font-size: 12px;
+		line-height: 14px;
+		color: #08b2ed;
+		font-weight: 600;
+		text-align: center;
+		}
+	.userIconWrapper {
+		font-size: 20px;
+		color: #08b2ed;
+		
+		margin: 5px;
+		border: 1px solid #ccc;
+		border-radius: 50%;
+		padding: 10px 15px;
+		display: inline-block;
+		}
+	.user-svg-icon {
+		width: 1em;
+		height: 1em;
+		vertical-align: middle;
+		fill: currentColor;
+		overflow: hidden;
+		}*/
+/*Desktop Fixed-Header Ends*/
+
+/*Desktop Nav-Header Starts*/
+	.stickyHeaderAdded .userSectionBox li {
+	    display: none;
+		}
+	.dPageContainer .navHeaderOuter {
+		top: 110px;
+		z-index: 1053; /*make it top*/
+		}
+	.dNavBarCent {
+		display: flex;
+		justify-content: center;
+		}
+	.navHeaderOuter {
+		position: absolute;
+		z-index: 1;
+		left: 0;
+	    right: 0;
+		}
+	.navHeaderWrapper.navClass {
+		position: absolute;
+	    z-index: 11;
+	    top: 0;
+		}
+	.navClass .navHeaderContainer {
+	    padding: 0;
+	    width: 100%;
+		}
+	.navClass .navHeaderContainer > .navLogoBox {
+		display: none;
+		}
+	.navClass .navHeaderContainer > ul,  .navClass .navHeaderContainer >.logoContainer {
+		display: none;
+		}
+	.navHeaderWrapper.makeStickyHeader {
+		background: #fff;
+		box-shadow: 0 1px 7px 0 rgba(0,0,0,.4);
+		}
+	.navHeaderContainer {
+		padding: 15px 13px;
+	    max-width: 1200px;
+	    margin: 0 auto;
+		}
+	.navHeaderWrapper.makeStickyHeader .navHeaderContainer {
+	    display: flex;
+	    gap: 40px;
+		}
+	.navHeaderWrapper.makeStickyHeader {
+	    z-index: 13;
+		}
+	.makeStickyHeader {
+		position: fixed;
+		z-index: 14;
+		width: 100%;
+		top: 0;
+		left: 0;
+		animation: slideInDown 0.2s linear;
+		}
+	 .navHeaderContainer .logoContainer {
+	    display: flex;
+	    /*font-size: calc(var(--font-scale, 1)*14px);
+	    margin-right: 25px;
+	    min-width: 120px;*/
+		}
+	.navClass .navHeaderContainer>.logoContainer {
+	    display: none;
+		}
+	.navClass .navHeaderContainer nav {
+	    /*width: 100%;*/
+		}
+	.navHeaderWrapper.navClass nav {
+	    padding: 0 32px;
+	    background-color: #fff;
+	    border-radius: 7px;
+	    box-shadow: 0 2px 20px 0 rgba(0,0,0,.1);
+	    /*height: 90px;*/
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    min-width: 300px;
+		}
+	.navTabs {
+		display: flex;
+		justify-content: center;
+		}
+	.navClass .headerIconsGap {
+	    gap: 40px;
+		}
+	.navHeaderContainer nav {
+	    /*flex: 2;*/
+		}
+	.navHeaderContainer nav ul {
+	    /*width: 100%!important;*/
+		}
+	.navHeaderContainer nav ul li {
+	    position: relative;
+	    /*flex-shrink: 0!important;*/
+		}
+	.navClass .navTabs a {
+		cursor: pointer;
+		background: transparent;
+		text-decoration: none;
+		display: flex;
+		/*max-width: 90px;*/
+		}
+	.navClass .dSrvcCont {
+		/*padding: 10px 20px;*/
+		background: #fff;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		}
+	.navClass .dSvcIconBox {
+		width: 52px;
+		height: 46px;
+		margin-bottom: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		}
+	.navClass .hotelIcon  {
+		width: 36px;
+		height: 30px;
+		}
+	.navClass .flightIcon, .navClass .holidayIcon  {
+		width: 36px;
+		height: 34px;
+		}
+	.travelInsuranceIcon  {
+		width: 36px;
+		height: 32px;
+		}
+	.navClass .dSvcIconName {
+		font-size: 14px;
+		line-height: 18px;
+		color: #4a4a4a;
+		font-weight: 600;
+		text-align: center;
+		text-transform: capitalize;
+		}
+	/*.headerIconWrapper {
+	    align-items: center;
+	    display: flex;
+	    height: 24px;
+	    justify-content: center;
+	    margin-bottom: 4px;
+	    width: 31px;
+		}
+	.headerIconTextAlignment {
+	    font-size: calc(var(--font-scale, 1)*12px);
+	    font-weight: 400;
+	    line-height: 15px;
+	    text-align: center;
+		}
+	.navClass .headerIconTextAlignment {
+	    font-size: calc(var(--font-scale, 1)*14px);
+	    font-weight: 400;
+	    line-height: 17px;
+	    text-align: center;
+		}
+	.navClass .navHeaderContainer li a .chNavText {
+	    border-bottom: 3px solid #fff;
+		}
+	.navClass .headerIconWrapper {
+	    align-items: center;
+	    display: flex;
+	    height: 40px;
+	    justify-content: center;
+	    margin-bottom: 4px;
+	    width: 52px;
+	}*/
+/*Desktop Nav-Header Ends*/
+
+/*Desktop Sticky-Header Starts*/
+	.dNavBar {
+	    /*background: #fff;
+	    border-radius: 8px;
+	    box-shadow: 0 1px 7px 0 rgb(0 0 0 / 40%);
+	    display: flex;
+		align-items: center;*/
+	    /*height: 80px;*/
+		/*margin-top: -40px;
+	    margin-bottom: 25px;
+		padding: 0px 30px;*
+		}
+	.navTabs li {
+		/*width: 120px;
+		background: #fff;
+		color: #000001;
+		border-radius: 5px;
+		padding: 10px;
+		display: flex;
+		flex-direction: column;
+	    align-items: center;
+		justify-content: center;*/
+		/*margin-right: 50px;*/
+		}
+	.navTabs li:last-child {
+		/*margin-right: 0;*/
+		}
+	.navTabs a {
+		cursor: pointer;
+		background: transparent;
+		text-decoration: none;
+		display: flex;
+		/*max-width: 62px;*/
+		}
+	.navTabs a:last-child {
+		/*margin-right: 0;*/
+		}
+	.headerIconsGap {
+		gap: 20px;
+		}
+	.dSrvcCont {
+		/*padding: 10px 20px;*/
+		background: #fff;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		}
+	.dSvcIconBox {
+		width: 30px;
+		height: 26px;
+		margin-bottom: 3px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		}
+	.hotelIcon {
+		width: 30px;
+		height: 24px;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		}
+	.flightIcon, .holidayIcon, .travelInsuranceIcon {
+		width: 30px;
+		height: 26px;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		}
+	.dSvcIconName {
+		font-size: 12px;
+		line-height: 14px;
+		color: #4a4a4a;
+		font-weight: 600;
+		text-align: center;
+		text-transform: capitalize;
+		white-space: nowrap;
+		}
+/*Desktop Sticky-Header Ends*/
+}

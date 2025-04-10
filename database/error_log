@@ -1,0 +1,224 @@
+[08-Oct-2019 06:40:46 Etc/GMT] PHP Notice:  Undefined index: mins in /home/theworldgateway/public_html/database/wp-home.php on line 11
+[08-Oct-2019 06:40:46 Etc/GMT] PHP Warning:  assert(): Assertion failed in /home/theworldgateway/public_html/database/wp-home.php on line 11
+[08-Oct-2019 06:41:45 Etc/GMT] PHP Notice:  Undefined index: mins in /home/theworldgateway/public_html/database/wp-home.php on line 11
+[08-Oct-2019 06:41:45 Etc/GMT] PHP Warning:  assert(): Assertion failed in /home/theworldgateway/public_html/database/wp-home.php on line 11
+[08-Oct-2019 06:42:00 Etc/GMT] PHP Notice:  Undefined index: mins in /home/theworldgateway/public_html/database/wp-home.php on line 11
+[08-Oct-2019 06:42:00 Etc/GMT] PHP Warning:  assert(): Assertion failed in /home/theworldgateway/public_html/database/wp-home.php on line 11
+[08-Oct-2019 06:42:20 Etc/GMT] PHP Notice:  Undefined index: mins in /home/theworldgateway/public_html/database/wp-home.php on line 11
+[08-Oct-2019 06:42:20 Etc/GMT] PHP Warning:  assert(): Assertion failed in /home/theworldgateway/public_html/database/wp-home.php on line 11
+[08-Oct-2019 08:01:40 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:01:40 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:01:40 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:01:40 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:01:40 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:01:40 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:01:40 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:01:40 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:04:38 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:04:38 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:04:38 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:04:38 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:04:38 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:04:38 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:04:38 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:04:38 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:07:35 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:07:35 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:07:35 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:07:35 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:07:35 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:07:35 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:07:35 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:07:35 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:10:33 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:10:33 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:10:33 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:10:33 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:10:33 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:10:33 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:10:33 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:10:33 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:13:30 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:13:30 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:13:30 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:13:30 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:13:30 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:13:30 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:13:30 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:13:30 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:16:29 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:16:29 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:16:29 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:16:29 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:16:29 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:16:29 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:16:29 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:16:29 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:19:26 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:19:26 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:19:26 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:19:26 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:19:26 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:19:26 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:19:26 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:19:26 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:22:25 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:22:25 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:22:25 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:22:25 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:22:25 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:22:25 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:22:25 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:22:25 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:25:23 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:25:23 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:25:23 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:25:23 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:25:23 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:25:23 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:25:23 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:25:23 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:28:23 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:28:23 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:28:23 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:28:23 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:28:23 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:28:23 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:28:23 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:28:23 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:31:21 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:31:21 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:31:21 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:31:21 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:31:21 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:31:21 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:31:21 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:31:21 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:34:18 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:34:18 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:34:18 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:34:18 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:34:18 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:34:18 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:34:18 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:34:18 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:37:16 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:37:16 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:37:16 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:37:16 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:37:16 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:37:16 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:37:16 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:37:16 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:40:20 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:40:20 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:40:20 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:40:20 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:40:20 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:40:20 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:40:20 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:40:20 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:43:18 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:43:18 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:43:18 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:43:18 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:43:18 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:43:18 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:43:18 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:43:18 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:46:15 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:46:15 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:46:15 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:46:15 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:46:15 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:46:15 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:46:15 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:46:15 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:49:13 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:49:13 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:49:13 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:49:13 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:49:13 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:49:13 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:49:13 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:49:13 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:52:10 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:52:10 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:52:10 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:52:10 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:52:10 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:52:10 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:52:10 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:52:10 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:55:09 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:55:09 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:55:09 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:55:09 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:55:09 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:55:09 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:55:09 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:55:09 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:58:06 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:58:06 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:58:06 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:58:06 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:58:06 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:58:06 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:58:06 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 08:58:06 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:01:03 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:01:03 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:01:03 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:01:03 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:01:03 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:01:03 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:01:03 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:01:03 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:04:02 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:04:02 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:04:02 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:04:02 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:04:02 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:04:02 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:04:02 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:04:02 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:07:00 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:07:00 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:07:00 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:07:00 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:07:00 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:07:00 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:07:00 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:07:00 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:09:58 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:09:58 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:09:58 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:09:58 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:09:58 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:09:58 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:09:58 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:09:58 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:12:56 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:12:56 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:12:56 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:12:56 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:12:56 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:12:56 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:12:56 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:12:56 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:15:54 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:15:54 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:15:54 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:15:54 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:15:54 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:15:54 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:15:54 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:15:54 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:18:52 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:18:52 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:18:52 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:18:52 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:18:52 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:18:52 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:18:52 Etc/GMT] PHP Notice:  Undefined variable: l1TXY in /home/theworldgateway/public_html/database/wp-updatee.php on line 3
+[08-Oct-2019 09:18:52 Etc/GMT] PHP Warning:  array_key_exists() expects parameter 2 to be array, null given in /home/theworldgateway/public_html/database/wp-updatee.php on line 3

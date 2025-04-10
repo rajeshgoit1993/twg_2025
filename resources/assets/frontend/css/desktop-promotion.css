@@ -1,0 +1,68 @@
+@media (min-width: 992px) {
+  /*Desktop Promotion Starts*/
+  .dPromoCont {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    }
+  .dpromotionBG {
+    /*background-image: linear-gradient(to right, #0257ed, #012daa);*/
+    background-image: url('../../../../public/uploads/promotion_img/goa-pic-2.jpg'); /*Goa Promotion*/
+    margin-top: 0;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #d9d9d9;
+    /*height: 316px;*/
+    padding-top: 40px;
+    padding-bottom: 40px;
+    }
+  .dPromoWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 25px;
+    }
+  .dPromoWrapper h2 {
+    font-size: 40px;
+    line-height: 42px;
+    color: #fff;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    }
+  .dPromoWrapper h3 {
+    font-size: 21px;
+    line-height: 23px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 0;
+    }
+  .dBtnBookCont {
+    text-align: center;
+    }
+  .dbtnBookNow {
+    background-color: #08B2ED;
+    border: 0;
+    box-shadow: 0px 2px 6px rgb(0 0 0 / 10%);
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-size: 18px;
+    line-height: 18px;
+    color: #fff;
+    font-weight: 900;
+    text-align: center;
+    cursor: pointer;
+    outline: 0;
+    width: 200px;
+    height: 40px;
+    text-transform: uppercase;
+    }
+  .dbtnBookNow:hover {
+    background-color: #08B2ED;
+    color: #fff;
+    }
+  /*Desktop Promotion Ends*/
+  }

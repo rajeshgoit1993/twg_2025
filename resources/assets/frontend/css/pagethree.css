@@ -1,0 +1,4784 @@
+/*Common Page-3 Starts*/
+	/*Enquiry Form with JS modal*/
+	.fmRow {
+		margin-left: -15px;
+		margin-right: -15px;
+		}
+	.formGroup {
+		margin-bottom: 10px;
+		}
+	.fm-md-4, .fm-md-6, .fm-md-8, .fm-md-12 {
+	    width: 100%;
+		}
+	.fm-md-4, .fm-md-6, .fm-md-8, .fm-md-12 {
+	    float: left;
+		}
+	.fm-md-4, .fm-md-6, .fm-md-8, .fm-md-12 {
+	    position: relative;
+	    min-height: 1px;
+	    padding-right: 15px;
+	    padding-left: 15px;
+		}
+
+	@media (min-width: 992px) {
+	.fm-md-4 {
+	    width: 33.33333333%;
+		}
+	.fm-md-6 {
+	    width: 50%;
+		}
+	.fm-md-8 {
+	    width: 66.66666667%;
+		}
+	.fm-md-12 {
+	    width: 100%;
+		}
+	}
+
+	/*Tour Calendar Enquiry Starts*/
+	/* The Modal (background) */
+	.modal {
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 1111; /* Sit on top */
+		padding-top: 0; /* Location of the box */
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 100%; /* Full width */
+		height: 100%; /* Full height */
+		overflow-y: auto; /* Enable scroll if needed */
+		background-color: rgb(0,0,0); /* Fallback color */
+		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		-webkit-overflow-scrolling: touch
+		outline: 0;
+		}
+	.enq_cal_modalContent {
+		position: relative;
+		background-color: #fefefe;
+		margin: auto;
+		padding: 0;
+		border: 1px solid #888;
+		/*width: 80%;*/
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+		-webkit-animation-name: animatetop;
+		-webkit-animation-duration: 0.4s;
+		animation-name: animatetop;
+		animation-duration: 0.4s
+		}
+	@media (max-width: 992px) {
+		.enq_cal_modalContent {
+			width: 100%;
+			border: none;
+			}
+		}
+	@media (min-width: 992px) {
+		.enq_cal_modalContent {
+			width: 80%;
+			}
+		}
+
+	/* Add Animation */
+	@-webkit-keyframes animatetop {
+		from {top:-300px; opacity:0}
+		to {top:0; opacity:1}
+		}
+	@keyframes animatetop {
+		from {top:-300px; opacity:0}
+		to {top:0; opacity:1}
+		}
+	/* The Close Button */
+	.close {
+		color: white;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+		}
+	.close:hover,.close:focus {
+		color: #001;
+		text-decoration: none;
+		cursor: pointer;
+		}
+	/*Modal Ends*/
+
+	/*resend OTP*/
+	.modalContent_enquiry {
+	    min-height: 275px;
+	    min-width: 600px;
+	}
+	.modalHeader_enquiry {
+	    padding: 15px 25px;
+	    border-bottom: 1px solid #e5e5e5;
+	}
+	.modalHeader_enquiry h3 {
+	    font-size: 20px;
+	    line-height: 22px;
+	    color: #001;
+	}
+	.modalHeader_enquiry h4 {
+	    font-size: 13px;
+	    line-height: 15px;
+	    font-weight: 400;
+	    color: #001;
+	    display: inline-block;
+	    padding: 5px 7px;
+	    border-radius: 5px;
+	    background-color: #f2f2f2;
+	    margin-top: 5px;
+	    margin-bottom: 0;
+	}
+	.modalBody_enquiry p {
+	    font-size: 16px;
+	    line-height: 18px;
+	    color: #001;
+	    margin: 0;
+	}
+	.resendOTP {
+	    font-size: 12px;
+	    line-height: 12px;
+	    color: #08b2ed;
+	    font-weight: 600;
+	    cursor: pointer;
+	    position: absolute;
+	    top: 17px;
+	    right: 15px;
+	}
+
+@media (min-width: 0px) {
+	.enq_cal_leftSection {
+		flex-grow: 1;
+		min-width: 600px;
+		}
+	.enq_cal_rightSection {
+		margin-left: 30px;
+		min-width: 275px;
+		max-width: 310px;
+		flex-grow: 1;
+		display: none;
+		}
+	.enq_cal_modalHeader {
+		padding: 15px 25px;
+		background-color: #fff;
+		color: #fff;
+		border-bottom: 1px solid #e5e5e5;
+		border-radius: 5px 5px 0 0;
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		}
+	.enq_cal_modalHeader h3, .ModalTitle {
+	    font-size: 24px;
+		line-height: 26px;
+	    color: #001;
+		margin-bottom: 5px;
+		}
+	.enq_cal_modalHeader h4, .ModalTitleDaysBadge {
+		font-size: 13px;
+	    line-height: 15px;
+		font-weight: 400;
+	    color: #001;
+		text-align: left;
+		margin-bottom: 0;
+		display: inline-block;
+	    padding: 5px 7px;
+	    border-radius: 5px;
+	    background-color: #f2f2f2;
+		}
+	.btnCloseModal_desktop_cal {
+	    flex-shrink: 0;
+	    outline: 0;
+	    text-transform: uppercase;
+	    background-color: #fff;
+	    border: 0;
+	    padding: 0;
+	    font-size: 12px;
+	    line-height: 12px;
+	    color: #848889;
+	    font-weight: 700;
+	    cursor: pointer;
+	    text-align: center;
+		text-shadow: 0 1px 0 #fff;
+	    opacity: .2;
+		-webkit-appearance: none;
+		height: auto;
+		}
+	.btnCloseModal_desktop_cal:hover {
+		background-color: #fff;
+		color: #4a4a4a;
+		opacity: .4;
+		}
+	.enq_cal_modalBody {
+		position: relative;
+		padding: 25px;
+		}
+	.sideTourImage {
+		display: none;
+		}
+	.enq_cal_tourImgBox {
+		background-color: #f2f2f2;
+	    width: 100%;
+	    height: 300px;
+	    overflow: hidden;
+	    border-radius: 5px;
+		position: relative;
+		top: 20px;
+		}
+	.enq_cal_tourImgBox img {
+	    width: 100%;
+	    height: 300px;
+		}
+	.enq_cal_tourTitle {
+		padding: 15px 0;
+		background-color: #001;
+		opacity: .75;
+		border-top: none;
+		border-radius: 0px 0px 5px 5px;
+		width: 100%;
+		bottom: 0;
+		position: absolute;
+		}
+	.enq_cal_tourTitle h5 {
+		font-size: 16px;
+		line-height: 18px;
+		color: #fff;
+		font-weight: 900;
+		text-align: center;
+		margin-bottom: 0;
+		}
+	.enq_cal_modalFooter {
+		padding: 0 0 30px;
+		background-color: #fff;
+		display: flex;
+		justify-content: center;
+		}
+	/*Tour Calendar Enquiry Starts*/
+
+	/*Tour Enquiry form*/
+		.travellerLabelBox {
+			width: 120px;
+			margin-right: 20px;
+			}
+		/*.hotelPref {
+		    display: flex;
+		    align-items: center;
+			}*/
+		/*.hotelPref label {
+		    font-size: 14px;
+		    line-height: 16px;
+		    color: #001 !important;
+		    margin-bottom: 0;
+		    margin-right: 15px !important;
+		    border: 1px solid #e7e7e7;
+		    border-radius: 5px;
+		    padding: 8px 10px;
+		    display: flex;
+		    align-items: center;
+			flex-shrink: 0;
+			}*/
+		/*.hotelPref input[type=radio] {
+			height: 13px;
+		    width: 11px;
+		    margin-right: 5px;
+		    margin-top: 0;
+			}*/
+		.hotelPref, .flightPref {
+			display: flex;
+			align-items: center;
+			column-gap: 15px;
+			}
+		.hotelPref label, .flightPref label {
+			font-size: 16px;
+			line-height: 16px;
+			color: #001;
+			font-weight: 500;
+			margin-bottom: 0;
+			border: 1px solid #e7e7e7;
+			border-radius: 5px;
+			padding: 8px 10px;
+			text-align: center;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			/*flex-shrink: 0;
+			flex-grow: 1;*/
+			height: 40px;
+			width: 80px;
+			}
+		.hotelPref input[type=radio], .flightPref input[type=radio] {
+		    height: 13px;
+		    width: 11px;
+		    margin-right: 5px;
+		    margin-top: 0;
+			}
+		.hotel-selection input[type="radio"], .preference-selection input[type="radio"] {
+		    display: none;
+			}
+		.guestInputCont {
+	    	margin-bottom: 20px;
+			}
+		.guestInputCont label {
+	  		/*display: inline-block;
+	  		font-size: 14px;
+	  		line-height: 16px;
+	  		font-weight: 600;
+	  		margin-right: 0px !important;
+	  		margin-bottom: 5px;*/
+	  		color: #000001;
+			}
+		.childExtraBed {
+			display: block;
+			}
+		.formLabel {
+			display: block;
+		    font-size: 14px;
+			line-height: 16px;
+		    font-weight: 600;
+		    color: #001;
+			margin-right: 0px;
+			margin-bottom: 5px;
+			white-space: nowrap;
+			}
+		.formInput{
+			padding: 6px 12px;
+			font-size: 14px;
+			line-height: 16px;
+		    color: #4a4a4a;
+			border: 1px solid #c8c8c8;
+		    border-radius: 4px;
+			transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+			-webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+		    -ms-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+			cursor: text;
+		    height: 36px;
+		    background-color: #fff;
+		    text-transform: capitalize;
+			width: 100%;
+			}
+		.formSelect {
+			padding: 6px 10px;
+			font-size: 14px;
+			line-height: 16px;
+		    color: #4a4a4a;
+			border: 1px solid #c8c8c8;
+		    border-radius: 4px;
+			transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+			-webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+		    -ms-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+			cursor: default;
+		    height: 36px;
+		    background-color: #fff;
+		    text-transform: capitalize;
+			width: 100%;
+			appearance: none;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			}
+		.formDate {
+			padding: 0;
+			font-size: 14px;
+			line-height: 16px;
+		    color: #4a4a4a;
+			border: 1px solid #c8c8c8;
+		    border-radius: 4px;
+			transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+			-webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+		    -ms-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+			cursor: default;
+		    height: 36px;
+		    background-color: #fff;
+		    text-transform: capitalize;
+			width: 100%;
+			}
+		.formTextarea{
+			padding: 6px 12px;
+			font-size: 14px;
+			line-height: 16px;
+		    color: #4a4a4a;
+			border: 1px solid #c8c8c8;
+		    border-radius: 4px;
+			transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+			-webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+		    -ms-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+			cursor: text;
+		    height: auto;
+		    background-color: #fff;
+		    text-transform: none;
+			width: 100%;
+			overflow: auto;
+			}
+		input.formInput:focus, textarea:focus, select.formSelect:focus {
+			outline: none;
+			border: 1px solid #4a4a4a;
+			box-shadow: none;
+			}
+		input.formInput_budget:focus {
+			outline: none;
+			border: 0;
+			box-shadow: none;
+			}
+		.budgetBox {
+			padding: 0;
+		    background-color: #fff;
+		    display: flex;
+		    height: 36px;
+		    border: 1px solid #c8c8c8;
+		    border-radius: 4px;
+			}
+		.fmCurrencyBox {
+			font-size: 16px;
+		    display: flex;
+		    align-items: center;
+			}
+		.defaultCurrency:before {
+			content: '\0020B9';
+			}
+		.formInput_budget {
+			border: 0;
+			padding-left: 10px;
+			font-size: 14px;
+			line-height: 16px;
+		    color: #4a4a4a;
+			cursor: text;
+		    height: auto;
+		    background-color: #fff;
+			width: 100%;
+			}
+		.budgetPriceBarBox {
+			border: 1px solid #c8c8c8;
+		    border-radius: 4px;
+		    position: absolute;
+		    z-index: 1;
+		    background-color: #fff;
+		    padding: 20px 20px 10px;
+		    width: 100%;
+			}
+		.guestCont {
+			display: flex;
+			align-items: baseline;
+			margin-bottom: 10px;
+			}
+		.guestMinus {
+		    font-size: 26px;
+		    line-height: 15px;
+		    color: #9B9B9B;
+		    padding: 14px 12px;
+		    font-weight: 900;
+		    cursor: pointer;
+			}
+		.guestValue {
+		    font-size: 20px;
+		    line-height: 20px;
+		    color: #001;
+		    font-weight: 900;
+		    padding: 10px 12px;
+			}
+		.guestPlus {
+		    font-size: 26px;
+		    line-height: 15px;
+		    color: #9B9B9B;
+		    padding: 14px 12px;
+		    font-weight: 900;
+		    cursor: pointer;
+			}
+		.guestType {
+			font-size: 12px;
+		    line-height: 12px;
+		    color: #4a4a4a;
+			font-weight: 600;
+		    background-color: #f2f2f2;
+		    border-radius: 3px;
+		    padding: 1px;
+		    text-align: center;
+		    margin-top: 0;
+		    margin-bottom: 0;
+			}
+
+		/*.addOnDtlsCont {
+			display: flex;
+			align-items: center;
+			margin-bottom: 5px;
+			margin-top: 10px;
+			}
+		.addOnDtlsCont label {
+			border: 1px solid #e7e7e7;
+		    padding: 5px 10px;
+		    border-radius: 3px;
+		    color: #4a4a4a !important;
+		    margin-bottom: 0;
+		    font-size: 12px;
+		    line-height: 13px;
+		    font-weight: 600;
+		    display: flex;
+		    align-items: end;
+			flex-shrink: 0;
+			margin-right: 10px;
+			}
+		.addOnDtlsCont label:last-child {
+			margin-right: 0;
+			}
+		.addOnDtlsCont input[type=checkbox] {
+			margin-top: 0;
+			margin-right: 5px;
+			}*/
+		.addOnDtlsCont {
+		    display: flex;
+		    align-items: center;
+		    flex-wrap: wrap;
+		    column-gap: 10px;
+		    padding-left: 2px;
+			}
+		.addOnDtlsCont label {
+		    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.22);
+		    border: 1px solid #f6f6f6;
+		    padding: 15px;
+		    border-radius: 8px;
+		    display: flex;
+		    align-items: center;
+		    margin-bottom: 15px;
+		    height: 45px;
+			}
+		.addOnDtlsCont input[type=checkbox] {
+		    margin-top: 0;
+		    margin-right: 5px;
+			}
+		.checkmark.addOn-services {
+		    width: 16px;
+		    height: 16px;
+		    border: 1px solid #979797;
+		    border-radius: 4px;
+		    background-color: #fff;
+		    position: relative;
+		    display: inline-block;
+		}
+		.addOn-services-text {
+		    font-size: 13px;
+		    line-height: 16px;
+		    color: #001;
+		    font-weight: 500;
+		    margin: 0;
+		    margin-left: 10px;
+		    white-space: nowrap;
+		}
+
+		.selected-item, .hotel-selection:hover, .preference-selection:hover {
+		    background-color: #fff;
+		    color: #08B2ED !important;
+		    border-color: #08B2ED !important;
+		    font-weight: 600 !important;
+		}
+
+	/*Enquiry Main*/
+		.dAcceptTerms {
+			display: flex;
+		    align-items: center;
+			margin-bottom: 2px;
+			}
+		.dAcceptTerms input[type=checkbox] {
+			margin-top: 0;
+			}
+		/*.dAcceptTerms h5 {
+			font-size: 13px;
+		    line-height: 16px;
+		    color: #001;
+		    margin-left: 5px;
+			margin-bottom: 0;
+			}*/
+		.dAcceptTerms h5 {
+		    font-size: 13px;
+		    line-height: 16px;
+		    color: #001;
+		    margin: 0;
+		    margin-left: 15px;
+		}
+	/*Enquiry Main*/
+		.dAcceptTerms {
+			display: flex;
+		    align-items: center;
+			margin-bottom: 2px;
+			}
+		.dAcceptTerms input[type=checkbox] {
+			margin-top: 0;
+			}
+		.dAcceptTerms h5 {
+			font-size: 13px;
+		    line-height: 16px;
+		    color: #001;
+		    margin-left: 5px;
+			margin-bottom: 0;
+			}
+	/*Sweet Alert*/
+		.swal-button {
+			background-color: #01b7f2;
+		    line-height: 14px;
+			}
+		.swal-text {
+			text-align: center;
+			}
+
+	/*enquiry modal*/
+	.outline {
+	  background-color: #fff;
+	  /*border: 1px solid #c8c8c8;
+	  border-radius: 4px;*/
+	  box-shadow: none;
+	  outline: 0;
+	}
+	.icon-input-group {
+	  /* position: relative; */
+	  display: flex;
+	  /*border-collapse: separate;
+	  height: 36px;
+	  border: 1px solid #c8c8c8;
+	  border-radius: 4px;*/
+	  overflow: hidden;
+	  width: 100%;
+	  height: 36px;
+	}
+	.icon-input-group-addon {
+	  width: 40px;
+	  padding: 6px;
+	  text-align: center;
+	  /*font-size: 14px;
+	  font-weight: 400;
+	  color: #555;
+	  background-color: #f9f9f9;
+	  white-space: nowrap;
+	  vertical-align: middle;
+	  display: table-cell;
+	  height: auto;*/
+	  border-right: 1px solid #c8c8c8;
+	  position: relative;
+	}
+	.rupee-container::before {
+	  content: "₹";
+	  font-family: Arial, sans-serif;
+	  font-size: 20px;
+	  color: #001;
+	  position: relative;
+	  top: 5px;
+	}
+
+	/*Budget*/
+	.budgetPriceBarBox {
+	  border: 1px solid #c8c8c8;
+	  border-radius: 4px;
+	  background: #fff;
+	  padding: 10px 15px 10px;
+	  width: 100%;
+	  position: absolute;
+	  z-index: 1;
+	  margin-top: 1px;
+	}
+	.budgetSlider {
+	  margin: 20px 15px 15px;
+	}
+	.rangeSection {
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  padding: 6px;
+	  margin-top: 10px;
+	}
+	.defaulCurrency_slider:before {
+	  content: '\0020B9';
+	  font-size: 15px;
+	  line-height: 15px;
+	  font-weight: 500;
+	}
+
+	/*budget-slider*/
+	.budget-slider-container {
+	  margin-bottom: 20px;
+	}
+	.selected-budget {
+	  width: 80px;
+	  text-align: center;
+	  margin-top: 5px;
+	}
+	/* Styles for the slider track */
+	.budgetSlider {
+	  -webkit-appearance: none;
+	  appearance: none;
+	  width: 100%;
+	  height: 6px;
+	  border-radius: 5px;
+	  background: #d3d3d3;
+	  outline: none;
+	  opacity: 0.7;
+	  -webkit-transition: .2s;
+	  transition: opacity .2s;
+	  padding: 0;
+	  margin: 0;
+	  margin-top: 10px;
+	  border: none;
+	  /*background-color: #08B2ED;*/
+	}
+	/* Styles for the slider thumb */
+	.budgetSlider::-webkit-slider-thumb {
+	  -webkit-appearance: none;
+	  appearance: none;
+	  width: 20px;
+	  height: 20px;
+	  border-radius: 50%;
+	  background: #08B2ED;
+	  cursor: grab;
+	  box-shadow: 0 0 6px 0 rgba(0, 0, 0, .2) !important;
+	  border-width: 0 !important;
+	}
+	.budgetSlider::-moz-range-thumb {
+	  width: 20px;
+	  height: 20px;
+	  border-radius: 50%;
+	  background: #08B2ED;
+	  cursor: grab;
+	  box-shadow: 0 0 6px 0 rgba(0, 0, 0, .2) !important;
+	  border-width: 0 !important;
+	}
+}
+
+/* The checkmarkCont */
+@media (min-width: 0px) {  
+  .checkmarkCont {
+    display: block;
+    position: relative;
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .checkmarkCont.wrapper {
+    display: flex;
+  }
+  /* Hide the browser's default checkbox */
+  .checkmarkCont input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    left: -999px;
+  }
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .checkmark.signup-acceptance {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #979797;
+    border-radius: 4px;
+    background-color: #fff;
+    position: relative; /*can be removed*/
+    display: inline-block;
+    top: 0;
+    flex-shrink: 0;
+  }
+  /* On mouse-over, add a grey background color */
+  .checkmarkCont:hover input ~ .checkmark {
+    background-color: #fff;
+  }
+  /* When the checkbox is checked, add a blue background */
+  .checkmarkCont input:checked ~ .checkmark {
+    background-color: #08B2ED;
+    border-color: #08B2ED;
+  }
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  /* Show the checkmark when checked */
+  .checkmarkCont input:checked ~ .checkmark:after {
+    display: block;
+  }
+  /* Style the checkmark/indicator */
+  .checkmarkCont .checkmark:after {
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .acceptance-cont p {
+    padding-left: 20px;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4a4a4a;
+    font-weight: 500;
+    text-align: left;
+    margin: 0;
+  }
+}
+/*Common Page-3 Ends*/
+
+
+/**************************/
+
+/*Mobile Page-3 Starts*/
+@media (max-width: 992px) {
+	.tab-content .tab-pane {
+		padding: 0;
+		}
+	/*Mobile Logo display*/
+	.mLogo, .mBar {
+		display:none;
+		}
+	.mContainer {
+		width: auto;
+		padding-left: 13px;
+		padding-right: 13px;
+		margin-right: auto;
+		margin-left: auto;
+		}
+	.mblTourHead {
+		padding-top: 0;
+		}
+	.mblTourHead h3 {
+		font-size: 18px;
+		line-height: 20px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 0;
+		}
+	.mblTourHead h4 {
+		font-size: 14px;
+		line-height: 14px;
+		color: #a1a1a1;
+		text-align: left;
+		margin-bottom: 0;
+		}
+	.mblTourHead h4 {
+		font-size: 16px;
+		line-height: 16px;
+		color: #001;
+		text-align: left;
+		margin-bottom: 0;
+		}
+
+	/*Mobile Tour Tabs Common Starts*/
+	.mTourPkgDesc {
+		padding: 0 !important;
+		margin-top: 15px;
+		margin-bottom: 70px;
+		}
+	.mTourDesc {
+		margin-bottom: 15px;
+		padding-bottom: 10px;
+		}
+	.mTourHgLhts {
+		margin-top: 15px;
+		margin-bottom: 15px;
+		border-bottom: 5px solid #f2f2f2;
+		padding-bottom: 10px;
+		font-size: 12px;
+	  	line-height: 22px;
+	  	color: #001;
+		}
+	.mTourHgLhts:last-child {
+		border-bottom: none;
+		}
+	.mTourDesc h2, .mTourHgLhts h2 {
+		font-size: 16px;
+		line-height: 18px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 10px;
+		}
+	.mTourDesc p, .mTourHgLhts p {
+		font-size: 13px;
+		line-height: 20px;
+		color: #001;
+		text-align: left;
+		margin-bottom: 0;
+		}
+	.mTourHgLhts ul {
+		list-style: inside;
+		margin-left: 15px;
+		}
+	.mTourHgLhts ul li {
+		font-size: 12px;
+		line-height: 22px;
+		color: #001;
+		text-align: left;
+		}
+
+	/*Collapsible Starts*/
+	.collapsible-container {
+		margin-bottom: 10px;
+		}
+	.collapsible-item {
+		background-color: #fff;
+		cursor: default;
+		padding: 13px 10px;
+		width: 100%;
+		outline: none;
+		border-bottom: 1px solid #e1e1e1;
+		margin-bottom: 0;
+		font-size: 14px;
+		line-height: 16px;
+		text-align: left;
+		}
+	.mItem-box {
+		border: 1px solid #e1e1e1;
+		border-radius: 5px;
+		color: #001;
+		}
+	.mItem-box.active {
+		border-radius: 5px 5px 0 0;
+		background-color: #f1f1f1;
+		}
+	.mItem-arrow:after {
+		font-family: FontAwesome;
+		content: '\f106';
+		color: #08b2ed;
+		float: right;
+		margin-left: 20px;
+		font-size: 28px;
+		}
+	.mItem-arrow.active:after {
+		content: '\f107';
+		}
+	.collapsible-item-content {
+		padding: 0;
+		display: none;
+		overflow: hidden;
+		background-color: #fff;
+		transition: max-height 1s ease-out;
+		}
+	.collapsible-item-sub-content {
+		padding: 0 18px;
+		display: none;
+		overflow: hidden;
+		background-color: #fff;
+		transition: max-height 0.2s ease-out;
+		}
+	/*Collapsible Ends*/
+	/*Mobile Tour Tabs Common Ends*/
+
+	/*Mobile Tour Images Starts*/
+	.mTourImgCont {
+		position: relative;
+		}
+	.view_gallery {
+		position: absolute;
+		bottom: 10px;
+		left: 15px;
+		font-size: 12px;
+		line-height: 12px;
+		color: #fff;
+		font-weight: 800;
+		text-transform: uppercase;
+		background-color: rgba(0,0,0,.8);
+		height: auto;
+		padding: 5px 13px;
+		border-radius: 13px;
+		border: 1px solid rgba(255,255,255,.6);
+		white-space: nowrap;
+		cursor: default;
+		}
+
+	/*Mobile Tour Image Animation*/
+	.mTourImg-animation-container {
+		position: relative;
+		}
+	.mTourImg-animation-container img {
+		opacity: 0;
+		transition: opacity 2s ease-in; /* Adjust the duration for slower animation */
+		}
+	.mTourImg-animation-container.loaded img {
+		opacity: 1;
+		}
+	/*Mobile Tour Image Animation ends*/
+
+	.mTourImgBox {
+		background-color: #f9f9f9;
+		margin: 0;
+		position: relative;
+		border-radius: 0;
+		overflow: hidden;
+		width: 100%;
+		height: 250px;
+		background-image: var(--default-image);
+	    background-position: center; /* Optional for centering */
+	    background-size: cover; /* Optional for better fit */
+		background-repeat: round;
+		}
+	.mTourImgBox img {
+		width: 100%;
+		height: 250px;
+		object-fit: cover;
+		}
+	.mGoToPreviousPage {
+		display: inline-block;
+		background-color: transparent;
+		border-radius: 50%;
+		padding: 12px 17px;
+		cursor: default;
+		box-shadow: 0 0px 4px 0 rgb(255 255 255 / 90%);
+		/*border: 1px solid #ffff00;*/
+		width: 30px;
+		height: 35px;
+		}
+	.mGoToPreviousPage:before {
+		content: '';
+		left: -4px;
+		top: -2px;
+		position: relative;
+		display: inline-block;
+		border: solid #fff;
+		border-width: 0 3px 3px 0;
+		padding: 5px;
+		transform: rotate(-225deg);
+		-webkit-transform: rotate(-225deg);
+		}
+	.mTourImgTag {
+		position: absolute;
+		bottom: 1px;
+		border-radius: 0;
+		z-index: 11;
+		background-color: #10101054;
+		height: 40px;
+		width: 100%;
+		padding: 10px;
+		}
+	.mTourImgTag p {
+		font-size: 16px;
+		line-height: 18px;
+		color: #fff;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 0;
+		}
+	.mBannerCont {
+		position: absolute;
+		z-index: 11;
+		top: 15px;
+		left: 10px;
+		right: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		}
+	.mTheme_position {
+		/*color: #fff;*/
+		}
+	.mTheme_position ul {
+		list-style: none;
+		margin: 0;
+		display: flex;
+		}
+	.mTheme_position ul li {
+		font-size: 11px;
+		line-height: 13px;
+		color: #fff;
+		text-align: center;
+		padding: 4px 8px;
+		border-radius: 20px;
+		background-color: #101010c2;
+		margin-right: 5px;
+		}
+	.mTheme_position ul li:last-child {
+		margin-right: 0;
+		}
+	.view_gallery {
+	    position: absolute;
+	    bottom: 10px;
+	    left: 15px;
+	    font-size: 12px;
+	    line-height: 12px;
+	    color: #fff;
+	    font-weight: 800;
+	    text-transform: uppercase;
+	    background-color: #000000cc;
+	    height: auto;
+	    padding: 5px 13px;
+	    border-radius: 13px;
+	    border: 1px solid #ffffff99;
+	    white-space: nowrap;
+	    cursor: default;
+		}
+	/*Mobile Tour Images Ends*/
+
+	/*Mobile Tour Details Starts*/
+	.mTourDtlsCont {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		}
+	.mTourDtlsCont h3 {
+	    font-size: 20px;
+	    line-height: 28px;
+	    color: #001;
+	    font-weight: 600;
+	    margin-bottom: 5px;
+		}
+	.hotel-star-rating {
+		margin-top: 0;
+		margin-bottom: 15px;
+		}
+	.star_checked {
+		color: #FDB714 !important;
+		font-size: 14px !important;
+		line-height: 24px;
+		width: 16px;
+		}
+	.fa-star:before {
+		content: "\f005";
+		}
+	.mTourPlaceWrapper {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		}
+	.mTourPlaceDuration {
+		color: #eb2025;
+		font-size: 14px;
+		line-height: 18px;
+		font-weight: 700;
+		}
+	.mTourCityName {
+		font-size: 14px;
+		line-height: 18px;
+	    font-weight: 900;
+		color: #001;
+		}
+	.mTourDuration {
+	    font-size: 12px;
+	    line-height: 12px;
+	    color: #fff;
+	    font-weight: 600;
+	    text-align: center;
+	    border-radius: 3px;
+	    background-color: #26b5a9;
+	    display: inline-block;
+	    padding: 3px 5px;
+		}
+	.mCityArrow {
+		position: relative;
+		top: 0;
+		}
+	.holiday-type {
+		font-size: 12px;
+		line-height: 12px;
+		color: #fff;
+		font-weight: 600;
+		text-align: center;
+		margin-bottom: 0;
+		border-radius: 3px;
+		background-color: #001;
+		display: inline-block;
+		padding: 3px 5px;
+		text-transform: capitalize;
+		margin-left: 5px;
+		}
+	/*Mobile Tour Date Edit starts*/
+	.mSelectDateCont {
+		border: 1px solid #e9e9e9;
+		border-radius: 15px;
+		background-color: #eaf5ff;
+		padding: 7px 15px;
+		margin-bottom: 10px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		}
+	.mSearchInput_box {
+		display: flex;
+		align-items: center;
+		overflow-x: scroll;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	    max-width: 86%;
+		}
+	.mSearchInput_city, .mSearchInput_guest {
+		font-size: 12px;
+		line-height: 14px;
+		color: #001;
+		text-align: center;
+		}
+	.mSearchInput_date {
+		font-size: 12px;
+		line-height: 14px;
+		color: #001;
+		}
+	.mSearchInputs.item:last-child {
+		margin-right: 0;
+		}
+	.mDot:before {
+		content: "•";
+		color: #08b2ed;
+		/*text-shadow: #b83b3b 0 0 5px;*/
+		margin:0 15px;
+		}
+	.mSearchInput_edit {
+		font-size: 12px;
+		line-height: 14px;
+		color: #08b2ed;
+		font-weight: 900;
+		text-align: center;
+		text-transform: uppercase;
+		}
+	/*Mobile Tour Date Edit ends*/
+
+	/*Mobile Tour Services Inclusion*/
+	.mTourSvcCont {
+		margin-top: 10px;
+		margin-bottom: 20px;
+		/*color: #4A4A4A;
+		font-size: 14px;*/
+		}
+	.mTourSvcTtlBox h5 {
+	    color: #001;
+	    font-size: 12px;
+	    line-height: 14px;
+	    font-weight: 600;
+	    margin-bottom: 11px;
+		}
+	.mServiceScroll {
+		display: flex;
+		align-items: center;
+		overflow-x: auto;
+		}
+	.mTourSvcItemIconBox {
+	    margin-right: 20px;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+		}
+	.mTourSvcItemIconBox:last-child {
+	    margin-right: 0;
+		}
+	.mTourSvcItemImgBox {
+		width: 24px;
+	    height: 24px;
+		}
+	.mTourSvcItemImgBox img {
+	    width: 24px;
+	    height: 24px;
+		}
+	.mTourSvcItemIconName {
+		margin-top: 5px;
+	    font-size: 12px;
+	    line-height: 16px;
+	    color: #001;
+		}
+	/*Mobile Tour Details Ends*/
+
+	/*Mobile Tour Tabs Starts*/
+	.tab-container {
+		background-color: #fff;
+	  	}
+	.mMainTabCont {
+		position: sticky;
+		position: -webkit-sticky;
+		z-index: 1;
+		top: 0;
+		/*background-color: #eaf5ff;*/
+		background-color: #fff;
+		margin: 0;
+		border-bottom: 1px solid #d9d9d9;
+		}
+	.mMainTabButton {
+		display: flex;
+		align-items: center;
+		}
+	.mMainTabButton li {
+		display: block;
+		background-color: #fff;
+		padding: 10px 15px 15px;
+		font-size: 12px;
+		line-height: 14px;
+		color: #4a4a4a;
+		font-weight: 600;
+		transition-duration: 0s;
+		text-transform: uppercase;
+		}
+	.mMainTabButton li.active {
+		color: #001;
+		border-bottom: 2px solid #08b2ed;
+		}
+	.tab-content {
+		/*padding: 20px;*/
+	  	}
+	.tab {
+		display: none;
+	  	}
+	.tab.active {
+		display: block;
+		}
+	.mSubTabCont {
+		padding: 5px;
+		background-color: #eaf5ff;
+		margin: 0;
+		position: sticky;
+		position: -webkit-sticky;
+		z-index: 1;
+		top: 42px;
+		border-bottom-right-radius: 3px;
+		border-bottom-left-radius: 3px;
+		}
+	.sub-tab-button {
+		padding: 10px 20px;
+		}
+	 .mSubTabButton {
+	 	column-gap: 5px;
+	 	}
+	.mSubTabButton li {
+		font-size: 12px;
+		line-height: 14px;
+		color: #4a4a4a;
+		font-weight: 600;
+		padding: 10px 15px;
+		margin: 5px;
+		display: block;
+		text-transform: uppercase;
+		border: 1px solid transparent;
+		border-radius: 20px;
+		outline: none;
+		cursor: default;
+		}
+	.mSubTabButton li.active {
+		background-color: #fff;
+		color: #08b2ed;
+		border-color: #08b2ed;
+		}
+	.sub-tab-content {
+		background-color: #fff;
+		}
+	.sub-tab {
+		display: none;
+		}
+	.sub-tab.active {
+		display: block;
+		}
+	/*Mobile Tour Tabs Ends*/
+
+	/*Mobile Tour Tabs-Inclusions Starts*/
+	.mTourInclusions {
+		padding: 0;
+		margin-top: 15px;
+		margin-bottom: 15px;
+		border-bottom: 5px solid #f5f5f5;
+		padding-bottom: 20px;
+		}
+	.mTourInclusions:last-child {
+		border-bottom: none;
+		}
+	.mTourDesc h2, .mTourInclusions h2 {
+		font-size: 16px;
+		line-height: 18px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 10px;
+		}
+	.mTourDesc p, .mTourInclusions p {
+		font-size: 13px;
+		line-height: 20px;
+		color: #001;
+		text-align: left;
+		margin-bottom: 0;
+		}
+	.mTourInclusions ul {
+		list-style: inside;
+		margin-left: 15px;
+		}
+	.mTourInclusions ul li {
+		font-size: 12px;
+		line-height: 22px;
+		color: #001;
+		text-align: left;
+		}
+	/*Mobile Tour Tabs-Inclusions Ends*/
+
+	/*Mobile Tour Tabs-Visa Ends*/
+	.mVisaBox {
+		/*display: block;*/
+		}
+	.mVisaBox ul {
+		margin-top: 10px;
+		border-bottom: 1px solid #ccc;
+	    padding-bottom: 15px;
+		}
+	.mVisaBox ul:last-child {
+		border-color: transparent;
+		}
+	/*Mobile Tour Tabs-Visa Ends*/
+
+	/*Mobile Tour Tabs-Policy Starts*/
+	.mTourPolicy {
+		padding: 0 !important;
+		margin-top: 15px;
+		margin-bottom: 15px;
+		border-bottom: 5px solid #f2f2f2;
+		padding-bottom: 20px;
+		font-size: 12px;
+		line-height: 22px;
+		}
+	.mTourPolicy:last-child {
+		border-bottom: none;
+		}
+	.mTourDesc h2, .mTourPolicy h2 {
+		font-size: 16px;
+		line-height: 18px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 10px;
+		}
+	.mTourDesc p, .mTourPolicy p {
+		font-size: 12px;
+		line-height: 20px;
+		color: #001;
+		text-align: left;
+		margin-bottom: 0;
+		}
+	.mTourPolicy ul {
+		list-style: inside;
+		margin-left: 15px;
+		}
+	.mTourPolicy ul li {
+		font-size: 12px;
+		line-height: 22px;
+		color: #001;
+		text-align: left;
+		}
+	/*Mobile Tour Tabs-Policy Ends*/
+
+	/*Mobile Tour Tabs-Destination Starts*/
+	.mDestCont {
+	    margin: 0;
+		}
+	.mDestBox {
+	    border: 1px solid #e7e7e7;
+	    border-radius: 0 0 5px 5px;
+	    padding: 15px;
+	    border-top-color: transparent;
+	    background-color: #fff;
+		}
+	.mDestBox h3 {
+		font-size: 16px;
+		line-height: 18px;
+		color: #001;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 5px;
+		}
+	.mDestBox p {
+		font-size: 12px;
+		line-height: 19px;
+		color: #001;
+		text-align: left;
+		margin-bottom: 20px;
+		}
+	.mDestBox p:last-child {
+		margin-bottom: 0;
+		}
+	/*Mobile Tour Tabs-Destination Ends*/
+
+	/*Mobile Tour Tabs-Similar Tour Starts*/
+	.mSimilarTourCont {
+		flex-shrink: 0;
+	    position: relative;
+	    width: 170px;
+	    border: 1px solid #e9e9e9;
+	    border-radius: 5px;
+	    overflow: hidden;
+	    box-shadow: 0px 2px 10px rgb(0 0 0 / 5%);
+	    margin-bottom: 10px;
+	    margin-right: 20px;
+		}
+	.mSimilarTourCont:last-child {
+	    margin-right: 0;
+		}
+	.mSimilarTourCont a {
+	    cursor: default;
+	    color: #001;
+		}
+	.mSimilarItemCont {
+	    background-color: #fff;
+	    position: relative;
+		}
+	.mSimilarItemImgBox {
+	    position: relative;
+	    background-color: #f2f2f2;
+	    width: 170px;
+	    height: 125px;
+	    overflow: hidden;
+		}
+	.mSimilarItemImgBox img {
+	    width: 170px;
+	    height: 125px;
+		}
+	.mSimilarItemDesc {
+	    background-color: #fff;
+	    padding: 0 5px 0;
+	    position: relative;
+		}
+	.mSimilarItemDaysBadge {
+	    position: relative;
+	    top: -10px;
+	    border-radius: 20px;
+	    padding: 3px 13px;
+	    display: inline-block;
+	    font-size: 12px;
+	    line-height: 12px;
+	    color: #fff;
+	    background-color: #001;
+	    font-weight: 700;
+		}
+	.mSimilarItemDescHeadSection {
+	    display: flex;
+	    align-items: flex-start;
+	    justify-content: space-between;
+		}
+	.mSimilarItemDescHeadingBox {
+	    width: 100%;
+		}
+	.mSimilarItemDescHeading {
+	    color: #001;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    font-size: 13px;
+	    line-height: 15px;
+	    margin: 0;
+		}
+	.mSimilarItemDescPriceSection {
+		margin-top: 10px;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: end;
+		}
+	.priceRequest {
+		font-size: 14px;
+		line-height: 20px;
+		color: #001;
+		text-align: right;
+		}
+	.priceValue {
+		font-size: 18px;
+		line-height: 20px;
+		color: #001;
+		font-weight: 600;
+		text-align: right;
+		}
+	.mTourSimilarCurrency {
+	    font-size: 14px;
+		}
+	.priceType {
+		font-size: 9px;
+		line-height: 10px;
+		color: #a1a1a1;
+		text-align: right;
+		text-transform: capitalize;
+		}
+	.mSimilarItemDuration {
+		margin: 10px 0;
+		border-top: 1px solid #e7e7e7;
+		border-bottom: 1px solid #e7e7e7;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		}
+	.mitemDestDuration {
+	    color: #eb2025;
+	    font-size: 12px;
+	    line-height: 20px;
+	    font-weight: 700;
+		}
+	.mitemDestName {
+	    font-size: 12px;
+	    line-height: 20px;
+	    font-weight: 900;
+	    color: #001;
+		}
+	.mitemDestSepr {
+		line-height: 18px;
+		}
+	.mSimilarItemFooter {
+	    display: flex;
+	    flex-direction: column;
+	    margin-bottom: 15px;
+	    margin-top: 10px;
+		}
+	.mSimilarItemFooterServiceIconsCont {
+	    display: flex;
+	    flex-direction: column;
+	    padding-bottom: 10px;
+		}
+	.mitemServiceTitle {
+	    color: #4A4A4A;
+	    font-size: 10px;
+	    line-height: 12px;
+	    margin-bottom: 15px;
+		}
+	.mitemServicIconScroll {
+	    display: flex;
+	    overflow-x: auto;
+		}
+	.mitemSvcCont {
+	    margin-right: 14px;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+		}
+	.mitemSvcCont:last-child {
+	    margin-right: 0;
+		}
+	.mitemSvcIconBox {
+	    width: 18px;
+	    height: 18px;
+	    background-color: #fff;
+	    margin-bottom: 3px;
+		}
+	.mitemSvcIconBox img {
+	    width: 18px;
+	    height: 18px;
+		}
+	.mitemSvcIconName {
+	    font-size: 12px;
+	    line-height: 14px;
+	    color: #001;
+		}
+	.mBtnCont {
+		background-color: #fff;
+		}
+	.btnViewDtls_mobile {
+	    outline: 0;
+	    text-transform: capitalize;
+	    background-color: #fff;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+	    padding: 0 10px;
+	    font-size: 14px;
+	    line-height: 14px;
+	    color: #4a4a4a;
+	    font-weight: 700;
+	    text-align: center;
+	    width: 100%;
+	    height: 34px;
+	    cursor: default;
+		}
+	.btnViewDtls_mobile:hover {
+		background-color: #fff;
+		color: #4a4a4a;
+		}
+	/*Mobile Tour Tabs-Similar Tour Ends*/
+
+	/*Mobile Tour Tabs-Price Calendar Starts*/
+	.mTourCalendr h2 {
+	    font-size: 16px;
+	    line-height: 18px;
+	    color: #001;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 10px;
+		}
+	.mCalendrCont {
+		background-color: #fff;
+		padding-bottom: 20px;
+		}
+	.mCalendrPref {
+		padding: 10px 0;
+	    display: flex;
+	    align-items: center;
+	    justify-content: right;
+		}
+	.mCalendrPref label {
+	    font-size: 13px;
+	    line-height: 15px;
+	    color: #4a4a4a !important;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 0;
+	    margin-right: 10px;
+		}
+	.mCalendrPref select {
+	    padding: 2px 6px;
+	    border-radius: 5px;
+	    border: 1px solid #e7e7e7;
+	    font-size: 14px;
+	    line-height: 14px;
+	    color: #001;
+	    background-color: #f9f9f9;
+	    height: 35px;
+	    min-width: 150px;
+	    flex-shrink: 0;
+		}
+	.mCalendrBox {
+		position: relative;
+		}
+
+	/*Calendar css*/
+	.fc-center {
+	    position: absolute;
+	    top: 40px;
+	    left: 0;
+	    right: 0;
+		}
+	.fc-toolbar h2 {
+	    margin: 0;
+	    font-size: 18px;
+	    line-height: 20px;
+	    float: none !important;
+		}
+	.fc-view-container {
+	    top: 40px;
+	    position: relative;
+	    padding-bottom: 20px;
+		}
+	.fc-content {
+	    text-align: center;
+		}
+	.price_data {
+	    font-size: 12px;
+	    line-height: 18px;
+	    margin: 0 auto;
+		}
+	.query_data .price_s {
+	    display: none;
+		}
+	.query_data {
+	    font-size: 10px;
+	    line-height: 18px;
+	    margin: 0 auto;
+		}
+	/*Mobile Tour Tabs-Price Calendar Ends*/
+
+	/*Mobile Tour Tabs-Day Plan Starts*/
+	.mDayPlanBox {
+		margin-bottom: 20px;
+	    margin-top: 20px;
+	    padding-bottom: 15px;
+	    border-bottom: 5px solid #f5f5f5;
+		}
+	.mDayPlanBox:last-child {
+	    border-bottom: none;
+	    margin-bottom: 0;
+	    padding-bottom: 0;
+		}
+	.mDayPlan {
+	    border-left: 2px solid green;
+	    padding-left: 10px;
+		}
+	.mDayPlan h3 {
+		font-size: 14px;
+		line-height: 16px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 2px;
+		}
+	.mDayPlan h4 {
+		font-size: 13px;
+		line-height: 16px;
+		color: #001;
+		text-align: left;
+		margin-bottom: 0;
+		}
+	.mDayDesc {
+	    border-top: 1px solid #e7e7e7;
+	    padding-top: 10px;
+	    margin-top: 10px;
+		margin-bottom: 0;
+		}
+	.mDayDesc p {
+		font-size: 12px;
+		line-height: 19px;
+		color: #001;
+		text-align: justify;
+		margin-bottom: 10px;
+		}
+	.mMealPlan {
+		padding-top: 10px;
+		}
+	.mMealPlan h3 {
+		text-transform: uppercase;
+		font-size: 10px;
+		line-height: 10px;
+		color: #a1a1a1;
+		font-weight: 600;
+		text-align: right;
+		margin-bottom: 3px;
+		}
+	.mMealPlan h4, .mTourActivity h4 {
+		font-size: 12px;
+		line-height: 15px;
+		color: #001;
+		text-align: right;
+		margin: 0;
+		}
+	.mTourActivity {
+		padding-top: 10px;
+		}
+	.mTourActivity h3 {
+		text-transform: uppercase;
+		font-size: 10px;
+		line-height: 10px;
+		color: #a1a1a1;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 3px;
+		}
+	.mTourActivity h4 {
+		font-size: 13px;
+		line-height: 15px;
+		color: #001;
+		text-align: left;
+		margin-bottom: 0;
+		border-right: 1px solid #a1a1a1;
+	    margin-right: 10px;
+		}
+	.mTourActivity h4:last-child {	
+		border-right: 0;
+	    margin-right: 0;
+		}
+	/*Mobile Tour Tabs-Day Plan Ends*/
+
+	/*Mobile Tour Tabs-Overview Starts*/
+	.mHgLhtsSeparator {
+		border-top: 5px solid #f5f5f5;
+		margin-top: 10px;
+		padding-top: 15px;
+		}
+	/*Mobile Tour Tabs-Overview Ends*/
+
+	/*Mobile Tour Tabs-Flights Starts*/
+	.mTourFlightCont {
+	    background-color: #fff;
+		}
+	.mTourFlightCont h2 {
+	    font-size: 16px;
+	    line-height: 16px;
+	    color: #001;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 20px;
+		}
+	.mTourFlightBox {
+	    margin-bottom: 25px;
+		}
+	.mOnwardFlightBox, .mReturnFlightBox {
+	    border: 1px solid #ccc;
+	    padding: 15px 15px 25px;
+	    border-radius: 5px;
+	    background-color: #F9F9F9;
+		}
+	.mFlightCityName {
+	    font-size: 16px;
+	    line-height: 18px;
+	    color: #001;
+	    font-weight: 600;
+	    margin-bottom: 0;
+	    text-align: left;
+		}
+	.mFlightDate {
+	    font-size: 18px;
+	    line-height: 18px;
+	    color: #001;
+	    font-weight: 600;
+		}
+	.mFlightStops, .mFlightClass {
+	    font-size: 12px;
+	    line-height: 14px;
+	    color: #4a4a4a;
+	    font-weight: 400;
+	    text-transform: capitalize;
+		}
+	.mAirlineName {
+	    font-size: 12px;
+	    line-height: 14px;
+	    color: #4a4a4a;
+	    /*border-left: 2px solid #ccc;
+	    padding-left: 5px;
+	    margin-left: 5px;
+	    margin-right: 5px;*/
+		}
+	.mFlightDtlsSeparator {
+	    border-right: 2px solid #ccc;
+	    height: 16px;
+	    margin-left: 5px;
+	    margin-right: 5px;
+		}
+	.mAirlineDtls {
+		width: 60px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		flex-shrink: 0;
+		}
+	.mAirlineLogoBox {
+	    width: 32px;
+	    height: 32px;
+	    overflow: hidden;
+	    border-radius: 3px;
+	    margin-bottom: 2px;
+	    font-size: 20px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+		}
+	.mAirlineLogoBox img {
+	    height: 32px;
+	    width: 32px;
+		}
+	.flightDtls {
+		min-width: 80px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		}
+	.mFlightNumber {
+	    font-size: 10px;
+	    line-height: 15px;
+	    color: #001;
+	    margin-bottom: 0;
+	    text-align: center;
+		}
+	.mflightDepBox, .mflightArrBox {
+		flex-shrink: 0;
+		/*width: 120px;*/
+		}
+	.mFlightTime {
+	    font-size: 18px;
+	    line-height: 22px;
+	    color: #001;
+	    font-weight: 600;
+	    margin-bottom: 0;
+	    text-align: center;
+		}
+	.mFlightCity {
+	    font-size: 16px;
+	    line-height: 18px;
+	    color: #001;
+	    margin-bottom: 0;
+	    text-align: center;
+		}
+	.mFlightDurationCont {
+	    /*margin: 0 30px;*/
+	    margin: 0 5%;
+	    width: 100%;
+		}
+	.mFlightDuration {
+	    font-size: 12px;
+	    line-height: 14px;
+	    color: #4a4a4a;
+	    font-weight: 400;
+	    text-align: center;
+	    margin-bottom: 0;
+	    /*border-left: 2px solid #ccc;
+	    padding-left: 5px;*/
+		}
+	.fa-plane:before {
+	    content: "\f072";
+	    display: inline-block;
+	    font-family: FontAwesome;
+	    font-style: normal;
+	    font-weight: 400;
+	    line-height: 1;
+	    -webkit-font-smoothing: antialiased;
+	    color: #4a4a4a;
+	    font-size: 18px;
+	    cursor: unset;
+	    margin-top: 3px;
+	    margin-right: 0;
+	    transform: rotate(45deg);
+		}
+	.mFlightPath {
+	    margin: 6px 5px;
+	    border-top: 1px solid #ccc;
+	    width: 70px;
+	    flex-grow: 1;
+		}
+	.fa-map-marker:before {
+	    content: "\f041";
+	    display: inline-block;
+	    font-family: FontAwesome;
+	    font-style: normal;
+	    font-weight: 400;
+	    line-height: 1;
+	    -webkit-font-smoothing: antialiased;
+	    color: #4a4a4a;
+	    font-size: 18px;
+	    cursor: unset;
+		}
+	.mBaggageCont {
+		border-top: 1px solid #E7E7E7;
+		margin-top: 20px;
+		padding-top: 10px;
+		}
+	.mFlightBaggageTitle {
+	    font-size: 12px;
+	    line-height: 14px;
+	    color: #4a4a4a;
+	    font-weight: 600;
+	    text-align: left;
+	    padding-bottom: 7px;
+		}
+	.mFlightBaggageSubTitle {
+	    font-size: 12px;
+	    line-height: 12px;
+	    font-weight: 600;
+	    margin-bottom: 0;
+	    text-align: left;
+		}
+	.mBaggageSeparator {
+	    border-right: 2px solid #ccc;
+	    height: 16px;
+	    margin: 0px 5px;
+		}
+	/*Mobile Tour Tabs-Flights Ends*/
+
+	/*Mobile Tour Tabs-Accommodation Starts*/
+	.mHtlCont {
+	    margin: 0;
+		}
+	.mHtlBox {
+	    border: 1px solid #e7e7e7;
+	    border-radius: 0 0 5px 5px;
+	    padding: 15px;
+	    border-top-color: transparent;
+	    background-color: #fff;
+		}
+	.mCityCont h4 {
+	    font-size: 16px;
+	    line-height: 16px;
+	    color: #001;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 0;
+		text-transform: uppercase;
+		}
+	.mHtlImgBox {
+		background-color: #f2f2f2;
+		width: 300px;
+		height: 175px;
+		border-radius: 5px;
+		overflow: hidden;
+		margin: auto;
+		/*background-image: var(--default-image);
+	    background-position: center; /* Optional for centering *
+	    background-size: cover;  /* Optional for better fit *
+	    background-repeat: no-repeat;*/
+		}
+	.mHtlImgBox img {
+		width: 300px;
+		height: 175px;
+		border-radius: 5px;
+		}
+	.mhotelTopSection {
+	    margin-bottom: 2px;
+		}
+	.mhotelFooter {
+		margin-bottom: 0;
+		}
+	.mHtlDesc {
+		margin-top: 10px;
+		display: flex;
+		flex-direction: column;
+		}
+	.mHtlDesc h4 {
+	    font-size: 16px;
+	    line-height: 18px;
+	    color: #001;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 5px;
+	    margin-right: 10px;
+		}
+	.mHotelType {
+	    display: inline-block;
+	    font-size: 12px;
+	    line-height: 12px;
+	    color: #fff;
+	    font-weight: 600;
+	    padding: 4px 6px;
+	    background-color: #6a11cb;
+	    border: 1px solid #707070;
+	    border-radius: 3px;
+	    text-transform: capitalize;
+	    margin-bottom: 5px;
+		}
+	.mHtlDescription {
+	    margin-top: 0;
+	    margin-bottom: 10px;
+		}
+	.mHtlStarRating img {
+	    width: 13px;
+	    margin-top: -5px;
+	    margin-right: 3px;
+		}
+	.mHtlStarRating img:last-child {
+	    margin-right: 0;
+		}
+	.mTourHtlDtls {
+		margin-top: 10px;
+		margin-bottom: 0;
+		}
+	.mTourHtlDtls:last-child {
+		margin-bottom: 0;
+		}
+	.mTourHtlDtls h4 {
+		font-size: 11px;
+		line-height: 12px;
+		color: #a1a1a1;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 2px;
+		margin-right: 0;
+		text-transform: uppercase;
+		}
+	.mTourHtlDtls h5 {
+		font-size: 12px;
+		line-height: 14px;
+		color: #001;
+		text-align: left;
+		margin: 0;
+		text-transform: capitalize;
+		}
+	.mhotelWebCont {
+	    display: flex;
+	    flex-direction: column;
+	    border-top: 1px solid #e7e7e7;
+	    padding-top: 15px;
+	    margin-top: 15px;
+		}
+	.mhotelRoomCont_heading, .mhotelWebCont_heading {
+	    font-size: 12px;
+	    line-height: 14px;
+	    color: #9B9B9B;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 1px;
+	    text-transform: uppercase;
+		}
+	.mhotelRoomCont_type, .mhotelWebCont_name {
+	    font-size: 14px;
+	    line-height: 16px;
+	    color: #4a4a4a;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 0;
+	    text-transform: lowercase;
+		}
+	.mUnlistedHotel {
+		display: inline-block;
+	    width: 100%;
+	    overflow-x: auto;
+		}
+	.mUnlistedHotel table {
+		border-collapse: collapse;
+	    border-spacing: 0;
+	    /*width: -webkit-fill-available !important;*/
+	    width: 100% !important; /* Works in all browsers */
+	    max-width: -webkit-fill-available; /* Use only where supported */
+		margin: 0 !important;
+		}
+	.mUnlistedHotel table tr {
+		height: 25px;
+		}
+	.mUnlistedHotel table tr td {
+		font-size: 14px;
+	    line-height: 22px;
+	    color: #001;
+	    text-align: center;
+	    padding: 5px 10px;
+	    border-color: #bfbfbf;
+	    height: 52px !important;
+		}
+	/*Mobile Tour Tabs-Accommodation Ends*/
+
+	/*Mobile Tour Tabs-Activity Starts*/
+	.mTourActCont {
+		display: inline-block;
+		border: 1px solid #e7e7e7;
+	    border-radius: 5px;
+	    padding: 15px 15px;
+		margin-bottom: 15px;
+		width: 100%;
+		}
+	.mTourActImgBox {
+		float: left;
+		width: 200px;
+		height: 175px;
+		overflow: hidden;
+		border-radius: 5px;
+		margin-right: 20px;
+		background-color: #f2f2f2;
+		}
+	.mTourActImgBox img {
+		width: 200px;
+		height: 175px;
+		}
+	.mTourActDesc {
+		position: relative;
+		}
+	.mTourActDesc h4 {
+	    font-size: 16px;
+	    line-height: 18px;
+	    color: #001;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 5px;
+		}
+	.mTourActDesc p {
+	    font-size: 14px;
+	    line-height: 23px;
+	    color: #001;
+	    text-align: left;
+	    margin-bottom: 0;
+		}
+	/*Mobile Tour Tabs-Activity Ends*/
+
+	/*Mobile Tour Tabs-Transfers Starts*/
+	.mtourQuoteTransferCont {
+		padding: 15px;
+		background-color: #fff;
+		margin-bottom: 10px;
+		}
+	.mtourQuoteTransferHead {
+		font-size: 16px;
+		line-height: 16px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 20px;
+		text-transform: uppercase;
+		}
+	.mTourTransBox {
+		margin: 0 0 20px;
+		}
+	.mTourTransBox:last-child {
+		margin-bottom: 0;
+		}
+	.mTourTransDescBox {
+		margin-top: 10px;
+		}
+	.mTourTransDtlsBox {
+	    border: 1px solid #e7e7e7;
+	    border-radius: 0 0 5px 5px;
+	    padding: 15px;
+	    border-top-color: transparent;
+	    background-color: #fff;
+		}
+	.mTourTransImgBox {
+		width: 300px;
+		height: 175px;
+		border-radius: 5px;
+		overflow: hidden;
+		margin: auto;
+		background-color: #f2f2f2;
+		background-image: var(--default-image);
+	    background-position: center; /* Optional for centering */
+	    background-size: cover; /* Optional for better fit */
+		}
+	.mTourTransImgBox img {
+		width: 100%;
+		height: 175px;
+		border-radius: 5px;
+		}
+	.mTourTransDescTopSection {
+		margin-bottom: 20px;
+		}
+	.mTourTransTitle {
+		font-size: 16px;
+		line-height: 17px;
+		color: #4A4A4A;
+		font-weight: 600;
+		margin-bottom: 10px;
+		}
+	.mtransferTitle {
+		font-size: 15px;
+		line-height: 15px;
+		color: #001;
+		text-align: left;
+		margin-bottom: 5px;
+		}
+	.mTourTransTransportType {
+		font-size: 20px;
+		line-height: 24px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 5px;
+		}
+	.mTourTransHead {
+		font-size: 11px;
+		line-height: 13px;
+		color: #9B9B9B;
+		font-weight: 600;
+		margin-bottom: 2px;
+		text-transform: uppercase;
+		}
+	.mTourTransSubHead {
+		font-size: 12px;
+		line-height: 14px;
+		color: #4a4a4a;
+		font-weight: 600;
+		margin-bottom: 0;
+		}
+	.mTourTransVehicleCont, .mtransferDurationCont {
+		margin-right: 0;
+		}
+	/*Mobile Tour Tabs-Transfers Ends*/
+
+	/*Mobile Tour Price Bottom Bar Starts*/
+	.mPriceBarCont {
+		width: 100%;
+		height: 60px;
+		background-color: #001;
+		bottom: 0;
+		position: fixed;
+		z-index:1;
+		}
+	.mPriceBarBox {
+		padding: 10px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+		}
+	.mPriceBarSepr {
+		border-left: 1px solid #fff;
+		height: 35px;
+		/*margin-left: -5%;*/
+		position: absolute;
+		left: -20px;
+		}
+	.mItemPriceBox {
+	    display: flex;
+	    flex-direction: row;
+	    align-items: baseline;
+	    flex-wrap: wrap;
+		}
+	.mTourPriceBarCurrency {
+	    font-size: 16px;
+		}
+	.mItemPriceTag_OnRequest {
+		color: #fff;
+		font-size: 16px;
+		line-height: 18px;
+		margin-bottom: 0;
+		text-align: center;
+		}
+	.mTourItemPriceValue {
+		color: #fff;
+		font-size: 18px;
+		line-height: 22px;
+		font-weight: 600;
+		margin-bottom: 0;
+		text-align: right;
+		}
+	.mTourItemPriceType {
+		font-size: 10px;
+		line-height: 12px;
+		color: #9b9b9b;
+		text-align: right;
+		margin-bottom: 0px;
+		margin-left: 5px;
+		}
+	.mSideItemBoxTop {
+		padding: 0;
+		position: relative;
+		display: flex;
+	    flex-direction: column;
+	    align-items: baseline;
+	    flex-wrap: wrap;
+		}
+	.mSlashedPrice {
+		font-size: 12px;
+		line-height: 16px;
+		color: #9b9b9b;
+		text-decoration: line-through;
+		}
+	.mPriceTag {
+		font-size: 12px;
+		line-height: 14px;
+		color: #fff;
+		text-transform: lowercase;
+		}
+	.mPriceTag_OnRequest {
+		font-size: 18px;
+		line-height: 20px;
+		color: #fff;
+		text-transform: capitalize;
+		}
+	.mActualPrice {
+		font-size: 18px;
+		line-height: 20px;
+		font-weight: 900;
+		}
+	.mPriceSubTag {
+		font-size: 10px;
+		line-height: 12px;
+		color: #9b9b9b;
+		}
+	.mPkgOfferTag {
+	    border-radius: 2px;
+	    background: linear-gradient(247deg, #ff3e5e, #ff6d3f);
+	    padding: 3px;
+	    font-size: 10px;
+	    line-height: 10px;
+	    color: #fff;
+	    position: absolute;
+	    right: 0;
+	    top: 0;
+	    text-transform: uppercase;
+		}
+	.mBookBtnBox {
+		padding: 2px;
+		position: relative;
+		}
+	/*Mobile Tour Price Bottom Bar Ends*/
+
+	/*Mobile Tour Enquiry Starts*/
+	/* The Modal (background) */
+	.modal {
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 1111; /* Sit on top */
+		padding-top: 0; /* Location of the box */
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 100%; /* Full width */
+		height: 100%; /* Full height */
+		overflow-y: auto; /* Enable scroll if needed */
+		background-color: rgb(0,0,0); /* Fallback color */
+		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		-webkit-overflow-scrolling: touch
+		outline: 0;
+		}
+	.m_enq_modalContent {
+		position: relative;
+		background-color: #fefefe;
+		margin: auto;
+		padding: 0;
+		border: 1px solid #888;
+		/*width: 80%;*/
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+		-webkit-animation-name: animatetop;
+		-webkit-animation-duration: 0.4s;
+		animation-name: animatetop;
+		animation-duration: 0.4s
+		}
+	.m_enq_modalContent_size {
+		width: 100%;
+		border: none;
+		}
+	.enq_modalContent_size {
+		max-width: 100%;
+		margin: 13px auto 0;
+		border-radius: 5px;
+		overflow: hidden;
+		}
+	/* Add Animation */
+	@-webkit-keyframes animatetop {
+		from {top:-300px; opacity:0}
+		to {top:0; opacity:1}
+	}
+
+	@keyframes animatetop {
+		from {top:-300px; opacity:0}
+		to {top:0; opacity:1}
+	}
+	/* The Close Button */
+	.close {
+		color: white;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+		}
+	.close:hover,.close:focus {
+		color: #001;
+		text-decoration: none;
+		cursor: pointer;
+		}
+	/*Modal Ends*/
+
+	/*Main Enquiry*/
+	.m_enq_modalBody {
+		position: relative;
+		padding: 15px 15px 25px;
+		}
+	.enq_leftSection {
+		flex-grow: 1;
+		flex-shrink: 1;
+		overflow: hidden;
+		}
+	.enq_rightSection {
+		display: none;
+		}
+	.selectArrow:before {
+		font-family: FontAwesome;
+		content: '\f107';
+		color: #4a4a4a;
+		float: right;
+		font-size: 22px;
+		font-weight: 400;
+		position: relative;
+		top: 32px;
+		right: 15px;
+		z-index: 1;
+		pointer-events: none;
+		}
+	.m_enq_modalHeader {
+		padding: 10px 20px;
+		background-color: #fff;
+		color: #fff;
+		border-bottom: 1px solid #e5e5e5;
+		border-radius: 5px 5px 0 0;
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		}
+	.m_enq_modalHeader h3 {
+	    font-size: 22px;
+		line-height: 24px;
+	    font-weight: 600;
+	    color: #001;
+		text-align: left;
+		margin-bottom: 5px;
+		}
+	.m_enq_modalHeader h4, .ModalTitleDaysBadge {
+		font-size: 13px;
+	    line-height: 15px;
+		font-weight: 400;
+	    color: #001;
+		text-align: left;
+		margin-bottom: 0;
+		display: inline-block;
+	    padding: 5px 7px;
+	    border-radius: 5px;
+	    background-color: #f2f2f2;
+		}
+	.btnCloseModal {
+	    flex-shrink: 0;
+	    outline: 0;
+	    text-transform: uppercase;
+	    background-color: #fff;
+	    border: 0;
+	    padding: 0;
+	    font-size: 12px;
+	    line-height: 12px;
+	    color: #848889;
+	    font-weight: 700;
+	    cursor: pointer;
+	    text-align: center;
+		text-shadow: 0 1px 0 #fff;
+	    opacity: .2;
+		-webkit-appearance: none;
+		height: auto;
+		}
+	.btnCloseModal:hover {
+		background-color: #fff;
+		color: #4a4a4a;
+		opacity: .4;
+		}
+	.mGuestCont {
+		display: flex;
+		flex-direction: column;
+		align-items: baseline;
+		margin-bottom: 15px;
+		margin-top: 5px;
+		}
+	.m_cursor {
+		cursor: default;
+		}
+	.mAcceptTerms {
+		margin-top: 8px;
+		display: flex;
+        align-items: center;
+        }
+	/*.mAcceptTerms input[type=checkbox] {
+		position: relative;
+		top: 2px;
+		margin: 0;
+		width: 14px;
+		height:14px;
+		flex-shrink: 0;
+		}*/
+	.mAcceptTerms h5 {
+		font-size: 13px;
+	    line-height: 16px;
+	    color: #001;
+	    margin-left: 5px;
+	    margin-top: 0;
+		margin-bottom: 0;
+		}
+	.mAcceptTermsStatement {
+		font-size: 13px;
+	    line-height: 16px;
+	    color: #001;
+	    margin-left: 5px;
+		margin-bottom: 0;
+		}
+	.m_enq_modalFooter {
+		padding: 0 0 30px;
+		background-color: #fff;
+		display: flex;
+		justify-content: center;
+		}
+	.mBtnSubmitEnq {
+		flex-shrink: 0;
+		outline: 0;
+		text-transform: none;
+		background-color: #01b7f2;
+		border: 0;
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+	    border-radius: 35px;
+		padding: 12px;
+	    font-size: 17px;
+		line-height: 17px;
+		color: #fff;
+		font-weight: 900;
+		cursor: pointer;
+		width: 225px;
+		white-space: nowrap;
+	    vertical-align: middle;
+	    -ms-touch-action: manipulation;
+	    touch-action: manipulation;
+	    -webkit-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    background-image: none;
+		letter-spacing: 0.64px;
+		margin-bottom: 0;
+		text-align: center;
+		height: auto;
+		}
+
+	.mBtnQuery {
+	    outline: 0;
+	    text-transform: capitalize;
+	    background-color: #08B2ED;
+	    border: 1px solid #08B2ED;
+	    border-radius: 20px;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 16px;
+	    color: #fff;
+	    font-weight: 900;
+	    cursor: default;
+		width: 120px;
+		height: 36px;
+	    text-align: center;
+		white-space: nowrap;
+	    vertical-align: middle;
+	    -ms-touch-action: manipulation;
+	    touch-action: manipulation;
+	    -webkit-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    background-image: none;
+		letter-spacing: 0.64px;
+		margin-bottom: 0;
+		}
+	.mBtnQuery:hover {
+		background-color: #08B2ED;
+		color: #fff;
+		}
+}
+/*Mobile Tour Enquiry Ends*/
+/*Mobile Page-3 Ends*/
+
+/**************************/
+
+/*Desktop Page-3 Starts*/
+@media (min-width: 992px) {
+	.dBGColor {
+		background-color: #fff;	
+		}
+	.dPageContainer {
+		max-width: 1200px;
+		}
+	.dPageContainer {
+		padding-left: 13px;
+		padding-right: 13px;
+		margin-left: auto;
+		margin-right: auto;
+		}
+
+	/*Desktop Tour Update Panel Starts*/
+	.dDatePanelCont {
+		padding: 10px 0;
+		background-color: #0a223d;
+		/*background-size: 100% 94px;*/
+		}
+	.dPageContainer {
+		max-width: 1200px;
+		}
+	.dPageContainer {
+		padding-left: 13px;
+		padding-right: 13px;
+		margin-left: auto;
+		margin-right: auto;
+		}
+	.dSearchInputBox {
+		padding: 5px 10px;
+		border: 1px solid #7d7d7d;
+		border-radius: 5px;
+		flex-grow: 1;
+		flex-shrink: 1;
+		margin-right: 5px;
+		height: 50px;
+		}
+	.dSearchInputBox:last-child {
+		margin-right: 0;
+		}
+	.tourCityBox_update {
+		max-width: 450px;
+		}
+	.tourDateBox_update {
+		max-width: 300px;
+		min-width: 200px;
+		}
+	.themeBox_update {
+		max-width: 300px;
+		min-width: 200px;
+		}
+	.dSearchInputBox input, .dSearchInputBox select {
+		border: 0;
+	    outline: 0;
+	    background-color: transparent;
+	    cursor: default;
+		padding: 0;
+		text-transform: capitalize;
+		font-size: 16px;
+		line-height: 18px;
+		color: #fff;
+		width: 100%;
+		height: auto;
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		}
+	.dSearchInputBox select option {
+		color: #4a4a4a;
+		font-size: 15px;
+		line-height: 16px;
+		padding: 3px 10px;
+		}
+	.dSearchInputBox label {
+		/*display: block;*/
+		color: #37b2ed;
+		margin-right: 0;
+		margin-bottom: 5px;
+		font-size: 12px;
+		line-height: 12px;
+		font-weight: 600;
+		letter-spacing: .64px;
+		text-transform: uppercase;
+		user-select: none;
+		}
+	.dSearchInputArrow:before {
+		font-family: FontAwesome;
+		content: '\f107';
+		color: #37b2ed;
+		float: right;
+		font-size: 26px;
+		position: relative;
+		top: 21px;
+		right: 10px;
+		pointer-events: none;
+		}
+	.btnSearchUpdate {
+	    flex-shrink: 0;
+	    outline: 0;
+	    text-transform: uppercase;
+	    background-color: #01b7f2;
+	    border: 0;
+	    border-radius: 35px;
+	    padding: 12px;
+	    font-size: 17px;
+	    line-height: 20px;
+	    color: #fff;
+	    font-weight: 700;
+	    cursor: pointer;
+	    max-width: 150px;
+		height: 44px;
+		white-space: nowrap;
+	    vertical-align: middle;
+	    -ms-touch-action: manipulation;
+	    touch-action: manipulation;
+	    -webkit-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    background-image: none;
+		letter-spacing: 0.64px;
+		margin-bottom: 0;
+		margin-left: 15px;
+		text-align: center;
+		}
+	.btnSearchUpdate:hover {
+		background-color: #08B2ED;
+		color: #fff;
+		}
+	/*Desktop Tour Update Panel Ends*/
+
+	/*Desktop Tour Name Starts*/
+	.dTourDtlsCont {
+		margin-top: 10px;
+		}
+	.dTourNameCont {
+		margin-bottom: 15px;
+		/*width: 850px;*/
+	    display: flex;
+	    flex-direction: column;
+		flex-wrap: wrap;
+		flex-grow: 1;
+		}
+	.dTourNameWrapper {
+		margin-bottom: 8px;
+		}
+	.dTourNameWrapper h3 {
+		font-size: 29px;
+		line-height: 32px;
+		color: #001;
+		font-weight: 600;
+		margin-bottom: 5px;
+		}
+	.dHotel-star-rating {
+		display: inline-block;
+		margin-bottom: 10px;
+		}
+	.dStart_checked {
+		color: #FDB714 !important;
+		font-size: 14px;
+		line-height: 24px;
+		width: 16px;
+		}
+	.fa-star:before {
+		content: "\f005";
+		}
+	.dTourDescCont {
+		display: flex;
+	    align-items: center;
+	    }
+	.dTourDuration {
+	    font-size: 12px;
+	    line-height: 15px;
+	    color: #fff;
+	    font-weight: 600;
+	    text-align: center;
+	    border-radius: 3px;
+	    background-color: #26b5a9;
+	    display: inline-block;
+	    padding: 3px 5px;
+	    margin-right: 7px;
+		}
+	.dHolidayType {
+		font-size: 12px;
+		line-height: 15px;
+		color: #fff;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 0;
+		border-radius: 3px;
+		background-color: #001;
+		display: inline-block;
+		padding: 3px 5px;
+		text-transform: capitalize;
+		margin-left: 5px;
+		}
+	.dTourPlaceWrapper {
+		margin-top: 5px;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		}
+	.dTourPlaceDuration {
+		color: #eb2025;
+		font-size: 16px;
+		line-height: 22px;
+		font-weight: 700;
+		}
+	.dTourCityName {
+		font-size: 16px;
+		line-height: 22px;
+	    font-weight: 900;
+		color: #001;
+	    display: flex;
+	    flex-wrap: wrap;
+		}
+	.dDot:before {
+	    content: "•";
+	    color: #08b2ed;
+	    /* text-shadow: #b83b3b 0 0 5px; */
+	    margin: 0 15px;
+		}
+	/*Desktop Tour Name Ends*/
+
+	/*Desktop Tour Left-Right Container Starts*/
+	.dLeftContainer {
+		min-width: 650px;
+		max-width: 860px;
+		margin-right: 30px;
+		flex: 1;
+		}
+	.dRightContainer {
+		min-width: 300px;
+		max-width: 310px;
+		flex: 1;
+		}
+	/*Desktop Tour Left-Right Container Ends*/
+
+	/*Desktop Tour Image Starts*/
+	.dTourImgCont {
+		display: flex;
+		margin-bottom: 20px;
+		position: relative;
+		width: 100%;
+		}
+	.dTourImgBox {
+		background-color: #f2f2f2;
+	    /*width: 520px;*/
+		width: 60%;
+		height: 275px;
+		overflow: hidden;
+	    margin: 0;
+		border-radius: 4px;
+		position: relative;
+		background-image: var(--default-image);
+	    background-position: center; /* Optional for centering */
+	    background-size: cover; /* Optional for better fit */
+		background-repeat: no-repeat;
+		}
+	.dTourImgBox img {
+	    width: 100%;
+	    height: 275px;
+		}
+	.dTheme_position {
+	    position: absolute;
+	    z-index: 11;
+	    right: 10px;
+		top: 15px;
+		}
+	.dTheme_position ul {
+		list-style: none;
+		margin: 0;
+		display: flex;
+		}
+	.dTheme_position ul li {
+		font-size: 13px;
+		line-height: 15px;
+		color: #fff;
+		text-align: center;
+	    padding: 4px 8px;
+	    border-radius: 20px;
+	    background-color: #101010c2;
+	    margin-right: 5px;
+		}
+	.dTheme_position ul li:last-child {
+	    margin-right: 0;
+		}
+	.dTourImgBoxTwo {
+		background-color: #f2f2f2;
+	    /*width: 420px;*/
+		width: 40%;
+		height: 275px;
+		overflow: hidden;
+	    margin: 0;
+		border-radius: 4px;
+		position: relative;
+		margin-left: 5px;
+		background-image: var(--default-image);
+	    background-position: center; /* Optional for centering */
+	    background-size: cover; /* Optional for better fit */
+		background-repeat: no-repeat;
+		}
+	.dTourImgBoxTwo img {
+	    width: 100%;
+	    height: 275px;
+		}
+	.dView_gallery {
+		position: absolute;
+		bottom: 10px;
+		left: 15px;
+		font-size: 12px;
+		line-height: 12px;
+		color: #fff;
+		font-weight: 800;
+		text-transform: uppercase;
+		background-color: rgba(0,0,0,.8);
+		height: auto;
+		padding: 5px 13px;
+		border-radius: 13px;
+		border: 1px solid rgba(255,255,255,.6);
+		white-space: nowrap;
+		cursor: pointer;
+		}
+	/*Desktop Tour Image Ends*/
+
+	/*Desktop Service Inclusions Starts*/
+	.dTourSvcCont {
+		margin-bottom: 15px;
+		}
+	.dTourSvcTtlBox h5 {
+		font-size: 14px;
+		line-height: 16px;
+		font-weight: 600;
+		color: #4a4a4a;
+		margin-bottom: 20px;
+		}
+	.dServiceScroll {
+		display: flex;
+		align-items: center;
+		overflow-x: auto;
+		}
+	.dTourSvcItemIconBox {
+	    margin-right: 25px;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+		}
+	.dTourSvcItemImgBox {
+	    margin-bottom: 5px;
+	    flex-shrink: 0;
+		}
+	.dTourSvcItemImgBox img {
+	    width: 26px;
+	    height: 26px;
+	    flex-shrink: 0;
+	    vertical-align: middle;
+	    border: 0;
+	    pointer-events: none !important;
+		}
+	.dTourSvcItemIconName {
+	    font-size: 12px;
+	    line-height: 16px;
+	    color: #001;
+	    text-align: center;
+		}
+	.dTourDescriptionCont {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+	    border-top: 1px solid #e7e7e7;
+	    border-bottom: 1px solid #e7e7e7;
+		}
+	.dTourDescriptionCont p {
+		font-size: 13px;
+		line-height: 22px;
+		color: #001;
+		text-align: justify;
+		max-height: 111px;
+		overflow-y: auto;
+		-ms-overflow-style: auto;
+		scrollbar-width: auto;
+		user-select: none;
+		margin: 0;
+		padding-right: 10px;
+		}
+	.dTourDescriptionCont ul {
+		list-style: inside;
+		}
+	.dTourDescriptionCont ul li {
+		font-size: 14px;
+		line-height: 26px;
+		color: #001;
+		}
+	.dTourSeparator {
+		border-top: 2px solid #e7e7e7
+		}
+	/*Desktop Service Inclusions Ends*/
+
+	/*Desktop Tour Tabs Common Starts*/
+	.dTourPkgDesc {
+		padding: 0;
+		padding-top: 25px;
+		padding-bottom: 30px;
+		}
+	.dTourDesc {
+		margin-bottom: 15px;
+		padding-bottom: 0;
+		}
+	.dTourHgLhts {
+		/*margin-top: 15px;
+		margin-bottom: 15px;
+		padding-bottom: 10px;*/
+		border-bottom: 5px solid #f2f2f2;
+		}
+	.dTourHgLhts:last-child {
+		border-bottom: none;
+		}
+	.dTourDesc h2, .dTourHgLhts h2 {
+		font-size: 20px;
+		line-height: 22px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 20px;
+		}
+	.dTourDesc p, .dTourHgLhts p {
+		font-size: 14px;
+		line-height: 22px;
+		color: #001;
+		margin-bottom: 0;
+		}
+	.dTourHgLhts ul {
+		list-style: inside;
+		margin-left: 15px;
+		}
+	.dTourHgLhts ul li {
+		font-size: 13px;
+		line-height: 22px;
+		color: #001;
+		}
+	/*Collapsible Starts*/
+	.collapsible-container {
+		margin-top: 20px;
+		}
+	.collapsible-item {
+		background-color: #fff;
+		cursor: pointer;
+		padding: 13px 15px;
+		width: 100%;
+		outline: none;
+		border-bottom: 1px solid #e1e1e1;
+		margin-bottom: 0;
+		font-size: 16px;
+		line-height: 20px;
+		}
+	.dItem-box {
+		border: 1px solid #e1e1e1;
+		border-radius: 5px;
+		color: #001;
+		}
+	.dItem-box.active {
+		border-radius: 5px 5px 0 0;
+		background-color: #f1f1f1;
+		}
+	.dItem-arrow:after {
+		font-family: FontAwesome;
+		content: '\f106';
+		color: #08b2ed;
+		float: right;
+		font-size: 28px;
+		}
+	.dItem-arrow.active:after {
+		content: '\f107';
+		}
+	.collapsible-item-content {
+		padding: 0;
+		display: none;
+		overflow: hidden;
+		background-color: #fff;
+		transition: max-height 1s ease-out;
+		}
+	.collapsible-item-sub-content {
+		padding: 0 18px;
+		display: none;
+		overflow: hidden;
+		background-color: #fff;
+		transition: max-height 0.2s ease-out;
+		}
+	/*Collapsible Ends*/
+	/*Desktop Tour Tabs Common Ends*/
+
+	/*Desktop Tour Tabs Starts*/
+	.tab-container {
+	  background-color: #fff;
+	  }
+	.dMainTabCont {
+	  position: sticky;
+	  position: -webkit-sticky;
+	  z-index: 1;
+	  top: 0;
+	  /*background-color: #eaf5ff;*/
+	  background-color: #fff;
+	  margin: 0;
+	  border-bottom: 1px solid #d9d9d9;
+	  }
+	.dMainTabButton {
+	  display: flex;
+	  align-items: center;
+	  }
+	.dMainTabButton li {
+	  display: block;
+	  background-color: #fff;
+	  padding: 20px 23px;
+	  margin: 0;
+	  font-size: 16px;
+	  line-height: 18px;
+	  color: #4a4a4a;
+	  font-weight: 600;
+	  transition-duration: 0s;
+	  text-transform: uppercase;
+	  cursor: pointer;
+	  border-bottom: 4px solid transparent;
+	  }
+	.dMainTabButton li.active {
+	  color: #001;
+	  border-bottom: 4px solid #08b2ed;
+	  }
+	.tab-content {
+	  /*padding: 20px;*/
+	  }
+	.tab {
+	  display: none;
+	  }
+	.tab.active {
+	  display: block;
+	  }
+	.dSubTabCont {
+	  padding: 15px 0;
+	  background-color: #eaf5ff;
+	  margin: 0;
+	  position: sticky;
+	  position: -webkit-sticky;
+	  z-index: 1;
+	  top: 63px;
+	  margin-top: 10px;
+	  border-radius: 5px;
+	  }
+	.sub-tab-button {
+	  /*background-color: #e0e0e0;*/
+	  padding: 10px 20px;
+	  }
+	.dSubTabButton {
+	  margin-left: 20px;
+	  column-gap: 20px;
+	  }
+	.dSubTabButton li {
+	  font-size: 14px;
+	  line-height: 16px;
+	  color: #4a4a4a;
+	  font-weight: 600;
+	  padding: 10px 15px;
+	  display: block;
+	  text-transform: uppercase;
+	  border: 1px solid transparent;
+	  border-radius: 20px;
+	  outline: none;
+	  cursor: pointer;
+	  }
+	.dSubTabButton li.active {
+	  background-color: #fff;
+	  color: #08b2ed;
+	  border-color: #08b2ed;
+	  }
+	.sub-tab-content {
+	  padding: 0;
+	  }
+	.sub-tab {
+	  display: none;
+	  }
+	.sub-tab.active {
+	  display: block;
+	  }
+	 /*Desktop Tour Tabs Ends*/
+
+	/*Desktop Tour Tabs-Inclusions Starts*/
+	.dTourInclusions {
+		margin-top: 25px;
+		margin-bottom: 15px;
+		padding-bottom: 20px;
+		border-bottom: 5px solid #f5f5f5;
+		}
+	.dTourInclusions:first-child {
+		margin-top: 0;
+		}
+	.dTourInclusions:last-child {
+		border-bottom: none;
+		margin-bottom: 0;
+		padding-bottom: 0;
+		}
+	.dTourInclusions h2 {
+		font-size: 20px;
+		line-height: 22px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 10px;
+		}
+	.dTourInclusions p {
+		font-size: 14px;
+		line-height: 22px;
+		color: #001;
+		margin-bottom: 0;
+		}
+	.dTourInclusions ul {
+		list-style: inside;
+		margin-left: 15px;
+		}
+	.dTourInclusions ul li {
+		font-size: 13px;
+		line-height: 22px;
+		color: #001;
+		}
+	/*Desktop Tour Tabs-Inclusions Ends*/
+
+	/*Desktop Tour Tabs-Visa Starts*/
+	.dVisaBox {
+		/*display: block;*/
+		}
+	.dVisaBox ul {
+		margin-top: 10px;
+		border-bottom: 1px solid #ccc;
+	    padding-bottom: 15px;
+		}
+	.dVisaBox ul:last-child {
+		border-color: transparent;
+		}
+	/*Desktop Tour Tabs-Visa Ends*/
+
+	/*Desktop Tour Tabs-Policy Starts*/
+	.dTourPolicy {
+		/*padding: 0 !important;
+		padding-bottom: 20px;
+		margin-bottom: 15px;*/
+		margin-top: 15px;
+		border-bottom: 5px solid #f2f2f2;
+		}
+	.dTourPolicy:first-child {
+		margin-top: 0;
+		}
+	.dTourPolicy:last-child {
+		border-bottom: none;
+		}
+	.dTourDesc h2, .dTourPolicy h2 {
+		font-size: 20px;
+		line-height: 22px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 10px;
+		}
+	.dTourDesc p, .dTourPolicy p {
+		font-size: 14px;
+		line-height: 22px;
+		color: #001;
+		margin-bottom: 0;
+		}
+	.dTourPolicy ul {
+		list-style: inside;
+		margin-left: 15px;
+		}
+	.dTourPolicy ul li {
+		font-size: 13px;
+		line-height: 22px;
+		color: #001;
+		}
+	/*Desktop Tour Tabs-Policy Ends*/
+
+	/*Desktop Tour Tabs-Destination Starts*/
+	.dDest-content-box {
+	    border: 1px solid #e7e7e7;
+	    border-radius: 0 0 5px 5px;
+	    padding: 15px 20px;
+	    border-top-color: transparent;
+	    background-color: #fff;
+		}
+	.dDest-content-box-overview {
+	    margin-top: 0;
+		}
+	.dDest-content-box-overview h3 {
+	    font-size: 16px;
+	    line-height: 18px;
+	    color: #001;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 5px;
+	    user-select: none;
+		}
+	.dDest-content-box-overview p {
+		font-size: 13px;
+		line-height: 22px;
+		color: #001;
+		margin-bottom: 0;
+		user-select: none;
+		}
+	.dDest-content-box-best-time {
+	    margin-top: 20px;
+		}
+	.dDest-content-box-best-time h3 {
+	    font-size: 16px;
+	    line-height: 18px;
+	    color: #001;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 5px;
+	    user-select: none;
+		}
+	.dDest-content-box-best-time p {
+		font-size: 14px;
+		line-height: 22px;
+		color: #001;
+		margin-bottom: 0;
+		user-select: none;
+		}
+	/*Desktop Tour Tabs-Destination Ends*/
+
+	/*Desktop Tour Tabs-Similar Tour Starts*/
+	.dSimilarTourCont {
+		flex-shrink: 0;
+	    position: relative;
+	    width: 270px;
+	    border: 1px solid #e9e9e9;
+	    border-radius: 5px;
+	    overflow: hidden;
+	    box-shadow: 0px 2px 10px rgb(0 0 0 / 5%);
+	    margin-bottom: 10px;
+	    margin-right: 20px;
+		}
+	.dSimilarTourCont:last-child {
+	    margin-right: 0;
+		}
+	.dSimilarTourCont a {
+	    cursor: pointer;
+	    color: #001;
+		}
+	.dSimilarItemCont {
+	    background-color: #fff;
+	    position: relative;
+		}
+	.dSimilarItemImgBox {
+	    position: relative;
+	    background-color: #f2f2f2;
+	    width: 270px;
+	    height: 175px;
+	    overflow: hidden;
+		}
+	.dSimilarItemImgBox img {
+	    width: 270px;
+	    height: 175px;
+		}
+	.dSimilarItemDesc {
+	    background-color: #fff;
+	    padding: 0 10px 20px;
+	    position: relative;
+		}
+	.dSimilarItemDaysBadge {
+	    position: relative;
+	    top: -10px;
+	    border-radius: 20px;
+	    padding: 5px 13px;
+	    display: inline-block;
+	    font-size: 12px;
+	    line-height: 12px;
+	    color: #fff;
+	    background-color: #001;
+	    font-weight: 700;
+		}
+	.dSimilarItemDescHeadSection {
+	    display: flex;
+	    align-items: flex-start;
+	    justify-content: space-between;
+		}
+	.dSimilarItemDescHeadingBox {
+	    width: 100%;
+		}
+	.dSimilarItemDescHeading {
+	    color: #001;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    font-size: 16px;
+	    line-height: 18px;
+	    margin: 0;
+		}
+	.dSimilarItemDescPriceSection {
+		margin-top: 10px;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: end;
+		}
+	.priceRequest {
+		font-size: 14px;
+		line-height: 20px;
+		color: #001;
+		text-align: right;
+		}
+	.priceValue {
+		font-size: 18px;
+		line-height: 20px;
+		color: #001;
+		font-weight: 600;
+		text-align: right;
+		}
+	.dTourSimilarCurrency {
+	    font-size: 14px;
+		}
+	.priceType {
+		font-size: 9px;
+		line-height: 10px;
+		color: #a1a1a1;
+		text-align: right;
+		text-transform: capitalize;
+		}
+	.dSimilarItemDuration {
+		margin: 10px 0;
+		border-top: 1px solid #e7e7e7;
+		border-bottom: 1px solid #e7e7e7;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		}
+	.ditemDestDuration {
+	    color: #eb2025;
+	    font-size: 12px;
+	    line-height: 20px;
+	    font-weight: 700;
+		}
+	.ditemDestName {
+	    font-size: 12px;
+	    line-height: 20px;
+	    font-weight: 900;
+	    color: #001;
+		}
+	.ditemDestSepr {
+		line-height: 18px;
+		}
+	.dSimilarItemFooter {
+	    display: flex;
+	    flex-direction: column;
+	    padding-bottom: 10px;
+	    margin-top: 10px;
+		}
+	.dSimilarItemFooterServiceIconsCont {
+	    display: flex;
+	    flex-direction: column;
+	    padding-bottom: 10px;
+		}
+	.ditemServiceTitle {
+	    color: #4A4A4A;
+	    font-size: 12px;
+	    line-height: 14px;
+	    margin-bottom: 15px;
+		}
+	.ditemServicIconScroll {
+	    display: flex;
+	    overflow-x: auto;
+		}
+	.ditemSvcCont {
+	    margin-right: 14px;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+		}
+	.ditemSvcCont:last-child {
+	    margin-right: 0;
+		}
+	.ditemSvcIconBox {
+	    width: 22px;
+	    height: 22px;
+	    background-color: #fff;
+	    margin-bottom: 3px;
+		}
+	.ditemSvcIconBox img {
+	    width: 22px;
+	    height: 22px;
+		}
+	.ditemSvcIconName {
+	    font-size: 11px;
+	    line-height: 14px;
+	    color: #001;
+		}
+	.dBtnCont {
+		background-color: #fff;
+		}
+	.btnViewDtls_Desktop {
+	    outline: 0;
+	    text-transform: capitalize;
+	    background-color: #fff;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+	    padding: 0 10px;
+	    font-size: 14px;
+	    line-height: 14px;
+	    color: #4a4a4a;
+	    font-weight: 700;
+	    text-align: center;
+	    width: 100%;
+	    height: 34px;
+	    cursor: default;
+		}
+	.btnViewDtls_Desktop:hover {
+		background-color: #fff;
+		color: #4a4a4a;
+		}
+	.dStarRating_wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 10px;
+		}
+	.dStarRating_wrapper h3 {
+		font-size: 12px;
+		line-height: 14px;
+		color: #001;
+		}
+	.dStar_rating {
+		display: inline-block;
+		}
+	.dStar_rating img {
+		width: 12px;
+		height: 12px;
+		}
+	/*Desktop Tour Tabs-Similar Tour Ends*/
+
+	/*Desktop Tour Tabs-Price Calendar Starts*/
+	.dCalendrCont {
+		background-color: #fff;
+		padding-bottom: 20px;
+		}
+	.dCalendrPref {
+		padding: 20px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: right;
+		}
+	.dCalendrPref label {
+	    font-size: 13px;
+	    line-height: 15px;
+	    color: #4a4a4a !important;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 0;
+	    margin-right: 10px;
+		}
+	.dCalendrPref select {
+	    padding: 2px 6px;
+	    border-radius: 5px;
+	    border: 1px solid #e7e7e7;
+	    font-size: 14px;
+	    line-height: 14px;
+	    color: #001;
+	    background-color: #f9f9f9;
+	    height: 35px;
+	    min-width: 150px;
+	    flex-shrink: 0;
+		}
+	.dCalendrBox {
+		position: relative;
+		}
+	/*Calendar css*/
+	.fc-center {
+	    position: absolute;
+	    top: 40px;
+	    left: 0;
+	    right: 0;
+		}
+	.fc-toolbar h2 {
+	    margin: 0;
+	    font-size: 18px;
+	    line-height: 20px;
+	    float: none !important;
+		}
+	.fc-view-container {
+	    top: 40px;
+	    position: relative;
+	    padding-bottom: 20px;
+		}
+	.fc-content {
+	    text-align: center;
+		}
+	.price_data {
+	    font-size: 14px;
+	    line-height: 21px;
+	    margin-left: 10px;
+	    margin-right: 10px;
+		}
+	.query_data .price_s {
+	    display: none;
+		}
+	.query_data {
+	    font-size: 11px;
+	    line-height: 18px;
+	    margin-left: 10px;
+	    margin-right: 10px;
+		}
+	/*Desktop Tour Tabs-Price Calendar Ends*/
+
+	/*Desktop Tour Tabs-Day Plan Starts*/
+	.dDayPlanBox {
+		margin-bottom: 20px;
+	    margin-top: 20px;
+	    padding-bottom: 15px;
+	    border-bottom: 5px solid #f5f5f5;
+		}
+	.dDayPlanBox:last-child {
+	    border-bottom: none;
+	    margin-bottom: 0;
+	    padding-bottom: 0;
+		}
+	.dDayPlan {
+	    border-left: 2px solid green;
+	    padding-left: 10px;
+		}
+	.dDayPlan h3 {
+		font-size: 17px;
+		line-height: 20px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 2px;
+		}
+	.dDayPlan h4 {
+		font-size: 15px;
+		line-height: 18px;
+		color: #001;
+		margin-bottom: 0;
+		}
+	.dDayDesc {
+	    border-top: 1px solid #e7e7e7;
+	    padding-top: 10px;
+	    margin-top: 10px;
+		margin-bottom: 0;
+		}
+	.dDayDesc p {
+		font-size: 13px;
+		line-height: 22px;
+		color: #001;
+		text-align: justify;
+		margin-bottom: 10px;
+		}
+	.dMealPlan {
+		padding-top: 10px;
+		}
+	.dMealPlan h3 {
+		text-transform: uppercase;
+		font-size: 12px;
+		line-height: 12px;
+		color: #a1a1a1;
+		font-weight: 600;
+		text-align: right;
+		margin-bottom: 3px;
+		}
+	.dMealPlan h4 {
+		font-size: 12px;
+		line-height: 16px;
+		color: #001;
+		text-align: right;
+		margin-top: 0;
+		margin-bottom: 0;
+		}
+	.dTourActivity {
+		padding-top: 10px;
+		}
+	.dTourActivity h3 {
+		text-transform: uppercase;
+		font-size: 12px;
+		line-height: 12px;
+		color: #a1a1a1;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 3px;
+		}
+	.dTourActivity h4 {
+		font-size: 14px;
+		line-height: 16px;
+		color: #001;
+		text-align: right;
+		margin-bottom: 0;
+		border-right: 1px solid #a1a1a1;
+	    margin-right: 10px;
+		}
+	.dTourActivity h4:last-child {	
+		border-right: 0;
+	    margin-right: 0;
+		}
+	/*Desktop Tour Tabs-Day Plan Ends*/
+
+	/*Desktop Tour Tabs-Flights Starts*/
+	.dTourFlightsCont {
+	    padding: 0;
+		}
+	.dTourFlightsCont h2 {
+	    font-size: 20px;
+	    line-height: 22px;
+	    color: #001;
+	    font-weight: 600;
+	    margin-bottom: 10px;
+		}
+	.dTourFlightBox {
+	    margin-bottom: 5px;
+	    padding: 15px 0;
+		}
+	.dTourFlightBox:last-child {
+	    margin-bottom: 0;
+		}
+	.dOnwardFlightBox, .dReturnFlightBox {
+	    border: 1px solid #ccc;
+	    padding: 15px 15px 25px;
+	    border-radius: 5px;
+	    background-color: #F9F9F9;
+		}
+	.dFlightCityName {
+	    font-size: 16px;
+	    line-height: 18px;
+	    color: #001;
+	    font-weight: 600;
+	    margin-bottom: 0;
+		}
+	.dFlightDate {
+	    font-size: 18px;
+	    line-height: 18px;
+	    color: #001;
+	    font-weight: 600;
+		}
+	.dFlightStops, .dFlightClass {
+	    font-size: 12px;
+	    line-height: 14px;
+	    color: #4a4a4a;
+	    font-weight: 400;
+	    text-transform: capitalize;
+		}
+	.dAirlineName {
+	    font-size: 12px;
+	    line-height: 14px;
+	    color: #4a4a4a;
+	    /*border-left: 2px solid #ccc;
+	    padding-left: 5px;
+	    margin-left: 5px;
+	    margin-right: 5px;*/
+		}
+	.dFlightDtlsSeparator {
+	    border-right: 2px solid #ccc;
+	    height: 16px;
+	    margin-left: 5px;
+	    margin-right: 5px;
+		}
+	.dAirlineDtls {
+		width: 60px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		flex-shrink: 0;
+		}
+	.dAirlineLogoBox {
+	    width: 32px;
+	    height: 32px;
+	    margin-bottom: 2px;
+	    border-radius: 3px;
+	    font-size: 30px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+		}
+	.dAirlineLogoBox img {
+	    height: 32px;
+	    width: 32px;
+		}
+	.dFlightNumber {
+	    font-size: 10px;
+	    line-height: 15px;
+	    color: #001;
+	    margin-bottom: 0;
+	    text-align: center;
+		}
+	.dflightDepBox {
+		flex-shrink: 0;
+		width: 140px;
+		}
+	.dFlightTime {
+	    font-size: 18px;
+	    line-height: 22px;
+	    color: #001;
+	    font-weight: 600;
+	    margin-bottom: 0;
+	    text-align: center;
+		}
+	.dFlightCity {
+	    font-size: 18px;
+	    line-height: 20px;
+	    color: #001;
+	    margin-bottom: 0;
+	    text-align: center;
+		}
+	.dFlightDurationCont {
+	    /*margin: 0 30px;*/
+	    margin: 0 10px;
+	    flex-grow: 1;
+		}
+	.dFlightDuration {
+	    font-size: 12px;
+	    line-height: 14px;
+	    color: #4a4a4a;
+	    font-weight: 400;
+	    text-align: center;
+	    margin-bottom: 0;
+	    /*border-left: 2px solid #ccc;
+	    padding-left: 5px;*/
+		}
+	.fa-plane:before {
+	    content: "\f072";
+	    display: inline-block;
+	    font-family: FontAwesome;
+	    font-style: normal;
+	    font-weight: 400;
+	    line-height: 1;
+	    -webkit-font-smoothing: antialiased;
+	    color: #4a4a4a;
+	    font-size: 18px;
+	    cursor: unset;
+	    margin-top: 3px;
+	    margin-right: 0;
+	    transform: rotate(45deg);
+		}
+	.dFlightPath {
+	    margin: 6px 5px;
+	    border-top: 1px solid #ccc;
+	    /*width: 70px;*/
+	    flex-grow: 1;
+		}
+	.fa-map-marker:before {
+	    content: "\f041";
+	    display: inline-block;
+	    font-family: FontAwesome;
+	    font-style: normal;
+	    font-weight: 400;
+	    line-height: 1;
+	    -webkit-font-smoothing: antialiased;
+	    color: #4a4a4a;
+	    font-size: 18px;
+	    cursor: unset;
+		}
+	.dBaggageCont {
+		border-top: 1px solid #E7E7E7;
+		margin-top: 20px;
+		padding-top: 10px;
+		}
+	.dFlightBaggageTitle {
+	    font-size: 12px;
+	    line-height: 14px;
+	    color: #4a4a4a;
+	    font-weight: 600;
+	    text-align: left;
+	    padding-bottom: 7px;
+		}
+	.dFlightBaggageSubTitle {
+	    font-size: 12px;
+	    line-height: 12px;
+	    font-weight: 600;
+	    margin-bottom: 0;
+	    text-align: left;
+		}
+	.dBaggageSeparator {
+	    border-right: 2px solid #ccc;
+	    height: 16px;
+	    margin: 0px 5px;
+		}
+	/*Desktop Tour Tabs-Flights Ends*/
+
+	/*mItem-box*/
+	.dTourHtlCont h2 {
+		font-size: 20px;
+		line-height: 22px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 10px;
+		}
+	.dHtlCont {
+	    margin: 0;
+		}
+	.dHtlBox {
+	    border: 1px solid #e7e7e7;
+	    border-radius: 0 0 5px 5px;
+	    padding: 15px;
+	    /*background-color: #f7f7f7;*/
+	    border-top-color: transparent;
+	    background-color: #fff;
+		}
+	.dCityCont {
+		margin-top: 5px;
+	    margin-bottom: 10px;
+		}
+	.dCityCont h4 {
+	    font-size: 14px;
+	    line-height: 14px;
+	    color: #001;
+	    margin-top: 5px;
+	    margin-bottom: 0;
+		text-transform: capitalize;
+		}
+	.dHtlImgBox {
+		background-color: #f2f2f2;
+		width: 225px;
+		height: 200px;
+		border-radius: 5px;
+		overflow: hidden;
+		margin-right: 20px;
+		/*background-image: var(--default-image);
+	    background-position: center; /* Optional for centering *
+	    background-size: cover; /* Optional for better fit *
+		background-repeat: no-repeat;*/
+		}
+	.dHtlImgBox img {
+		width: 225px;
+		height: 200px;
+		object-fit: cover;
+		}
+	.dhotelTopSection {
+	    margin-bottom: 2px;
+		}
+	.dhotelFooter {
+		margin-bottom: 0;
+		}
+	.dHtlDesc {
+		margin-top: 0;
+		display: flex;
+		flex-direction: column;
+		}
+	.dHtlName {
+	    margin-right: 10px;
+		}
+	.dHtlName h4 {
+	    font-size: 18px;
+	    line-height: 20px;
+	    color: #001;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-top: 5px;
+	    margin-bottom: 0;
+		}
+	.dHotelType {
+	    display: inline-block;
+	    font-size: 12px;
+	    line-height: 12px;
+	    color: #fff;
+	    font-weight: 600;
+	    padding: 4px 6px;
+	    background-color: #6a11cb;
+	    border: 1px solid #707070;
+	    border-radius: 3px;
+	    text-transform: capitalize;
+	    margin-bottom: 5px;
+		}
+	.dHtlDescription {
+	    margin-top: 0;
+	    margin-bottom: 0;
+	    position: relative;
+	    top: 2px;
+		}
+	.dHtlStarRating img {
+	    width: 13px;
+	    margin-top: -5px;
+	    margin-right: 3px;
+		}
+	.dHtlStarRating img:last-child {
+	    margin-right: 0;
+		}
+	.dTourHtlDtls {
+		margin-top: 15px;
+		margin-bottom: 0;
+		}
+	.dTourHtlDtls:last-child {
+		margin-bottom: 0;
+		}
+	.dTourHtlDtls h4 {
+		font-size: 11px;
+		line-height: 12px;
+		color: #a1a1a1;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 2px;
+		margin-right: 0;
+		text-transform: uppercase;
+		}
+	.dTourHtlDtls h5 {
+		font-size: 13px;
+		line-height: 15px;
+		color: #001;
+		margin-top: 5px;
+		margin-bottom: 0;
+		text-transform: capitalize;
+		}
+	.dHotelWebCont {
+	    display: flex;
+	    flex-direction: column;
+	    border-top: 1px solid #e7e7e7;
+	    padding-top: 15px;
+	    margin-top: 15px;
+		}
+	.dHotelWebCont_heading {
+	    font-size: 12px;
+	    line-height: 14px;
+	    color: #9B9B9B;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 1px;
+	    text-transform: uppercase;
+		}
+	.dHotelWebCont_name {
+	    font-size: 14px;
+	    line-height: 16px;
+	    color: #4a4a4a;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 0;
+	    text-transform: lowercase;
+		}
+	.dUnlistedHotel {
+		display: block;
+		border: 1px solid #ccc;
+		padding: 25px;
+		border-radius: 5px;
+		font-size: 14px;
+		line-height: 16px;
+		color: #001;
+	    }
+	.dUnlistedHotel table {
+		border-collapse: collapse;
+	    border-spacing: 0;
+	    /*width: -webkit-fill-available !important;*/
+		margin: 0 !important;
+		}
+	.dUnlistedHotel table tr {
+		height: 25px;
+		}
+	.dUnlistedHotel table tr td {
+		font-size: 14px;
+	    line-height: 22px;
+	    color: #001;
+	    text-align: center;
+	    padding: 5px 10px;
+	    border-color: #bfbfbf;
+	    height: 52px !important;
+		}
+	/*Desktop Tour Tabs-Accommodation Ends*/
+
+	/*Desktop Tour Tabs-Activity Starts*/
+	.dTourActCont {
+		display: inline-block;
+		border: 1px solid #e7e7e7;
+	    border-radius: 5px;
+	    padding: 15px 15px;
+		margin-bottom: 15px;
+		width: 100%;
+		}
+	.dTourActImgBox {
+		float: left;
+		width: 200px;
+		height: 175px;
+		overflow: hidden;
+		border-radius: 5px;
+		margin-right: 20px;
+		background-color: #f2f2f2;
+		background-image: var(--default-image);
+	    background-position: center; /* Optional for centering */
+	    background-size: cover; /* Optional for better fit */
+	    background-repeat: no-repeat;
+		}
+	.dTourActImgBox img {
+		width: 200px;
+		height: 175px;
+		}
+	.dTourActDesc {
+		position: relative;
+		}
+	.dTourActDesc h4 {
+	    font-size: 16px;
+	    line-height: 18px;
+	    color: #001;
+	    font-weight: 600;
+	    text-align: left;
+	    margin-bottom: 5px;
+		}
+	.dTourActDesc p {
+	    font-size: 14px;
+	    line-height: 23px;
+	    color: #001;
+	    margin-bottom: 0;
+		}
+	/*Desktop Tour Tabs-Activity Ends*/
+
+	/*Desktop Tour Tabs-Transfers Starts*/
+	.dTourTransBox {
+		margin: 0 0 20px;
+		}
+	.dTourTransBox:last-child {
+		margin-bottom: 0;
+		}
+	.dTourTransDescBox {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		flex-grow: 1;
+		flex-shrink: 1;
+		margin-bottom: 10px;
+		}
+	.dTourTransDtlsBox {
+	    border: 1px solid #e7e7e7;
+	    border-radius: 0 0 5px 5px;
+	    padding: 25px;
+	    background-color: #f7f7f7;
+	    border-top-color: transparent;
+	    background-color: #fff;
+		}
+	.dTourTransImgBox {
+		min-width: 200px;
+		max-width: 300px;
+		height: 175px;
+		border-radius: 5px;
+		overflow: hidden;
+		margin-right: 20px;
+		background-color: #f2f2f2;
+		flex-grow: 1;
+		flex-shrink: 1;
+		background-image: var(--default-image);
+	    background-position: center; /* Optional for centering */
+	    background-size: cover; /* Optional for better fit */
+		}
+	.dTourTransImgBox img {
+		width: 100%;
+		height: 175px;
+		border-radius: 5px;
+		}
+	.dTourTransDescTopSection {
+		margin-bottom: 20px;
+		}
+	.dTourTransTitle {
+		font-size: 16px;
+		line-height: 17px;
+		color: #4A4A4A;
+		font-weight: 600;
+		margin-bottom: 10px;
+		}
+	.dTourTransTransportType {
+		font-size: 20px;
+		line-height: 24px;
+		color: #001;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 5px;
+		}
+	.dTourTransVehicleCont {
+		margin-right: 0;
+		}
+	.dTourTransHead {
+		font-size: 11px;
+		line-height: 13px;
+		color: #9B9B9B;
+		font-weight: 600;
+		margin-bottom: 2px;
+		text-transform: uppercase;
+		}
+	.dTourTransSubHead {
+		font-size: 12px;
+		line-height: 14px;
+		color: #4a4a4a;
+		font-weight: 600;
+		margin-top: 0;
+		margin-bottom: 0;
+		}
+	.dTourTransVehicleCont, .dtransferDurationCont {
+		margin-right: 0;
+		}
+	/*Desktop Tour Tabs-Transfers Ends*/
+
+	/*Desktop Tour Price Side Bar Starts*/
+	.dSideNav {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		}
+	.dSideItemCont {
+		/*background-color: #f0f6ff;*/
+	    border: 1px solid #e7e7e7;
+	    box-shadow: 0 2px 24px 0 rgba(0,0,0,.11);
+	    border-radius: 4px;
+	    margin-bottom: 20px;
+	    overflow: hidden;
+		}
+	.dPosition_Sticky {
+		position: sticky;
+	    position: -webkit-sticky;
+	    top: 0;
+	    z-index: 5;
+		}
+	.dSideItemBoxTop {
+		border-bottom: solid 1px #e7e7e7;
+		background-color: #eaf5ff;
+		padding: 20px;
+		position: relative;
+		min-height: 95px;
+		}
+	.dSlashedPrice {
+		font-size: 12px;
+		line-height: 14px;
+		color: #9b9b9b;
+		text-decoration: line-through;
+		}
+	.dPriceTag {
+		font-size: 12px;
+		line-height: 14px;
+		color: #001;
+		text-align: left;
+		text-transform: lowercase;
+		}
+	.dPriceTag_OnRequest {
+		font-size: 18px;
+		line-height: 20px;
+		color: #001;
+		text-align: left;
+		text-transform: capitalize;
+		}
+	.dActualPrice {
+		font-size: 24px;
+		line-height: 26px;
+		color: #001;
+		text-align: left;
+		font-weight: 900;
+		}
+	.dPriceSubTag {
+		font-size: 10px;
+		line-height: 12px;
+		color: #9b9b9b;
+		}
+	.dPkgOfferTag {
+	    border-radius: 2px;
+	    background: linear-gradient(247deg, #ff3e5e, #ff6d3f);
+	    padding: 5px;
+	    font-size: 10px;
+	    line-height: 10px;
+	    color: #fff;
+	    position: absolute;
+	    right: 20px;
+	    top: 10px;
+	    text-transform: uppercase;
+		}
+	.dSideItemBoxBottom {
+		text-align: center;
+		background-color: #fff;
+		}
+	.dDateRangeBox {
+		padding: 20px;
+		border-bottom: 1px solid #e7e7e7;
+		}
+	.dDateRange {
+		font-size: 14px;
+		line-height: 16px;
+		color: #001;
+		font-weight: 600;
+		}
+	.dDateRange_Modify {
+		font-size: 14px;
+		line-height: 16px;
+		color: #01b7f2;
+		font-weight: 600;
+		cursor: pointer;
+		}
+	.dBookBtnBox {
+		padding: 20px;
+		}
+	.btnViewDtls {
+	    flex-shrink: 0;
+	    outline: 0;
+	    text-transform: capitalize;
+	    background-color: #01b7f2;
+	    border: 0;
+	    box-shadow: 0 1px 7px 0 rgba(0,0,0,.2);
+	    border-radius: 20px;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 14px;
+	    color: #fff;
+	    font-weight: 700;
+	    cursor: pointer;
+		width: 200px;
+		height: 36px;
+	    text-align: center;
+		white-space: nowrap;
+	    vertical-align: middle;
+	    -ms-touch-action: manipulation;
+	    touch-action: manipulation;
+		letter-spacing: 0.64px;
+		margin-bottom: 0;
+		}
+	.btnViewDtls:hover {
+		background-color: #01b7f2;
+		color: #fff;
+		}
+
+	/*Why book with us*/
+	.dbook_with_us_cont {
+		/*background-color: #f0f6ff;*/
+	    border: 1px solid #e7e7e7;
+	    box-shadow: 0 2px 24px 0 rgba(0,0,0,.11);
+	    border-radius: 4px;
+	    margin-bottom: 20px;
+		}
+	.dbook_with_us_cont h4 {
+		font-size: 18px;
+	    line-height: 18px;
+	    color: #001;
+	    font-weight: 600;
+		text-align: center;
+	    margin-bottom: 0;
+	    padding: 10px;
+		}
+	.dbook_with_us_sub_cont {
+		padding: 10px 20px 10px;
+		display: flex;
+		align-items: first baseline;
+		}
+	.dbook_with_us_icon_box {
+		width: 20px;
+	    height: 20px;
+	    background-color: #fff;
+	    border-radius: 2px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    padding: 5px;
+		margin-right: 10px;
+		font-size: 15px;
+		}
+	.dbook_with_us_sub_cont h5 {
+		font-size: 16px;
+	    line-height: 16px;
+	    color: #333;
+	    font-weight: 600;
+	    margin-bottom: 5px;
+		}
+	.dbook_with_us_sub_cont p {
+		font-size: 14px;
+	    line-height: 20px;
+		color: #333;
+	    margin-bottom: 0;
+		}
+	.star-icon::before {
+	    content: "🌟";  /* Display the star emoji */
+	    font-size: 16px; /* Adjust size */
+	    color: #debb38;     /* Change color */
+	}
+	.money-bag-icon::before {
+	    content: "💰";  /* Display the star emoji */
+	    font-size: 16px; /* Adjust size */
+	    color: #debb38;     /* Change color */
+	}
+	.earth-globe-icon::before {
+	    content: "🌍";  /* Display the star emoji */
+	    font-size: 16px; /* Adjust size */
+	    color: #4CAF50;     /* Change color */
+	}
+
+	/*Subscription*/
+	.dSubscribeCont {
+		border: 1px solid #e7e7e7;
+	    box-shadow: 0 2px 24px 0 rgba(0,0,0,.11);
+	    border-radius: 4px;
+	    padding: 20px
+		}
+	.dSubscribeCont label {
+		font-size: 18px;
+	    line-height: 18px;
+	    color: #001;
+	    font-weight: 600;
+		text-align: center;
+	    margin-bottom: 15px;
+	    display: flex;
+	    justify-content: center;
+		}
+	.dSubscribeCont input {
+		font-size: 14px;
+		line-height: 14px;
+		color: #001;
+		text-transform: none;
+		padding: 10px;
+	    background-color: #ffff;
+	    border: 1px solid #e7e7e7;
+	    border-radius: 5px;
+		width: 100%;
+	    height: 40px;
+	    margin-bottom: 10px;
+		}
+	.btnSubscribe {
+	    outline: 0;
+	    text-transform: capitalize;
+	    background-color: #fff;
+	    border: 0;
+	    box-shadow: 0 1px 7px 0 rgba(0,0,0,.2);
+	    border-radius: 20px;
+	    padding: 6px 12px;
+	    font-size: 16px;
+	    line-height: 16px;
+	    color: #a1a1a1;
+	    font-weight: 700;
+	    cursor: pointer;
+		height: 36px;
+	    text-align: center;
+		width: 160px;
+		white-space: nowrap;
+	    vertical-align: middle;
+	    -ms-touch-action: manipulation;
+	    touch-action: manipulation;
+	    -webkit-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    background-image: none;
+		letter-spacing: 0.64px;
+		margin-bottom: 0;
+		}
+	.btnSubscribe:hover {
+		background-color: #fff;
+		color: #4a4a4a;
+		}
+	/*Desktop Tour Price Side Bar Ends*/
+
+	/*Desktop Tour Enquiry Starts*/
+	/* The Modal (background) */
+	.modal {
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 1111; /* Sit on top */
+		padding-top: 0; /* Location of the box */
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 100%; /* Full width */
+		height: 100%; /* Full height */
+		overflow-y: auto; /* Enable scroll if needed */
+		background-color: rgb(0,0,0); /* Fallback color */
+		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		-webkit-overflow-scrolling: touch
+		outline: 0;
+		}
+	.enq_modalContent {
+		position: relative;
+		background-color: #fefefe;
+		margin: auto;
+		padding: 0;
+		border: 1px solid #888;
+		/*width: 80%;*/
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+		-webkit-animation-name: animatetop;
+		-webkit-animation-duration: 0.4s;
+		animation-name: animatetop;
+		animation-duration: 0.4s
+		}
+	.enq_modalContent_size {
+		max-width: 1200px;
+		margin: 13px auto 0;
+		border-radius: 5px;
+		overflow: hidden;
+		}
+	/* Add Animation */
+	@-webkit-keyframes animatetop {
+		from {top:-300px; opacity:0}
+		to {top:0; opacity:1}
+		}
+
+	@keyframes animatetop {
+		from {top:-300px; opacity:0}
+		to {top:0; opacity:1}
+		}
+
+	/* The Close Button */
+	.close {
+		color: white;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+		}
+	.close:hover,.close:focus {
+		color: #001;
+		text-decoration: none;
+		cursor: pointer;
+		}
+	/*Modal Ends*/
+
+	/*Main Enquiry*/
+	.enq_modalBody {
+		position: relative;
+		padding: 25px;
+		}
+	.enq_leftSection {
+		flex-grow: 1;
+		min-width: 600px;
+		overflow-x: hidden;
+		}
+	.enq_rightSection {
+		margin-left: 30px;
+		/*min-width: 275px;*/
+		max-width: 310px;
+		flex-grow: 1;
+		}
+	.selectArrow:before {
+		font-family: FontAwesome;
+		content: '\f107';
+		color: #4a4a4a;
+		float: right;
+		font-size: 22px;
+		font-weight: 400;
+		position: relative;
+		top: 32px;
+		right: 15px;
+		pointer-events: none;
+		z-index: 1;
+		}
+	.enq_modalHeader {
+		padding: 15px 25px;
+		background-color: #fff;
+		color: #fff;
+		border-bottom: 1px solid #e5e5e5;
+		border-radius: 5px 5px 0 0;
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		}
+	.enq_modalHeader h3, .ModalTitle {
+	    font-size: 24px;
+		line-height: 26px;
+	    color: #001;
+		margin-bottom: 5px;
+		}
+	.enq_modalHeader h4, .ModalTitleDaysBadge {
+		font-size: 13px;
+	    line-height: 15px;
+		font-weight: 400;
+	    color: #001;
+		margin-bottom: 0;
+		display: inline-block;
+	    padding: 5px 7px;
+	    border-radius: 5px;
+	    background-color: #f2f2f2;
+		}
+	.btnCloseModal_desktop, .btnCloseModal_desktop_cal {
+	    flex-shrink: 0;
+	    outline: 0;
+	    text-transform: uppercase;
+	    background-color: #fff;
+	    border: 0;
+	    padding: 0;
+	    font-size: 12px;
+	    line-height: 12px;
+	    color: #848889;
+	    font-weight: 700;
+	    cursor: pointer;
+	    text-align: center;
+		text-shadow: 0 1px 0 #fff;
+	    opacity: .2;
+		-webkit-appearance: none;
+		height: auto;
+		text-transform: uppercase;
+		}
+	.btnCloseModal:hover, .btnCloseModal_desktop:hover, .btnCloseModal_desktop_cal:hover {
+		background-color: #fff;
+		color: #4a4a4a;
+		opacity: .4;
+		}
+	.enq_tourImgBox {
+		border: 1px solid #ccc;
+		background-color: #f2f2f2;
+	    width: 275px;
+	    height: 300px;
+	    overflow: hidden;
+	    border-radius: 5px;
+		position: relative;
+		top: 20px;
+		background-image: var(--default-image);
+	    background-position: center; /* Optional for centering */
+	    background-size: cover; /* Optional for better fit */
+		background-repeat: no-repeat;
+		}
+	.enq_tourImgBox img {
+	    width: 100%;
+	    height: 300px;
+	    object-fit: cover;
+		}
+	.enq_tourTitle {
+		padding: 15px 0;
+		background-color: #001;
+		opacity: .75;
+		border-top: none;
+		border-radius: 0px 0px 5px 5px;
+		width: 100%;
+		bottom: 0;
+		position: absolute;
+		}
+	.enq_tourTitle h5 {
+		font-size: 16px;
+		line-height: 18px;
+		color: #fff;
+		font-weight: 900;
+		text-align: center;
+		margin-top: 0;
+		margin-bottom: 0;
+		}
+	.dAcceptTerms {
+		display: flex;
+	    align-items: center;
+		margin-bottom: 2px;
+		}
+	.dAcceptTerms input[type=checkbox] {
+		margin-top: 0;
+		}
+	.dAcceptTerms h5 {
+		font-size: 13px;
+	    line-height: 16px;
+	    color: #001;
+	    margin-left: 5px;
+	    margin-top: 0;
+		margin-bottom: 0;
+		}
+	.enq_modalFooter {
+		padding: 0 0 30px;
+		background-color: #fff;
+		display: flex;
+		justify-content: center;
+		}
+	.btnSubmitEnq {
+		flex-shrink: 0;
+		outline: 0;
+		text-transform: none;
+		background-color: #01b7f2;
+		border: 0;
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+	    border-radius: 35px;
+		padding: 12px;
+	    font-size: 17px;
+		line-height: 17px;
+		color: #fff;
+		font-weight: 900;
+		cursor: pointer;
+		width: 225px;
+		white-space: nowrap;
+	    vertical-align: middle;
+	    -ms-touch-action: manipulation;
+	    touch-action: manipulation;
+	    -webkit-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    background-image: none;
+		letter-spacing: 0.64px;
+		margin-bottom: 0;
+		text-align: center;
+		height: auto;
+		}
+	.btnSubmitEnq:hover {
+		background-color: #08B2ED;
+		color: #fff;
+		}
+}
+/*Desktop Tour Enquiry Ends*/
+/*Desktop Page-3 Ends*/
+
+/**************************/

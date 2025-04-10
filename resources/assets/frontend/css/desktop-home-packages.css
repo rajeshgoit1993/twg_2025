@@ -1,0 +1,802 @@
+/*Desktop Home Packages Starts*/
+@media (min-width: 992px) {
+  .dContentScrollView {
+    margin-top: -50px;
+    margin-bottom: 70px;
+    }
+/*Desktop Tour Destination-midimage Starts*/
+  .dPopularDestCont {
+    text-align: center;
+    /*margin-bottom: 30px;*/
+    }
+  .dPopularDestTtl {
+    padding: 30px 20px;
+    /*display: inline-block;
+    border-bottom: 3px solid #8d8d8d;*/
+    }
+  .dPopularDestTtl h2 {
+    /*font-family: 'Fjalla One', sans-serif !important;*/
+    font-size: 32px;
+    line-height: 38px;
+    color: #001;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    letter-spacing: 0.8px;
+    }
+  .dItemCont {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    /*display: flex;
+    flex-wrap: wrap;*/
+    column-gap: 20px;
+    row-gap: 10px;
+    }
+  .dTourItemCard {
+    width: 100%;
+    max-width: 285px;
+    background-color: #fff;
+    /*border: 1px solid #e7e7e7;*/
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.1);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+    }
+  .dTourItemCardImgCont {
+    width: 100%;
+    max-width: 285px;
+    height: 275px;
+    background-color: #f2f2f2;
+    overflow: hidden;
+    }
+  .dTourItemCardImgCont img {
+    width: 100%;
+    max-width: 285px;
+    height: 275px;
+    vertical-align: middle;
+    border: 0;
+    pointer-events: none;
+    /*transition: opacity 0.5s ease;*/
+    object-fit: cover;
+    }
+  .dTourItemCard img, .dTourItemCard h4 {
+    -webkit-transition: -webkit-transform 0.35s;
+    transition: transform 0.35s;
+    }
+  .dTourItemCard p {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 7px 10px;
+    opacity: 0;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: translate3d(0,50px,0);
+    transform: translate3d(0,50px,0);
+    font-size: 15px;
+    line-height: 17px;
+    font-weight: normal;
+    background: rgba(229,188,1,0.8);
+    width: 100%;
+    color: #fff;
+    border-radius: 0 0 5px 5px;
+    }
+  .dTourItemCard:hover p {
+    opacity: 1;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    }
+  .dTourItemCard h4 {
+    bottom: 30px;
+    float: right;
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+    font-weight: 600;
+    padding: 7px;
+    position: absolute;
+    margin-bottom: 0;
+    background: rgba(8,178,237,0.8);
+    border-radius: 0 2px 2px 0;
+    }
+  .dTourItemCard:hover h4 {
+    -webkit-transform: translate3d(0,-100px,0);
+    transform: translate3d(0,-100px,0);
+    text-shadow: 0px 0 15px #fff;
+    transition: all 2s ease;
+    }
+/*Desktop Tour Destination-midimage Ends*/
+
+/*Desktop Tour Destination-midimage Starts-OLD*/
+  /*.DestImgBox {
+    width: 100%;
+    height: 275px;
+    border-radius: 5px;
+    overflow: hidden;
+    background:  #f2f2f2;
+    }
+  .DestImgBox img {
+    width: 100%;
+    height: 275px;
+    border-radius: 5px;
+    webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    pointer-events: none !important;
+    border: 0;
+    vertical-align: middle;
+    }
+  .TourDest {
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    display: block;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    }
+  .TourDest img, .TourDest h1 {
+    -webkit-transition: -webkit-transform 0.35s;
+    transition: transform 0.35s;
+    }
+  .TourDest p {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 7px 10px;
+    opacity: 0;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: translate3d(0,50px,0);
+    transform: translate3d(0,50px,0);
+    font-size: 15px;
+    line-height: 17px
+    font-weight: normal;
+    background: rgba(229,188,1,0.8);
+    width: 100%;
+    color: #fff;
+    border-radius: 0 0 5px 5px;
+    }
+  .TourDest:hover p {
+    opacity: 1;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    }
+  .TourDest h1 {
+    bottom: 30px;
+    float: right;
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+    font-weight: 600;
+    padding: 7px;
+    position: absolute;
+    margin-bottom: 0;
+    background: rgba(8,178,237,0.8);
+    border-radius: 0 2px 2px 0;
+    }
+  .TourDest:hover h1 {
+    -webkit-transform: translate3d(0,-100px,0);
+    transform: translate3d(0,-100px,0);
+    text-shadow: 0px 0 15px #fff;
+    transition: all 2s ease;
+    }*/
+/*Desktop Tour Destination-midimage Ends-OLD*/
+
+/*Desktop-Tour Item Cart Starts*/
+  .destTypeCont {
+    /*border-bottom: 1px solid #fff;*/
+    margin-bottom: 20px;
+    }
+  .destType {
+    display: flex;
+    justify-content: center;
+    }
+  .destinationTab {
+    padding: 30px 20px;
+    font-size: 20px;
+    color: #9b9b9b;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    }
+  .tabActive {
+    color: #08B2ED;
+    border-color: #08B2ED;
+    }
+  .destTypeCont > ul > li.active {
+    color: #01b7f2;
+    border-bottom: 4px solid #01b7f2;
+    }
+  .ditemSlider {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    /*display: flex;
+    flex-wrap: wrap;*/
+    /*overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;*/
+    }
+  .dItemCardGap {
+    column-gap: 20px;
+    row-gap: 10px;
+    }
+  .dItemCard {
+    width: 100%;
+    max-width: 285px;
+    background-color: #fff;
+    /*border: 1px solid #e7e7e7;*/
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.1);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-bottom: 10px;
+    overflow: hidden;
+    }
+  .dItemCardImgCont {
+    width: 100%;
+    max-width: 285px;
+    height: 200px;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    }
+  .dItemCardImgCont img {
+    width: 100%;
+    max-width: 285px;
+    height: 200px;
+    vertical-align: middle;
+    border: 0;
+    pointer-events: none;
+    /*transition: opacity 0.5s ease;*/
+    object-fit: cover;
+    }
+  .dItemCardFooter {
+    padding: 15px 15px 25px;
+    background: #fff;
+    /*border: 1px solid #e7e7e7;
+    border-top: none;
+    border-radius: 0 0 5px 5px;*/
+    }
+  .dItemCardTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+  .dItemCardHeading {
+      width: 73%;
+    }
+  .dItemCardHeading h3 {
+    font-size: 16px;
+    line-height: 24px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+  .dDaysBadge {
+    border-radius: 12px;
+    background: #6cb61b;
+    padding: 4px 8px;
+    /*width: 78px;
+    height:22px;*/
+    text-align: center;
+    font-size: 11px;
+    line-height: 15px;
+    color: #fff;
+    font-weight: 700;
+    }
+  .dDestinationWrapper {
+    height: 46px;
+    font-size: 15px;
+    line-height: 16px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    overflow: hidden;
+    }
+  .dDestNights {
+    color: #eb2025;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 700;
+    }
+  .dCityName {
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 600;
+    color: #001;
+    display: flex;
+    /*flex-wrap: wrap;*/
+    white-space: nowrap;
+    }
+  .dDestSpaceIcon {
+    color: #001;
+    position: relative;
+    top: -1px;
+    }
+  .DestDuration {
+    color: #eb2025;
+    font-size: 15px;
+    line-height: 15px;
+    font-weight: 700;
+    }
+  .DestName {
+    font-size: 15px;
+    line-height: 15px;
+    font-weight: 900;
+    color: #001;
+    display: flex;
+    flex-wrap: wrap;
+    }
+  .dPriceWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+  .dPriceHead {
+    color: #6c6c6c;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0;
+    text-align: left;
+    }
+  .dItemPrice {
+    /*background: #EDBE01;*/
+    /*padding: 6px 10px;
+    color: #fff;
+    text-align: center;*/
+    position: relative;
+    /*top: 0;
+    border-radius: 0 0 2px 0;*/
+    display: flex;
+    align-items: center;
+    }
+  .dItemPriceType_OnRequest {
+    font-size: 14px;
+    line-height: 20px;
+    color: #001;
+    text-transform: capitalize;
+    }
+  .dItemValueWrapper {
+    /* background-color: #eaf5ff;
+    padding: 20px;*/
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+  .dItemAcutalPrice {
+    font-size: 12px;
+    line-height: 14px;
+    color: #9b9b9b;
+    text-decoration: line-through;
+    }
+  .dItemPriceType {
+    font-size: 12px;
+    line-height: 14px;
+    color: #000;
+    text-transform: lowercase;
+    }
+  .dItemOfferPrice {
+    font-size: 18px;
+    line-height: 22px;
+    color: #001;
+    text-align: left;
+    font-weight: 900;
+    }
+  .dItemPriceSubTag {
+    font-size: 10px;
+    line-height: 12px;
+    color: #9b9b9b;
+    }
+  .dItemOfferTag {
+    border-radius: 2px;
+    background: linear-gradient(247deg, #ff3e5e, #ff6d3f);
+    padding: 5px;
+    font-size: 10px;
+    line-height: 10px;
+    color: #fff;
+    position: absolute;
+    right: 0;
+    top: -10px;
+    text-transform: uppercase;
+    }
+/*Desktop-Tour Item Cart Ends*/
+
+  .btn-desktop-load-more {
+    display: inline-block;
+    outline: 0;
+    background-color: transparent;
+    border: 1px solid #6c6c6c;
+    border-radius: 5px;
+    padding: 11px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #6c6c6c;
+    font-weight: 900;
+    cursor: pointer;
+    /*height: 40px;*/
+    text-align: center;
+    text-transform: none;
+    box-shadow: 0px 7px 15px rgb(0 0 0 / 10%);
+    }
+  .btn-desktop-load-more:hover {
+    background-color: transparent;
+    color: #6c6c6c;
+    }
+
+/*Trending Container Starts*/
+  .dTrendingDestCont {
+    padding: 36px 0 36px 40px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 28px 0 rgba(0,0,0,.1);
+    /*margin-top: 40px;*/
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    }
+  .dTrendingDestTtlBox {
+    margin-bottom: 30px;
+    }
+  .dTrendingDestTtlBox h2 {
+    font-size: 32px;
+    line-height: 38px;
+    color: #001;
+    text-align: left;
+    font-weight: 900;
+    margin-bottom: 0;
+    }
+  .dTrendingDestTtlBox p {
+    font-size: 16px;
+    line-height: 19px;
+    color: #4a4a4a;
+    text-align: left;
+    font-weight: 400;
+    margin-bottom: 0;
+    }
+  .dTrendingItemCard {
+    width: 134px;
+    height: 207px;
+    overflow: hidden;
+    border-radius: 2px;
+    position: relative;
+    margin-right: 10px;
+    }
+  .dTrendingItemCard:last-child {
+    margin-right: 0;
+    }
+  .dTrendingDestImgCont {
+    width: 134px;
+    height: 207px;
+    background-color: #f2f2f2;
+    }
+  .dTrendingDestImgCont img {
+    width: 134px;
+    height: 207px;
+    }
+  .dTrendingItemCardFooter {
+    padding: 10px 15px;
+    background: linear-gradient(180deg,transparent -4.82%,#000 87.02%);
+    border-radius: 6px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    }
+  .dTrendingItemCardFooter h5 {
+    font-size: 12px;
+    line-height: 14px;
+    color: #fff;
+    text-align: left;
+    font-weight: 400;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    }
+  .dTrendingItemCardFooter p {
+    font-size: 12px;
+    line-height: 14px;
+    color: #fff;
+    text-align: left;
+    font-weight: 400;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    }
+  .opacity68 {
+    opacity: .68;
+  }
+/*Trending Container Ends*/
+
+/*Item City Scroll Starts*/
+  .scrollContainer {
+      animation: scroll 20s linear infinite;
+      }
+      @keyframes scroll {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+/*Item City Scroll Ends*/
+/*Desktop Home Packages Ends*/
+
+/*Desktop Home Packages Starts--OLD*/
+  .dTourContBG {
+    margin-top: 0;
+    margin-bottom: 30px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    }
+  .dTourCont {
+    border-bottom: 3px solid #c2c2c2;
+      padding: 15px 30px 10px;
+    }
+  .dTourCont h3 {
+    font-family: 'Fjalla One', sans-serif !important;
+    font-size: 18px;
+    line-height: 20px;
+    color: #4a4a4a;
+    text-align: center;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    }
+  .dTourCont h4 {
+    font-family: 'Fjalla One', sans-serif !important;
+    font-size: 18px;
+    line-height: 20px;
+    color: #001;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    }
+  .TourItem {
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    padding: 0;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    }
+  .dTourTopSection {
+    position: relative;
+    }
+  .TourBtmSection {
+    margin: 0;
+    }
+  .dTourImgBox {
+    width: 100%;
+    height: auto;
+    /*overflow: hidden;*/
+    border-radius: 5px 5px 0 0;
+    }
+  .dTourImgBox img {
+    width: 100%;
+    height: 250px;
+    }
+  .dTourPrcBox {
+    /*background: #EDBE01;*/
+    background: #00000050;
+    display: inline-block;
+    padding: 6px 10px;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-bottom-left-radius: 2px;
+    display: flex;
+    align-items: center;
+    }
+  .itemSliderContainer {
+    padding: 20px 4% 20px;
+    background: #F9F9F9;
+    margin-bottom: 25px;
+    }
+  .sliderHeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 15px;
+    }
+  .sliderDesc {
+    margin: 0px;
+    }
+  .sliderDescHeader {
+    font-size: 22px;
+    line-height: 30px;
+    margin: 0px;
+    text-align: left;
+    color: #4A4A4A;
+    }
+  .sliderDescSubHeader {
+    font-size: 12px;
+    line-height: 12px;
+    margin: 0px;
+    text-align: left;
+    color: #9B9B9B;
+    font-style: italic;
+    }
+  .btnViewAll {
+    flex-shrink: 0;
+    outline: 0;
+    text-transform: none;
+    background: #fff;
+    border: 1px solid #4a4a4a;
+      border-radius: 20px;
+    padding: 10px;
+      font-size: 14px;
+    line-height: 15px;
+    color: #4A4A4A;
+    font-weight: 400;
+    cursor: pointer;
+    letter-spacing: 0.16px;
+    }
+  .btnViewAll:hover {
+    background-color: #4a4a4a;
+    color: #fff;
+    border-color: #fff;
+    }
+/*Desktop Home Packages Ends--OLD*/
+
+/*Desktop-Testimonials Starts*/
+  .dTestCont {
+    text-align: center;
+    margin-bottom: 0;
+    }
+  .dTestContTtl {
+    display: inline-block;
+    padding: 20px 20px 15px;
+    border-bottom: 3px solid #08B2ED;
+    }
+  .dTestContTtl h3 {
+    font-size: 20px;
+    line-height: 22px;
+    color: #08B2ED;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    letter-spacing: 0.8px;
+    }
+  .testSliderCont {
+    padding-top: 25px;
+    padding-bottom: 30px;
+    }
+  .dTestItemCard {
+    display: inline-block;
+    background-color: #fff;
+    padding: 0;
+    box-shadow: 0px 2px 6px rgb(0 0 0 / 10%);
+    /*border: 1px solid #e7e7e7;
+    border-radius: 5px;
+    width: 275px;
+    min-width: 275px;
+    max-width: 275px;*/
+    margin-right: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    width: 100%;
+    height: 410px;
+    }
+  .dTestItemCard:last-child {
+    margin-right: 0;
+    }
+  .dTestItemImgBox {
+    background-color: #f9f9f9;
+    border-radius: 0;
+    width: 100%;
+    height: 190px;
+    margin: 0 auto;
+    overflow: hidden;
+    }
+  .dTestItemImgBox img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    }
+  .dTestItemFooter {
+    padding: 15px 10px 20px ;
+    /*background-color: #fff;*/
+    text-align: center;
+    height: 100%;
+    }
+  .dTestItemContent {
+    font-size: 12px;
+    line-height: 22px;
+    color: #4a4a4a;
+    font-family: 'Fjalla One', sans-serif;
+    }
+  .dTestItemContentReadMore {
+    font-size: 13px;
+    line-height: 22px;
+    color: #01b7f2;
+    font-weight: 600;
+    cursor: default;
+    text-transform: lowercase;
+    }
+  .dTestGuestName {
+    padding-top: 30px;
+    }
+  .dTestGuestName h5 {
+    font-size: 15px;
+    line-height: 17px;
+    color: #08B2ED;
+    text-align: right;
+    font-weight: 600;
+    margin-bottom: 0;
+    }
+  /*Old Slider Starts*/
+  /*.test_sliders {
+    position: absolute;
+    z-index: 1;
+    top: 40%;
+    left: -25px;
+    right: -25px;
+    display: flex;
+    justify-content: space-between;
+    }
+  .test_sliderPrevious{
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 15px 21px;
+    cursor: pointer;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%);
+    width: 50px;
+    height: 50px;
+    }
+  .test_sliderNext{
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 15px 17px;
+    cursor: pointer;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%);
+    width: 50px;
+    height: 50px;
+    }
+  .test_sliderPrevious:before {
+    border: solid #001;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(-225deg);
+    -webkit-transform: rotate(-225deg);
+    position: relative;
+    right: 0;
+    top: 0px;
+    content: '';
+    }
+  .test_sliderNext:before {
+    border: solid #001;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    position: relative;
+    right: 0;
+    top: 0px;
+    content: '';
+    }
+  .testMonScroll {
+    display: flex;
+    overflow-x: hidden;
+    }*/
+  /*Old Slider Ends*/
+/*Desktop-Testimonials Ends*/
+}

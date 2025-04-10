@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+.mail_logo
+{
+padding: 10px 5px;
+background:#c1dee8;
+}
+.content-2
+{
+background: #f5f5f5;
+padding: 10px 10px;
+}
+.content-3
+{
+padding: 10px 5px;
+background:#c1dee8;
+
+}
+.content-4
+{
+background: white;
+padding: 10px;
+border:1px solid lightgray;
+}
+.content-5
+{
+
+padding: 10px
+}
+.content-4 ul li
+{
+display: inline-block;
+padding: 5px 20px;
+}
+.content-6
+{
+background: white;
+padding: 10px;
+border:1px solid lightgray;
+}
+.content-6 ul li
+{
+
+padding: 5px 20px;
+}
+.custom_left
+{
+	float: left;
+}
+.custom_right
+{
+	float: right;
+	margin-right: 100px
+
+}
+.clear
+{
+	clear: both;
+}
+</style>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+
+
+
+
+
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<div class="mail_logo">
+<?php
+$src=url('public/uploads/word.png');
+?>
+<img src="{{$src}}" alt="Logo" border="0"/>
+
+
+
+
+
+
+</div>
+
+
+</div>
+</div>	
+<div class="row">
+<div class="col-md-12">
+<div class="content-2">
+@if($data!="" && $data->option1_quotation_header!="" && $data->option1_quotation_header!="N;")
+<?php
+$header=unserialize($data->option1_quotation_header);
+
+
+?>
+@foreach($header as $header_data)
+{!! CustomHelpers::get_quotation_header($header_data) !!}
+@endforeach
+@endif
+<!---->
+<div class="row">
+<div class="col-md-12">
+<div class="content-3">
+<h2>{{$data->custom_package_name}}</h2>
+<p>{{$data->duration}} Nights & {{$data->duration+1}} Days</p>
+
+</div>
+</div>
+<div class="col-md-12">
+<div class="content-4">
+<div class="row">
+<div class="col-md-4 col-sm-6">
+<p style="color: #847878">DATE</p>	
+<?php
+ 
+$originalDate = CustomHelpers::get_query_field($data->query_reference,'date_arrival');
+if($originalDate=="N"):
+$originalDate=date("d/m/Y");
+endif;
+$datefrom = str_replace(' ', '', $originalDate);
+$datefrom=explode("/", $datefrom);
+
+$datefrom_year=$datefrom["2"];
+$datefrom_day=$datefrom["1"];
+$datefrom_month=$datefrom["0"];
+$datefrom=$datefrom_year."-".$datefrom_month."-".$datefrom_day;
+
+$datefrom = "$datefrom_year-$datefrom_day-$datefrom_month";
+$stop_date = $datefrom;
+$date_to=$datefrom;
+$datefrom_print = date("d M'y", strtotime($datefrom));
+$day_from = strtotime($datefrom);
+$day_from = date('D', $day_from);
+
+
+
+$stop_date = date('Y-m-d', strtotime($stop_date . ' +'.$data->duration.' days'));
+$stop_date_print= date("d M'y", strtotime($stop_date));
+$day_to = strtotime($stop_date);
+$day_to = date('D', $day_to);
+?>
+<p style="font-weight: bold;"><?php echo "$day_from "; ?>, {{$datefrom_print}} - <?php echo "$day_to "; ?>, {{ $stop_date_print}}</p>
+
+
+</div>
+<div class="col-md-8 col-sm-6">
+<p style="color: #847878">TOTAL AMOUNT (Inclusive of all Taxes) </p>	
+<p> &#x20B9;
+{{CustomHelpers::get_quotation_grandtotal($data->option1_price,'adult')}} <span style="font-size: 12px">
+for <?php 
+$total_traveler="0";
+$adult=CustomHelpers::get_query_field($data->query_reference,'span_value_adult');
+$child=CustomHelpers::get_query_field($data->query_reference,'span_value_child');
+$infant=CustomHelpers::get_query_field($data->query_reference,'span_value_infant'); 
+if($adult!="" && $adult!="0")
+{
+$total_traveler+=$adult;
+} 
+if($child!="")
+{
+$total_traveler+=$child;
+} 
+if($infant!="")
+{
+$total_traveler+=$infant;
+
+} 
+echo $total_traveler;
+?> traveller(s) </span>
+</p>
+</div>
+</div>
+</div>
+</div>	
+<!--date total end-->
+@if($data->option1_transport=="Flight")
+<?php
+$flight_detail=unserialize($data->option1_flight);
+?>
+<div class="col-md-12">
+
+<div class="content-5">
+	
+<h4> 
+FLIGHT DETAILS </h4>
+<h5>
+<?php
+$src1=url('public/uploads/flight.png');
+?>
+<img src="{{$src1}}" alt="Logo" border="0" width="20px" />
+@if($flight_detail['Origin']!="") {{$flight_detail['Origin']}} @endif to  @if($flight_detail['dest']!="") {{$flight_detail['dest']}} @endif</h5>
+</div>
+<div class="content-4" style="padding: 5px 10px;border-bottom: none;">
+<p style="font-weight: bold;"><?php echo "$day_from "; ?>, {{$datefrom_print}} </p>
+
+</div>
+<div class="content-4">
+<div class="col-md-12 ">
+<div class="flight_icon">
+<ul>
+<span style="position: relative;
+top: -24px;"> 
+@if($flight_detail['name']!="")
+
+@endif
+<li>@if($flight_detail['name']!="") {{$flight_detail['name']}} @endif</span></li></span>
+<li> @if($flight_detail['Origin']!="") {{$flight_detail['Origin']}} @endif
+<div class="flight_con">@if($flight_detail['dtime']!="") {{$flight_detail['dtime']}} @endif</div></li>                   
+<li class="img"><img src="{{url('/public/uploads/icons/planevenue.png')}}" >
+<center class="flight_con" style="color:lightgray">@if($flight_detail['numberstop']!="") {{$flight_detail['numberstop']}} @endif</center></li>
+<li>@if($flight_detail['dest']!="") {{$flight_detail['dest']}} @endif
+<div class="flight_con"> @if($flight_detail['atime']!="") {{$flight_detail['atime']}} @endif</div></li>
+
+</ul>
+<!--return-->
+
+
+</div>    
+</div>
+
+</div>
+</div>
+<div class="col-md-12">
+<div class="content-5">
+
+<h5> <img src="{{$src1}}" alt="Logo" border="0" width="20px" />
+ @if($flight_detail['dest']!="") {{$flight_detail['dest']}} @endif to @if($flight_detail['Origin']!="") {{$flight_detail['Origin']}} @endif</h5>
+</div>
+<div class="content-4" style="padding: 5px 10px;border-bottom: none;">
+<p style="font-weight: bold;"><?php echo "$day_to "; ?>, {{ $stop_date_print}}</p>
+
+</div>
+<div class="content-4">
+<div class="col-md-12 ">
+<div class="flight_icon">
+<ul>
+<span style="position: relative;
+top: -24px;"> 
+@if(array_key_exists("dname", $flight_detail) && $flight_detail['dname']!="")
+
+@endif
+<li> @if(array_key_exists("dname", $flight_detail) && $flight_detail['dname']!="") {{$flight_detail['dname']}} @endif</span></li></span>
+<li>  @if(array_key_exists("dOrigin", $flight_detail) && $flight_detail['dOrigin']!="") {{$flight_detail['dOrigin']}} @endif
+<div class="flight_con">@if(array_key_exists("ddtime", $flight_detail) && $flight_detail['ddtime']!="") {{$flight_detail['ddtime']}} @endif</div></li>                   
+<li class="img"><img src="{{url('/public/uploads/icons/planevenue.png')}}" >
+<center class="flight_con" style="color:lightgray">@if(array_key_exists("dnumberstop", $flight_detail) && $flight_detail['dnumberstop']!="") {{$flight_detail['dnumberstop']}} @endif</center></li>
+<li> @if(array_key_exists("ddest", $flight_detail) && $flight_detail['ddest']!="") {{$flight_detail['ddest']}} @endif
+<div class="flight_con"> @if(array_key_exists("datime", $flight_detail) && $flight_detail['datime']!="") {{$flight_detail['datime']}} @endif</div></li>
+
+</ul>
+</div>    
+</div>
+
+</div>
+</div>
+
+@endif
+<?php
+$acco=unserialize($data->option1_accommodation);
+
+?>
+<div class="col-md-12">
+<div class="content-5">
+
+<h4>HOTEL DETAILS</h4>
+
+</div>
+@foreach($acco as $acco_data)
+
+<div class="content-5">
+@if($acco_data["hotel"]!="" && $acco_data["hotel"]!="Other")
+<h5>
+<?php
+$src2=url('public/uploads/hotel.png');
+?>
+<img src="{{$src2}}" alt="Logo" border="0" width="20px" style="margin-bottom: 5px;" />
+{{CustomHelpers::getpackagerecord($acco_data["hotel"],'package_hotel','hotelname')}}   </h5>
+
+@elseif($acco_data["hotel"]=="Other")
+<h5>{{$acco_data["other_hotel"]}}</h5>
+@endif
+</div>
+
+<div class="content-4" style="padding: 0px">
+<div class="row">
+<div class="col-md-12">
+<div class="custom_left">
+	@if($acco_data["hotel"]!="" && $acco_data["hotel"]!="Other")
+<img  src="{{ url('/public/uploads/package_hotel/'.CustomHelpers::getpackagerecord($acco_data["hotel"],'package_hotel','hotel_image')) }}" alt="" style="height: 160px">
+@elseif($acco_data["hotel"]=="Other")
+@endif
+</div>
+<div class="custom_right">
+@if($acco_data["hotel"]!="" && $acco_data["hotel"]!="Other")
+<h6 style="padding-top: 10px">{{CustomHelpers::getpackagerecord($acco_data["hotel"],'package_hotel','hotelname')}}   </h6>
+
+@elseif($acco_data["hotel"]=="Other")
+<h6 style="padding-top: 10px">{{$acco_data["other_hotel"]}}</h6>
+@endif	
+
+@if($acco_data["star"]!="" && $acco_data["star"]!="Other")
+{{CustomHelpers::get_star_rating($acco_data["star"])}}
+
+@elseif($acco_data["star"]=="Other")
+{{CustomHelpers::get_star_rating($acco_data["star_other"])}}
+@endif
+<?php
+$day1="0";
+$day="0";
+?>
+@if($acco_data!="" && array_key_exists("day",$acco_data)) 
+<?php
+$day1=(int)filter_var($acco_data["day"]["0"], FILTER_SANITIZE_NUMBER_INT);
+$day1=$day1-1;
+
+
+?>
+@endif
+<?php
+$datefrom_checkin = "$datefrom_year-$datefrom_day-$datefrom_month";
+
+
+$checkin_date = date('Y-m-d', strtotime($datefrom_checkin . ' +'.$day1.' days'));
+$checkin_date_print= date("d M'y", strtotime($checkin_date));
+$day_checkin = strtotime($checkin_date);
+$day_checkin = date('D', $day_checkin);
+
+?>
+
+<p style="margin: 0px">Check in - <?php echo $day_checkin; ?>,  {{$checkin_date_print}} 
+
+</p>
+@if($acco_data!="" && array_key_exists("day",$acco_data)) 
+@foreach($acco_data["day"] as $accday)
+<?php
+$day=(int)filter_var($accday, FILTER_SANITIZE_NUMBER_INT);
+?>
+
+@endforeach
+@endif
+<?php
+$datefrom_checkout = "$datefrom_year-$datefrom_day-$datefrom_month";
+
+
+$checkout_date = date('Y-m-d', strtotime($datefrom_checkout . ' +'.$day.' days'));
+$checkout_date_print= date("d M'y", strtotime($checkout_date));
+$day_checkout = strtotime($checkout_date);
+$day_checkout = date('D', $day_checkout);
+
+?>
+<p style="margin: 0px">Check out- <?php echo $day_checkout; ?>, {{$checkout_date_print}}	 </p>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<div class="content-4" style="border-top-style: none;">
+	<?php 
+	$nights=$day-1;
+	?>
+	{{ $acco_data["city"] }}, {{$nights}} Nights
+</div>
+@endforeach
+
+</div>
+<!---->
+<div class="col-md-12">
+<div class="content-5">
+
+<h5>INCLUSIONS  </h5>
+</div>
+
+<div class="content-4">
+
+<p>{!!$data->option1_inclusions!!}</p>
+
+</div>
+</div>
+<!---->
+<div class="col-md-12">
+<div class="content-5">
+
+<h5>Exclusions  </h5>
+</div>
+
+<div class="content-4">
+
+<p>{!!$data->option1_exclusions!!}</p>
+</div>
+</div>
+<!---->
+@if($data->option1_visa=="1")
+  
+<div class="col-md-12">
+<div class="content-5">
+
+<h5>Visa Policies</h5>
+</div>
+<div class="content-6">
+ @if(empty($data->option1_package_visa) || $data->option1_package_visa=="N;")
+  
+@else
+  <?php
+
+$v_policy=unserialize($data->option1_package_visa);
+?> 
+
+                                   
+
+@foreach($v_policy as $v)
+{!!CustomHelpers::get_visa_policy($v)!!}</br>
+@endforeach
+
+  @endif
+{{ $data->option1_visa_policies }}
+
+
+
+
+
+</div>
+</div>
+@endif
+<!---->
+@if(empty($data->option1_package_payment) || $data->option1_package_payment=="N;")
+  
+@else
+
+
+<div class="col-md-12">
+<div class="content-5">
+
+<h5>Payment Policies  </h5>
+</div>
+
+<div class="content-6">
+
+<?php
+
+$p_policy=unserialize($data->option1_package_payment);
+?> 
+
+                                   
+
+@foreach($p_policy as $v)
+{!!CustomHelpers::get_payment_policy($v)!!}</br>
+@endforeach
+
+{{$data->option1_payment_policies}}                                         
+
+</div>
+</div>
+@endif
+<!---->
+@if(empty($data->option1_package_can) || $data->option1_package_can=="N;")
+  
+@else
+<div class="col-md-12">
+<div class="content-5">
+
+<h5>Cancellation Policies  </h5>
+</div>
+
+<div class="content-6">
+
+<?php
+
+$c_policy=unserialize($data->option1_package_can);
+?> 
+
+                                   
+
+@foreach($c_policy as $v)
+{!!CustomHelpers::get_cancel_policy($v)!!}</br>
+@endforeach
+{{$data->option1_cancellation}}    
+</div>
+</div>
+@endif
+<!---->
+@if(empty($data->option1_package_impnotes) || $data->option1_package_impnotes=="N;")
+  
+@else
+<div class="col-md-12">
+<div class="content-5">
+
+<h5>Important Notes  </h5>
+</div>
+
+<div class="content-6">
+<?php
+
+$important_notes=unserialize($data->option1_package_impnotes);
+?> 
+
+                                   
+
+@foreach($important_notes as $v)
+{!!CustomHelpers::get_impnotes($v)!!}</br>
+@endforeach
+
+
+                                          
+{{$data->option1_extra_imp}}  
+
+</div>
+</div>
+@endif
+<!---->
+
+<!---->
+<div class="col-md-12">
+<div class="content-5">
+
+</div>
+@if($data!="" && $data->option1_quotation_footer!="" && $data->option1_quotation_footer!="N;")
+<?php
+$footer=unserialize($data->option1_quotation_footer);
+
+
+?>
+@foreach($footer as $footer_data)
+{!! CustomHelpers::get_quotation_footer($footer_data) !!}
+@endforeach
+@endif
+
+
+
+</div>
+</div>
+
+<!---->
+</div>
+<!---->
+
+</div>
+</div>
+</div>
+
+
+<!---->
+</div>
+
+</body>
+</html>

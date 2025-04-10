@@ -1,0 +1,573 @@
+/*quote tour pricing starts*/
+	.add-guest-rooms-wrapper {
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		padding: 10px;
+		margin-bottom: 5px;
+		}
+	.selectAllDays label {
+		display: inline-flex;
+		align-items: center;
+		font-size: 13px;
+		line-height: 13px;
+		color: #a1a1a1;
+		border: #a1a1a1;
+		margin: 0 0 0 15px;
+		}
+	.selectAllDays [type="checkbox"] {
+		margin: 0;
+		}
+	span.select2.select2-container {
+		width: 100% !important;
+		}
+	.btnblue {
+		display: inline-block;
+		background: #008cff;
+		padding: 4px 12px;
+		font-size: 16px;
+		line-height: 18px;
+		color: #fff;
+		text-align: center;
+		vertical-align: middle;
+		cursor: pointer;
+		border: 1px solid #008cff;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		}
+
+	#touraccommodation .dropdown-menu {
+		margin: -1px !important;
+		}
+	.dropdown-menu li a {
+		margin: -3px 0px !important;
+		}
+	.part_payment, .direct_part {
+		display: none;
+		}
+
+	.btnGreen, .btnBack {
+		display: inline-block;
+		padding: 6px 12px;
+		font-size: 14px;
+		line-height: 16px;
+		color: #fff;
+		text-align: center;
+		vertical-align: middle;
+		cursor: pointer;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border: none;
+		border-radius: 4px;
+		background: #00a65a;
+		border-color: #00a65a;
+		height: 34px;
+		}
+	.btnBack:before {
+		content: "\e091";
+		position: relative;
+		top: 1px;
+		display: inline-block;
+		font-family: 'Glyphicons Halflings';
+		font-style: normal;
+		font-weight: 400;
+		line-height: 1;
+		-webkit-font-smoothing: antialiased;
+		}
+	.btnBack:hover, .btnBack:focus {
+		color: #fff;
+		}
+	.btnQuoteSave {
+		font-size: 20px;
+		line-height: 20px;
+		width: 330px;
+		height: 40px;
+		font-weight: 600;
+		}
+
+	.quoteCont {
+		padding-left: 25px;
+		padding-right: 25px;
+		}
+	.navQuoteBar {
+		/*display: flex;
+		align-items: center;
+		justify-content: center;
+		left: 0;
+		position: absolute;
+		right: 0;*/
+		z-index: 11;
+		padding-bottom: 15px;
+		}
+	.quoteType {
+		padding: 0;
+		border-bottom: 1px solid #ddd;
+		display: flex;
+		align-items: center;
+		}
+	.quoteTab {
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		/*width: 150px;*/
+		background: #fff;
+		font-size: 18px;
+		line-height: 18px;
+		font-weight: 600;
+		color: #A1A1A1;
+		text-transform: capitalize;
+		padding: 20px 25px;
+		/*border-bottom: 4px solid #A1A1A1;*/
+		cursor: pointer;
+		flex-shrink: 0;
+		outline: 0;
+		}
+	.navQuoteBar > ul > li.active {
+		/*color: #01b7f2;
+		border-bottom: 2px solid #01b7f2;*/
+		color: #008cff;
+		border-bottom: 2px solid #008cff;
+		}
+	.navQuoteBar > ul > li:hover, ul > li:focus {
+		color: #008cff;
+		}
+	.itemBox {
+		margin-bottom: 10px;
+		}
+	.panelBox {
+		/*margin-top: 0px;
+		border: 1px solid #ccc;
+		border-top: 0;
+		border-bottom: 0;
+		border-radius: 0px 0px 5px 5px;
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.2s ease-out;*/
+		}
+	.accordion.active .panelBox {
+		border-bottom: 1px solid #ccc;
+		}
+	/*.panelContent {
+		padding: 15px 20px;
+		background-color: white;
+		}*/
+	.accordion {
+		cursor: pointer;
+		padding: 0px 15px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border:1px solid #e4e5e7;
+		border-radius: 4px;
+		}
+	.accordion:hover, .panelHeading:hover {
+		cursor:pointer;
+		background: #f2f2f2;
+		color: #008cff;
+		}
+	.accordion.active {
+		background: #f2f2f2;
+		border-radius: 5px 5px 0px 0px;
+		}
+	.accordion:after {
+		font-family: FontAwesome;
+		content: '\f106';
+		color: #008cff;
+		float: right;
+		margin-left: 20px;
+		cursor: pointer;
+		font-size: 28px;
+		}
+	.accordion.active:after {
+		content: "\f107";
+		background: #f2f2f2;
+		}
+	.panelHeading {
+		color: #4a4a4a;
+		font-size: 16px;
+		line-height: 16px;
+		text-align: left;
+		margin: 0px;
+		}
+	.panelHeading:active {
+		color: #008cff;
+		}
+	.panelContent label {
+		display: inline-block;
+		max-width: 100%;
+		margin-bottom: 5px;
+		font-weight: 700;
+		color: #4a4a4a;
+		}
+
+	.itemTopHeading {
+		font-size: 13px;
+		line-height: 13px;
+		color: #4a4a4a;
+		font-weight: 600;
+		text-align: center;
+		margin-bottom: 1px;
+		}
+	.itemTopSubHeading {
+		font-size: 12px;
+		line-height: 12px;
+		color: #4a4a4a;
+		font-weight: 600;
+		text-align: center;
+		margin-bottom: 0px;
+		}
+	.quoteCurrency {
+		font-size: 20px;
+		line-height: 20px;
+		color: #4a4a4a;
+		background: #f9f9f9;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		padding: 15px 10px;
+		text-align: center;
+		margin-bottom: 3px;
+		}
+	.itemBottomHeading {
+		font-size: 12px;
+		line-height: 12px;
+		color: #4a4a4a;
+		background: #f2f2f2;
+		border-radius: 3px;
+		padding: 6px 3px;
+		text-align: center;
+		margin-top: 5px;
+		margin-bottom: 0;
+		}
+	.backend_custom_height input {
+		height: 32px;
+		padding: 6px 10px;
+		border-radius: 5px;
+		font-size: 13px;
+		line-height: 15px;
+	}
+	.backend_custom_height select {
+		height: 32px;
+		padding: 6px;
+		width: 100%;
+		border-radius: 5px;
+		font-size: 13px;
+		line-height: 15px;
+		}
+	.currencyConversion {
+		display: flex;
+		gap: 1px;
+		margin-bottom: 2px;
+
+		}
+	.currencyConversion input[type=text], .currencyConversion select {
+		width: 100%;
+		color: #4a4a4a;
+		font-size: 13px;
+		line-height: 13px;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		padding: 2px 5px;
+		height: 32px;
+		}
+	.currencyBox {
+		font-size: 14px;
+		line-height: 14px;
+		font-weight: 600;
+		margin: 0px;
+		text-align: center;
+		padding: 5px;
+		color: #4a4a4a;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		height: 25px;
+		}
+
+	.travellersMinus {
+		font-size: 26px;
+		line-height: 5px;
+		color: #9B9B9B;
+		padding: 12px;
+		font-weight: 900;
+		cursor: pointer
+		}
+	.travellersValue {
+		font-size: 20px;
+		line-height: 20px;
+		color: #01b7f2;
+		font-weight: 900;
+		padding: 12px
+		}
+	.travellersPlus {
+		font-size: 26px;
+		line-height: 5px;
+		color: #9B9B9B;
+		padding: 12px;
+		font-weight: 900;
+		cursor: pointer
+		}
+	.addTravellerValue {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		}
+	.tourPriceItem {
+		font-weight: 600;
+		font-size: 13px;
+		line-height: 18px;
+		}
+	.fixedValue, .percentageValue {
+		padding: 2px;
+		color: #4a4a4a;
+		font-size: 14px;
+		line-height: 14px;
+		margin: 0px;
+		text-align: left;
+		color: #4a4a4a;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		height: 25px;
+		}
+	.pricetoPay {
+		font-weight: 600;
+		}
+
+	.flightBoxHeading {
+		font-size: 14px;
+		line-height: 14px;
+		color: #4a4a4a;
+		background: #ccc;
+		padding: 10px;
+		border-radius: 3px;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 0px;
+		}
+	.partPayment, .directPayment, .flightOption, .visaOption {
+		display: flex;
+		align-items: center;
+		font-size: 14px;
+		line-height: 14px;
+		color: #4a4a4a;
+		background: #f9f9f9;
+		padding: 10px;
+		border-radius: 3px;
+		font-weight: 600;
+		text-align: left;
+		margin-bottom: 15px;
+		}
+	.partPayment, .directPayment {
+		margin-bottom: -15px;
+		}
+	.partPayment label, .directPayment label, .flightOption label, .visaOption label, .quoteValidity label {
+		margin: 0px;
+		}
+	.partPayment input[type=checkbox], .directPayment input[type=checkbox], .flightOption input[type=checkbox], .visaOption input[type=checkbox], .quoteValidity input[type=text] {
+		margin: 0px 10px;
+		padding: 5px 10px;
+		border-radius: 3px;
+		border: 1px solid #ccc;
+		}
+	.quoteValidity {
+		display: flex;
+		align-items: center;
+		margin-bottom: 15px;
+		}
+	.emailHeader, .webHeader, .emailFooter, .webFooter {
+		color: #4a4a4a
+		}
+	.saveOptions, .saveQuote {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 20px;
+		}
+	.savePreview, .saveSend {
+		text-align: center;
+		border-radius: 5px;
+		background: #f9f9f9;
+		}
+	.savePreview label, .saveSend label {
+		padding: 10px 30px 10px 40px;
+		font-size: 15px;
+		line-height: 20px;
+		}
+	.dayTitle {
+		margin-bottom: 15px;
+		font-weight: 600;
+		font-size: 13px;
+		line-height: 20px;
+		text-transform: capitalize;
+		}
+	.dayTitle input[type=text] {
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		padding: 5px 10px;
+		width: 100%;
+		margin-top: 5px;
+		}
+	.dayPlanSeparator {
+		border-bottom: 1px solid #ccc;
+		margin: 10px 0px;
+		}
+	.roomGuestsHeading {
+		font-size: 16px;
+		line-height: 18px;
+		color: #4a4a4a;
+		font-weight: 600;
+		text-align: left;
+		}
+	.roomGuests, .addRooms {
+		/*display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 0px;*/
+		}
+	.roomGuests {
+		/*display: flex;
+		justify-content: space-around;*/
+		}
+	.roomGuests label, .roomGuests select, .roomGuests input[type=text], .addRooms input[type=text] {
+		/*font-size: 13px;
+		line-height: 15px;
+		color: #4a4a4a;
+		padding: 6px 0px;
+		min-width: 75px;
+		margin-right: 10px;
+		display: inline;*/
+		}
+	.roomGuests input[type=text], .addRooms input[type=text] {
+		width: 250px !important;
+		background: #f9f9f9;
+		}
+	.roomGuests select, .roomGuests input[type=text], .addRooms input[type=text] {
+		border: 1px solid #CED0D4;
+		border-radius: 3px;
+		padding: 6px 12px;
+		height: 34px;
+		width: 130px;
+		}
+	.totalDisplay, .grossTotalDisplay, .grossGroupTotalDisplay, .discountGroupTotalDisplay, .gstGroupTotalDisplay, .gstTotalDisplay, .tcsGroupTotalDisplay, .tcsTotalDisplay, .pgGrouptTotalDisplay, .grandGroupTotal {
+		display: none;
+		}
+	.modalBody {
+		position: relative;
+		padding: 20px;
+		font-size: 14px;
+		line-height: 14px;
+		}
+	.add-room-wrapper, .add-guest-wrapper {
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		padding: 10px;
+		width: 100%;
+		margin-bottom: 10px;
+		}
+	.add-room-wrapper .title, .add-guest-wrapper .title {
+		display: inline-block;
+		background-color: #f2f2f2;
+		padding: 5px 10px;
+		font-size: 14px;
+		line-height: 16px;
+		color: #4a4a4a;
+		font-weight: 600;
+		text-align: center;
+		border-radius: 3px;
+		margin-bottom: 5px;
+		text-transform: capitalize;
+		}
+	.add-guest-wrapper select {
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		width: 65px;
+		padding: 5px;
+		background-color: #f9f9f9;
+		}
+	.guest-in-room {
+		display: flex;
+		column-gap: 10px;
+		}
+	.add-price-table {
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		padding: 10px;
+		margin-bottom: 10px;
+		}
+	.room-container {
+		box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+	  	border: 1px solid #e9e9e9;
+	  	border-radius: 10px;
+	  	padding: 30px;
+	  	margin-bottom: 20px;
+	  	display: -webkit-box;
+	  	display: inline-block;
+	  	width: 100%;
+	}
+	.guest-room-wrapper {
+		padding-bottom: 10px;
+	  	display: flex;
+	  	align-items: end;
+	  	justify-content: space-around;
+	}
+	table {
+		border-collapse: separate; /* Use separate borders */
+		border-spacing: 0 10px; /* Set vertical spacing between rows */
+	}
+	table.table-bordered tbody td {
+		vertical-align: middle;
+	}
+	.price-range-container {
+		box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+	  	border: 1px solid #e9e9e9;
+	}
+
+	/*custom radio*/
+	.select-hotel-type {
+	  /*display: inline-block;*/
+	  background-color: #f2f2f2;
+	  padding: 10px;
+	  border-radius: 5px;
+	  font-size: 12px;
+	  line-height: 20px;
+	  color: #4a4a4a;
+	  font-weight: 600;
+	  }
+	.select-hotel-type label {
+	  margin-right: 15px;
+	  line-height: 32px;
+	  }
+	.select-hotel-type input {
+	  /*appearance: none;*/
+	  border-radius: 50%;
+	  width: 16px;
+	  height: 16px;
+	  border: 2px solid #08B2ED;
+	  transition: 0.2s all linear;
+	  margin-right: 5px;
+	  position: relative;
+	  top: 2px;
+	  margin-top: 0;
+	  }
+	input:checked {
+	  border: 6px solid #08B2ED;
+	  }
+	.checkbox-inline, .radio-inline {
+	  position: relative;
+	  display: inline-block;
+	  padding-left: 20px;
+	  margin-bottom: 0;
+	  font-weight: 400;
+	  vertical-align: middle;
+	  cursor: pointer;
+	  }
+
+@media (min-width: 992px) {
+	.guest-in-room {
+		display: flex;
+		justify-content: space-around;
+		/*column-gap: 10px;*/
+		}
+	}
+	/*.cke_chrome {
+	display: none;
+	}*/
+/*quote tour pricing ends*/
