@@ -2707,25 +2707,30 @@ class QueryController extends Controller
     public function quo_first($id) {
         // Find the query by its ID
         $data = Query::find($id);
-
+    
         // Retrieve list of airlines with status 1
         $airlines = airlineList::where('status', '1')->get();
-
+    
         // Check if user is logged in and has appropriate role
         if (Sentinel::check()) {
-            // Check if user role is employee
             if (Sentinel::getUser()->roles()->first()->slug == 'employee') {
                 $user_id = Sentinel::getUser()->id;
-                // If user is not assigned to this quote, redirect back with error message
                 if ($user_id != $data->assign_id) {
                     return redirect()->back()->with("error", "User not assigned");
                 }
             }
         }
-
-        // Return view with query data and airlines list
-        return view('query.quo_first', compact("data", 'airlines'));
+    
+        // Logic to allow Create Quotation only if from_package and quotation_created is false
+        $allowCreateQuotation = false;
+        if ($data->from_package && !$data->quotation_created) {
+            $allowCreateQuotation = true;
+        }
+    
+        // Return view with flags
+        return view('query.quo_first', compact("data", "airlines", "allowCreateQuotation"));
     }
+    
 
     public function querys_days(Request $request) {
         // Retrieve selected day from request
@@ -4234,18 +4239,18 @@ class QueryController extends Controller
         Session::put($unique_code . 'quote1_id', $data1->id);
     
         // Debug unserialized fields for safety
-        // \Log::info('Unserialized Data:', [
-        //     'package_service' => $data1->package_service ? unserialize($data1->package_service) : [],
-        //     'transfers' => $data1->transfers ? unserialize($data1->transfers) : [],
-        //     'option1_accommodation' => $data1->option1_accommodation ? unserialize($data1->option1_accommodation) : [],
-        //     'option1_dayItinerary' => $data1->option1_dayItinerary ? unserialize($data1->option1_dayItinerary) : [],
-        //     'quote_inc' => $data1->quote_inc ? unserialize($data1->quote_inc) : [],
-        //     'quote_exc' => $data1->quote_exc ? unserialize($data1->quote_exc) : [],
-        //     'option1_package_visa' => $data1->option1_package_visa ? unserialize($data1->option1_package_visa) : [],
-        //     'option1_package_payment' => $data1->option1_package_payment ? unserialize($data1->option1_package_payment) : [],
-        //     'option1_package_can' => $data1->option1_package_can ? unserialize($data1->option1_package_can) : [],
-        //     'option1_package_impnotes' => $data1->option1_package_impnotes ? unserialize($data1->option1_package_impnotes) : [],
-        // ]);
+        \Log::info('Unserialized Data:', [
+            'package_service' => $data1->package_service ? unserialize($data1->package_service) : [],
+            'transfers' => $data1->transfers ? unserialize($data1->transfers) : [],
+            'option1_accommodation' => $data1->option1_accommodation ? unserialize($data1->option1_accommodation) : [],
+            'option1_dayItinerary' => $data1->option1_dayItinerary ? unserialize($data1->option1_dayItinerary) : [],
+            'quote_inc' => $data1->quote_inc ? unserialize($data1->quote_inc) : [],
+            'quote_exc' => $data1->quote_exc ? unserialize($data1->quote_exc) : [],
+            'option1_package_visa' => $data1->option1_package_visa ? unserialize($data1->option1_package_visa) : [],
+            'option1_package_payment' => $data1->option1_package_payment ? unserialize($data1->option1_package_payment) : [],
+            'option1_package_can' => $data1->option1_package_can ? unserialize($data1->option1_package_can) : [],
+            'option1_package_impnotes' => $data1->option1_package_impnotes ? unserialize($data1->option1_package_impnotes) : [],
+        ]);
     
         // Ensure status for first.blade.php
         $data1->status = "1"; // Remove if not desired
@@ -4939,20 +4944,17 @@ class QueryController extends Controller
             'destinations' => 'required',
             'date_arrival' => 'required|date'
         ]);
-
+    
         if ($validator->fails()) {
-            echo $validator->errors()->first(); // Show first error message
-            return;
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
         }
-
-        // Determine webnotation (1 = The World Gateway, 0 = Rapidex Travels)
+    
         $webnotation = env("WEBSITENAME") == 1 ? 1 : 0;
-
-        // Get website name and sender email dynamically
         $websiteName = getWebsiteData('name');
         $senderEmail = getWebsiteData('sender_email');
         $replyToEmail = getWebsiteData('reply_to_email');
-
+        dd($senderEmail, $websiteName, $replyToEmail);
+    
         $data = [
             'packageId' => $request->packageId,
             'name' => $request->name,
@@ -4978,36 +4980,39 @@ class QueryController extends Controller
             'status' => 'interested',
             'webnotation' => $webnotation,
         ];
-
+    
         Session::put('enq_info', $data);
-
+    
         // Generate OTPs
         $otp_email = mt_rand(10000, 99999);
         $otp_mobile = mt_rand(10000, 99999);
-
-        // Set Cookies for 30 seconds
+    
+        // Set short-lived cookies
         setcookie('email_otp', $otp_email, time() + 30, "/");
         setcookie('enq_email', $request->email, time() + 30, "/");
         setcookie('enq_mobile', $request->mobile, time() + 30, "/");
-
-        // Send Email OTP
-        Mail::raw("Hi {$request->name}, your OTP is: $otp_email", function ($message) use ($request, $senderEmail, $websiteName, $replyToEmail) {
-            $message->to($request->email);
-            //$message->from($request->email, "The WorldGateway");
-            $message->from($senderEmail, $websiteName); // Set sender's name dynamically
-            $message->subject("Email OTP");
-            $message->replyTo($replyToEmail); // Set reply-to email
-        });
-
+    
+        try {
+            Mail::raw("Hi {$request->name}, your OTP is: $otp_email", function ($message) use ($request, $senderEmail, $websiteName, $replyToEmail) {
+                $message->to($request->email);
+                $message->from($senderEmail, $websiteName);
+                $message->subject("Email OTP");
+                $message->replyTo($replyToEmail);
+            });
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => 'Failed to send email OTP.']);
+        }
+    
         // Send Mobile OTP
         $status = CustomHelpers::otp_send($request->mobile, $otp_mobile);
+    
         if (!$status) {
-            echo "Failed to send OTP";
-            return;
+            return response()->json(['status' => 'error', 'message' => 'Failed to send mobile OTP.']);
         }
-
-        echo 'success';
+    
+        return response()->json(['status' => 'success']);
     }
+    
 
 
     /**********************/
@@ -5671,10 +5676,10 @@ class QueryController extends Controller
         $email = strtolower($query->email);
         $check_data = DB::table('users')->where('email', $email)->first();
 
-        // Determine webnotation (1 = The World Gateway, 0 = Rapidex Travels)
+     
         $webnotation = env("WEBSITENAME") == 1 ? 1 : 0;
 
-        // Get website name and sender email dynamically
+        
         $websiteName = getWebsiteData('name');
         $senderEmail = getWebsiteData('sender_email');
         $replyToEmail = getWebsiteData('reply_to_email');
@@ -6264,7 +6269,7 @@ class QueryController extends Controller
         try {
             // Retrieve the ID from the request
             $id = $request->id;
-
+            
             // Validate the ID
             if (!$id || !is_numeric($id)) {
                 return response()->json(['error' => 'Invalid ID'], 400);
