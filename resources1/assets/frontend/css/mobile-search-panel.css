@@ -1,0 +1,630 @@
+@media (max-width: 992px) {
+/*Mobile Search Panel Starts*/
+  /*Tab & Sub Tab*/
+  .nav-item, .noContent-nav-item {
+    cursor: default; /*Changed in M*/
+    }
+
+/*Mobile Search Panel Header Starts*/
+  /*Tab*/
+  .tab {
+    display: none;
+    }
+  .tab.active {
+    display: block;
+    }
+  .navClass .navHeaderContainer nav ul .nav-item, .navClass .navHeaderContainer nav ul .noContent-nav-item {
+    padding: 10px 10px 14px;
+    color: #4a4a4a;
+    /*border-bottom: 3px solid transparent;*/
+    }
+  .navClass .navHeaderContainer nav ul .nav-item.active {
+    border-bottom: 3px solid #08B2ED;
+    /*color: #08B2ED;*/
+    }
+  /*.nav-item-content {
+    padding: 60px 20px 0;
+    background-color: #fff;
+    display: inline-block;
+    width: 100%;
+    }*/
+  .holiday-search-icon::before {
+    content: "🔍";
+    font-size: 16px;
+    margin-right: 2px;
+  }
+  .holiday-destination-icon::before {
+    content: "📍";
+    font-size: 16px;
+    margin-right: 2px;
+  }
+  .holiday-honeymoon-icon::before {
+    content: "💖";
+    font-size: 16px;
+    margin-right: 2px;
+  }
+  .holiday-easyvisa-icon::before {
+    content: "🏖️";
+    font-size: 16px;
+    margin-right: 2px;
+  }
+  .sub-nav-item, .noContent-sub-nav-item {
+    border-right: 1px solid #d8d8d8;
+    flex: 1;
+    height: 65px;
+    padding-top: 10px; /*Added in M*/
+    cursor: default; /*Changed in M*/
+    font-size: 15px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: center;
+    background-color: #f2f2f2;
+    border-bottom: 4px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*box-shadow: 0 0px 6px 0 rgba(0,0,0,.1);*/
+    text-transform: capitalize;
+    }
+  .sub-nav-item h5, .noContent-sub-nav-item h5 {
+    font-size: 14px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: center;
+    text-transform: capitalize;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 95%;
+    }
+  .sub-nav-item:last-child {
+    border-right: 0;
+    }
+  .noContent-sub-nav-item a:visited {
+    /*color: #08B2ED;*/
+    }
+  .sub-nav-item.active {
+    /*background-color: #007bff;*/
+    color: #08B2ED;
+    border-bottom-color: #08B2ED;
+    }
+  .sub-tab-container {
+    display: flex;
+    margin: 0 -13px;
+    /*margin-bottom: 20px;*/
+    align-items: center;
+    }
+  .sub-nav-item-content {
+    padding: 0;
+    }
+  /*Sub-Tab*/
+  .sub-tab {
+    display: none;
+    }
+  .sub-tab.active {
+    display: block;
+    }
+/*Mobile Search Panel Header Ends*/
+
+/*Mobile Header-Icon Starts*/
+  .flightIcon {
+    background-image: url('../../../../resources/assets/frontend/images/icon/airplane-9B_64.png');
+    }
+  .hotelIcon {
+    background-image: url("../../../../resources/assets/frontend/images/icon/hotel-9B_64.png");
+    }
+  .holidayIcon {
+    background-image: url("../../../../resources/assets/frontend/images/icon/holiday-9B_64.png");
+    }
+  .travelInsuranceIcon {
+    background-image: url("../../../../resources/assets/frontend/images/icon/travel-insurance-9B-64.png");
+    }
+  .nav-item.active .dSrvcCont .dSvcIconBox .flightIcon {
+    background-image: url("../../../../resources/assets/frontend/images/icon/airplane-08_64.png");
+    }
+  .nav-item.active .dSrvcCont .dSvcIconBox .hotelIcon {
+    background-image: url("../../../../resources/assets/frontend/images/icon/hotel-08_64.png");
+    }
+  .nav-item.active .dSrvcCont .dSvcIconBox .holidayIcon {
+    background-image: url("../../../../resources/assets/frontend/images/icon/holiday-08_64.png");
+    }
+  .nav-item.active .dSrvcCont .dSvcIconBox .travelInsuranceIcon {
+    background-image: url("../../../../resources/assets/frontend/images/icon/travel-insurance-08-64.png");
+    }
+  .nav-item.active .dSrvcCont .dSvcIconName {
+    /*background-color: #007bff;*/
+    color: #08B2ED;
+    }
+/*Mobile Header-Icon Ends*/
+
+/*Mobile Search Panel Input Starts*/
+  .bgGradient {
+    background: #f2f2f2;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(to bottom, #051322, #15457c);
+    background-size: 100% 584px;
+    min-height: 584px;
+    }
+  .webBG {
+    /*background-image: linear-gradient(rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.5)), url("resources/assets/frontend/img/banner-2.jpg") !important;*/
+    background-image: linear-gradient(rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.5)), linear-gradient(to right, #56CCF2, #2F80ED) !important;
+    /*background-image: linear-gradient(#065AF3, #53b2fe) !important;*/
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    min-height: 584px;
+    }
+  .dSearchPanel {
+    position: relative;
+    top: 63px; /*Changed in M*/
+    background: #fff;
+    border-radius: 0; /*Changed in M*/
+    padding: 47px 13px 25px;
+    min-height: 521px; /*Changed in M*/
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.2);
+    /*background-color: #eaf5ff;*/
+    margin-left: -13px;
+    margin-right: -13px;
+    }
+  .dHldyPanel {
+    /*padding: 0 30px;
+    margin-bottom: 50px;*/
+    padding: 20px 0; /*Changed in M*/
+    }
+  .tripTypeCont {
+    /*display: flex;
+    align-items: center;*/
+    margin-bottom: 10px;
+    }
+  .tripTypeCont h4 {
+    padding: 6px 0px;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #a1a1a1;
+    text-align: center; /*Changed in M*/
+    margin-bottom: 0;
+    }
+  .dHldyPanelBox {
+    /*border: 1px solid #e7e7e7;*/ /*Changed in M*/
+    border-radius: 0; /*Changed in M*/
+    /*overflow: hidden;*/ /*Removed in M*/
+    /*display: flex;
+    justify-content: center;
+    flex-direction: column*/; /*Changed in M*/
+    }
+  .dSvcPanel {
+    margin-right: 0;
+    position: relative;
+    flex: 1;
+    border-right: solid 1px #e7e7e7;
+    }
+  .dSvcPanel_inputbox, .dSvcPanel_selectbox {
+    background-color: #f9f9f9; /*Changed in M*/
+    height: 85px; /*Changed in M*/
+    border-radius: 5px;
+    border: 1px solid #e7e7e7; /*Changed in M*/
+    /*display: flex;
+    flex-direction: column;
+    flex-grow: 1;*/
+    margin-right: 0;
+    position: relative;
+    transition: all .2s linear;
+    user-select: none;
+    width: 100%;
+    margin-bottom: 10px; /*Changed in M*/
+    }
+  .dSvcPanel_inputbox:last-child {
+    border-right: 0; /*Added in M*/
+    margin-bottom: 0; /*Added in M*/
+    }
+  .dSvcPanel_inputbox label, .dSvcPanel_selectbox label {
+    font-size: 14px;
+    line-height: 16px;
+    color: #4a4a4a;
+    font-weight: 500;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    padding: 10px 20px 0;
+    }
+  .dSvcPanel_inputbox_date{
+    background-color: #f9f9f9; /*Changed in M*/
+    height: 85px; /*Changed in M*/
+    border-radius: 5px; /*Changed in M*/
+    border: 1px solid #e7e7e7; /*Changed in M*/
+    /*border-right: 1px solid #e7e7e7;*/
+    /*display: flex;
+    flex-direction: column;
+    flex-grow: 1;*/
+    margin-right: 0;
+    transition: all .2s linear;
+    user-select: none;
+    width: 100%;
+    /*position: relative;*/
+    margin-bottom: 10px; /*Added in M*/
+    }
+  .dSvcPanel_inputbox_date label {
+    font-size: 13px;
+    line-height: 14px;
+    color: #4a4a4a;
+    font-weight: 500;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    padding: 10px 20px 0;
+    }
+  .searchBoxdownArrow:after {
+    display: inline-block;
+    padding: 3px;
+    content: '';
+    border: solid #08b2ed;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    vertical-align: top;
+    margin-left: 8px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    top: 1px;
+    }
+  .inputBoxdownArrow:after {
+    /*display: inline-block;
+    padding: 3px;
+    content: '';
+    border: solid #08b2ed;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    vertical-align: top;
+    margin-left: 8px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    top: 3px;*/
+    }
+  .dSvcPanel_inputbox input {
+    /*background: #fff;*/
+    font-size: 21px;
+    line-height: 28px;
+    color: #001;
+    font-weight: 600;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    text-transform: capitalize;
+    width: 100%;
+    height: 48px; /*Changed in M*/
+    padding: 6px 20px;
+    background-color: transparent; /*Changed in M*/
+    }
+  .dSvcPanel_inputbox input::-webkit-input-placeholder{
+    font-size: 14px;
+    vertical-align: top;
+    }
+  .dSvcPanel_inputbox_date input {
+    height: 0;
+    border: 0;
+    opacity: 0;
+    outline: 0;
+    padding: 0;
+    position: absolute;
+    user-select: none;
+    }
+  /*.dSvcPanel_selectbox select {
+    background: #fff;
+    font-size: 24px;
+    line-height: 26px;
+    color: #001 !important;
+    font-weight: 600;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    width: 100%;
+    height: 30px;
+    margin-left: 0;
+    }*/
+  /*Customized Date Starts*/
+  .dateValueCont {
+    padding: 9px 0;
+    /*height: 50px;*/
+    display: flex;
+    flex-direction: row; /*Changed in M*/
+    align-items: baseline; /*Added in M*/
+    }
+  .dateValue {
+    /*font-size: 20px;
+    line-height: 44px;*/
+    color: #001;
+    font-weight: 600;
+    text-transform: capitalize;
+    align-items: baseline;
+    column-gap: 5px;
+    }
+  .dayStyle {
+    font-size: 26px;
+    line-height: 32px;
+    font-weight: 900;
+    color: #001;
+    }
+  .monthStyle {
+    font-size: 20px;
+    line-height: 26px;
+    color: #001;
+    font-weight: 500
+    }
+  .yearStyle {
+    font-size: 20px;
+    line-height: 26px;
+    color: #001;
+    font-weight: 500
+    }
+  .comma:after {
+    content: ",";
+    }
+  .dayName {
+    font-size: 14px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 500;
+    text-align: left;
+    letter-spacing: .64px;
+    margin-top: 0;
+    margin-left: 6px; /*Added in M*/
+    }
+  /*Customized Date Ends*/
+  .dSrchBtnCont {
+    display: flex;
+    justify-content: center;
+    }
+  .btnMain {
+    display: inline-block;
+    text-transform: none;
+    border-radius: 3px;
+    padding: 6px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    letter-spacing: 0.64px;
+    margin-bottom: 0;
+    height: auto;
+    }
+  .btnSearchWeb {
+    outline: 0;
+    text-transform: uppercase;
+    background-color: #08B2ED;
+    border: 0;
+    border-radius: 3px; /*Changed in M*/
+    padding: 6px 12px; /*Changed in M*/
+    font-size: 20px; /*Changed in M*/
+    line-height: 22px; /*Changed in M*/
+    color: #fff;
+    font-weight: 600; /*Changed in M*/
+    cursor: pointer; /*Changed in M*/
+    margin-bottom: 0; /*Changed in M*/
+    width: 215px;
+    width: 100%; /*Changed in M*/
+    height: 44px; /*Changed in M*/
+    }
+  .btnSearchWeb:hover, .btnSearchWeb:focus {
+    background: #01b7f2;
+    color: #fff;
+    }
+/*Mobile Search Panel Input Ends*/
+
+/*Select-2 Starts*/
+  .select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+    padding: 0;
+    display: block;
+    }
+  .select2-container--default .select2-selection--single {
+    background: #fff !important;
+    /*height: 22px !important;*/
+    border-radius: 0 !important;
+    border: 0 !important;
+    /*padding-top: 5px !important;*/
+    font-size: 15px !important;
+    }
+  /*IMP Starts*/
+  .select2-container--default .select2-selection--single .select2-selection__clear {
+    cursor: default; /*Changed in M*/
+    float: right;
+    font-weight: bold;
+    height: 26px;
+    margin-right: 15px;
+    padding-right: 0px;
+    opacity: 0;
+    position: absolute;
+    left: -499px;
+    }
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #001  !important; /*Changed in Page Two*/
+    font-size: 22px; /*Changed in Page Two*/ /*Changed in M*/
+    line-height: 28px; /*Changed in Page Two*/ /*Changed in M*/
+    font-weight: 900; /*Changed in Page Two*/
+    text-transform: capitalize; /*Changed in Page Two*/
+    }
+  span.select2.select2-container {
+    width: 100% !important;
+    }
+  .select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: default; /*Changed in M*/
+    display: block;
+    /*height: 22px !important;*/ /*changed in page two*/
+    height: 48px; /*changed in page two*/ /*IMP in increasing Select2 height*/
+    user-select: none;
+    -webkit-user-select: none;
+    /*border-radius: 5px !important;
+    border: 1px solid #7d7d7d !important;*/
+    /*font-size: 15px;
+    line-height: 16px;
+    font-weight: 500;
+    color: #fff;*/
+    width: 100%;
+    /*background: #434a54 !important;*/
+    background-color: #fff !important; /*changed in page two*/
+    display: flex; /*changed in page two*/
+    align-items: center; /*changed in page two*/
+    background-color: transparent !important; /*added in M*/
+    }
+  .select2-container .select2-selection--single .select2-selection__rendered {
+    display: block;
+    /*padding-left: 2px !important;
+    padding-right: 5px;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 6px 20px;
+    width: 100%;
+    }
+  .select2-container .select2-selection--single .select2-selection__clear {
+    border: none;
+    font-size: 18px;
+    color: #fff;
+    background-color: transparent;
+    margin-top: -1px;
+    }
+  .select2-container--default .select2-selection--single .select2-selection__clear {
+    cursor: pointer; /*Changed in M*/
+    float: right;
+    font-weight: bold;
+    height: 26px;
+    margin-right: 15px;
+    padding-right: 0px;
+    opacity: 0;
+    }
+  /*IMP Ends*/
+  .select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #001; /*Changed in Page Two*/
+    font-weight: 900;
+    }
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 26px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 20px;
+    /* opacity: 0; */
+    display: none;
+    }
+  .select2-search--dropdown {
+    display: block;
+    /*padding: 4px;*/
+    padding: 0;
+    box-shadow: 0 2px 3px 0 rgb(0 0 0 / 10%);
+    }
+  .select2-container .select2-dropdown {
+    background: #f2f2f2;
+    top: -35px;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+    max-width: 330px;
+    left: 20px; /*Added in M*/
+    }
+  .select2-container .select2-dropdown .select2-search input {
+    background: #fff;
+    box-shadow: 0 2px 3px 0 rgb(0 0 0 / 10%);
+    padding: 10px 10px 11px 20px;
+    outline: 0;
+    border: 0;
+    width: 100%;
+    font-size: 16px;
+    line-height: 18px;
+    color: #001;
+    margin: 0 !important;
+    text-transform: capitalize;
+    }
+  .select2-container .select2-dropdown .select2-results {
+    padding: 0;
+    }
+  .select2-container--default .select2-results__option .select2-results__option {
+    padding-left: 20px;
+    }
+  .select2-container--default .select2-results__option--selected {
+    background-color: #fff;
+    }
+  .select2-container .select2-dropdown .select2-results ul .select2-results__option--highlighted[aria-selected] {
+    background-color: #f2f2f2;
+    }
+  .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: #f2f2f2;
+    color: #001;
+    }
+  .select2-container .select2-dropdown .select2-results ul {
+    background: #fff;
+    /*border: 1px solid #34495e;*/
+    border: 0;
+    }
+  .select2-container--default .select2-results>.select2-results__options {
+    min-height: 283px;
+    max-height: 285px;
+    overflow-y: auto;
+    }
+  .select2-container--default .select2-results__option--group {
+    padding: 0;
+    }
+  .select2-results__option {
+    padding: 11px 15px;
+    user-select: none;
+    -webkit-user-select: none;
+    color: #001; /*Changed in M*/
+    cursor: default; /*Added in M*/
+    font-size: 14px; /*Added in M*/
+    line-height: 16px; /*Added in M*/
+    /*font-weight: 600;*/ /*Added in M*/
+    }
+  .select2-container--default .select2-results__group {
+    cursor: default;
+    display: block;
+    padding: 10px 20px 4px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #a1a1a1;
+    font-weight: 600;
+    text-transform: uppercase;
+    }
+/*Select-2 Ends*/
+
+/*Date Picker Starts*/
+  /*.ui-datepicker {
+    width: 20em;
+    padding: 0;
+    display: none;
+    background: #fff;
+    z-index: 1;
+    position: absolute;
+    top: 430px !important;
+    left: 30px !important;
+    min-height: 225px;
+    
+    border: 1px solid #fdb714;
+    display: block;
+    }*/
+  .ui-datepicker {
+    width: 96% important;
+    left: 0 !important;
+    top: 0 !important;
+    right: 0;
+    margin: auto;
+    height: 100%;
+    overflow: auto;
+    }
+}

@@ -1,0 +1,1667 @@
+/*@media (min-width: 1px) {*/
+/*user profile info starts*/
+
+@media (max-width: 992px) {
+  .whiteBG {
+    box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    position: relative;
+    z-index: 13;
+    position: sticky;
+    top: 0;
+    }
+  .make-sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    }
+  .myPofileBannerWrapper {
+    padding: 20px 13px;
+    background-color: #f6f6f6;
+    /*min-height: 210px;*/
+    }
+  .myPofileBannerWrapper .item-content ul li {
+    font-size: 18px;
+    line-height: 20px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: left;
+    margin-top: 0;
+    }
+  .mobScrollX {
+    overflow-x: auto;
+    }
+  .contentWrapper {
+    width: 100%;
+    /*margin: 0 auto;*/
+    display: flex;
+    /*justify-content: space-between;*/
+    flex-direction: column;
+    }
+  .contentWrapper.topMargin {
+    margin-top: 0;
+    }
+  .contentWrapper {
+    /*width: unset;
+    flex-direction: column;*/
+    }
+
+  /*user profile info leftsection*/
+  .myProfilePage .leftSection {
+    /*width: 280px;*/
+    flex-shrink: 0;
+    margin-bottom: 20px;
+    }
+  .profilSideBar-sticky {
+    position: sticky;
+    top: 15px;
+    }
+  .profileSideBar {
+    border-radius: 10px;
+    box-shadow: 0 3px 30px 0 rgb(0 0 0 / 10%);
+    background-color: #fff;
+    padding: 32px 20px;
+    display: flex;
+    column-gap: 10px;
+    }
+  .profileSideBar .profilelImageBox {
+    margin: 0 auto;
+    }
+  .profileSideBar .profilelImageBox {
+    width: 180px;
+    height: 180px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    /*position: relative;*/
+    overflow: hidden;
+    background-image: linear-gradient(45deg, #ace143, #219393);
+    display: flex;
+    align-items: center;
+    }
+  .profileSideBar .profilelImageBox img {
+    width: 180px;
+    height: auto;
+    border-radius: 8px;
+    }
+  .profileSideBar .profilelImageBox_nameInitials {
+    width: 100%;
+    height: 100%;
+    font-size: 40px;
+    line-height: 40px;
+    color: #fff;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+  /*.profileSideBar .profileImage_editIcon {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #fff;
+    border-radius: 50%
+    }
+  .profileSideBar .profilelImageBox_editGreyBgIcn {
+    position: absolute;
+    bottom: 17px;
+    right: -20px;
+    z-index: 1;
+    overflow: hidden;
+    right: 30px;
+    }*/
+  .profileSideBar .imageBox_editIcn {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    font-size: 22px;
+    padding: 5px 8px;
+    background: #b8b8b8;
+    color: #fff;
+    }
+  .profileSideBar .imageBox_icnPostn {
+    position: absolute;
+    bottom: 10px;
+    right: -20px;
+    z-index: 1;
+    overflow: hidden;
+    }
+  .profileSideBar .profilelImageBox_imgUpload {
+    position: absolute;
+    width: 100%;
+    height: 200%;
+    outline: 0;
+    border: 0;
+    z-index: 1;
+    opacity: 0;
+    cursor: pointer;
+    bottom: 0;
+    }
+  .profileSideBar .profileSideBar .sdeBarNav {
+    margin: 25px 20px 0;
+    }
+  .profileSideBar .contentWrap {
+    padding: 15px 20px;
+    text-align: center;
+    }
+  .profileSideBar .contentWrap .guestName {
+    font-size: 16px;
+    line-height: 18px;
+    color: #001;
+    font-weight: 600;
+    text-align: center;
+    text-transform: capitalize;
+    margin: 0;
+    }
+  .profileSideBar .contentWrap .guestNameTag {
+    font-size: 10px;
+    line-height: 12px;
+    color: #4a4a4a;
+    font-weight: 500;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 5px;
+    }
+  .profileSideBar .sideBarNav {
+    /*margin: 25px 20px 0;*/
+    margin-left: 25px;
+    }
+  .profileSideBar .sideBarItem {
+    font-size: 14px;
+    line-height: 16px;
+    color: #4a4a4a;
+    font-weight: 600;
+    padding: 10px 10px 10px 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    }
+  .profileSideBar .sideBarItem.active {
+    border-radius: 4px;
+    background: rgba(0, 140, 255, 0.1);
+    color: #08B2ED;
+    }
+  .profileSideBar .sideBarIconBox {
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-right: 16px;
+    }
+  .profileSideBar .profileuserIcon {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4a4a4a;
+    }
+  .profileSideBar .profileloginIcon {
+    width: 20px;
+    height: 20px;
+    }
+  /**********/
+  /*.profileComplte_statusList {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+    background-color: #eff3f7;
+    padding: 18px 20px;
+    display: flex;
+    margin-top: 27px;
+    }
+  .profileComplte_statusListItem {
+    color: #08B2ED;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    }
+  .profileComplte_statusListItem .verifiedItem {
+    color: #001;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    }*/
+  
+
+  /*user profile info rightsection*/
+  .myProfilePage .rightSection {
+    /*width: 890px;*/
+    margin-bottom: 80px;
+    flex: 1;
+    }
+  .profileSumryCont, .profileCompletionStatus {
+    box-shadow: 0 3px 30px 0 rgb(0 0 0 / 10%);
+    border-radius: 10px;
+    padding: 20px 30px;
+    background-color: #fff;
+    /*position: relative;*/
+    margin-bottom: 10px;
+    }
+  .profileComplte_prctagBox {
+    /*width: 280px;*/
+    max-width: 600px;
+    color: #4a4a4a;
+    }
+  .profileComplte_prctagBox .title {
+    font-size: 15px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 500;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    }
+  .profileComplte_prctagBox .progressBar {
+    width: 100%;
+    height: 6px;
+    border-radius: 20px;
+    background-color: #e2e2e2;
+    position: relative;
+    margin-top: 7px;
+    }
+  .profileComplte_prctagBox .progressBarFill {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background-color: #31b79c;
+    }
+  .profileComplte_prctagBox .progressBarFill.complete {
+    /*width: {{ $width }}%;*/
+    }
+  .profileSumryCont .tagline {
+    font-size: 15px;
+    line-height: 17px;
+    color: #4a4a4a;
+    margin-top: 10px;
+    }
+
+  .profileComplte_statusList {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 700;
+    border-radius: 10px;
+    background-color: #eff3f7;
+    padding: 18px 20px;
+    margin-top: 27px;
+    column-gap: 10px;
+    display: flex;
+    justify-content: space-between;
+    }
+  .profileComplte_statusListItem {
+    color: #08B2ED;
+    display: flex;
+    align-items: center;
+
+    }
+  .profileComplte_statusListItem .verifiedItem {
+    color: #001;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    }
+  .profileComplte_statusListItem .verifiedItem .verifiedIcon {
+    /*font-size: 26px;
+    color: green;
+    margin-left: 15px;
+    margin-right: 5px;*/
+    }
+
+  /*custom checkmark*/
+  .profileComplte_statusListItem .verifiedItem .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+  .profileComplte_statusListItem .verifiedItem .wrapper .circle {
+    position: relative;
+    background-color: #00B01D;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    }
+  .profileComplte_statusListItem .verifiedItem .wrapper .circle .checkMark {
+    position: absolute;
+    transform: rotate(50deg) translate(-50%, -50%);
+    left: 7px;
+    top: 11px;
+    height: 11px;
+    width: 5px;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    }
+  .profileComplte_statusListItem .non-verified {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    cursor: pointer;
+    }
+
+  /*custom plus*/
+  .profileComplte_statusListItem .non-verified .wrapper .circle {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    /*background-color: rgb(44, 108, 128);*/
+    background-color: #08B2ED;
+    position: relative;
+    }
+  .profileComplte_statusListItem .non-verified .wrapper .circle::after {
+    content: " ";
+    position: absolute;
+    display: block;
+    background-color: #fff;
+    height: 2px;
+    margin-top: -1px;
+    top: 50%;
+    left: 7px;
+    right: 7px;
+    /*z-index: 9;*/
+    }
+  .profileComplte_statusListItem .non-verified .wrapper .circle::before {
+    content: " ";
+    position: absolute;
+    display: block;
+    background-color: #fff;
+    width: 2px;
+    margin-left: -1px;
+    left: 50%;
+    top: 7px;
+    bottom: 7px;
+    /*z-index: 9;*/
+    }
+  .profileCompletionStatus__stpsStatusLst {
+    /*border-radius: 10px;
+    background-color: #eff3f7;
+    padding: 18px 10px;
+    display: flex;
+    margin-top: 27px;*/
+    }
+
+  /*profile component item list*/
+  .profileCompontCont {
+    border: 1px solid #cacaca;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 20px 30px 0;
+    margin-bottom: 10px;
+    overflow: hidden;
+    }
+  .profileCompontCont .titleWrapper {
+    display: flex;
+    justify-content: space-between;
+    }
+  .profileCompontCont .titleWrapper h3 {
+    font-size: 22px;
+    line-height: 24px;
+    color: #001;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 5px;
+    }
+  .profileCompontCont .titleWrapper p {
+    font-size: 16px;
+    line-height: 18px;
+    color: #4a4a4a;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 0;
+    margin-top: 5px;
+    } 
+  .profileCompontCont .btn_EditDetail {
+    font-size: 16px;
+    line-height: 18px;
+    color: #08B2ED;
+    font-weight: 700;
+    padding: 8px 16px;
+    background-color: #fff;
+    border-radius: 20px;
+    border: 1px solid #cacaca;/
+    outline: 0;
+    cursor: default;
+    white-space: nowrap;
+    }
+  .profileCompontCont .btn_EditDetail:hover {
+    background-color: #fff;
+    color: #08B2ED;
+    border-color: #08B2ED;
+    }
+  .profileCompontCont .detailList {
+    margin: 30px -30px 0 0;
+    /*border-radius: 0 0 10px 10px;
+    overflow: hidden;*/
+    }
+  .profileCompontCont .detailList .item {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    /*margin-left: 30px;*/
+    border-top: 1px solid #e3e3e3;
+    height: 60px;
+    }
+  .profileCompontCont .detailList .item:first-child {/
+    border-top: 0;
+    }
+  .profileCompontCont .detailList .item .title {
+    font-size: 11px;
+    line-height: 13px;
+    color: #4a4a4a;
+    text-align: left;
+    text-transform: uppercase;
+    /*width: 125px;*/
+    min-width: 125px;
+    margin-right: 20px;
+    }
+  .profileCompontCont .detailList .item .addItemDetails {
+    font-size: 14px;
+    line-height: 16px;
+    color: #08B2ED;
+    text-align: left;
+    text-transform: capitalize;
+    font-weight: 700;
+    margin-right: 30px;
+    cursor: pointer;
+    }
+  .profileCompontCont .detailList .item .itemDetails {
+    font-size: 16px;
+    line-height: 18px;
+    color: #001;
+    text-align: left;
+    /*text-transform: capitalize;*/
+    font-weight: 700;
+    margin-right: 15px;
+    white-space: nowrap;
+    }
+  .profileCompontCont .detailList .item .itemDetails-nonVerified {
+    font-size: 14px;
+    line-height: 16px;
+    color: #08B2ED;
+    text-align: left;
+    text-transform: none;
+    font-weight: 700;
+    margin-right: 30px;
+    cursor: pointer;
+    }
+  .profileCompontCont .detailList .item .itemDetails-Verified {
+    font-size: 14px;
+    line-height: 16px;
+    color: #00a19e;
+    text-align: left;
+    text-transform: none;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    }
+
+  /*custom checkmark*/
+  .profileCompontCont .detailList .item .itemDetails-Verified .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+  .profileCompontCont .detailList .item .itemDetails-Verified .wrapper .circle {
+    position: relative;
+    background-color: #00B01D;
+    border-radius: 50%;
+    height: 18px;
+    width: 18px;
+    }
+  .profileCompontCont .detailList .item .itemDetails-Verified .wrapper .circle .checkMark {
+    position: absolute;
+    transform: rotate(50deg) translate(-50%, -50%);
+    left: 5px;
+    top: 8px;
+    height: 9px;
+    width: 4px;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    }
+
+  /*delete mobile*/
+  .profileCompontCont .detailList .deleteMobileNoCont, .loginEditDeleteContainer {
+    display: none;
+    }
+
+  /*password*/
+  .profileCompontCont .detailList .item .loginPwdText {
+    font-size: 25px;
+    line-height: 0;
+    font-weight: 700;
+    color: #001;
+    align-self: center;
+    position: relative;
+    top: -8px;
+    margin-right: 20px;
+    }
+  .profileCompontCont .detailList .item .btnChangePwd {
+    font-size: 13px;
+    line-height: 15px;
+    color: #08B2ED;
+    font-weight: 700;
+    padding: 8px 0;
+    background-color: transparent;
+    /*border-radius: 20px;
+    border: 1px solid #cacaca;*/
+    outline: 0;
+    cursor: default;
+    margin-left: auto;
+    margin-right: 13px;
+    }
+
+  /*traveller info*/
+  /*Add Traveller Info (Desktop-Mobile)-popup*/
+  .deleteInfo {
+    font-size: 16px;
+    line-height: 16px;
+    color: #eb2026;
+    font-Weight: 900;
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    }
+  .fa-trash:before {
+    content: "\f014";
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    color: #eb2026;
+    font-size: 18px;
+    cursor: unset;
+    margin-top: 0;
+    margin-right: 5px;
+    }
+  .infoCont {
+    background-color: #fff;
+    padding: 20px 20px 0;
+    }
+  .infoCont .infoTab {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    }
+  .infoCont .infoTab li {
+    font-size: 16px;
+    line-height: 16px;
+    color: #000001;
+    font-weight: 900;
+    cursor: pointer;
+    text-align: left;
+    padding-bottom: 18px;
+    margin-right: 30px;
+    border-bottom: 3px solid transparent;
+    }
+  .infoCont .infoTab li.active {
+    color: #08B2ED;
+    border-color: #08B2ED;
+    }
+  .basicInfoBox, .passportInfoBox {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    }
+  .basicInfoBox h5, .passportInfoBox h5 {
+    font-size: 18px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 900;
+    text-align: left;
+    margin-bottom: 5px;
+    }
+  .basicInfoBox h6, .passportInfoBox h6 {
+    font-size: 14px;
+    line-height: 14px;
+    color: #4a4a4a;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 0;
+    }
+  .lineSeparator {
+    border-bottom: 4px solid #f0f0f0;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    }
+  .make-sticky-footer {
+    position: sticky;
+    z-index: 1;
+    bottom: 0;
+    }
+  .profileCompontCont .detailList .item .trvlrIconCont {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #dfdfdf;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    /*align-self: flex-start;*/
+    }
+  .profileCompontCont .travellerInfo {
+    font-size: 15px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 500;
+    margin: 0;
+    }
+  .profileCompontCont .travellerInfo .nameCont {
+    width: 100px;
+    overflow-wrap: break-word;
+    margin-right: 40px;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+  .profileCompontCont .travellerInfo .nameCont .userName {
+    font-size: 16px;
+    line-height: 18px;
+    color: #001;
+    font-weight: 600;
+    margin-right: 5px;
+    }
+  .profileCompontCont .travellerInfo .genderInfo {
+    width: 50px;
+    overflow-wrap: break-word;
+    margin-right: 40px;
+    flex: 1;
+    }
+  .profileCompontCont .travellerInfo .ageInfo {
+    width: 70px;
+    overflow-wrap: break-word;
+    flex: 1;
+    }
+  .profileCompontCont .detailList .item .viewDtlCont {
+    margin-left: auto;
+    margin-right: 15px;
+    }
+  .profileCompontCont .detailList .item .viewDtlCont .viewDtlBtn {
+    font-size: 12px;
+    line-height: 14px;
+    color: #08B2ED;
+    font-weight: 600;
+    outline: 0;
+    border: 0;
+    background-color: transparent;
+    /*display: none;*/
+    }
+  .profileCompontCont .detailList .item:hover .viewDtlCont .viewDtlBtn {
+    display: block;
+    background: none;
+    color: #08B2ED;
+    cursor: default;
+    }
+  .profileCompontCont .detailList .item:hover {
+    background-image: linear-gradient(to left, #f7f7f7, #fff);
+    }
+  }
+
+@media (min-width: 992px) {
+  .whiteBG {
+    box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.4);
+    background-color: #fff;
+    position: relative;
+    z-index: 13;
+    }
+  .make-sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    }
+  .myPofileBannerWrapper {
+    padding: 20px 40px 30px;
+    background-color: #f6f6f6;
+    min-height: 210px;
+    }
+  .myPofileBannerWrapper .item-content ul li {
+    font-size: 18px;
+    line-height: 20px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: left;
+    margin-top: 10px;
+    }
+  .contentWrapper {
+    /*width: 1200px;
+    margin: 0 auto;*/
+    display: flex;
+    justify-content: space-between;
+    column-gap: 25px;
+    }
+  .contentWrapper.topMargin {
+    margin-top: -125px;
+    }
+  /*user profile info leftsection starts*/
+  .myProfilePage .leftSection {
+    width: 280px;
+    flex-shrink: 0;
+    }
+  .profilSideBar-sticky {
+    position: sticky;
+    top: 15px;
+    }
+  .profileSideBar {
+    border-radius: 10px;
+    box-shadow: 0 3px 30px 0 rgb(0 0 0 / 10%);
+    background-color: #fff;
+    padding: 32px 0;
+    }
+  .profileSideBar .profilelImageBox {
+    margin: 0 auto;
+    }
+  .profileSideBar .profilelImageBox {
+    width: 180px;
+    height: 180px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    /*position: relative;*/
+    overflow: hidden;
+    background-image: linear-gradient(45deg, #ace143, #219393);
+    display: flex;
+    align-items: center;
+    }
+  .profileSideBar .profilelImageBox img {
+    width: 180px;
+    height: auto;
+    border-radius: 8px;
+    }
+  .profileSideBar .profilelImageBox_nameInitials {
+    width: 100%;
+    height: 100%;
+    /*background-image: linear-gradient(45deg, #ace143, #219393);*/
+    font-size: 40px;
+    line-height: 40px;
+    color: #fff;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*border: 1px solid #c2c2c2;
+    border-radius: 8px;
+    overflow: hidden;*/
+    }
+  .profileSideBar .imageBox_editIcn {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    font-size: 22px;
+    padding: 5px 8px;
+    background: #b8b8b8;
+    color: #fff;
+    }
+  .profileSideBar .imageBox_icnPostn {
+    position: absolute;
+    bottom: 17px;
+    right: -20px;
+    z-index: 1;
+    overflow: hidden;
+    right: 30px;
+    }
+  .profileSideBar .profilelImageBox_imgUpload {
+    position: absolute;
+    width: 100%;
+    height: 200%;
+    outline: 0;
+    border: 0;
+    z-index: 1;
+    opacity: 0;
+    cursor: pointer;
+    bottom: 0;
+    }
+  .profileSideBar .profileSideBar .sdeBarNav {
+    margin: 25px 20px 0;
+    }
+  .profileSideBar .contentWrap {
+    padding: 15px 20px;
+    text-align: center;
+    }
+  .profileSideBar .contentWrap .guestName {
+    font-size: 20px;
+    line-height: 22px;
+    color: #001;
+    font-weight: 600;
+    text-align: center;
+    text-transform: capitalize;
+    margin: 0;
+    }
+  .profileSideBar .contentWrap .guestNameTag {
+    font-size: 12px;
+    line-height: 14px;
+    color: #4a4a4a;
+    font-weight: 500;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 5px;
+    }
+  .profileSideBar .sideBarNav {
+    /*margin: 25px 20px 0;*/
+    margin: 25px;
+    }
+  .profileSideBar .sideBarItem {
+    font-size: 14px;
+    line-height: 16px;
+    color: #4a4a4a;
+    font-weight: 600;
+    padding: 10px 10px 10px 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    }
+  .profileSideBar .sideBarItem.active {
+    border-radius: 4px;
+    background: rgba(0, 140, 255, 0.1);
+    color: #08B2ED;
+    }
+  .profileSideBar .sideBarIconBox {
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-right: 16px;
+    }
+  .profileSideBar .profileuserIcon {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4a4a4a;
+    }
+  .profileSideBar .profileloginIcon {
+    width: 20px;
+    height: 20px;
+    }
+  /*user profile info leftsection ends*/
+
+  /*user profile info rightsection starts*/
+  .myProfilePage .rightSection {
+    /*width: 890px;*/
+    /*flex-shrink: 0;*/
+    margin-bottom: 250px;
+    flex: 1;
+    }
+  .profileSumryCont, .profileCompletionStatus {
+    box-shadow: 0 3px 30px 0 rgb(0 0 0 / 10%);
+    border-radius: 10px;
+    padding: 20px 30px;
+    background-color: #fff;
+    /*position: relative;*/
+    margin-bottom: 10px;
+    }
+  .profileComplte_prctagBox{
+    width: 280px;
+    color: #4a4a4a;
+    }
+  .profileComplte_prctagBox .title {
+    font-size: 15px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 500;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    }
+  .profileComplte_prctagBox .progressBar{
+    width: 100%;
+    height: 6px;
+    border-radius: 20px;
+    background-color: #e2e2e2;
+    position: relative;
+    margin-top: 7px;
+    }
+  .profileComplte_prctagBox .progressBarFill {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background-color: #31b79c;
+    }
+  .profileComplte_prctagBox .progressBarFill.complete {
+    /*width: {{ $width }}%;*/
+    }
+  .profileSumryCont .tagline {
+    font-size: 15px;
+    line-height: 17px;
+    color: #4a4a4a;
+    margin-top: 10px;
+    }
+
+  .profileComplte_statusList {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+    background-color: #eff3f7;
+    padding: 18px 20px;
+    display: flex;
+    margin-top: 27px;
+    }
+  .profileComplte_statusListItem {
+    color: #08B2ED;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    }
+  .profileComplte_statusListItem .verifiedItem {
+    color: #001;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    }
+  .profileComplte_statusListItem .verifiedItem .verifiedIcon {
+    /*font-size: 26px;
+    color: green;
+    margin-left: 15px;
+    margin-right: 5px;*/
+    }
+
+  /*custom checkmark*/
+  .profileComplte_statusListItem .verifiedItem .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+  .profileComplte_statusListItem .verifiedItem .wrapper .circle {
+    position: relative;
+    background-color: #00B01D;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    }
+  .profileComplte_statusListItem .verifiedItem .wrapper .circle .checkMark {
+    position: absolute;
+    transform: rotate(50deg) translate(-50%, -50%);
+    left: 7px;
+    top: 11px;
+    height: 11px;
+    width: 5px;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    }
+  .profileComplte_statusListItem .non-verified {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    cursor: pointer;
+    }
+
+  /*custom plus*/
+  .profileComplte_statusListItem .non-verified .wrapper .circle {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    /*background-color: rgb(44, 108, 128);*/
+    background-color: #08B2ED;
+    position: relative;
+    }
+  .profileComplte_statusListItem .non-verified .wrapper .circle::after {
+    content: " ";
+    position: absolute;
+    display: block;
+    background-color: #fff;
+    height: 2px;
+    margin-top: -1px;
+    top: 50%;
+    left: 7px;
+    right: 7px;
+    /*z-index: 9;*/
+    }
+  .profileComplte_statusListItem .non-verified .wrapper .circle::before {
+    content: " ";
+    position: absolute;
+    display: block;
+    background-color: #fff;
+    width: 2px;
+    margin-left: -1px;
+    left: 50%;
+    top: 7px;
+    bottom: 7px;
+    /*z-index: 9;*/
+    }
+  .profileCompletionStatus__stpsStatusLst {
+    /*border-radius: 10px;
+    background-color: #eff3f7;
+    padding: 18px 10px;
+    display: flex;
+    margin-top: 27px;*/
+    }
+
+  /*profile component item list*/
+  .profileCompontCont {
+    border: 1px solid #cacaca;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 20px 30px 0;
+    margin-bottom: 10px;
+    overflow: hidden;
+    }
+  .profileCompontCont .titleWrapper {
+    display: flex;
+    justify-content: space-between;
+    }
+  .profileCompontCont .titleWrapper h3 {
+    font-size: 30px;
+    line-height: 32px;
+    color: #001;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 5px;
+    }
+  .profileCompontCont .titleWrapper p {
+    font-size: 18px;
+    line-height: 20px;
+    color: #4a4a4a;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 0;
+    margin-top: 5px;
+    }
+    
+  .profileCompontCont .btn_EditDetail {
+    font-size: 16px;
+    line-height: 18px;
+    color: #08B2ED;
+    font-weight: 700;
+    /*font-family: inherit;
+    display: inline-flex;
+    align-items: center;*/
+    padding: 8px 16px;
+    background-color: #fff;
+    /*flex-shrink: 0;*/
+    border-radius: 20px;
+    border: 1px solid #cacaca;
+    /*min-width: 90px;*/
+    outline: 0;
+    cursor: pointer;
+    }
+  .profileCompontCont .btn_EditDetail:hover {
+    background-color: #fff;
+    color: #08B2ED;
+    border-color: #08B2ED;
+    }
+  .profileCompontCont .detailList {
+    margin: 30px -30px 0 0;
+    /*border-radius: 0 0 10px 10px;
+    overflow: hidden;*/
+    }
+  .profileCompontCont .detailList .item {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    /*margin-left: 30px;*/
+    border-top: 1px solid #e3e3e3;
+    height: 60px;
+    position: relative;
+    }
+  .profileCompontCont .detailList .item:first-child {
+    border-top: 0;
+    }
+  .profileCompontCont .detailList .item .title {
+    font-size: 11px;
+    line-height: 13px;
+    color: #4a4a4a;
+    text-align: left;
+    text-transform: uppercase;
+    width: 160px;
+    margin-right: 20px;
+    }
+  .profileCompontCont .detailList .item .addItemDetails {
+    font-size: 14px;
+    line-height: 16px;
+    color: #08B2ED;
+    text-align: left;
+    text-transform: capitalize;
+    font-weight: 700;
+    margin-right: 30px;
+    cursor: pointer;
+    }
+  .profileCompontCont .detailList .item .itemDetails {
+    font-size: 16px;
+    line-height: 18px;
+    color: #001;
+    text-align: left;
+    /*text-transform: capitalize;*/
+    font-weight: 700;
+    margin-right: 5px;
+    }
+  .profileCompontCont .detailList .item .itemDetails-nonVerified {
+    font-size: 14px;
+    line-height: 16px;
+    color: #08B2ED;
+    text-align: left;
+    text-transform: none;
+    font-weight: 700;
+    margin-right: 30px;
+    cursor: pointer;
+    }
+  .profileCompontCont .detailList .item .itemDetails-Verified {
+    font-size: 14px;
+    line-height: 16px;
+    color: #00a19e;
+    text-align: left;
+    text-transform: none;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    }
+
+  /*delete mobile*/
+  .profileCompontCont .detailList .deleteMobileNoCont {
+    margin-left: auto;
+    margin-right: 30px;
+    display: none;
+    align-items: center;
+    }
+  .profileCompontCont .detailList .item:hover .deleteMobileNoCont {
+    display: block;
+    }
+  .profileCompontCont .detailList .item:hover .deleteMobileNoCont {
+    display: block;
+    }
+  .profileCompontCont .detailList .deleteMobileNoCont .deleteMobileNo_delBtn {
+    position: relative;
+    outline: 0;
+    }
+
+  /*custom checkmark*/
+  .profileCompontCont .detailList .item .itemDetails-Verified .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+  .profileCompontCont .detailList .item .itemDetails-Verified .wrapper .circle {
+    position: relative;
+    background-color: #00B01D;
+    border-radius: 50%;
+    height: 18px;
+    width: 18px;
+    }
+  .profileCompontCont .detailList .item .itemDetails-Verified .wrapper .circle .checkMark {
+    position: absolute;
+    transform: rotate(50deg) translate(-50%, -50%);
+    left: 5px;
+    top: 8px;
+    height: 9px;
+    width: 4px;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    }
+
+  /*password*/
+  .profileCompontCont .detailList .item .loginPwdText {
+    font-size: 25px;
+    line-height: 0;
+    font-weight: 700;
+    color: #001;
+    align-self: center;
+    position: relative;
+    top: -7px;
+    }
+  .profileCompontCont .detailList .item .btnChangePwd {
+    font-size: 14px;
+    line-height: 16px;
+    color: #08B2ED;
+    font-weight: 700;
+    padding: 8px 16px;
+    background-color: transparent;
+    /*border-radius: 20px;
+    border: 1px solid #cacaca;*/
+    outline: 0;
+    cursor: pointer;
+    margin-left: auto;
+    }
+
+  /*traveller info*/
+  /*Add Traveller Info (Desktop-Mobile)-popup*/
+  .deleteInfo {
+    font-size: 16px;
+    line-height: 16px;
+    color: #eb2026;
+    font-Weight: 900;
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    }
+  .fa-trash:before {
+    content: "\f014";
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    color: #eb2026;
+    font-size: 18px;
+    cursor: unset;
+    margin-top: 0;
+    margin-right: 5px;
+    }
+  .infoCont {
+    background-color: #fff;
+    padding: 20px 20px 0;
+    }
+  .infoCont .infoTab {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    }
+  .infoCont .infoTab li {
+    font-size: 16px;
+    line-height: 16px;
+    color: #000001;
+    font-weight: 900;
+    cursor: pointer;
+    text-align: left;
+    padding-bottom: 18px;
+    margin-right: 30px;
+    border-bottom: 3px solid transparent;
+    }
+  .infoCont .infoTab li.active {
+    color: #08B2ED;
+    border-color: #08B2ED;
+    }
+  .basicInfoBox, .passportInfoBox {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    }
+  .basicInfoBox h5, .passportInfoBox h5 {
+    font-size: 18px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 900;
+    text-align: left;
+    margin-bottom: 5px;
+    }
+  .basicInfoBox h6, .passportInfoBox h6 {
+    font-size: 14px;
+    line-height: 14px;
+    color: #4a4a4a;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 0;
+    }
+  .lineSeparator {
+    border-bottom: 4px solid #f0f0f0;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    }
+  .make-sticky-footer {
+    position: sticky;
+    z-index: 1;
+    bottom: 0;
+    }
+  .profileCompontCont .detailList .item .trvlrIconCont {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #dfdfdf;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    /*align-self: flex-start;*/
+    }
+  .profileCompontCont .travellerInfo {
+    font-size: 15px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 500;
+    margin: 0;
+    }
+  .profileCompontCont .travellerInfo .nameCont {
+    width: 270px;
+    overflow-wrap: break-word;
+    margin-right: 40px;
+    }
+  .profileCompontCont .travellerInfo .nameCont .userName {
+    font-size: 16px;
+    line-height: 18px;
+    color: #001;
+    font-weight: 600;
+    margin-right: 5px;
+    text-transform: capitalize;
+    }
+  .profileCompontCont .travellerInfo .travellerType {
+    /*width: 117px;*/
+    width: 50px;
+    overflow-wrap: break-word;
+    margin-right: 60px;
+    }
+  .profileCompontCont .travellerInfo .genderInfo {
+    /*width: 117px;*/
+    width: 50px;
+    overflow-wrap: break-word;
+    margin-right: 60px;
+    }
+  .profileCompontCont .travellerInfo .ageInfo {
+     width: 190px;
+    overflow-wrap: break-word;
+    }
+  .profileCompontCont .detailList .item .viewDtlCont {
+    margin-left: auto;
+    margin-right: 30px;
+    }
+  .profileCompontCont .detailList .item .viewDtlCont .viewDtlBtn {
+    font-size: 14px;
+    line-height: 16px;
+    color: #08B2ED;
+    font-weight: 600;
+    outline: 0;
+    border: 0;
+    background-color: transparent;
+    display: none;
+    }
+  .profileCompontCont .detailList .item:hover .viewDtlCont .viewDtlBtn {
+    display: block;
+    background: none;
+    color: #08B2ED;
+    cursor: pointer;
+    }
+  .profileCompontCont .detailList .item:hover {
+    background-image: linear-gradient(to left, #f7f7f7, #fff);
+    }
+  
+  /*tooltip*/
+  .profileCompontCont .detailList .item .deleteMobileNoCont .clickDelete {
+    font-size: 14px;
+    line-height: 16px;
+    color: #08B2ED;
+    text-align: center;
+    margin: 0;
+    cursor: pointer;
+    }
+  .profileCompontCont .detailList .item .deleteMobileNoCont .tooltip {
+    display: block;
+    /*position: relative;*/
+    position: absolute;
+    z-index: 1;
+    font-family: "lato",sans-serif;
+    font-size: 12px;
+    line-height: 14px;
+    color: #001;
+    /*text-align: center;
+    font-style: normal;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    word-spacing: normal;
+    word-wrap: normal;
+    white-space: normal;*/
+    filter: alpha(opacity=0);
+    opacity: 1;
+    line-break: auto;
+    visibility: visible;
+    width: 240px;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 3px 5px 5px;
+    top: 150%;
+    /*left: 50%;
+    margin-left: -210px;*/
+    right: 0;
+    border: 2px solid #ccc;
+    text-align: center;
+    display: none;
+    }
+  .profileCompontCont .detailList .item .deleteMobileNoCont .tooltip p {
+    font-size: 14px;
+    line-height: 16px;
+    color: #001;
+    text-align: center;
+    margin-bottom: 15px;
+    }
+  .profileCompontCont .detailList .item .deleteMobileNoCont .tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: 101%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+    }
+  .profileCompontCont .detailList .item .deleteMobileNoCont .tooltip:hover .tooltiptext {
+    visibility: visible;
+    }
+  /*.profileCompontCont .detailList .item .deleteMobileNoCont .popupCtn {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    }
+  .profileCompontCont .detailList .item .deleteMobileNoCont .profileEditForm {
+    border-radius: 10px;
+    box-shadow: 0 1px 7px 0 rgb(0 0 0 / 40%);
+    background-color: #fff;
+    padding: 24px 30px 30px;
+    width: 510px;
+    position: relative;
+    }*/
+  .profileCompontCont .detailList .item .deleteMobileNoCont .resendmobileOTP, .resendOTP {
+    cursor: pointer;
+    }
+  .greenText {
+    color: #00a19c;
+    }
+  .redText {
+    color: #eb2026;
+    }
+  /*user profile info rightsection ends*/
+  }
+
+/*common*/
+/*my-profile-modal starts*/
+  .my-profile-modal .mandatoryField:after {
+    content: "*";
+    color: #e12d2d;
+    margin-left: 3px;
+    }
+  .my-profile-modal label {
+    color: #4a4a4a;
+    }
+  .my-profile-modal input, .my-profile-modal select {
+    font-size: 14px;
+    line-height: 14px;
+    color: #001;
+    font-weight: 500;
+    background: #fff;
+    border: 1px solid #c9c9c9;
+    border-radius: 4px;
+    padding: 12px 16px;
+    outline: 0;
+    height: 40px;
+    width: 100%;
+    }
+  .my-profile-modal select {
+    appearance: none;
+    }
+  .my-profile-modal select::-ms-expand {
+    display: none;
+    }
+  .my-profile-modal input:focus, .my-profile-modal select:focus{
+    box-shadow: none;
+    border-color: #001;
+    }
+  .my-profile-modal .select-arrow:before {
+    display: inline-block;
+    padding: 3px;
+    content: '';
+    border: solid #757575;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    vertical-align: top;
+    margin-left: 8px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    top: 1px;
+    pointer-events: none;
+    }
+  .my-profile-modal .select-arrow.down:before {
+    position: absolute;
+    top: 34px;
+    right: 30px;
+    }
+  .my-profile-modal .modal-content.cont {
+    position: relative;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    /*box-shadow: 0 3px 9px rgba(0,0,0,.5);*/
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    display: flex;
+    flex-direction: column;
+    }
+  .my-profile-modal .modal-header.wrapper {
+    padding: 15px 33px;
+    border-bottom: 1px solid #e5e5e5;
+    }
+  .my-profile-modal .modal-header h4 {
+    font-size: 22px;
+    line-height: 24px;
+    color: #000001;
+    font-weight: 600;
+    text-align: left;
+    }
+  .my-profile-modal .modal-body.box {
+    position: relative;
+    padding: 20px 20px 0;
+    }
+  .my-profile-modal .modal-body.traveller-box {
+    position: relative;
+    padding: 20px 20px 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    max-height: 700px;
+    overflow: auto;
+    }
+  .my-profile-modal .modal-body .Cont {
+    min-height: 500px;
+    }
+  .my-profile-modal .close-my-profile-modal {
+    font-size: 27px;
+    line-height: 1;
+    font-weight: 700;
+    text-shadow: 0 1px 0 #fff;
+    position: absolute;
+    top: 22px;
+    right: 27px;
+    margin: 0;
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    filter: alpha(opacity = 50);
+    opacity: .5;
+    background: 0 0;
+    border: 0;
+    -webkit-appearance: none;
+    padding: 0;
+    }
+  .my-profile-modal .modal-footer.wrapper {
+    padding: 20px 13px;
+    text-align: right;
+    border-top: 0;
+    background-color: #fff;
+    /*padding: 10px 20px;
+    border-top: 1px solid #CED0D4;*/
+    }
+  /*resend otp*/
+  .resend-OTP {
+    position: absolute;
+    top: 35px;
+    right: 30px;
+    font-size: 12px;
+    line-height: 13px;
+    color: #08B2ED;
+    /*text-decoration: underline;
+    transform: translateY(-50%);
+    text-overflow: ellipsis;
+    overflow: hidden;*/
+    white-space: nowrap;
+    cursor: pointer;
+    }
+  .resend-OTP.disabled {
+    color: #c2c2c2 !important;
+    opacity: 0.6;
+    pointer-events: none;
+    text-decoration-color: #c2c2c2 !important;
+    }
+  /*profile button*/
+  .btn-main {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    }
+  .btn-main.cancel {
+    background-color: #fff;
+    font-size: 16px;
+    line-height: 18px;
+    color: #4a4a4a;
+    font-weight: 700;
+    width: 115px;
+    height: 40px;
+    cursor: pointer;
+    }
+  .btn-main.save {
+    background-color: #08B2ED;
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 115px;
+    height: 40px;
+    cursor: pointer;
+    }
+  .btn-main.save:hover, .btn-main.save:focus {
+    background: #01b7f2;
+    color: #fff;
+    }
+  .btn-main.save.disabled {
+    box-shadow: none;
+    background-color: #c2c2c2;
+    opacity: 0.6;
+    }
+/*my-profile-modal ends*/
+
+/*user profile info ends*/

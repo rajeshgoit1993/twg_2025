@@ -1,0 +1,323 @@
+/*Add Traveller Info (Desktop-Mobile)-popup*/
+.addGuestInfoCont {
+    width: 690px;
+    margin: 0 auto;
+    }
+.addGuestInfoBox {
+    padding: 20px;
+    background: #fff;
+    }
+.boxHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    }
+.boxHeader h1 {
+    font-size: 25px;
+    line-height: 25px;
+    color: #000001;
+    font-weight: 900;
+    text-align: left;
+    margin-bottom: 0;
+    }
+.deleteInfo {
+    font-size: 16px;
+    line-height: 16px;
+    color: #eb2026;
+    font-Weight: 900;
+    cursor: pointer;
+    }
+.fa-trash:before {
+    content: "\f014";
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    color: #eb2026;
+    font-size: 18px;
+    cursor: unset;
+    margin-top: 0;
+    margin-right: 5px;
+    }
+.infoCont {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 2;
+    background: #fff;
+    /*border-radius: 10px 10px 0 0;*/
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0;
+    }
+.infoCont ul {
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+    }
+.infoCont ul li {
+    font-size: 16px;
+    line-height: 16px;
+    color: #000001;
+    font-weight: 900;
+    cursor: pointer;
+    text-align: left;
+    padding-bottom: 20px;
+    margin-right: 30px;
+    }
+.infoCont ul li.active {
+    color: #008cff;
+    padding-bottom: 18px;
+    border-bottom: 3px solid #008cff;
+    }
+.navItem a:hover, a:focus {
+    color: #008cff;
+    }
+.basicInfoBox, .passportInfoBox {
+    margin-bottom: 20px;
+    }
+.basicInfoBox h1, .passportInfoBox h1 {
+    font-size: 18px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 900;
+    text-align: left;
+    margin-bottom: 5px;
+    }
+.basicInfoBox h2, .passportInfoBox h2 {
+    font-size: 14px;
+    line-height: 14px;
+    color: #4a4a4a;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 0;
+    }
+.guestInputBox {
+    width: 50%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 10px;
+    }
+.guestInputBox label {
+    color: #000001 !important;
+    font-size: 14px !important;
+    line-height: 14px !important;
+    }
+.guestInputBox input[type="text"], .guestInputBox select, .guestInputBox input[type=date] {
+    width: 100%;
+    text-transform: capitalize;
+    font-size: 14px;
+    line-height: 14px;
+    color: #000001;
+    font-weight: 500;
+    text-align: left;
+    background: #fff;
+    border: 1px solid #9b9b9b;
+    border-radius: 4px;
+    height: 43px;
+    outline: none;
+    appearance: none;
+    }
+.guestInputBox input:focus, .guestInputBox select:focus {
+    border-color: #008cff;
+    box-shadow: none;
+    }
+.guestInputBox .select-arrow:before {
+    display: inline-block;
+    padding: 3px;
+    content: '';
+    border: solid #757575;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    vertical-align: top;
+    margin-left: 8px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    top: 1px;
+    pointer-events: none;
+    }
+.guestInputBox .select-arrow.down-arrow:before {
+    position: absolute;
+    top: 16px;
+    right: 15px;
+    z-index: 1;
+    }
+.lineSeparator {
+    border-bottom: 4px solid #f0f0f0;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    }
+.profile_stickyFooter {
+    position: sticky;
+    z-index: 1009;
+    background: #fff;
+    border-radius: 0 0 10px 10px;
+    bottom: 0;
+    }
+.profileFooterCont {
+    padding: 10px 20px;
+    border-top: 1px solid #CED0D4;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    }
+.btnCancel {
+    cursor: pointer;
+    flex-shrink: 0;
+    outline: 0;
+    text-transform: none;
+    color: #4a4a4a;
+    font-weight: 500;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    background: #fff;
+    }
+.btnCancel:hover {
+    background: #fff;
+    color: #4a4a4a;
+    }
+.btnSave {
+    cursor: pointer;
+    flex-shrink: 0;
+    outline: 0;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 900;
+    padding: 6px 12px;
+    font-size: 18px;
+    line-height: 20px;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    background: #008cff;
+    width: 120px;
+    height: 40px;
+    }
+.btnSave:hover {
+    background: #008cff;
+    color: #fff;
+    }
+/*Add Traveller Info (Desktop-Mobile)-popup ENDS*/
+
+/*#basicinfo {
+    padding-top: ;
+}*/
+.inftoTab {
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+    overflow: hidden;
+    background-color: #fff;
+    }
+/* Style the tab content */
+.tabContent {
+    display: none;
+    border-top: none;
+    }
+
+/**********/
+
+/*Date Dropdown*/
+.dateDropdown .tvlrFormField {
+    width: 33.33%;
+    float: left;
+}
+.css-2b097c-container {
+    position: relative;
+    box-sizing: border-box;
+}
+.dateDropdown .tvlrFormField:first-child .dropdown-traveller>div {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.css-yk16xz-control {
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(204, 204, 204);
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: default;
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-height: 38px;
+    position: relative;
+    transition: all 100ms ease 0s;
+    box-sizing: border-box;
+    outline: 0px !important;
+}
+.css-1hwfws3 {
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    flex: 1 1 0%;
+    flex-wrap: wrap;
+    padding: 2px 8px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.css-1wa3eu0-placeholder {
+    color: rgb(128, 128, 128);
+    margin-left: 2px;
+    margin-right: 2px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    box-sizing: border-box;
+}
+.css-1g6gooi {
+    margin: 2px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    visibility: visible;
+    color: rgb(51, 51, 51);
+    box-sizing: border-box;
+}
+.css-1wy0on6 {
+    -webkit-box-align: center;
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+.css-1hyfx7x {
+    display: none;
+}
+.css-11uhjjr {
+    color: rgb(165, 165, 165);
+}
+.css-19bqh2r {
+    display: inline-block;
+    fill: currentcolor;
+    line-height: 1;
+    stroke: currentcolor;
+    stroke-width: 0;
+}
+.dateDropdown .tvlrFormField:nth-child(2) .dropdown-traveller>div {
+    border-radius: 0;
+    border-left: none;
+    border-right: 0;
+}
+.dateDropdown .tvlrFormField:nth-child(3) .dropdown-traveller>div {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/*******/
+
+@media (max-width: 992px) {
+    .addGuestInfoCont {
+        max-width: 600px;
+        margin: 0 auto;
+        }
+}

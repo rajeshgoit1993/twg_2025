@@ -1,0 +1,95 @@
+/*
+ * Title:   Custom Style File
+ * Author:  http://themeforest.net/user/soaptheme 
+ */
+p.policySelected {
+    color: red;
+}
+button.btn-mini.status.complete {
+    background: #5a8800 !important;
+} 
+button.btn-mini.status.cancel {
+    background: #FDB714  !important;
+} 
+button.btn-mini.status.upcoming {
+    background: #37b2ed !important;
+}
+button.btn-mini.status.cancelled {
+    background: #b50606 !important;
+}
+ .amenitiesHome i.fa {
+    padding: 7px;
+    width: 30px;
+    height: 30px;
+    color: #37b2ed;
+}
+article.box.hotelDetail {
+    border: 1px solid lightgray  !important;
+    padding: 6px 6px !important;
+    margin: 8px 0px !important;
+}
+span.amn {
+    margin-right: 8px;
+}
+.box .thead-default th {
+    color: #fff;
+    font-size: 16px;
+    background-color: #FDB714;
+}
+.box .cross-out-price {
+    color: #616161;
+    text-decoration: line-through;
+    font-size: 14px;
+}
+.border {border-right: 1px solid #ddd; background-color: #f7f7f7;}
+.border ul {margin: 0; padding: 0;}
+.border a {color: #01b7f2;}
+.border li {padding-bottom: 5px; font-size: 14px; color: #01b7f2;}
+.box .table { margin-bottom: 0; }
+
+.sq span img {width: 11px !important; margin-right: 5px;}
+
+.Options li { font-size: 14px; line-height: 30px; color: #008dc1;width: 50%;float: left; }
+.occupancy p { font-size: 14px; line-height: 34px; color: #008dc1;float: left; }
+.sq { color: #999999; }
+.Avg span {color:red;}
+
+
+.listing-style3.hotel .amenities {
+    float: left !important;
+}
+/* .listing-style3.hotel .amenities i:hover {
+    background-color: #01b7f2 !important;
+    color: #fff;
+} */
+.listing-style3.hotel figure img {
+    width: 100%;
+    margin-top: 7px;
+    margin-left: 7px;
+}
+.hotelDetail .fa{
+    margin-right: 6px !important;
+}
+
+label {
+    color: #37b2ed  !important;
+    margin-right: 10px !important;
+}
+#hotel-description .features li{
+
+    width: 50% !important;
+    float: left !important;
+}
+
+.sq span img {width: 21px !important; margin-right: 5px; font-size: 14px;}
+    .Capacity {text-align: center;}
+    .Capacity h3 {font-size: 16px;}
+    .Price_per {text-align: center; font-size: 24px; color: red;}
+    .Price_per h3 {font-size: 16px;}
+    .Our_last p {color: red;}
+    .Our_last {text-align: center;}
+    .border_oll { border:1px solid #eee; padding: 15px 0;}
+    .mar0 {margin-bottom: 0 !important;}
+    .line_height {line-height: 34px;}
+    .line_height i {color: #FDB714; padding-right: 5px;}
+    .border-right    {border-right:1px solid #eee; }

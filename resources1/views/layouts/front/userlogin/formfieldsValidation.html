@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enquiry Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 20px auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s ease-in-out;
+      color: #333;
+    }
+
+    input.error {
+      border-color: red;
+      color: red;
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    .error-message {
+      color: red;
+      margin-top: -8px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="enquiryForm">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" placeholder="Enter your first name">
+
+    <div id="firstNameError" class="error-message"></div>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" placeholder="Enter your last name">
+
+    <div id="lastNameError" class="error-message"></div>
+
+    <label for="email">Email ID:</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email address">
+
+    <div id="emailError" class="error-message"></div>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="Enter your password">
+
+    <div id="passwordError" class="error-message"></div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById('enquiryForm').onsubmit = function(event) {
+      var firstName = document.getElementById('firstName').value;
+      var lastName = document.getElementById('lastName').value;
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+
+      // Reset previous error styles
+      resetErrorStyles();
+
+      // Basic validation
+      var isValid = true;
+
+      if (firstName.trim() === '') {
+        displayError('firstName', 'First name is required');
+        isValid = false;
+      }
+
+      if (lastName.trim() === '') {
+        displayError('lastName', 'Last name is required');
+        isValid = false;
+      }
+
+      if (email.trim() === '') {
+        displayError('email', 'Email is required');
+        isValid = false;
+      }
+
+      if (password.trim() === '') {
+        displayError('password', 'Password is required');
+        isValid = false;
+      }
+
+      if (isValid) {
+        // Reset error styles when input is valid
+        resetErrorStyles();
+      } else {
+        event.preventDefault(); // Prevent form submission
+      }
+
+      // You can add more specific validation rules for email and password if needed
+    };
+
+    function displayError(fieldId, errorMessage) {
+      var inputField = document.getElementById(fieldId);
+      inputField.classList.add('error');
+      
+      var errorDiv = document.getElementById(fieldId + 'Error');
+      errorDiv.textContent = errorMessage;
+    }
+
+    function resetErrorStyles() {
+      var inputFields = document.querySelectorAll('input');
+      inputFields.forEach(function(input) {
+        input.style.borderColor = '#ccc';
+        input.style.color = '#333';
+      });
+
+      var errorDivs = document.querySelectorAll('.error-message');
+      errorDivs.forEach(function(errorDiv) {
+        errorDiv.textContent = '';
+      });
+    }
+  </script>
+
+</body>
+</html>

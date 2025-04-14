@@ -1,0 +1,527 @@
+  body {
+    font-family: Arial, sans-serif;
+    }
+  @media (max-width: 640px) {
+  .calendar-container {
+    background-color: #fff;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    top: 33px;
+    z-index: 999999;
+    left: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    }
+  .mobile-container {
+    background-color: #fff;
+    margin: 0 auto;
+    width: 350px;
+    position: absolute;
+    right: 0;
+    top: 33px;
+    z-index: 999999;
+    left: 0;
+    max-height: 650px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;*/
+    /*border-radius: 4px;
+    box-shadow: 0 1px 6px 0 rgba(0,0,0,.2);*/
+    }
+  .DayPicker {
+    display: inline-block;
+    font-size: 16px;
+    }
+  .calendar-container .DayPicker {
+    width: 100%;
+    }
+  .mobile-container .DayPicker {
+    display: block;
+    }
+  .DayPicker-Wrapper {
+    position: relative;
+    flex-direction: row;
+    padding-bottom: 1em;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    }
+  .calendar-container .DayPicker-Wrapper {
+    outline: 0;
+    }
+  .DayPicker-NavBar {
+    position: relative;
+    top: 18px;
+    }
+  .mobile-container .DayPicker-NavBar {
+    /*position: sticky;
+    top: 18px;
+    z-index: 11;*/
+    }
+  .nav-button {
+    width: 30px;
+    height: 30px;
+    cursor: default;
+    }
+  .today-button {
+    cursor: default;
+    background-color: #08b2ed;
+    border: 0;
+    font-size: 13px;
+    line-height: 15px;
+    color: #fff;
+    text-align: center;
+    font-weight: 600 ;
+    padding: 5px 8px;
+    border-radius: 3px;
+    max-width: 56px;
+    }
+  .calendar-container .DayPicker-NavBar .DayPicker-NavButton-Previous, .DayPicker-NavButton-Previous {
+    position: absolute;
+    top: 6px;
+    left: 5px;
+    /*z-index: 100;*/
+    }
+  .calendar-container .DayPicker-NavBar .DayPicker-NavButton-Today, .DayPicker-NavButton-Today {
+    position: absolute;
+    top: 7px;
+    left: 40px;
+    }
+  .calendar-container .DayPicker-NavBar .DayPicker-NavButton-Next, .DayPicker-NavButton-Next {
+    position: absolute;
+    top: 6px;
+    right: 5px;
+    /*z-index: 100;*/
+    }
+  .DayPicker-NavButton-Previous:before, .DayPicker-NavButton-Next:before {
+    display: inline-block;
+    padding: 4px;
+    content: '';
+    border: solid #08b2ed;
+    border-width: 0 2px 2px 0;
+    vertical-align: top;
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    top: 9px;
+    }
+  .DayPicker-NavButton-Previous:before {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    left: 12px;
+    }
+  .DayPicker-NavButton-Next:before {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    right: 12px;
+    }
+  .DayPicker-MonthCont {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    }
+  .calendar-container .DayPicker-MonthCont {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    /*flex-direction: column;*/
+    }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
+  .dayPicker-Month {
+    margin: 0 14px;
+    margin-top: 14px;
+    /*display: flex;
+    flex-direction: column;*/
+    }
+  .mobile-container .dayPicker-Month{
+    margin: 0 14px;
+    margin-top: 0;
+    margin-bottom:;
+    /*display: flex;
+    flex-direction: column;*/
+    }
+  .mobile-container .dayPicker-Month:first-child {
+    margin-top: 14px;
+    }
+  th, td {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    }
+  th {
+    background-color: #f9f9f9;
+    height: 30px; /* Set a fixed height for table header */
+    }
+  td {
+    cursor: default;
+    }
+  td.blank {
+    background-color: #f1f1f1;
+    cursor: default;
+    }
+  .monthHeadingCont {
+    /*height: 47px;
+    border: 0;
+    padding: 10px 0 20px;
+    background-color: transparent;
+    font-size: 16px;
+    line-height: 16px;
+    color: #000001;
+    font-weight: 600;
+    text-align: center;*/
+    }
+  .monthHeading {
+    border: 0;
+    padding: 8px 0;
+    background-color: transparent;
+    font-size: 16px;
+    line-height: 16px;
+    color: #000001;
+    font-weight: 600;
+    text-align: center;
+    /*height: 40px;*/
+    }
+  .weekDayCont {
+    /*padding: 10px 0px;
+    height: 34px;
+    border: 0;
+    padding: 10px 0px;
+    background-color: transparent;
+    font-size: 14px;
+    line-height: 14px;
+    color: #8b9898;
+    font-weight: 400;
+    text-align: center;*/
+    /*width: 40px;
+    height: 18px;*/
+    }
+  .weekDay {
+    border: 0;
+    padding: 10px 0px;
+    background-color: transparent;
+    font-size: 14px;
+    line-height: 14px;
+    color: #8b9898;
+    font-weight: 400;
+    text-align: center;
+    }
+  .DayPicker-Body {
+    display: table-row-group;
+    }
+  .daypicker-container .DayPicker-Day, .DayPicker-Day {
+    height: 40px;
+    display: table-cell;
+    border: 0;
+    border-radius: 4px;
+    color: #000;
+    outline: 0;
+    font-size: 15px;
+    line-height: 19px;
+    font-weight: 500;
+    padding: 0;
+    /*transition: background-color 0.3s ease;*/ /* Add a smooth transition effect */
+    }
+  .DayPicker-Day:hover {
+    background-color: #F0F8FF;
+    }
+  .DayPicker-Day-selected {
+    border-radius: 4px;
+    background-color: #08b2ed;
+    color: #fff;
+    font-weight: 600;
+    }
+  .DayPicker-Day-selected:hover {
+    background-color: #08b2ed;
+    }
+  /*Adjust the tbody height to be more dynamic */
+  .calendar-container tbody {
+    display: block;
+    /*height: calc(100vh - 180px);*/ /* Adjust the height as needed */
+    overflow-y: auto;
+    /*display: flex;
+    flex-direction: column;*/
+    }
+  .calendar-container  tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    }
+  /*Adjust the tbody height to be more dynamic */
+  .mobile-container tbody {
+    display: block;
+    /*height: calc(100vh - 180px); */
+    overflow-y: auto;
+    }
+  .mobile-container tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    }
+  .mobile-container .monthHeading {
+    border: 0;
+    padding: 8px 0;
+    background-color: #fff;
+    }
+  }
+  @media (min-width: 640px) {
+  .calendar-container {
+    /*display: flex;
+    justify-content: space-between;*/
+    width: 700px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px 0 rgba(0,0,0,.2);
+    position: absolute;
+    right: 0;
+    top: 33px;
+    z-index: 999999;
+    left: 0;
+    max-height: 360px;
+    overflow: hidden;
+    }
+  .mobile-container {
+    /*display: flex;
+    justify-content: space-between;*/
+    margin: 0 auto;
+    width: 350px;
+    max-height: 650px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px 0 rgba(0,0,0,.2);
+    position: absolute;
+    right: 0;
+    top: 33px;
+    z-index: 999999;
+    left: 0;
+    }
+  .DayPicker {
+    display: inline-block;
+    font-size: 16px;
+    }
+  .calendar-container .DayPicker {
+    width: 100%;
+    }
+  .mobile-container .DayPicker {
+    display: block;
+    }
+  .DayPicker-Wrapper {
+    position: relative;
+    flex-direction: row;
+    padding-bottom: 1em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
+  .calendar-container .DayPicker-Wrapper {
+    outline: 0;
+    }
+  .DayPicker-NavBar {
+    position: relative;
+    top: 18px;
+    }
+  .nav-button {
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    }
+  .today-button {
+    cursor: pointer;
+    background-color: #08b2ed;
+    border: none;
+    font-size: 13px;
+    line-height: 15px;
+    color: #fff;
+    text-align: center;
+    font-weight: 600 ;
+    padding: 5px 8px;
+    border-radius: 3px;
+    max-width: 56px;
+    }
+  .calendar-container .DayPicker-NavBar .DayPicker-NavButton-Previous, .DayPicker-NavButton-Previous {
+    position: absolute;
+    top: 6px;
+    left: 23px;
+    }
+  .calendar-container .DayPicker-NavBar .DayPicker-NavButton-Today, .DayPicker-NavButton-Today {
+    position: absolute;
+    top: 7px;
+    left: 56px;
+    }
+  .calendar-container .DayPicker-NavBar .DayPicker-NavButton-Next, .DayPicker-NavButton-Next {
+    position: absolute;
+    top: 6px;
+    right: 20px;
+    /*z-index: 100;*/
+    }
+  .DayPicker-NavButton-Previous:before, .DayPicker-NavButton-Next:before {
+    display: inline-block;
+    padding: 4px;
+    content: '';
+    border: solid #08b2ed;
+    border-width: 0 2px 2px 0;
+    vertical-align: top;
+    margin-left: 0;
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    top: 9px;
+    }
+  .DayPicker-NavButton-Previous:before {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    left: 8px;
+    }
+  .DayPicker-NavButton-Next:before {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    right: 12px;
+    }
+  .DayPicker-MonthCont {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    }
+  .calendar-container .DayPicker-MonthCont {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    /*flex-direction: column;*/
+    }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
+  .calendar-container table {
+    flex: 1 1 45%;
+    margin-bottom: 20px;
+    }
+  .dayPicker-Month {
+    margin: 0 14px;
+    margin-top: 14px;
+    /*display: flex;
+    flex-direction: column;*/
+    }
+  .mobile-container .dayPicker-Month{
+    margin: 0 14px;
+    margin-top: 0;
+    margin-bottom:;
+    /*display: flex;
+    flex-direction: column;*/
+    }
+  .mobile-container .dayPicker-Month:first-child {
+    margin-top: 14px;
+    }
+  th, td {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    }
+  th {
+    background-color: #f9f9f9;
+    height: 30px; /* Set a fixed height for table header */
+    }
+  td {
+    cursor: pointer;
+    }
+  td.blank {
+    background-color: #f1f1f1;
+    cursor: default;
+    }
+  .monthHeading {
+    border: 0;
+    padding: 8px 0;
+    background-color: transparent;
+    font-size: 16px;
+    line-height: 16px;
+    color: #000001;
+    font-weight: 600;
+    text-align: center;
+    }
+  .weekDay {
+    border: 0;
+    padding: 10px 0px;
+    background-color: transparent;
+    font-size: 14px;
+    line-height: 14px;
+    color: #8b9898;
+    font-weight: 400;
+    text-align: center;
+    }
+  .DayPicker-Body {
+    display: table-row-group;
+    }
+  .daypicker-container .DayPicker-Day, .DayPicker-Day {
+    height: 40px;
+    display: table-cell;
+    border: 0;
+    border-radius: 4px;
+    outline: 0;    
+    font-size: 15px;
+    line-height: 19px;
+    color: #000001;
+    font-weight: 500;
+    padding: 0;
+    /*transition: background-color 0.3s ease;*/ /* Add a smooth transition effect */
+    }
+  .DayPicker-Day:hover {
+    background-color: #F0F8FF;
+    }
+  .DayPicker-Day-selected {
+    border-radius: 4px;
+    background-color: #08b2ed;
+    color: #fff;
+    font-weight: 600;
+    }
+  .DayPicker-Day-selected:hover {
+    background-color: #08b2ed;
+    }
+  .day {
+    cursor: pointer;
+    }
+  /* Adjust the tbody height to be more dynamic */
+  .calendar-container tbody {
+    display: block;
+    height: calc(100vh - 180px); /* Adjust the height as needed */
+    overflow-y: auto;
+    /*display: flex;
+    flex-direction: column;*/
+    }
+  .calendar-container  tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    }
+  /*Adjust the tbody height to be more dynamic */
+  .mobile-container tbody {
+    display: block;
+    /*height: calc(100vh - 180px); */
+    overflow-y: auto;
+    }
+  .mobile-container tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    }
+  .mobile-container .monthHeading {
+    border: 0;
+    padding: 8px 0;
+    background-color: #fff;
+    }
+  }

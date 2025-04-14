@@ -51,195 +51,161 @@
     </div>
 </div>
 
-<!-- Departure City, Tour Date, Pricing & Quote Validity -->
-<div class="mtourQuoteDatePricingCont">
-    <div class="flex-column">
+<div class="tourQuoteDatePricingCont">
+    <div class="makeflex">
         <!-- Departure City -->
-        <div class="mtourQuoteCityBox">
-            <h4 class="mtourQuoteCityBoxHead">Starting City</h4>
-            <h3 class="mtourQuoteCityName">{{ $data1->sourcecity }}</h3>
+        <div class="tourQuoteCityBox">
+            <h4 class="tourQuoteCityBoxHead">DEPARTURE CITY</h4>
+            <?php
+                // Fetch city name using sourcecity ID
+                $sourceCityId = $data1->sourcecity ?? 0; // Fallback to 0 if null
+                $sourceCityName = class_exists('CustomHelpers') 
+                    ? CustomHelpers::get_master_table_data('city', 'id', $sourceCityId, 'name') 
+                    : 'N/A'; // Fallback to 'N/A' if helper not available or city not found
+            ?>
+            <h3 class="tourQuoteCityName">{{ $sourceCityName }}</h3>
         </div>
 
         <!-- Tour Date -->
-        <div class="mtourQuoteDateBox">
-            <h4 class="mtourQuoteDateBoxHead">Tour Date</h4>
+        <div class="tourQuoteDateBox">
+            <h4 class="tourQuoteDateBoxHead">TOUR DATE</h4>
             <?php
-                $originalDate = $data1->tour_date;
-                if ($originalDate == "N" || $originalDate == "") {
-                    $originalDate = date("d-m-Y");
-                }
+                // Use tour_date directly from quote table, assume YYYY-MM-DD format
+                $tourDate = $data1->tour_date ?? date('Y-m-d'); // Fallback to current date if null
+                // Ensure it’s a valid date and convert to display format
+                $datefrom_print = date("d M Y", strtotime($tourDate));
 
-                $datefrom = str_replace(' ', '', $originalDate);
-                $datefrom = explode("-", $datefrom);
-
-                $datefrom_year = $datefrom[2];
-                $datefrom_day = $datefrom[1];
-                $datefrom_month = $datefrom[0];
-                $datefrom = "$datefrom_year-$datefrom_month-$datefrom_day";
-                $datefrom = "$datefrom_year-$datefrom_day-$datefrom_month";
-                $stop_date = $datefrom;
-                $date_to = $datefrom;
-                $datefrom_print = date("d M Y", strtotime($datefrom));
-                $day_from = date('D', strtotime($datefrom));
-
-                $to_days = $data1->duration - 1;
-                $stop_date = date('Y-m-d', strtotime($stop_date . ' +'.$to_days.' days'));
+                // Calculate stop date using duration
+                $to_days = ($data1->duration ?? 1) - 1; // Subtract 1 to exclude the start day if duration includes it
+                $stop_date = date('Y-m-d', strtotime($tourDate . ' +' . $to_days . ' days'));
                 $stop_date_print = date("d M Y", strtotime($stop_date));
-                $day_to = date('D', strtotime($stop_date));
             ?>
-            <h3 class="mtourQuoteDepDate">{{ $datefrom_print }}</h3>
-            <p class="mtourQuoteDateBoxHead appendTop10">To</p>
-            <p class="mtourQuoteRetDate">{{ $stop_date_print }}</p>
+            <h3 class="tourQuoteDepDate">{{ $datefrom_print }}</h3>
+            <p class="tourQuoteDateBoxHead appendTop10">TO</p>
+            <p class="tourQuoteRetDate">{{ $stop_date_print }}</p>
         </div>
 
         <!-- Pricing -->
-        <div class="mtourQuotePriceBox">
-            @if($data1->option1_price_type == "Per Person")
+        <div class="tourQuotePriceBox">
+            @if(($data1->price_type ?? '') === "Per Person")
                 <div>
+                    <?php 
+                        $total_people = ($data1->adult ?? 0) + ($data1->extra_adult ?? 0) + 
+                                       ($data1->child_with_bed ?? 0) + ($data1->child_without_bed ?? 0) + 
+                                       ($data1->infant ?? 0) + ($data1->solo_traveller ?? 0); 
+                        $total_people = $total_people ?: 1; // Avoid division by zero
+                    ?>
                     <div class="makeflexCenterBewtween">
-                        <p class="mtourQuotePriceBoxSubHead">Total Basic Cost</p>
-                        <p class="mtourQuotePriceValue">
-                            <span class="mtourQuoteDefaultCurency"> </span>
-                            {{ CustomHelpers::get_indian_currency($price_data_first['query_total_adult'] + $price_data_first['query_total_exadult'] + $price_data_first['query_total_childbed'] + $price_data_first['query_total_childwbed'] + $price_data_first['query_total_infant'] + $price_data_first['query_total_single']) }}
+                        <p class="tourQuotePriceBoxSubHead">Total Basic Cost</p>
+                        <p class="tourQuotePriceValue defaultCurrency">
+                            {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_group'] / $total_people)) : round($price_data_first['query_total_group'] / $total_people) }}
                         </p>
                     </div>
-                    <div class="mtourQuotePriceSeparator"></div>
+                    <div class="tourQuotePriceSeparator"></div>
                     <div class="makeflexCenterBewtween">
-                        <p class="mtourQuotePriceBoxSubHead">Discount (-)</p>
-                        <p class="mtourQuotePriceValue">
-                            <span class="mtourQuoteDefaultCurency"> </span>
-                            {{ CustomHelpers::get_indian_currency($price_data_first['query_discount_minus_adult'] + $price_data_first['query_discount_minus_exadult'] + $price_data_first['query_discount_minus_childbed'] + $price_data_first['query_discount_minus_childwbed'] + $price_data_first['query_discount_minus_infant'] + $price_data_first['query_discount_minus_single']) }}
+                        <p class="tourQuotePriceBoxSubHead">Discount (-)</p>
+                        <p class="tourQuotePriceValue">
+                            <span class="tourQuoteDefaultCurency"> </span>
+                            {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_discount_group'] / $total_people)) : round($price_data_first['query_total_discount_group'] / $total_people) }}
                         </p>
                     </div>
-
-                    @if(round($price_data_first['query_total_gst_group'] / ($data1->quote1_number_of_adult + $data1->extra_adult + $data1->child_with_bed + $data1->child_without_bed + $data1->infant + $data1->solo_traveller)) > 0)
-                        <div class="mtourQuotePriceSeparator"></div>
+                    @if(round($price_data_first['query_total_gst_group'] / $total_people) > 0)
+                        <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="mtourQuotePriceBoxSubHead">GST
-                                @if($price_data_first['query_gst_curr'] == 2)
-                                    ({{ $price_data_first['gst_percentage'] }}%)
-                                @endif
-                            </p>
-                            <p class="mtourQuotePriceValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
-                                {{ CustomHelpers::get_indian_currency(round($price_data_first['query_gst_adult'] + $price_data_first['query_gst_exadult'] + $price_data_first['query_gst_childbed'] + $price_data_first['query_gst_childwbed'] + $price_data_first['query_gst_infant'] + $price_data_first['query_gst_single'])) }}
+                            <p class="tourQuotePriceBoxSubHead">GST @if(isset($price_data_first['query_gst_curr']) && $price_data_first['query_gst_curr'] == 2) ({{ $price_data_first['gst_percentage'] ?? 0 }}%) @endif</p>
+                            <p class="tourQuotePriceValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
+                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group'] / $total_people)) : round($price_data_first['query_total_gst_group'] / $total_people) }}
                             </p>
                         </div>
                     @endif
-
-                    @if(round($price_data_first['query_total_tcs_group'] / ($data1->quote1_number_of_adult + $data1->extra_adult + $data1->child_with_bed + $data1->child_without_bed + $data1->infant + $data1->solo_traveller)) > 0)
-                        <div class="mtourQuotePriceSeparator"></div>
+                    @if(round($price_data_first['query_total_tcs_group'] / $total_people) > 0)
+                        <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="mtourQuotePriceBoxSubHead">TCS
-                                @if($price_data_first['query_tcs_curr'] == 2)
-                                    ({{ $price_data_first['tcs_percentage'] }}%)
-                                @endif
-                            </p>
-                            <p class="mtourQuotePriceValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
-                                {{ CustomHelpers::get_indian_currency(round($price_data_first['query_tcs_adult'] + $price_data_first['query_tcs_exadult'] + $price_data_first['query_tcs_childbed'] + $price_data_first['query_tcs_childwbed'] + $price_data_first['query_tcs_infant'] + $price_data_first['query_tcs_single'])) }}
+                            <p class="tourQuotePriceBoxSubHead">TCS @if(isset($price_data_first['query_tcs_curr']) && $price_data_first['query_tcs_curr'] == 2) ({{ $price_data_first['tcs_percentage'] ?? 0 }}%) @endif</p>
+                            <p class="tourQuotePriceValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
+                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group'] / $total_people)) : round($price_data_first['query_total_tcs_group'] / $total_people) }}
                             </p>
                         </div>
                     @endif
-
-                    @if(round($price_data_first['query_total_pg_group'] / ($data1->quote1_number_of_adult + $data1->extra_adult + $data1->child_with_bed + $data1->child_without_bed + $data1->infant + $data1->solo_traveller)) > 0)
-                        <div class="mtourQuotePriceSeparator"></div>
+                    @if(round($price_data_first['query_total_pg_group'] / $total_people) > 0)
+                        <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="mtourQuotePriceBoxSubHead">PG
-                                @if($price_data_first['pg_charges'] == 2)
-                                    ({{ $price_data_first['pgcharges_percentage'] }}%)
-                                @endif
-                            </p>
-                            <p class="mtourQuotePriceValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
-                                {{ CustomHelpers::get_indian_currency(round($price_data_first['query_pgcharges_adult'] + $price_data_first['query_pgcharges_exadult'] + $price_data_first['query_pgcharges_childbed'] + $price_data_first['query_pgcharges_childwbed'] + $price_data_first['query_pgcharges_infant'] + $price_data_first['query_pgcharges_single'])) }}
+                            <p class="tourQuotePriceBoxSubHead">PG @if(isset($price_data_first['pg_charges']) && $price_data_first['pg_charges'] == 2) ({{ $price_data_first['pgcharges_percentage'] ?? 0 }}%) @endif</p>
+                            <p class="tourQuotePriceValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
+                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group'] / $total_people)) : round($price_data_first['query_total_pg_group'] / $total_people) }}
                             </p>
                         </div>
                     @endif
-
-                    <div class="mtourQuotePriceSeparator"></div>
+                    <div class="tourQuotePriceSeparator"></div>
                     <div class="flexBetween">
                         <div>
-                            <p class="mtourQuotePriceTotal">Grand Total</p>
-                            <p class="mtourQuotePriceTagline">( {{ $data1->anything }} )</p>
+                            <p class="tourQuotePriceTotal">Grand Total</p>
+                            <p class="tourQuotePriceTagline">( {{ $data1->anything ?? 'N/A' }} )</p>
                         </div>
                         <div>
-                            <p class="mtourQuotePriceTotalValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
-                                {{ CustomHelpers::get_indian_currency(round($price_data_first['query_grand_adult'] + $price_data_first['query_grand_exadult'] + $price_data_first['query_grand_childbed'] + $price_data_first['query_grand_childwbed'] + $price_data_first['query_grand_infant'] + $price_data_first['query_grand_single'])) }}
+                            <p class="tourQuotePriceTotalValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
+                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_pricetopay_adult'] / $total_people)) : round($price_data_first['query_pricetopay_adult'] / $total_people) }}
                             </p>
                         </div>
                     </div>
                 </div>
-            @elseif($data1->option1_price_type == "Group Price")
+            @elseif(($data1->price_type ?? '') === "Group Price")
                 <div>
                     <div class="makeflexCenterBewtween">
                         <p class="tourQuotePriceBoxSubHead">Total Basic Cost</p>
-                        <p class="mtourQuotePriceValue">
-                            <span class="mtourQuoteDefaultCurency"> </span>
-                            {{ CustomHelpers::get_indian_currency($price_data_first['query_total_group']) }}
+                        <p class="tourQuotePriceValue">
+                            <span class="tourQuoteDefaultCurency"> </span>
+                            {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency($price_data_first['query_total_group']) : $price_data_first['query_total_group'] }}
                         </p>
                     </div>
-                    <div class="mtourQuotePriceSeparator"></div>
+                    <div class="tourQuotePriceSeparator"></div>
                     <div class="makeflexCenterBewtween">
-                        <p class="mtourQuotePriceBoxSubHead">Discount (-)</p>
-                        <p class="mtourQuotePriceValue">
-                            <span class="mtourQuoteDefaultCurency"> </span>
-                            {{ CustomHelpers::get_indian_currency($price_data_first['query_total_discount_group']) }}
+                        <p class="tourQuotePriceBoxSubHead">Discount (-)</p>
+                        <p class="tourQuotePriceValue">
+                            <span class="tourQuoteDefaultCurency"> </span>
+                            {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency($price_data_first['query_total_discount_group']) : $price_data_first['query_total_discount_group'] }}
                         </p>
                     </div>
-
                     @if(round($price_data_first['query_total_gst_group']) > 0)
-                        <div class="mtourQuotePriceSeparator"></div>
+                        <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="mtourQuotePriceBoxSubHead">GST
-                                @if($price_data_first['query_gst_curr'] == 2)
-                                    ({{ $price_data_first['gst_percentage'] }}%)
-                                @endif
-                            </p>
-                            <p class="mtourQuotePriceValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
-                                {{ CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group'])) }}
+                            <p class="tourQuotePriceBoxSubHead">GST @if(isset($price_data_first['query_gst_curr']) && $price_data_first['query_gst_curr'] == 2) ({{ $price_data_first['gst_percentage'] ?? 0 }}%) @endif</p>
+                            <p class="tourQuotePriceValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
+                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group'])) : round($price_data_first['query_total_gst_group']) }}
                             </p>
                         </div>
                     @endif
-
                     @if(round($price_data_first['query_total_tcs_group']) > 0)
-                        <div class="mtourQuotePriceSeparator"></div>
+                        <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="mtourQuotePriceBoxSubHead">TCS
-                                @if($price_data_first['query_tcs_curr'] == 2)
-                                    ({{ $price_data_first['tcs_percentage'] }}%)
-                                @endif
-                            </p>
-                            <p class="mtourQuotePriceValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
-                                {{ CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group'])) }}
+                            <p class="tourQuotePriceBoxSubHead">TCS @if(isset($price_data_first['query_tcs_curr']) && $price_data_first['query_tcs_curr'] == 2) ({{ $price_data_first['tcs_percentage'] ?? 0 }}%) @endif</p>
+                            <p class="tourQuotePriceValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
+                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group'])) : round($price_data_first['query_total_tcs_group']) }}
                             </p>
                         </div>
                     @endif
-
                     @if(round($price_data_first['query_total_pg_group']) > 0)
-                        <div class="mtourQuotePriceSeparator"></div>
+                        <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="mtourQuotePriceBoxSubHead">PG
-                                @if($price_data_first['pg_charges'] == 2)
-                                    ({{ $price_data_first['pgcharges_percentage'] }}%)
-                                @endif
-                            </p>
-                            <p class="mtourQuotePriceValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
-                                {{ CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group'])) }}
+                            <p class="tourQuotePriceBoxSubHead">PG @if(isset($price_data_first['pg_charges']) && $price_data_first['pg_charges'] == 2) ({{ $price_data_first['pgcharges_percentage'] ?? 0 }}%) @endif</p>
+                            <p class="tourQuotePriceValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
+                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group'])) : round($price_data_first['query_total_pg_group']) }}
                             </p>
                         </div>
                     @endif
-
-                    <div class="mtourQuotePriceSeparator"></div>
+                    <div class="tourQuotePriceSeparator"></div>
                     <div class="makeflexCenterBewtween">
-                        <p class="mtourQuotePriceTotal">Grand Total</p>
-                        <p class="mtourQuotePriceTotalValue">
-                            <span class="mtourQuoteDefaultCurency"> </span>
-                            {{ CustomHelpers::get_indian_currency(round($price_data_first['query_pricetopay_adult'])) }}
+                        <p class="tourQuotePriceTotal">Grand Total</p>
+                        <p class="tourQuotePriceTotalValue">
+                            <span class="tourQuoteDefaultCurency"> </span>
+                            {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_pricetopay_adult'])) : round($price_data_first['query_pricetopay_adult']) }}
                         </p>
                     </div>
                 </div>
@@ -248,17 +214,15 @@
     </div>
 
     <!-- Quote Validity -->
-    @if($data1->validity_show_on_frontend == 'No')
-        @if($data1->option1_validaty != "")
-            <div class="mtourQuoteValidity">
-                Quote validity - {{ date("d M Y", strtotime(str_replace('/', '-', $data1->option1_validaty))) }}
-            </div>
-            @if($data1->validaty_time != '23:59:59')
-                {{ $data1->validaty_time }}
+    @if(($data1->validity_show_on_frontend ?? 'No') === 'No' && !empty($data1->quote_validaty))
+        <div class="tourQuoteValidity">
+            QUOTE VALIDITY - {{ date("d M Y", strtotime(str_replace('/', '-', $data1->quote_validaty))) }}
+            @if(($data1->validity_time ?? '23:59:59') !== '23:59:59')
+                {{ $data1->validity_time }}
             @endif
-        @endif
+        </div>
     @else
-        <div class="mtourQuoteValidity">Pay Immediately</div>
+        <div class="tourQuoteValidity">Pay Immediately</div>
     @endif
 </div>
 

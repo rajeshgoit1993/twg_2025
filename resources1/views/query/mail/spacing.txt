@@ -1,0 +1,29 @@
+Package       :7 (4+2+1)= &emsp;&ensp;&nbsp;:&nbsp;
+Source        :8 (4+4)=&emsp;&emsp;:&nbsp;
+Tour Date     :5 (4+1)=&emsp;&nbsp;:&nbsp;
+Package Price :1 &nbsp;:&nbsp;
+Discount (-)  :2 &ensp;:&nbsp;
+Price To PAY  :2 &ensp;:&nbsp;
+No of Guests  :2 &ensp;:&nbsp;
+No of Days    :4 &emsp;&emsp;
+
+Package :     &emsp;&emsp;&emsp;&nbsp;
+Source :      &emsp;&emsp;&emsp;&ensp;&nbsp;
+Tour Date :   &emsp;&emsp;&nbsp;
+Package Price :&nbsp;
+Discount (-) :&ensp;
+Price To PAY :&ensp;
+No of Guests :&ensp;
+No of Days:&ensp;&nbsp;
+
+Package Name :&nbsp;
+Departure City:&ensp;
+
+
+
+
+https://www.geeksforgeeks.org/how-to-insert-spaces-tabs-in-text-using-html-css/
+
+Regular space: &nbsp;
+Two spaces gap: &ensp;
+Four spaces gap: &emsp;

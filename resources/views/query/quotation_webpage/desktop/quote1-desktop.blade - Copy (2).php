@@ -823,7 +823,7 @@
 											<p class="hotelWebCont_name">{{ $acco_data["hotel_link"] }}</p>
 										</div>
 									@endif
-								</div>
+								</div>z
 							</div>
 						</div>
 					</div>

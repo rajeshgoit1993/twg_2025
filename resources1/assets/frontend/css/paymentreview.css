@@ -1,0 +1,1194 @@
+@media (max-width: 992px) {
+/*Mobile bottom display*/
+.mBar {
+	display:none;
+	}
+.reviewCont {
+	margin-bottom: 40px;
+	}
+.reviewbox {
+	padding: 15px;
+	background: #fff;
+	border-top: 1px solid #CED0D4;
+	border-bottom: 2px solid #CED0D4;
+	display: flex;
+	align-items: center;
+	}
+.reviewTitle {
+	font-size: 18px;
+	line-height: 18px;
+	color: #000001;
+	font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	text-transform: capitalize;
+	}
+.fa-arrow-left:before {
+	content: "\f060";
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+	color: #A1A1A1;
+	font-size: 18px;
+	line-height: 1;
+	cursor: unset;
+	margin-right: 20px;
+	}
+.reviewTourBox {
+	padding: 15px 15px 25px;
+	display: flex;
+	flex-direction: column;
+	}
+.reviewTourBox h2 {
+	font-size: 18px;
+	line-height: 22px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 10px;
+	text-transform: none;
+	}
+.reviewTourBox h3 {
+	font-size: 16px;
+	line-height: 18px;
+	color: #4a4a4a;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 25px;
+	text-transform: none;
+	}
+.reviewTourBox h5 {
+	font-size: 12px;
+	line-height: 12px;
+	color: #4a4a4a;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 15px;
+	text-transform: none;
+	}
+.tourDepartureBox {
+    padding: 15px;
+	/*box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);*/
+	border-top: 1px solid #CED0D4;
+	border-bottom: 1px solid #CED0D4;
+	min-height: 110px;
+	}
+.tourTravelDateBox {
+    padding: 15px;
+	/*box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);*/
+	border-top: 0;
+	border-bottom: 1px solid #CED0D4;
+	min-height: 150px;
+	}
+.tourDepartureBox h4, .tourTravelDateBox h4 {
+	font-size: 14px;
+	line-height: 14px;
+	color: #a1a1a1;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 8px;
+	text-transform: uppercase;
+	}
+.tourDepartureBox h5, .tourTravelDateBox h5 {
+	font-size: 16px;
+	line-height: 18px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 10px;
+	text-transform: capitalize;
+	}
+.mtourContBox {
+	display: flex;
+	flex-direction: column;
+	}
+.mtourContBox h3 {
+	font-size: 22px;
+	line-height: 22px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 10px;
+	text-transform: capitalize;
+	}
+.leftContainer {
+	padding: 15px;
+	border-top: 0;
+	border-bottom: 1px solid #CED0D4;
+	}
+.travellerGuestDtls {
+	display: flex;
+	flex-wrap: wrap;
+	}
+.travellerGuestDtls h5 {
+	font-size: 16px;
+	line-height: 16px;
+	color: #4a4a4a;
+	font-weight: 500;
+	text-align: left;
+	margin-bottom: 5px;
+	text-transform: none;
+	}
+.guestInputCont {
+	margin-bottom: 25px;
+	}
+.guestInputCont label {
+    display: block;
+    font-size: 13px;
+    line-height: 13px;
+    font-weight: 600;
+    color: #747474 !important;
+    margin-right: 0px !important;
+    margin-bottom: 10px;
+	}
+.guestInputCont input[type=text], .guestInputCont select {
+    padding: 0;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000001;
+    font-weight: 500;
+	border: 0;
+	border-radius: 0;
+    border-bottom: 1px solid #c8c8c8;
+    cursor: text;
+    height: 36px;
+    background: #fff;
+    text-transform: none;
+    width: 100%;
+    outline: 0;
+	}
+.guestInputCont input[type=text]:focus, .formTextarea:focus, .guestInputCont select:focus {
+	border-bottom-color: #4a4a4a;
+	box-shadow: none;
+	}
+.formTextarea {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #4a4a4a;
+    font-weight: 500;
+    border-bottom: 1px solid #c8c8c8;
+    border-radius: 0;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    -ms-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    cursor: text;
+    height: auto;
+    background: #fff;
+    text-transform: none;
+    width: 100%;
+    overflow: auto;
+    outline: 0;
+	}
+.guestContactDtlsBox, .guestGSTDtlsBox {
+	margin-top: 15px;
+    padding: 10px 15px 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+	}
+.guestGSTDtlsBox h2 {
+	font-size: 16px;
+	line-height: 16px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 15px;
+	text-transform: uppercase;
+	}
+.guestContactDtlsBox h2 {
+	font-size: 16px;
+	line-height: 16px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 20px;
+	}
+.addOnDtlsCont {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    overflow-x: auto;
+	}
+.addOnDtlsCont label {
+    border: 1px solid #d7d7d7;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: #4a4a4a !important;
+    margin-bottom: 0;
+    font-size: 12px;
+    line-height: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: end;
+    flex-shrink: 0;
+	margin-right: 5px !important;
+	}
+.addOnDtlsCont label:last-child {
+	margin-right: 0px !important;
+	}
+.addOnDtlsCont input[type=checkbox] {
+    margin-top: 0;
+    margin-right: 5px;
+	}
+.panInfoCont {
+    padding: 10px 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    border: 1px solid #e7e7e7;
+	margin-top: 30px;
+	}
+.panCardImageBox {
+    width: 44px;
+    height: auto;
+    overflow: hidden;
+    margin: 0 10px 0 0;
+    border-radius: 3px;
+    display: flex;
+    flex-shrink: 0;
+	margin-right: 5px;
+	}
+.panCardImage {
+    height: 28px;
+    width: 100%;
+    vertical-align: middle;
+    border: 0;
+    border-radius: 3px;
+    pointer-events: none !important;
+    display: flex;
+    flex-shrink: 0;
+	}
+.panInfo h4 {
+    font-size: 14px;
+	line-height: 16px;
+	color: #000001;
+    font-weight: 600;
+	text-align: left;
+    margin-bottom: 15px;
+	}
+.panInfo p {
+    font-size: 13px;
+	line-height: 21px;
+	color: #000001;
+    font-weight: 500;
+	text-align: left;
+    margin-bottom: 0;
+	}
+.impInfoBox {
+	margin: 25px 0px;
+    padding: 7px;
+    background: #FFEDD1;
+    border: 1px solid #d3d3d3;
+	}
+.impInfoBox h5 {
+    font-size: 12px;
+	line-height: 16px;
+    font-weight: 700;
+    color: #FF664B;
+	text-align: center;
+	margin-bottom: 0;
+	}
+.rightContainer {
+	width: 100%;
+	}
+.priceValueBox {
+    border-bottom: 1px solid #e0dfdf;
+    border-radius: 0;
+    padding: 20px;
+    background-color: #f2f9ff;
+	}
+.priceValueBox h4 {
+    font-size: 11px;
+    line-height: 11px;
+	color: #a1a1a1;
+	font-weight: 500;
+    text-align: left;
+	margin-bottom: 3px;
+	}
+.priceValueBox h3 {
+    font-size: 26px;
+    line-height: 26px;
+	color: #000001;
+	font-weight: 600;
+    text-align: left;
+	margin-bottom: 3px;
+	}
+.priceValueBox h5 {
+    font-size: 12px;
+    line-height: 12px;
+	color: #a1a1a1;
+	font-weight: 500;
+    text-align: left;
+	margin-bottom: 0;
+	}
+.paymentDetails {
+	border: 0;
+	box-shadow: none;
+	}
+.PaxWiseBox {
+	padding: 25px 20px 10px;
+	border-bottom: 1px solid #e0dfdf;
+	}
+.paxValueBox {
+	margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	}
+.paxValueBox:last-child {
+	margin-bottom: 0;
+	}
+.paxValueBox div {
+	font-size: 14px;
+    line-height: 14px;
+    color: #000001;
+    font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.totalCostBox {
+	padding: 0 20px;
+	background: #E7E7E7;
+	border-bottom: 1px solid #e0dfdf;
+	}
+.totalBasicCostBox {
+	padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	border-bottom: 1px solid #CED0D4;
+	}
+.totalBasicCostBox:last-child {
+	border-bottom: 0;
+	}
+.totalBasicCostBox div {
+	font-size: 16px;
+    line-height: 16px;
+    color: #000001;
+    font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.grandTotalCostBox {
+	padding: 0 20px;
+	background: #fff;
+	border-bottom: 1px solid #e0dfdf;
+	}
+.grTtlCostBox {
+	padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	border-bottom: 0;
+	}
+.grTtlCostBox div {
+	font-size: 18px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.payFullCostBox {
+	padding: 10px 15px;
+	background: #f2f2f2;
+	border: 0;
+	border-top: 0;
+	box-shadow: none;
+	}
+.payFullBox {
+	/*padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	border-bottom: 1px solid #f1f1f1;*/
+	}
+.payFullCostBox label {
+	padding: 25px 20px;
+	font-size: 16px;
+    line-height: 16px;
+    color: #000001 !important;
+    font-weight: 600 !important;
+	text-align: left;
+	margin-bottom: 0;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 0 !important;
+	background: #fff;
+	}
+.payFullCostBox input[type=radio], .payPartBox input[type=radio] {
+	width: 18px;
+	height: 18px;
+	margin: 0 10px 0 0;
+	}
+.payFullItem {
+	padding: 0;
+    font-size: 18px;
+    line-height: 18px;
+    color: #000001 !important;
+    font-weight: 600 !important;
+    text-align: right;
+	flex-shrink: 0;
+	}
+.payPartBox {
+	padding: 5px 15px 10px;
+	background: #f2f2f2;
+	border-bottom: 1px solid #e0dfdf;
+	}
+.mPayPartBoxInner {
+	padding: 25px 20px;
+	background: #fff;
+	}
+.payPartBox label {
+	padding: 0 0 0;
+	font-size: 16px;
+    line-height: 16px;
+    color: #4a4a4a !important;
+    font-weight: 600 !important;
+	text-align: left;
+	margin-bottom: 0;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 0 !important;
+	}
+	
+.guestPayCont {
+	padding: 20px;
+	background: #f2f9ff;
+	border-bottom: 1px solid #e0dfdf;
+	}
+.guestPayItem {
+	font-size: 18px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.guestPayBox {
+	padding: 0 0 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	}
+.guestDueItem {
+	font-size: 16px;
+    line-height: 16px;
+    color: #9b9b9b;
+    font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.guestConfBox {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background: #fff;
+	margin-bottom: 25px;
+	}
+.guestConfBox h3 {
+	font-size: 16px;
+    line-height: 16px;
+    color: #4a4a4a;
+    font-weight: 600;
+	text-align: left;
+	margin-bottom: 10px;
+	}
+.guestConfBox p {
+	font-size: 12px;
+	line-height: 16px;
+	color: #4a4a4a;
+	font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.guestConfBox a {
+	color: #008cff;
+	font-weight: 600;
+	}
+.guestAcceptance {
+	font-size: 10px;
+    line-height: 15px;
+    color: #000001;
+    font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	margin-left: 10px;
+	}
+.guestConfBox [type=checkbox] {
+	width: 20px;
+	height: 20px;
+	margin: 0px 10px 0px 0px !important;
+	}
+.mReivewPriceBarCont {
+	width: 100%;
+	height: 65px;
+	background: #000001;
+	position: fixed;
+	z-index:999;
+	bottom: 0;
+	}
+.mReivewPriceBarBox {
+	padding: 15px 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	}
+.mReviewPriceBox {
+	display: flex;
+	align-items: flex-end;
+	}
+.mPayblPrcVal {
+    font-size: 20px;
+    line-height: 20px;
+	color: #fff;
+	font-weight: 600;
+    text-align: left;
+	margin-bottom: 0;
+	}
+.mPayblPrcValTag {
+    font-size: 10px;
+    line-height: 11px;
+	color: #CED0D4;
+	font-weight: 600;
+    text-align: left;
+	margin-bottom: 0;
+	margin-left: 5px;
+	}
+.mLineSeprtr {
+	border-left: 1px solid #fff;
+	height: 35px;
+	margin-left: -5%;
+	position: absolute;
+	}
+.btnProceedMob {
+	flex-shrink: 0;
+	outline: 0;
+	background: #01b7f2;
+	border: 1px solid #08B2ED;
+    border-radius: 20px;
+	padding: 4px 12px;
+    font-size: 16px;
+    line-height: 18px;
+	color: #fff;
+	font-weight: 600;
+	cursor: default;
+	/*width: 100px;*/
+	height: 34px;
+	text-transform: uppercase;
+	}
+.payBtn, .mFooter {
+	display: none;
+	}
+}
+
+@media (min-width: 992px) {
+/*Desktop Booking & Payment Review Page*/
+.reviewCont {
+	margin-bottom: 40px;
+	}
+.reviewbox {
+	background: #0a223d;
+	height: 65px;
+	display: flex;
+	align-items: center;
+	}
+.pageContainer {
+    width: 1200px;
+    margin: 0 auto;
+	}
+.reviewTitle {
+	font-size: 22px;
+	line-height: 22px;
+	color: #fff;
+	font-weight: 900;
+	text-align: left;
+	margin-bottom: 0;
+	text-transform: capitalize;
+	}
+.reviewTourDtlsCont {
+	padding-top: 15px;
+	display: flex;
+	justify-content: space-between;
+	}
+.reviewTourBox {
+	padding: 0px 25px 25px 0px;
+	}
+.reviewTourBox h2 {
+	font-size: 22px;
+	line-height: 22px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 15px;
+	text-transform: none;
+	}
+.reviewTourBox h3 {
+	font-size: 18px;
+	line-height: 20px;
+	color: #4a4a4a;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 25px;
+	text-transform: none;
+	}
+.reviewTourBox h5 {
+	font-size: 13px;
+	line-height: 20px;
+	color: #4a4a4a;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	text-transform: none;
+	}
+.fa-arrow-left:before {
+	display: none;
+	}
+.tourDepartureBox {
+    padding: 25px;
+    border-radius: 5px;
+	box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+    /*box-shadow: 0px 3px 6px lightgrey;*/
+	width: 300px;
+	min-height: 175px;
+    margin-right: 1%;
+	}
+.tourTravelDateBox {
+    padding: 25px;
+    border-radius: 5px;
+	box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+    /*box-shadow: 0px 3px 6px lightgrey;*/
+	width: 300px;
+	min-height: 175px;
+	}
+.tourDepartureBox h4, .tourTravelDateBox h4 {
+	font-size: 14px;
+	line-height: 14px;
+	color: #a1a1a1;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	}
+.tourDepartureBox h5, .tourTravelDateBox h5 {
+	font-size: 17px;
+	line-height: 19px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 10px;
+	text-transform: capitalize;
+	}
+.reviewTourSeparator {
+	border-top: 2px solid #e7e7e7;
+	margin-top: 20px;
+	margin-bottom: 25px;
+	}
+.leftContainer {
+	padding-right: 30px;
+	width: 900px;
+	flex: 1;
+	}
+.mtourContBox {
+    display: flex;
+	flex-direction: row;
+	}
+.mtourContBox h3 {
+	font-size: 22px;
+	line-height: 22px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 10px;
+	text-transform: capitalize;
+	}
+.travellerGuestDtls {
+	display: flex;
+	flex-wrap: wrap;
+	}
+.travellerGuestDtls h5 {
+	font-size: 16px;
+	line-height: 16px;
+	color: #4a4a4a;
+	font-weight: 500;
+	text-align: left;
+	margin-bottom: 5px;
+	text-transform: none;
+	}
+.guestContactDtlsBox, .guestGSTDtlsBox {
+	margin-top: 25px;
+    padding: 20px 15px 30px 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+	}
+.guestGSTDtlsBox h2 {
+	font-size: 14px;
+	line-height: 16px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 15px;
+	text-transform: capitalize;
+	}
+.guestContactDtlsBox h2 {
+	font-size: 16px;
+	line-height: 16px;
+	color: #000001;
+	font-weight: 600;
+	text-align: left;
+	margin-bottom: 20px;
+	}
+.guestInputCont {
+	margin-bottom: 20px;
+	}
+.guestInputCont label {
+    display: block;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 600;
+    color: #000001 !important;
+    margin-right: 0px !important;
+    margin-bottom: 8px;
+	}
+.guestInputCont input[type=text] {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #4a4a4a;
+    font-weight: 500;
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    -ms-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    cursor: text;
+    height: 36px;
+    background: #fff;
+    text-transform: capitalize;
+    width: 100%;
+    outline: 0;
+	}
+.guestInputCont select {
+    padding: 6px 10px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #4a4a4a;
+    font-weight: 500;
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    -ms-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    cursor: default;
+    height: 36px;
+    background: #fff;
+    text-transform: capitalize;
+    width: 50%;
+    outline: 0;
+	}
+.guestInputCont input[type=text]:focus, .formTextarea:focus, .guestInputCont select:focus {
+	border-color: #4a4a4a;
+	box-shadow: none;
+	}
+.formTextarea {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #4a4a4a;
+    font-weight: 500;
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    -ms-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    cursor: text;
+    height: auto;
+    background: #fff;
+    text-transform: none;
+    width: 100%;
+    overflow: auto;
+    outline: 0;
+	}
+.error {
+    color: red;
+	}
+.addOnDtlsCont {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-top: 10px;
+	}
+.addOnDtlsCont label {
+    border: 1px solid #d7d7d7;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: #4a4a4a !important;
+    margin-bottom: 0;
+    font-size: 12px;
+    line-height: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: end;
+	margin-right: 10px !important;
+	}
+.addOnDtlsCont label:last-child {
+	margin-right: 0px !important;
+	}
+.addOnDtlsCont input[type=checkbox] {
+    margin-top: 0;
+    margin-right: 5px;
+	}
+.panInfoCont {
+    margin-top: 25px;
+    padding: 20px 35px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    border: 1px solid #d3d3d3;
+	}
+.panCardImageBox {
+    width: 54px;
+    height: auto;
+    overflow: hidden;
+    margin: 0 10px 0 0;
+    border-radius: 3px;
+    display: flex;
+    flex-shrink: 0;
+	}
+.panCardImage {
+    height: 38px;
+    width: 100%;
+    vertical-align: middle;
+    border: 0;
+    border-radius: 3px;
+    pointer-events: none !important;
+    display: flex;
+    flex-shrink: 0;
+	}
+.panInfo h4 {
+    font-size: 14px;
+	line-height: 16px;
+	color: #000001;
+    font-weight: 600;
+	text-align: left;
+    margin-bottom: 15px;
+	}
+.panInfo p {
+    font-size: 13px;
+	line-height: 21px;
+	color: #000001;
+    font-weight: 500;
+	text-align: left;
+    margin-bottom: 0;
+	}
+.impInfoBox {
+	margin: 25px 0px 30px;
+    padding: 7px;
+    background: #FFEDD1;
+    border: 1px solid #d3d3d3;
+	}
+.impInfoBox h5 {
+    font-size: 12px;
+	line-height: 12px;
+    font-weight: 700;
+    color: #FF664B;
+	text-align: center;
+	margin-bottom: 0;
+	}
+.rightContainer {
+	width: 350px;
+	flex-shrink: 1;
+    flex-basis: 30%;
+	}
+.priceValueBox {
+    border: 1px solid #e0dfdf;
+    border-radius: 4px 4px 0 0;
+    padding: 20px;
+    background-color: #f2f9ff;
+	}
+.priceValueBox h4 {
+    font-size: 11px;
+    line-height: 11px;
+	color: #a1a1a1;
+	font-weight: 500;
+    text-align: left;
+	margin-bottom: 3px;
+	}
+.priceValueBox h3 {
+    font-size: 26px;
+    line-height: 26px;
+	color: #000001;
+	font-weight: 600;
+    text-align: left;
+	margin-bottom: 3px;
+	}
+.priceValueBox h5 {
+    font-size: 12px;
+    line-height: 12px;
+	color: #a1a1a1;
+	font-weight: 500;
+    text-align: left;
+	margin-bottom: 0;
+	}
+.paymentDetails {
+	border: 1px solid #e0dfdf;
+	border-top: 0;
+	box-shadow: 0 4px 8px 0 #8a6a7614;
+	}
+.PaxWiseBox {
+	padding: 25px 20px 10px;
+	border-bottom: 1px solid #f1f1f1;
+	}
+.paxValueBox {
+	margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	}
+.paxValueBox:last-child {
+	margin-bottom: 0;
+	}
+.paxValueBox div {
+	font-size: 14px;
+    line-height: 14px;
+    color: #000001;
+    font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.totalCostBox {
+	padding: 0 20px;
+	background: #f9f9f9;
+	}
+.totalBasicCostBox {
+	padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	border-bottom: 1px solid #f1f1f1;
+	}
+.totalBasicCostBox:last-child {
+	border-bottom: 0;
+	}
+.totalBasicCostBox div {
+	font-size: 14px;
+    line-height: 14px;
+    color: #000001;
+    font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	}
+
+.grandTotalCostItem {
+	font-size: 18px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.grandTotalCostBox {
+	padding: 0 20px;
+	background: #fff;
+	border: 1px solid #e0dfdf;
+	border-top: 0;
+	box-shadow: 0 4px 8px 0 #8a6a7614;
+	}
+.grTtlCostBox {
+	padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	border-bottom: 0;
+	}
+.grTtlCostBox div {
+	font-size: 14px;
+    line-height: 14px;
+    color: #000001;
+    font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.payFullItem {
+	padding: 0;
+    font-size: 18px;
+    line-height: 18px;
+    color: #000001 !important;
+    font-weight: 600 !important;
+    text-align: right;
+	flex-shrink: 0;
+	}
+.payFullCostBox {
+	padding: 0 20px;
+	background: #fffdf5;
+	border: 1px solid #e0dfdf;
+	border-top: 0;
+	box-shadow: 0 4px 8px 0 #8a6a7614;
+	}
+.payFullBox {
+	/*padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	border-bottom: 1px solid #f1f1f1;*/
+	}
+.payFullCostBox label {
+	padding: 20px 0;
+	font-size: 16px;
+    line-height: 16px;
+    color: #000001 !important;
+    font-weight: 600 !important;
+	text-align: left;
+	margin-bottom: 0;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 0 !important;
+	}
+.payFullCostBox input[type=radio], .payPartBox input[type=radio] {
+	width: 18px;
+	height: 18px;
+	margin: 0 10px 0 0;
+	}
+.payFullItem {
+	padding: 0;
+    font-size: 18px;
+    line-height: 18px;
+    color: #000001 !important;
+    font-weight: 600 !important;
+    text-align: right;
+	flex-shrink: 0;
+	}
+.payPartBox {
+	padding: 0 20px 20px;
+	background: #fff;
+	border: 1px solid #e0dfdf;
+	border-top: 0;
+	box-shadow: 0 4px 8px 0 #8a6a7614;
+	}
+.payPartBox label {
+	padding: 20px 0 0;
+	font-size: 16px;
+    line-height: 16px;
+    color: #4a4a4a !important;
+    font-weight: 600 !important;
+	text-align: left;
+	margin-bottom: 0;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 0 !important;
+	}
+.guestPayCont {
+	padding: 20px;
+	background: #f2f9ff;
+	border: 1px solid #e0dfdf;
+	border-top: 0;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0 4px 8px 0 #8a6a7614;
+	}
+.guestPayItem {
+	font-size: 18px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 600;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.guestPayBox {
+	padding: 0 0 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	}
+.guestDueItem {
+	font-size: 16px;
+    line-height: 16px;
+    color: #9b9b9b;
+    font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.guestConfBox {
+    margin-top: 20px;
+    border: 1px solid #F0E7CD;
+    padding: 12px 20px;
+    background-color: #FFFDF5;
+	margin-bottom: 25px;
+	}
+.guestConfBox h3 {
+	font-size: 16px;
+    line-height: 16px;
+    color: #4a4a4a;
+    font-weight: 600;
+	text-align: left;
+	margin-bottom: 10px;
+	}
+.guestConfBox p {
+	font-size: 12px;
+	line-height: 16px;
+	color: #4a4a4a;
+	font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	}
+.guestConfBox a {
+	color: #008cff;
+	font-weight: 600;
+	}
+.guestConfBox [type=checkbox] {
+	width: 20px;
+	height: 20px;
+	margin: 0px 10px 0px 0px !important;
+	}
+.guestAcceptance {
+	font-size: 10px;
+    line-height: 15px;
+    color: #000001;
+    font-weight: 500;
+	text-align: left;
+	margin-bottom: 0;
+	margin-left: 10px;
+	}
+.btnProceed {
+	flex-shrink: 0;
+	outline: 0;
+	text-transform: uppercase;
+	background: #CED0D4;
+	border: 0;
+    border-radius: 35px;
+	padding: 13px;
+    font-size: 14px;
+	line-height: 14px;
+	color: #fff;
+	font-weight: 700;
+	cursor: pointer;
+	width: 100%;
+	height: 40px;
+	}
+.btnProceed:hover {
+	background: #CED0D4;
+	color: #fff;
+	}
+.btnProceed_enabled {
+	flex-shrink: 0;
+	outline: 0;
+	text-transform: uppercase;
+	background: #008cff;
+	border: 0;
+    border-radius: 35px;
+	padding: 15px;
+    font-size: 14px;
+	line-height: 14px;
+	color: #fff;
+	font-weight: 700;
+	cursor: pointer;
+	width: 100%;
+	}
+.mReivewPriceBarCont, .dFooter {
+	display: none;
+	}
+}

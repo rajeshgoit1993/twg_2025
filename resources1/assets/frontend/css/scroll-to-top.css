@@ -1,0 +1,51 @@
+/*Scroll To Top Starts*/
+@media (max-width: 992px) {
+  #scroll-to-top {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    bottom: 70px;
+    right: 13px;
+    background-color: #08B2ED;
+    border: none;
+    box-shadow: 0px 2px 6px rgb(0 0 0 / 10%);
+    border-radius: 5px;
+    padding: 6px 15px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    text-align: center;
+    cursor: default; /*Changed in M*/
+    height: 34px;
+    transition: background-color 0.3s ease;
+    }
+  #scroll-to-top:hover {
+    /*background-color: #0056b3;*/
+    background-color: #08B2ED;
+    }
+}
+@media (min-width: 992px) {
+  #scroll-to-top {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    bottom: 20px;
+    right: 20px;
+    background-color: #08B2ED;
+    border: none;
+    box-shadow: 0px 2px 6px rgb(0 0 0 / 10%);
+    border-radius: 5px;
+    padding: 6px 15px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    height: 34px;
+    transition: background-color 0.3s ease;
+    }
+  #scroll-to-top:hover {
+    background-color: #08B2ED;
+    }
+}
+/*Scroll To Top Ends*/

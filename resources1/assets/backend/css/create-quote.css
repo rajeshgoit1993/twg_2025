@@ -1,0 +1,847 @@
+/*span.select2.select2-container {
+    width: 100% !important;
+    }*/
+
+/*#touraccommodation .dropdown-menu {
+    margin: -1px !important;
+}
+.dropdown-menu li a {
+    margin: -3px 0px !important;
+}*/
+
+/*.selectAllDays label {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    line-height: 13px;
+    color: #a1a1a1;
+    border: #a1a1a1;
+    margin: 0 0 0 15px;
+    }
+.selectAllDays [type="checkbox"] {
+    margin: 0;
+    }*/
+
+.quoteCont {
+    padding-left: 25px;
+    padding-right: 25px;
+    }
+.navQuoteBar {
+    /*display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    right: 0;*/
+    z-index: 11;
+    padding-bottom: 15px;
+    }
+.quoteType {
+    padding: 0;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    }
+.quoteTab {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    /*width: 150px;*/
+    background-color: #fff;
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 600;
+    color: #A1A1A1;
+    text-transform: capitalize;
+    padding: 20px 25px;
+    /*border-bottom: 4px solid #A1A1A1;*/
+    cursor: pointer;
+    flex-shrink: 0;
+    outline: 0;
+    }
+
+.quoteTab.active {
+  color: #08B2ED;
+  border-bottom: 2px solid #08B2ED;
+  }
+.quoteTab:hover, .quoteTab:focus {
+  color: #08B2ED;
+  }
+
+.btnGreen, .btnBack {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border: none;
+    border-radius: 4px;
+    background-color: #00a65a;
+    border-color: #00a65a;
+    height: 34px;
+    }
+.btnBack:before {
+    content: "\e091";
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    }
+.btnBack:hover, .btnBack:focus {
+    color: #fff;
+    }
+.btnQuoteSave {
+    font-size: 20px;
+    line-height: 20px;
+    width: 330px;
+    height: 40px;
+    font-weight: 600;
+    text-transform: uppercase;
+    }
+.btnblue {
+    display: inline-block;
+    background-color: #08B2ED;
+    padding: 4px 12px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid #08B2ED;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    }
+.btn-time-reset-cont {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    }
+.btn-time-reset {
+    display: inline-block;
+    background-color: green;
+    padding: 6px 10px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    }
+
+.quoteDtlsCont {
+    display: flex;
+    column-gap: 20px;
+}
+.quoteDtlsCont .left-section {
+    /*max-width: 850px;*/
+    flex: 1;
+}
+.quoteDtlsCont .right-section {
+    max-width: 500px;
+    flex: 1;
+}
+
+.panel-item-cont {
+    /*padding: 0 15px;*/
+    /*border: 1px solid #e4e5e7;*/
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+    }
+.panel-item-cont .down-arrow:after {
+    display: inline-block;
+    padding: 6px;
+    content: '';
+    border: solid #a1a1a1;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    vertical-align: top;
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    top: 13px;
+    right: 20px;
+    }
+.panel-item-cont:hover {
+    background-color: #f2f2f2;
+    border-color: #08b2ed;
+    }
+.panel-item-cont:hover .down-arrow:after {
+    border-color: #08b2ed;
+    }
+.panel-item-cont .down-arrow.active:after {
+    border-color: #08b2ed;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    top: 21px;
+    }
+
+.panel-item-cont .panelHeading {
+    padding: 15px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #4a4a4a;
+    text-align: left;
+    cursor: pointer;
+    border: 1px solid #e4e5e7;
+    border-radius: 5px;
+    }
+.panel-item-cont:hover .panelHeading {
+    border-color: #08b2ed;
+    color: #08b2ed;
+    font-weight: 600;
+    }
+.panel-item-cont .panelHeading.active {
+    background-color: #f2f2f2;
+    color: #08b2ed;
+    font-weight: 600;
+    /*border-bottom: 1px solid #e4e5e7;*/
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    border-color: #08b2ed;
+    }
+.panel-item-cont .panelBox {
+    /*margin-top: 0px;
+    border: 1px solid #ccc;
+    border-top: 0;
+    border-bottom: 0;
+    border-radius: 0px 0px 5px 5px;*/
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    }
+
+.panel-item-cont .panelBox .panelContent {
+    padding: 15px 20px;
+    background-color: #fff;
+    border: 1px solid #08b2ed;
+    border-radius: 0 0 5px 5px;
+    display: inline-table;
+    width: 100%;
+    }
+.panel-item-cont:hover .panelBox .panelContent {
+    border-color: #08b2ed;
+    }
+.panel-item-cont .panelBox .panelContent input, .panel-item-cont .panelBox .panelContent select {
+    font-size: 12px;
+    line-height: 14px;
+    color: #4a4a4a;
+    }
+
+.panel-item-cont label, .panel-item-cont .label {
+    display: inline-block;
+    max-width: 100%;
+    font-size: 12px;
+    line-height: 14px;
+    color: #4a4a4a;
+    font-weight: 700;
+    margin-bottom: 5px;
+    }
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    font-size: 12px;
+    line-height: 14px;
+    color: #4a4a4a;
+    vertical-align: middle;
+}
+
+.panel-item-cont .itemTopHeading {
+    font-size: 13px;
+    line-height: 13px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1px;
+    }
+.panel-item-cont .itemTopSubHeading {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 0px;
+    }
+.panel-item-cont .quoteCurrency {
+    font-size: 20px;
+    line-height: 20px;
+    color: #4a4a4a;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 15px 10px;
+    text-align: center;
+    margin-bottom: 3px;
+    }
+.panel-item-cont .itemBottomHeading {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4a4a4a;
+    font-weight: 500;
+    background-color: #f2f2f2;
+    border-radius: 3px;
+    padding: 6px 3px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 0;
+    white-space: nowrap;
+    }
+.panel-item-cont .backend_custom_height input {
+    height: 32px;
+    padding: 6px 10px;
+    border-radius: 5px;
+}
+.panel-item-cont .backend_custom_height select {
+    height: 32px;
+    padding: 6px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 14px;
+    }
+.panel-item-cont .currencyConversion {
+    display: flex;
+    }
+.panel-item-cont .currencyConversion input[type=text], .panel-item-cont .currencyConversion select {
+    width: 100%;
+    color: #4a4a4a;
+    font-size: 13px;
+    line-height: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 6px;
+    height: 32px;
+    }
+.panel-item-cont .currencyBox {
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 600;
+    margin: 0px;
+    text-align: center;
+    padding: 8px;
+    color: #4a4a4a;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    height: 32px;
+    }
+.panel-item-cont .travellersMinus {
+    font-size: 26px;
+    line-height: 5px;
+    color: #9b9b9b;
+    padding: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    }
+.panel-item-cont .travellersValue {
+    font-size: 20px;
+    line-height: 20px;
+    color: #08B2ED;
+    font-weight: 900;
+    padding: 12px;
+    user-select: none;
+    }
+.panel-item-cont .travellersPlus {
+    font-size: 26px;
+    line-height: 5px;
+    color: #9b9b9b;
+    padding: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    }
+.panel-item-cont .addTravellerValue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+.panel-item-cont .tourPriceItem {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #4a4a4a;
+    vertical-align: middle;
+    }
+.panel-item-cont .fixedValue, .panel-item-cont .percentageValue {
+    padding: 6px;
+    color: #4a4a4a;
+    font-size: 12px;
+    line-height: 14px;
+    margin: 0px;
+    text-align: left;
+    color: #4a4a4a;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 32px;
+    }
+.panel-item-cont .pricetoPay {
+    font-weight: 600;
+    }
+
+.anyError {
+    color: red;
+    }
+
+.panel-item-cont .flightBoxHeading {
+    font-size: 14px;
+    line-height: 14px;
+    color: #4a4a4a;
+    background-color: #ccc;
+    padding: 10px;
+    border-radius: 3px;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0px;
+    }
+.panel-item-cont .part_payment, .panel-item-cont .direct_part {
+    display: none;
+}
+.panel-item-cont .partPayment, .panel-item-cont .directPayment, .panel-item-cont .flightOption, .panel-item-cont .visaOption {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 14px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: left;
+    background-color: #e9e9e9;
+    padding: 15px;
+    border-radius: 5px; 
+    margin-bottom: 15px;
+    }
+.panel-item-cont .partPayment, .panel-item-cont .directPayment {
+    /*margin-bottom: -15px;*/
+    }
+
+.thead-dark {
+    background-color: #ddd;
+    font-size: 12px;
+    line-height: 14px;
+    color: #4a4a4a;
+    text-align: left;
+}
+
+.panel-item-cont .partPayment label, .panel-item-cont .directPayment label, .panel-item-cont .flightOption label, .panel-item-cont .visaOption label, .panel-item-cont .quoteValidity label {
+    margin: 0px;
+    }
+.panel-item-cont .partPayment input[type=checkbox], .panel-item-cont .directPayment input[type=checkbox], .panel-item-cont .flightOption input[type=checkbox], .panel-item-cont .visaOption input[type=checkbox], .panel-item-cont .quoteValidity input[type=text] {
+    margin: 0px 10px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    }
+.panel-item-cont .quoteValidity {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    }
+.panel-item-cont .emailHeader, .panel-item-cont .webHeader, .panel-item-cont .emailFooter, .panel-item-cont .webFooter {
+    color: #4a4a4a
+    }
+
+.morePlus {
+    color: #08B2ED;
+    font-weight: 600;
+    }
+.saveOptions {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    column-gap: 10px;
+    }
+.saveQuote {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    }
+.savePreview, .saveSend {
+    text-align: center;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    }
+.savePreview label, .saveSend label {
+    padding: 15px 25px 15px 40px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+    width: 100%;
+    user-select: none;
+    }
+
+.panel-item-cont .dayTitle {
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 20px;
+    text-transform: capitalize;
+    }
+.panel-item-cont .dayTitle input[type=text] {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px 10px;
+    width: 100%;
+    height: 34px;
+    margin-top: 5px;
+    }
+.panel-item-cont .dayPlanSeparator {
+    border-bottom: 1px solid #ccc;
+    margin: 10px 0px;
+    }
+
+.panel-item-cont .roomGuestsHeading {
+    font-size: 16px;
+    line-height: 18px;
+    color: #000001;
+    font-weight: 500;
+    text-align: left;
+    margin: 5px;
+    text-transform: capitalize;
+    }
+.panel-item-cont .roomGuests, .panel-item-cont .addRooms {
+    display: flex;
+    align-items: center;
+    /*justify-content: space-between;*/
+    margin-bottom: 0px;
+    column-gap: 25px;
+    }
+.panel-item-cont .roomGuests {
+    /*padding: 20px 20px 0px;*/
+    margin-bottom: 25px;
+    }
+.panel-item-cont .roomGuests label {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 16px;
+    color: #4a4a4a;
+    }
+.panel-item-cont .roomGuests select, .panel-item-cont .roomGuests input[type=text], .panel-item-cont .addRooms input[type=text] {
+    border: 1px solid #CED0D4;
+    border-radius: 3px;
+    padding: 6px 12px;
+    height: 34px;
+    width: 130px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #4a4a4a;
+    min-width: 75px;
+    height: 34px;
+    }
+.panel-item-cont .roomGuests input[type=text], .panel-item-cont .addRooms input[type=text] {
+    width: 300px;
+    background-color: #f2f2f2;
+    }
+
+.panel-item-cont .room-container, .panel-item-cont .item-container {
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e9e9e9;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    display: inline-block;
+    width: 100%
+}
+
+.panel-item-cont .room-container .guest-room-wrapper {
+    padding-bottom: 10px;
+    display: flex;
+    align-items: end;
+    justify-content: space-around;
+}
+
+.panel-item-cont .label-duration {
+    background-color: #ddd;
+    padding: 3px 10px;
+    display: inline-flex;
+    border-radius: 3px;
+    position: absolute;
+    top: -4px;
+    margin-left: 10px;
+    user-select: none;
+    }
+.panel-item-cont .label-duration input[type='checkbox'] {
+    margin-top: 0;
+    margin-left: 5px;
+    }
+
+.panel-item-cont .totalDisplay, .panel-item-cont .grossTotalDisplay, .panel-item-cont .grossGroupTotalDisplay, .panel-item-cont .discountGroupTotalDisplay, .panel-item-cont .gstGroupTotalDisplay, .panel-item-cont .gstTotalDisplay, .panel-item-cont .tcsGroupTotalDisplay, .panel-item-cont .tcsTotalDisplay, .panel-item-cont .pgGrouptTotalDisplay, .panel-item-cont .grandGroupTotal {
+    display: none;
+    }
+
+
+/*sidebar*/
+.sidebar .panel-item-cont .panelHeading {
+    cursor: default;
+    border-radius: 5px 5px 0 0;
+}
+.sidebar .panel-item-cont:hover .panelHeading {
+    background-color: #fff;
+    border-color: #e4e5e7;
+    color: #4a4a4a;
+    font-weight: 500;
+}
+.sidebar .panel-item-cont .panelBox .panelContent {
+    border: 1px solid #e4e5e7;
+    border-top: none;
+}
+
+.cke_chrome {
+    display: none;
+    }
+
+.modalBody {
+    position: relative;
+    padding: 20px;
+    font-size: 14px;
+    line-height: 14px;
+    }
+
+@media (max-width: 992px) {
+    .quoteDtlsCont {
+        flex-direction: column;
+    }
+}
+
+/*---------*/
+
+/*pay custom radio*/
+/* Hide the default radio buttons */
+.pay-custom-radio input[type="radio"] {
+    display: none;
+}
+
+/* Style the custom radio button */
+.pay-custom-radio {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.pay-custom-radio-label {
+    /*display: inline-block;*/
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #f0f0f0; /* Default background color */
+    color: #333;
+    font-size: 14px;
+    line-height: 20px;
+    display: block;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Style for the custom radio button when selected */
+.pay-custom-radio input[type="radio"]:checked + .pay-custom-radio-label {
+    background-color: #08B2ED; /* Blue background for selected */
+    color: #fff; /* White text for better contrast */
+    border-color: #08B2ED;
+    font-weight: 800;
+}
+
+/* Add a border around the custom radio button */
+.pay-custom-radio-label {
+    border: 1px solid #ccc; /* Light border for default state */
+}
+
+/* Add a focus style for better accessibility */
+.pay-custom-radio input[type="radio"]:focus + .pay-custom-radio-label {
+    outline: 2px solid #007bff; /* Blue outline for focus */
+}
+
+/*---------*/
+
+/* Select-2 Starts */
+.select2-container {
+    box-sizing: border-box;
+    display: block;
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+    padding: 0;
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--single {
+    background: #fff !important;
+    font-size: 15px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+    height: 26px;
+    margin-right: 15px;
+    padding-right: 0px;
+    opacity: 0;
+    position: absolute;
+    left: -499px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #4a4a4a !important;
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 34px !important;
+    user-select: none;
+    width: 100%;
+}
+
+.select2-container .select2-selection--multiple {
+    height: 34px;
+    border-radius: 5px;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0;
+    margin-top: 0;
+    height: auto;
+}
+
+.select2-container .select2-selection--single .select2-selection__clear {
+    border: none;
+    font-size: 18px;
+    color: #fff;
+    background-color: transparent;
+    margin-top: -1px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+    height: 26px;
+    margin-right: 15px;
+    padding-right: 0px;
+    opacity: 0;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #fff !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 26px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 20px;
+    display: none;
+}
+
+.select2-search--dropdown {
+    display: block;
+    padding: 0;
+    box-shadow: 0 2px 3px 0 rgb(0 0 0 / 10%);
+}
+
+.select2-container .select2-dropdown {
+    background: #f2f2f2;
+    margin-top: 0;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+    max-height: 200px;
+}
+
+.select2-container .select2-dropdown .select2-search input {
+    background: #fff;
+    box-shadow: 0 2px 3px 0 rgb(0 0 0 / 10%);
+    padding: 10px 10px 11px 20px;
+    outline: 0;
+    border: 0;
+    width: 100%;
+    font-size: 16px;
+    line-height: 18px;
+    color: #000000;
+    font-weight: 700;
+    margin: 0 !important;
+    text-transform: capitalize;
+}
+
+.select2-container .select2-dropdown .select2-results {
+    padding: 0;
+}
+
+.select2-container--default .select2-results__option .select2-results__option {
+    padding-left: 20px;
+}
+
+.select2-container--default .select2-results__option--selected {
+    background-color: #fff;
+}
+
+.select2-container .select2-dropdown .select2-results ul .select2-results__option--highlighted[aria-selected] {
+    background-color: #f2f2f2;
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: #f2f2f2;
+    color: #000001;
+}
+
+.select2-container .select2-dropdown .select2-results ul {
+    background: #fff;
+    border: 0;
+}
+
+.select2-container--default .select2-results>.select2-results__options {
+    min-height: 283px;
+    max-height: 285px;
+    overflow-y: auto;
+}
+
+.select2-container--default .select2-results__option--group {
+    padding: 0;
+}
+
+.select2-results__option {
+    padding: 11px 15px;
+    user-select: none;
+    color: #000001 !important;
+}
+
+.select2-container--default .select2-results__group {
+    cursor: default;
+    display: block;
+    padding: 10px 20px 4px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #a1a1a1;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Select-2 Ends */

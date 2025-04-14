@@ -1,0 +1,98 @@
+/* Custom styles for the panel icon and link */
+.text-decoration-none {
+    text-decoration: none !important;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+/* Style for the circular icon container */
+.panel .media-left .bg-aqua {
+    width: 50px;
+    height: 50px;
+    /*line-height: 50px;*/
+    border-radius: 50%;
+    text-align: center;
+}
+
+/* Panel styling */
+.panel {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.panel-body {
+    padding: 15px;
+}
+
+/* Background color for Add Lead */
+.panel .media-left .bg-green {
+    background-color: #28a745 !important;
+}
+
+/* Background color for Pending Request */
+.panel .media-left .bg-purple {
+    background-color: #6f42c1 !important;
+}
+
+/* Background color for Pending Quote */
+.panel .media-left .bg-orange {
+    background-color: #fd7e14 !important;
+}
+
+/* Background color for Web Leads */
+/*.bg-aqua {
+    background-color: #00c0ef !important;
+}*/
+
+/* Background color for Enquiry List */
+.panel .media-left .bg-blue {
+    background-color: #007bff !important;
+}
+
+/* Background color for Payment Follow-up */
+.panel .media-left .bg-yellow {
+    background-color: #ffc107 !important;
+}
+
+/* Background color for Process Booking */
+.panel .media-left .bg-dark {
+    background-color: #343a40;
+}
+
+/* Background color for Payment Trasactions */
+.panel .media-left .bg-teal {
+    background-color: #20c997 !important;
+}
+
+/* Pending Quote specific background color */
+.panel .media-left .bg-yellow {
+    background-color: #f39c12;
+}
+
+/* currency symbol using content property */
+.currency-symbol::before {
+    content: '\20B9'; /* Unicode for Rupee symbol */
+    font-size: 24px; /* Adjust size as needed */
+    color: white; /* Change color as needed */
+    /*line-height: 50px;*/ /* Center vertically */
+}
+
+.panel .media-left .dashboard-item-icon-cont {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 50%;
+}
+
+/* Media heading for the panel */
+.panel .media-body .media-heading {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}

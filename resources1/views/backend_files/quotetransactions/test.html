@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modal with Calendar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Modal styles */
+    #myModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
+
+    /* Close button style */
+    #myModal span {
+      cursor: pointer;
+      float: right;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* Calendar container style */
+    #calendarContainer {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<p>Date: <input type="text" id="datepicker"></p>
+<!-- Trigger button -->
+<button onclick="openModal()">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal">
+  <span onclick="closeModal()">&times;</span>
+  <h2>Select a Date</h2>
+  <!-- Calendar container -->
+  <input type="text" id="datepicker1">
+  <div id="calendarContainer"></div>
+</div>
+
+<!-- Include the datepicker.js library -->
+ <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+ <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+<script>
+  // Function to open the modal
+  function openModal() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'block';
+  $( "#datepicker1" ).datepicker();
+    // Initialize the date picker in the modal
+   
+  }
+
+  // Function to close the modal
+  function closeModal() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
+</body>
+</html>

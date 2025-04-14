@@ -1,0 +1,2382 @@
+/*new style (not in working)*/
+.down-arrow:after, .up-arrow:after {
+    border: 2px solid #08b2ed;
+    border-left: none;
+    border-top: none;
+    content: "";
+    display: inline-block;
+    height: 6px;
+    position: relative;
+    width: 6px;
+  }
+.down-arrow:after {
+    margin-left: 7px;
+    top: -3px;
+    transform: rotate(45deg);
+  }
+.up-arrow:after {
+    margin-left: 6px;
+    transform: rotate(-135deg);
+  }
+.previous_raise_data li {
+  padding-bottom: 15px;
+  padding-top: 15px;
+  border-bottom: 1px solid #ccc;
+  font-size: 14px;
+  line-height: 16px;
+  color: #333;
+  margin-left: 10px;
+}
+.previous_raise_data li:last-child {
+  border-bottom: none;
+  padding-bottom: 25px;
+}
+
+/* raised concern modal styling */
+.modalContent {
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+.modalHeader {
+    border-bottom: none;
+    padding: 15px;
+    background-color: #f2f2f2;
+}
+.modalTitle {
+  font-size: 16px;
+  line-height: 18px;
+  color: #001;
+}
+.modalClose {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #001;
+  background-color: #ccc;
+  border-radius: 50%;
+  padding: 3px 7px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  cursor: default;
+}
+.form-check {
+  padding: 10px 15px;
+}
+.form-check:hover {
+  background-color: #f2f2f2;
+}
+
+/* radio button styling */
+.form-check-input {
+    cursor: pointer;
+}
+.form-check-label {
+    font-size: 14px;
+    line-height: 16px;
+    color: #333;
+    margin-left: 10px;
+    display: inline-block;
+    font-weight: 500;
+}
+.btn-request-container {
+  margin: 20px 0;
+}
+
+/* raise concern custom radio */
+[type="radio"]:checked, [type="radio"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+[type="radio"]:checked + label, [type="radio"]:not(:checked) + label {
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  line-height: 16px;
+  display: inline-block;
+  color: #001;
+}
+[type="radio"]:checked + label:before, [type="radio"]:not(:checked) + label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 100%;
+  background-color: #fff;
+}
+[type="radio"]:checked + label:after, [type="radio"]:not(:checked) + label:after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background-color: #08b2ed;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  border-radius: 100%;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+[type="radio"]:checked + label::before {
+  border-color: #08b2ed;
+  border-width: 2px;
+}
+
+
+/*tour quote mobile page*/
+@media (max-width: 992px) {  
+  /*Quote Page*/
+  .paddingTop3 {
+    padding-top: 3px;
+    }
+  .mtourQuoteRefCont {
+      background-color: #fff;
+      /*border-bottom: 1px solid #CED0D4;*/
+      padding: 15px;
+    }
+  .m-quote-cont {
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+    background-color: #f2f2f2;
+    padding-bottom: 64px;
+  }
+  .mtourQuoteRefHeading {
+      font-size: 16px;
+      line-height: 18px;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+  .mtourQuoteTabCont {
+    background-color: #fff;
+    border-bottom: 1px solid #CED0D4;
+    /* padding: 20px 0px 0px 25px; */
+    /* margin: 0 15px; */
+    padding: 0 15px;
+    }
+  .mtourQuoteTabCont > ul > li {
+      background-color: #fff;
+      font-size: 18px;
+      line-height: 20px;
+      font-weight: 600;
+      color: #CED0D4;
+      text-transform: capitalize;
+      padding: 15px;
+      outline: 0;
+      display: inline-block;
+    }
+  .mtourQuoteTabCont > ul > li.active, .mtourQuoteRefCont > ul > li:hover {
+    color: #08b2ed;
+    border-bottom: 2px solid #08b2ed;
+    }
+  .tabcontent {
+    display: none;
+    }
+  .mtourQuoteWebHeadCont {
+    padding: 15px 15px 0;
+    background-color: #fff;
+    font-size: 14px;
+    line-height: 20px;
+    color: #001;
+    margin-bottom: 10px;
+    }
+
+  /*Mobile Tour Quote Summary*/
+  .mtourQuoteSummaryCont {
+    padding: 15px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    }
+  .mtourQuoteTitle {
+    font-size: 20px;
+    line-height: 22px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    }
+  .mtourQuoteDaysBadge {
+    font-size: 12px;
+    line-height: 16px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+    background-color: #26b5a9;
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 3px;
+    }
+  .mtouQuoteBookCont {
+    display: flex;
+    flex-direction: column;
+    }
+  .mtourQuoteServiceTitle {
+    color: #4A4A4A;
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    }
+  .m-svc-icon-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  .m-svc-icon-box {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 3px;
+  }
+  .m-svc-icon-box img {
+    width: 28px;
+    height: 28px;
+  }
+
+  /*Tour Quote Pricing Section*/
+  .mtourQuoteDatePricingCont {
+    padding: 25px 15px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    }
+  .mtourQuoteCityBox {
+    padding: 15px 25px 35px;
+    border-radius: 5px;
+    width: 100%;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+    background-color: #f2f2f2;
+    }
+  .mtourQuoteCityBoxHead {
+    font-size: 14px;
+    line-height: 14px;
+    color: #a1a1a1;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    }
+  .mtourQuoteCityName {
+    font-size: 18px;
+    line-height: 20px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    }
+  .mtourQuoteDateBox {
+    padding: 15px 25px 35px;
+    border-radius: 5px;
+    margin-right: 40px;
+    width: 100%;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+    background-color: #f2f2f2;
+    }
+  .mtourQuoteDateBoxHead {
+    font-size: 14px;
+    line-height: 14px;
+    color: #a1a1a1;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    }
+  .mtourQuoteDepDate, .mtourQuoteRetDate {
+    font-size: 18px;
+    line-height: 20px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    }
+  .mtourQuotePriceBox {
+    padding: 15px 25px 35px;
+    border-radius: 5px;
+    width: 100%;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+    background-color: #f2f2f2;
+    }
+  .mtourQuoteDefaultCurency:before {
+    content: '\0020B9';
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 500;
+    }
+  .mtourQuotePriceBoxSubHead {
+    font-size: 15px;
+    line-height: 15px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    } 
+  .mtourQuotePriceValue {
+    font-size: 18px;
+    line-height: 20px;
+    color: #001;
+    font-weight: 600;
+    text-align: right;
+    margin-bottom: 0;
+    }
+  .mtourQuotePriceSeparator {
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+    }
+  .mtourQuotePriceTotal {
+    font-size: 18px;
+    line-height: 20px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 5px;
+    }
+  .mtourQuotePriceTagline {
+    font-size: 11px;
+    line-height: 12px;
+    color: #9b9b9b;
+    margin-bottom: 0;
+    }
+  .mtourQuotePriceTotalValue {
+    font-size: 21px;
+    line-height: 23px;
+    color: #001;
+    font-weight: 600;
+    text-align: right;
+    margin-bottom: 0;
+    }
+  .mtourQuoteValidity {
+    font-size: 12px;
+    line-height: 14px;
+    color: #9B9B9B;
+    font-weight: 600;
+    text-align: right;
+    margin-top: 0;
+    text-transform: uppercase;
+    }
+
+  /*Tour Flight*/
+  .mtourQuoteFlightCont {
+      padding: 25px 15px;
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+  .mtourQuoteFlightHead {
+      font-size: 16px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+  .mtourQuoteOnwardFlightBox {
+    margin: 20px;
+    }
+  .mtourQuoteReturnFlightBox, .mtourQuoteTransportBox {
+    margin: 0 20px;
+    }
+  .mflightCityName {
+    font-size: 15px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-align: left;
+    }
+  .mtransportDesc {
+    font-size: 16px;
+    line-height: 24px;
+    color: #4a4a4a;
+    margin-bottom: 0;
+    }
+  .monwardFlightBox, .mreturnFlightBox {
+    padding: 20px 15px 30px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+    background-color: #f2f2f2;
+    }
+  .mairlineLogoCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*margin-right: 5%;*/
+    min-width: 80px;
+    }
+  .mairlineLogoBox {
+      width: 28px;
+      height: 28px;
+      border-radius: 3px;
+      font-size: 30px;
+    }
+  .mairlineLogo {
+      height: 32px;
+      width: 100%;
+      vertical-align: middle;
+      border: 0;
+      border-radius: 3px;
+      pointer-events: none !important;
+      display: flex;
+      flex-shrink: 0;
+    }
+  .mflightDtlsBox {
+    display: flex;
+    flex-direction: column;
+    }
+  .mflightName {
+    font-size: 11px;
+    line-height: 13px;
+    color: #4a4a4a;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-align: center;
+    }
+  .mflightNumber {
+    font-size: 11px;
+    line-height: 13px;
+    color: #4a4a4a;
+    margin-bottom: 0;
+    text-align: center;
+    }
+  .mflightDepBox, .mflightArrBox {
+    width: 160px;
+    }
+  .mflightTiming {
+    font-size: 18px;
+    line-height: 22px;
+    color: #001;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-align: center;
+    }
+  .mflightCity {
+    font-size: 16px;
+    line-height: 18px;
+    color: #001;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-align: center;
+    }
+  .mflightDate {
+    font-size: 18px;
+    line-height: 18px;
+    color: #001;
+    font-weight: 600;
+    }
+  .mflightStop, .mflightClass {
+    font-size: 14px;
+    line-height: 14px;
+    color: #001;
+    font-weight: 400;
+    }
+  .mclassSeparator {
+    border-right: 2px solid #ccc;
+    height: 18px;
+    margin: 0px 10px;
+    }
+  .mflightDurationCont {
+    margin: 0 5%;
+    width: 100%;
+    }
+  .mflightDuration {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4a4a4a;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 0;
+    }
+  .mflightPathWay {
+    margin: 6px 5px;
+    border-top: 1px solid #ccc;
+    width: 70px;
+    flex-grow: 1;
+    }
+  .fa-plane:before {
+    content: "\f072";
+      display: inline-block;
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+    color: #4a4a4a;
+    font-size: 18px;
+    cursor: unset;
+    margin-top: 3px;
+    margin-right: 0;
+    transform: rotate(45deg)
+    }
+  .fa-map-marker:before {
+    content: "\f041";
+      display: inline-block;
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+    color: #4a4a4a;
+    font-size: 18px;
+    cursor: unset;
+    }
+  .mbaggageTitle {
+    font-size: 13px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: left;
+    border-top: 1px solid #e7e7e7;
+    margin: 10px 0px 5px;
+    padding-top: 10px;
+    }
+  .mbaggageSubTitle {
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-align: left;
+    }
+  .mbaggageSeparator {
+    border-right: 2px solid #ccc;
+    height: 16px;
+    margin: 0px 5px;
+    }
+
+  /*Mobile Tour Transfers*/
+  .mtourQuoteTransferCont {
+      padding: 25px 15px;
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+  .mtourQuoteTransferHead {
+      font-size: 16px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+  .mtourQuoteTransferBox {
+    margin: 20px;
+    }
+  .mtourQuoteTransferBox:last-child {
+    margin-bottom: 0;
+    }
+  .mtourQuoteTransferTitle {
+    font-size: 16px;
+    line-height: 17px;
+    color: #001;
+    font-weight: 600;
+    margin-bottom: 10px;
+    }
+  .mtourQuoteTransferDescBox {
+    padding: 25px 15px 35px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+    background-color: #f2f2f2;
+    }
+  .mtransferImageBox {
+    width: 250px;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: #fff;
+    margin: 10px auto;
+    }
+  .mtransferImageType {
+      width: 250px;
+      height: 180px;
+      object-fit: cover;
+    }
+  .mtransferDescTopSection {
+    margin-bottom: 20px;
+    }
+  .mtransferTitle {
+    font-size: 15px;
+    line-height: 15px;
+    color: #001;
+    text-align: left;
+    margin-bottom: 5px;
+    }
+  .mtransportType {
+    font-size: 20px;
+    line-height: 24px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 5px;
+    }
+  .mtransferVehicleCont, .mtransferDurationCont {
+    margin-right: 0;
+    }
+  .mtransferHead {
+    font-size: 12px;
+    line-height: 17px;
+    color: #9B9B9B;
+    font-weight: 600;
+    text-align: left;
+    margin: 0;
+
+    }
+  .mtransferSubHead {
+    font-size: 14px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-top: 2px;
+    }
+
+  /*Mobile Tour Accommodation*/
+  .mtourQuoteHotelCont {
+    padding: 25px 15px 35px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    }
+  .mtourQuoteHotelHead {
+      font-size: 16px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+  .mtourQuoteHotelDescBox {
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+    background-color: #f2f2f2;
+  }
+  .mtourQuoteHotelTitle {
+      font-size: 16px;
+      line-height: 17px;
+      color: #001;
+      font-weight: 600;
+      margin-bottom: 7px;
+    }
+  .mtourQuoteHotelBox {
+      margin: 20px;
+    }
+  .mtourQuoteHotelBox:last-child {
+    margin-bottom: 0;
+    }
+  .mhotelImageBox {
+      width: 210px;
+      height: 180px;
+      overflow: hidden;
+      border-radius: 5px;
+      background-color: #fff;
+      margin: 5px auto;
+    }
+  .mhotelImageBox img {
+    width: 210px;
+    height: 180px;
+    object-fit: cover;
+    }
+  .mhotelDescBox {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+    }
+  .mhotelTopSection {
+      margin-bottom: 20px;
+    }
+  .mhotelType {
+      display: inline-block;
+      font-size: 12px;
+      line-height: 12px;
+      color: #fff;
+      font-weight: 600;
+      padding: 4px 8px;
+      background-color: #6A11CB;
+      border: 1px solid #6A11CB;
+      border-radius: 3px;
+      text-transform: capitalize;
+      margin-bottom: 5px;
+    }
+  .mtourHotelDtls {
+      margin-bottom: 0;
+    }
+  .mhotelName {
+      font-size: 18px;
+      line-height: 20px;
+      color: #001;
+      font-weight: 600;
+      margin-bottom: 0;
+      text-align: left;
+    }
+  .mhotelStarRating {
+      margin-bottom: 10px;
+    }
+  .mhotelStarRating img {
+      margin-top: 0 !important;
+      width: 14px !important;
+      height: 14px;
+      margin-right: 3px;
+      vertical-align: middle;
+      border: 0;
+      pointer-events: none !important;
+    }
+  .mhotelCityName {
+      font-size: 14px;
+      line-height: 16px;
+    color: #4a4a4a;
+      font-weight: 600;
+    }
+  .mhotelFooter {
+      margin-bottom: 0;
+    }
+  .mhotelDaysBadge, .mhotelRoomCont {
+      display: flex;
+      flex-direction: column;
+    }
+  .mhotelWebCont {
+      display: flex;
+      flex-direction: column;
+    border-top: 1px solid #d1d1d1;
+    padding-top: 15px;
+    margin-top: 15px;
+    }
+  .mhotelDaysBadge_heading {
+      font-size: 12px;
+      line-height: 14px;
+      color: #9B9B9B;
+      font-weight: 600;
+      text-align: right;
+    margin-bottom: 1px;
+    }
+  .mhotelRoomCont_heading, .mhotelWebCont_heading {
+      font-size: 12px;
+      line-height: 14px;
+      color: #9B9B9B;
+      font-weight: 600;
+      text-align: left;
+    margin-bottom: 1px;
+    }
+  .mhotelDaysBadge_nightCount {
+      font-size: 14px;
+      line-height: 16px;
+      color: #4a4a4a;
+      font-weight: 600;
+      text-align: right;
+    margin-bottom: 0;
+    }
+  .mhotelRoomCont_type, .mhotelWebCont_name {
+      font-size: 14px;
+      line-height: 16px;
+      color: #4a4a4a;
+      font-weight: 600;
+      text-align: left;
+    margin-bottom: 0;
+    }
+  .mhotelCheckInOut {
+      display: flex;
+      justify-content: space-between;
+    }
+  .mhotelCheckInCont {
+      display: flex;
+    flex-direction: column;
+    margin-bottom: 3px;
+    }
+  .mhotelCheckOutCont {
+      display: flex;
+    flex-direction: column;
+    } 
+  .mhotelCheckInCont_heading {
+      font-size: 12px;
+      line-height: 14px;
+      color: #9B9B9B;
+      font-weight: 600;
+      text-align: left;
+    margin-bottom: 1px;
+    }
+  .mhotelCheckOutCont_heading {
+      font-size: 12px;
+      line-height: 14px;
+      color: #9B9B9B;
+      font-weight: 600;
+      text-align: right;
+    margin-bottom: 1px;
+    }
+  .mhotelCheckInCont_date, .mhotelCheckOutCont_date {
+      font-size: 14px;
+      line-height: 14px;
+      color: #4a4a4a;
+      font-weight: 600;
+      text-align: left;
+      margin-bottom: 0;
+    }
+  .mhotelCheckOutCont_date {
+      font-size: 14px;
+      line-height: 14px;
+      color: #4a4a4a;
+      font-weight: 600;
+      text-align: right;
+      margin-bottom: 0;
+    }
+  .mhotelRoomDtls {
+      display: flex;
+      flex-direction: column;
+    }
+
+  /*Mobile Tour Itinerary*/
+  .mtourQuoteItineraryCont {
+    padding: 20px 15px 0 15px;
+    background-color: #fff;
+    margin-bottom: 0;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    }
+  .mtourQuoteItineraryHead {
+      font-size: 16px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      text-align: left;
+      padding-bottom: 20px;
+    }
+  .mtourQuoteItineraryBox {
+      margin-bottom: 10px;
+      border-bottom: 2px solid #f2f2f2;
+      margin-left: 10px;
+      position: relative;
+    }
+  .mtourQuoteItineraryBox:last-child {
+      border-bottom: 0;
+    }
+  .mtourQuoteLeftBorderMarker {
+      margin-right: 10px;
+      border-left: 2px solid #33D18F;
+      height: 60px;
+    }
+  .mtourQuoteDayPlanHead {
+      font-size: 14px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+  .mtourQuoteDayPlanSubHead {
+      font-size: 14px;
+      line-height: 17px;
+      color: #707070;
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+  .mtourQuoteDayPlanSubHeadMore {
+      font-size: 12px;
+      line-height: 15px;
+      color: #08b2ed;
+      font-weight: 600;
+      margin: 0;
+    }
+  .mtourQuoteItryDtls {
+      font-size: 14px;
+      line-height: 16px;
+      color: #08b2ed;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+  .mtourDtlsCont {
+    padding: 10px 0 20px 12px;
+    }
+  .mfoldableArrow:after {
+    display: inline-block;
+    padding: 4px;
+    content: '';
+    border: solid #08b2ed;
+    border-width: 0 3px 3px 0;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    vertical-align: top;
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    top: 26px;
+    margin-left: auto;
+    right: 20px;
+    }
+  .mfoldableArrow.active:after {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    top: 21px;
+    }
+  .mSubfoldableArrow:after {
+    display: inline-block;
+    padding: 4px;
+    content: '';
+    border: solid #08b2ed;
+    border-width: 0 3px 3px 0;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    vertical-align: top;
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    top: 75px;
+    /*margin-left: auto;*/
+    right: 20px;
+    }
+  .mSubfoldableArrow.active:after {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    top: 70px;
+    }
+  /*.active {
+    display: block;
+    }
+  .mfoldableArrow:after {
+    font-family: FontAwesome;
+    content: '\f106';
+    color: #08b2ed;
+    float: right;
+    font-size: 28px;
+    }
+  .mfoldableArrow:after {
+    position: absolute;
+      right: 15px;
+    }
+  .mfoldableArrow.active:after {
+    content: "\f107";
+    }*/
+  .mfoldableContent {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+  .mtourQuoteDtlsDesc {
+    margin-left: 10px;
+    margin-right: 0;
+    }
+  .mtourQuoteDtlsDesc p {
+    border-top: 1px solid #e7e7e7;
+    font-size: 14px;
+    line-height: 19px;
+    color: #4a4a4a;
+    padding: 10px 0 20px;
+    margin-bottom: 0;
+    }
+  .mtourQuoteDtlsDescSeparator {
+    /*margin: 0 0 15px;
+    border-top: 2px solid #f2f2f2;*/
+    }
+
+  /*Mobile Tour Inclusions & Exclusions*/
+  .mtourQuoteIncCont {
+    padding: 20px 15px 0 15px;
+    background-color: #fff;
+    margin-bottom: 0;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    }
+  .mtourQuoteIncHead {
+      font-size: 16px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      text-align: left;
+      padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    }
+  .mtourQuoteIncSubHead, .mtourQuoteExcSubHead {
+      font-size: 15px;
+      line-height: 17px;
+      color: #001;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+  .mtourQuoteIncBox {
+      margin-left: 10px;
+    }
+  .mtourQuoteInclusions {
+      margin-top: 0;
+    }
+  .mtourQuoteExclusions {
+      margin-top: 25px;
+    margin-bottom: 15px;
+    }
+  .mtourQuoteInclusions .inc-content, .mtourQuoteExclusions .inc-content {
+      margin-top: 10px;
+      border-top: 1px solid #e7e7e7;
+      padding-top: 10px;
+    }
+  .mtourQuoteInclusions .inc-content ul, .mtourQuoteExclusions ul {
+      list-style: inside;
+    }
+  .mtourQuoteInclusions .inc-content ul li, .mtourQuoteExclusions ul li {
+    font-size: 13px;
+    line-height: 22px;
+    color: #001;
+    padding-bottom: 5px;
+  }
+  /*.mtourQuoteInclusions .inc-content ul li:first-child, .mtourQuoteExclusions ul li:first-child {
+      padding-top: 10px;
+    }*/
+
+  /*Mobile Tour Booking & Cancellation*/
+  .mtourQuoteBookPolicyCont {
+    padding: 20px 15px 0 15px;
+    background-color: #fff;
+    margin-bottom: 0;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    }
+  .tourQuoteBookPolicyHead {
+      font-size: 16px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+  .mtourQuoteBookPolicyBox {
+      margin-left: 10px;
+    }
+  .mtourQuotePolicy .mTourQtePlcyTtl {
+      font-size: 16px;
+      line-height: 19px;
+      color: #001;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+  /*.mtourQuoteBkngPolicy {
+      margin-bottom: 10px;
+    }
+  .mtourQuoteCnclPolicy {
+    margin-bottom: 10px;
+    }
+  .mtourQuoteBkngPolicy ul, .mtourQuoteCnclPolicy ul {
+      list-style: inside;
+    }
+  .mtourQuoteBkngPolicy .imp-note-content ul li, .mtourQuoteBkngPolicy .imp-note-content {
+    font-size: 13px;
+    line-height: 22px;
+    color: #001;
+    padding-bottom: 5px;
+    }
+  .mtourQuoteBkngPolicy ul li:first-child, .mtourQuoteCnclPolicy ul li:first-child {
+      margin-top: 10px;
+      border-top: 1px solid #e7e7e7;
+      padding-top: 10px;
+    }*/
+  .mtourQuoteBookAddPolicy, .mtourQuoteCancelAddPolicy {
+    margin: 15px 0 15px;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    }
+  .mtourQuoteBookPolicySeparator {
+    margin: 10px 0;
+    border-top: 5px solid #f9f9f9;
+    display: none;
+    }
+
+  /*Mobile Tour Policy*/
+  .mtourQuotePolicyHead {
+      font-size: 16px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    }
+  .mtourQuotePolicyBox {
+      margin-left: 10px;
+    }
+  .mtourQuotePolicy {
+      margin-bottom: 10px;
+    }
+  .mtourQuotePolicy .imp-note-content ul {
+      list-style: inside;
+    }
+  .mtourQuotePolicy .imp-note-content ul li:first-child {
+      margin-top: 10px;
+      border-top: 1px solid #e7e7e7;
+      padding-top: 10px;
+    }
+  .mtourQuotePolicy .imp-note-content ul li, .mtourQuotePolicy .imp-note-content {
+    font-size: 13px;
+    line-height: 22px;
+    color: #001;
+    padding-bottom: 5px;
+    }
+  .mtourQuoteAddPolicy {
+    margin: 15px 0 15px;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    } 
+  .mtourQuotePolicySeparator {
+    margin: 10px 0;
+    border-top: 5px solid #f9f9f9;
+    display: none;
+    }
+
+  /*Why Book with Us*/
+  .mtourQuoteBookUsCont {
+      padding: 15px 15px 30px;
+      background-color: #fff;
+      margin-bottom: 0;
+    }
+  .mtourQuoteBookUsHeading {
+      font-size: 18px;
+      line-height: 22px;
+      color: #070700;
+      margin-bottom: 20px;
+    }
+  .mtourQuoteBookUsIconBox {
+      width: 34px;
+      height: 34px;
+      background-color: #fff;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    flex-shrink: 0;
+      padding: 0;
+      margin-right: 10px;
+    overflow: hidden;
+    }
+  .mtourQuoteBookUsList {
+      font-size: 14px;
+      line-height: 18px;
+      color: #4a4a4a;
+      margin-bottom: 0;
+    }
+
+  /*Mobile Footer*/
+  .mtourQuoteFooterCont {
+      padding: 15px;
+      background-color: #fff;
+      font-size: 10px;
+      line-height: 20px;
+      color: #4a4a4a;
+      font-weight: 400;
+    }
+  .mtourQuotePriceBar {
+    width: 100%;
+    background-color: #001;
+    position: fixed;
+    bottom: 0;
+    z-index: 999;
+    padding: 15px 20px;
+    height: 62px;
+    }
+  .mtourQuotePriceBarBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    }
+  .mtourQuotePriceBoxCont {
+    display: flex;
+    align-items: baseline;
+    flex-shrink: 0;
+    }
+  .mtourQuoteValue {
+    font-size: 20px;
+    line-height: 24px;
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    margin-right: 5px;
+    }
+  .mtourQuotePriceBarCurency:before {
+    content: '\0020B9';
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 500;
+    }
+  .mtourQuoteValueTagline {
+      font-size: 10px;
+      line-height: 12px;
+      color: #CED0D4;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    }
+  .mtourQuotePriceLine {
+      border-left: 1px solid #fff;
+      height: 40px;
+    position: absolute;
+    margin-left: -5%;
+    }
+  .btnBookMob {
+    flex-shrink: 0;
+    outline: 0;
+    text-transform: uppercase;
+    background-color: #01b7f2;
+    border: 0;
+    border-radius: 25px;
+    padding: 10px 30px;
+    font-size: 20px;
+    line-height: 20px;
+    color: #fff;
+    font-weight: 900;
+    cursor: unset;
+    margin-bottom: 0;
+    width: 100%;
+    }
+  .mtouQuoteBookFooterCont {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    }
+  .mrejectionReasonCont {
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    display: inline-block;
+    }
+  .mrejectionReasonCont > ul > li {
+    display: flex;
+      align-items: center;
+      padding: 10px 15px;
+    }
+  .mrejectionReasonCont > ul > li:hover {
+    background-color: #f2f2f2;
+    }
+  .btnRaiseConcernMob {
+    outline: 0;
+    text-transform: capitalize;
+    font-size: 14px;
+    line-height: 16px;
+    color: #bbb;
+    cursor: default;
+    margin-bottom: 0;
+    margin-right: 20px;
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    box-shadow: none;
+  }
+  .btnRaiseConcernMob:hover {
+    background-color: none;
+    color: #bbb;
+    }
+  .W100 {
+    width: 100px;
+    }
+  .W120 {
+    width: 120px;
+    }
+  .btnPayBook {
+    outline: 0;
+    text-transform: uppercase;
+    background-color: #08b2ed;
+    border: 0;
+    border-radius: 25px;
+    padding: 0 40px;
+    font-size: 18px;
+    line-height: 20px;
+    color: #fff;
+    font-weight: 900;
+    cursor: pointer;
+    height: 44px;
+  }
+  .btnPayBook:hover {
+    background-color: #08b2ed;
+    color: #fff;
+  }
+  .btn-quote-expired {
+    padding: 8px 14px;
+    background-color: #08b2ed;
+    outline: 0;
+    border: 0;
+    border-radius: 20px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+    text-transform: capitalize;
+  }
+  .btn-quote-expired:hover {
+    background-color: #08b2ed;
+    color: #fff;
+  }
+}
+
+
+/*tour quote desktop page*/
+@media (min-width: 992px) {
+  /*Desktop Quote Page*/
+
+  .tour-quote-container {
+    background-color: #f2f2f2;
+    padding-top: 20px;
+    padding-bottom: 50px;
+  }
+  .tourQuoteRefCont {
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+    background-color: #fff;
+    /*border-bottom: 1px solid #CED0D4;*/
+    border-radius: 10px 10px 0px 0px;
+    padding: 20px 0px 0px 25px;
+    margin: 0px;
+    }
+  .tourQuoteRefHeading {
+    font-size: 20px;
+    line-height: 20px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 20px;
+    }
+  .tourQuoteRefCont > ul > li {
+    background-color: #fff;
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 600;
+    color: #CED0D4;
+    text-transform: capitalize;
+    padding: 20px 25px;
+    cursor: pointer;
+    flex-shrink: 0;
+    outline: 0;
+    }
+  .tourQuoteRefCont > ul > li.active, .tourQuoteRefCont > ul > li:hover {
+    color: #08b2ed;
+    border-bottom: 2px solid #08b2ed;
+    }
+  .tabcontent {
+    display: none;
+    }
+  .tourQuoteWebHeadCont {
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+    border-top: 0;
+    padding: 25px 25px 0;
+    border-radius: 0px 0px 10px 10px;
+    background-color: #fff;
+    font-size: 14px;
+    line-height: 26px;
+    color: #001;
+    margin-bottom: 25px;
+    }
+
+  /*Tour Quote Summary*/
+  .tourQuoteSummaryCont {
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+    padding: 25px 25px 35px;
+    border-radius: 10px 10px 0 0;
+    background-color: #fff;
+    /*margin-bottom: 15px;
+    position: relative;*/
+    }
+  .tourQuoteTitle {
+    font-size: 24px;
+    line-height: 26px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 15px;
+    text-transform: capitalize;
+    }
+  .tourQuoteDaysBadge {
+    /*font-size: 18px;
+    line-height: 20px;
+    color: #9B9B9B;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 25px;*/
+    font-size: 13px;
+    line-height: 16px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 25px;
+    background-color: #26b5a9;
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 5px;
+    }
+  .touQuoteBookCont {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    }
+  .touQuoteBookFooterCont {
+    padding: 0 20px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    position: relative;
+    }
+  .tourQuoteServiceTitle {
+    color: #4A4A4A;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: left
+    }
+  .tourQteSvcIcns {
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+  .tourQteSvcIcnImg {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 5px;
+    }
+  .tourQteSvcIcnImg img {
+    width: 32px;
+    height: 32px;
+    }
+  .tourQteSvcTtl {
+    font-size: 12px;
+    line-height: 16px;
+    color: #001;
+    }
+  .btnRaiseConcern {
+    display: inline-block;
+    outline: 0;
+    text-transform: capitalize;
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 12px;
+    font-size: 13px;
+    line-height: 15px;
+    color: #CED0D4;
+    font-weight: 600;
+    text-align: center;
+    cursor: default;
+    margin-bottom: 0;
+    margin-right: 20px;
+    user-select: none;
+    letter-spacing: 0.64px;
+    box-shadow: none;
+    }
+  .btnRaiseConcern:hover {
+    background-color: transparent;
+    color: #CED0D4;
+    }
+  .rejectionReasonCont {
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    background-color: #fff;
+    display: inline-block;
+    position: absolute;
+    bottom: 70px;
+    }
+  .rejectionReasonCont > ul > li {
+      padding: 0;
+    }
+  .rejectionReasonCont > ul > li:hover {
+    background-color: #f2f2f2;
+    }
+  .rejectionLabel {
+    font-size: 14px;
+    line-height: 14px;
+    color: #4a4a4a !important;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    margin-right: 0px !important;
+    margin-bottom: 0px !important;
+    padding: 10px 15px;
+    }
+  .rejectionInput {
+    width: 13px;
+    height: 13px;
+    margin-right: 5px !important;
+    margin-top: 0px !important;
+    }
+  .btnPayBook, .btn-quote-expired {
+    outline: 0;
+    text-transform: uppercase;
+    background-color: #08b2ed;
+    border: 0;
+    border-radius: 25px;
+    padding: 0 40px;
+    font-size: 18px;
+    line-height: 20px;
+    color: #fff;
+    font-weight: 900;
+    cursor: pointer;
+    height: 44px;
+    }
+  .btnPayBook:hover, .btn-quote-expired:hover {
+    background-color: #08b2ed;
+    color: #fff;
+    }
+  .btn-quote-expired {
+    text-transform: capitalize;
+  }
+
+  /*Tour Quote Pricing Section*/
+  .tourQuoteDatePricingCont {
+    box-shadow: 0px 8px 10px rgb(0 0 0 / 20%);
+    padding: 35px 40px;
+    border-radius: 0 0 10px 10px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    }
+  .tourQuoteCityBox {
+    padding: 15px 25px 35px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 6px #CED0D4;
+    margin-right: 40px;
+    width: 360px;
+    max-height: 235px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+    flex-shrink: 1;
+    }
+  .tourQuoteCityBoxHead {
+    font-size: 14px;
+    line-height: 14px;
+    color: #a1a1a1;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 10px;
+    }
+  .tourQuoteCityName {
+    font-size: 18px;
+    line-height: 20px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    }
+  .tourQuoteDateBox {
+    padding: 15px 25px 35px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 6px #CED0D4;
+    margin-right: 40px;
+    width: 360px;
+    max-height: 235px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+    flex-shrink: 1;
+    }
+  .tourQuoteDateBoxHead {
+    font-size: 14px;
+    line-height: 14px;
+    color: #a1a1a1;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 10px;
+    }
+  .tourQuoteDepDate, .tourQuoteRetDate {
+    font-size: 18px;
+    line-height: 20px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    }
+  .tourQuotePriceBox {
+    padding: 15px 25px 35px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 6px #CED0D4;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+    flex-shrink: 1;
+    }
+  .tourQuoteDefaultCurency:before {
+    content: '\0020B9';
+    font-size: 14px;
+    line-height: 1px;
+    font-weight: 500;
+    }
+  .tourQuotePriceBoxSubHead {
+    font-size: 15px;
+    line-height: 15px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    } 
+  .tourQuotePriceValue {
+    font-size: 18px;
+    line-height: 20px;
+    color: #001;
+    font-weight: 600;
+    text-align: right;
+    margin-bottom: 0;
+    }
+  .tourQuotePriceSeparator {
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+    }
+  .tourQuotePriceTotal {
+    font-size: 18px;
+    line-height: 20px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 5px;
+    }
+  .tourQuotePriceTagline {
+    font-size: 11px;
+    line-height: 12px;
+    color: #9b9b9b;
+    margin-bottom: 0;
+    }
+  .tourQuotePriceTotalValue {
+    font-size: 21px;
+    line-height: 23px;
+    color: #001;
+    font-weight: 600;
+    text-align: right;
+    margin-bottom: 0;
+    }
+  .tourQuoteValidity {
+    font-size: 12px;
+    line-height: 12px;
+    color: #9B9B9B;
+    font-weight: 600;
+    text-align: right;
+    margin-top: 10px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: flex-end;
+    }
+
+  /*Tour Flight*/
+  .tourQuoteFlightCont {
+    box-shadow: 0px 8px 10px rgb(0 0 0 / 20%);
+    padding: 25px 25px 35px;
+    border-radius: 10px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    }
+  .tourQuoteFlightHead {
+    font-size: 16px;
+    line-height: 16px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 20px;
+    }
+  .tourQuoteOnwardFlightBox {
+    margin: 0 15px 25px;
+    }
+  .tourQuoteReturnFlightBox, .tourQuoteTransportBox {
+    margin: 0 15px 0;
+    }
+  .flightCityName {
+    font-size: 14px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-align: left;
+    }
+  .transportDesc {
+    font-size: 16px;
+    line-height: 24px;
+    color: #4a4a4a;
+    margin-bottom: 0;
+    }
+  .onwardFlightBox, .returnFlightBox {
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+    padding: 25px 25px 35px;
+    border-radius: 5px;
+    background-color: #F9F9F9;
+    }
+  .airlineLogoBox {
+    width: 42px;
+    height: auto;
+    margin: 0;
+    margin-right: 5px;
+    border-radius: 3px;
+    font-size: 30px;
+    }
+  .airlineLogoBox img {
+    height: 42px;
+    width: 42px;
+    }
+  .flightName {
+    font-size: 14px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-align: left;
+    }
+  .flightNumber {
+    font-size: 14px;
+    line-height: 17px;
+    color: #4a4a4a;
+    margin-bottom: 0;
+    }
+  .flightDate {
+    font-size: 18px;
+    line-height: 18px;
+    color: #001;
+    font-weight: 600;
+    }
+  .flightStop, .flightClass {
+    font-size: 14px;
+    line-height: 14px;
+    color: #001;
+    font-weight: 400;
+    }
+  .flightTiming {
+    font-size: 18px;
+    line-height: 22px;
+    color: #001;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-align: center;
+    }
+  .flightCity {
+    font-size: 18px;
+    line-height: 22px;
+    color: #001;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-align: center;
+    }
+  .flightDurationCont {
+    margin: 0 30px;
+    }
+  .flightDuration {
+    font-size: 12px;
+    line-height: 12px;
+    color: #4a4a4a;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 0;
+    }
+  .flightPathWay {
+    margin: 6px 5px;
+    border-top: 1px solid #ccc;
+    width: 225px;
+    }
+  .fa-plane:before {
+    content: "\f072";
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    color: #4a4a4a;
+    font-size: 18px;
+    cursor: unset;
+    margin-top: 3px;
+    margin-right: 0;
+    transform: rotate(45deg);
+    }
+  .fa-map-marker:before {
+    content: "\f041";
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    color: #4a4a4a;
+    font-size: 18px;
+    cursor: unset;
+    }
+  .baggageTitle {
+    font-size: 14px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: left;
+    border-top: 1px solid #E7E7E7;
+    margin: 20px 0px 5px;
+    padding-top: 15px;
+    }
+  .baggageSubTitle {
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-align: left;
+    }
+  .classSeparator {
+    border-right: 2px solid #ccc;
+    height: 18px;
+    margin: 0px 10px;
+    }
+  .baggageSeparator {
+    border-right: 2px solid #ccc;
+    height: 16px;
+    margin: 0px 5px;
+    }
+
+  /*Tour Transfers*/
+  .tourQuoteTransferCont {
+    box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+    padding: 25px 25px 35px;
+    border-radius: 10px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    }
+  .tourQuoteTransferHead {
+    font-size: 16px;
+    line-height: 16px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 20px;
+    }
+  .tourQuoteTransferBox {
+    margin: 0 15px 25px;
+    }
+  .tourQuoteTransferBox:last-child {
+    margin-bottom: 0;
+    }
+  .tourQuoteTransferTitle {
+    font-size: 16px;
+    line-height: 17px;
+    color: #4A4A4A;
+    font-weight: 600;
+    margin-bottom: 10px;
+    }
+  .tourQuoteTransferDescBox {
+      box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+      padding: 25px 25px 35px;
+      border-radius: 5px;
+      background-color: #F9F9F9;
+    }
+  .transferImageBox {
+    width: 270px;
+    height: 140px;
+    overflow: hidden;
+    margin: 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-right: 25px;
+    }
+  .transferImageBox img {
+      width: 270px;
+      height: 140px;
+      object-fit: cover;
+    }
+  .transferDescTopSection {
+    margin-bottom: 37px;
+    }
+  .transferTitle {
+    font-size: 15px;
+    line-height: 15px;
+    color: #001;
+    margin-bottom: 10px;
+    }
+  .transportType {
+    font-size: 20px;
+    line-height: 24px;
+    color: #001;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 5px;
+    }
+  .transferVehicleCont, .transferDurationCont {
+    width: 150px;
+    margin-right: 40px;
+    }
+  .transferHead {
+    font-size: 12px;
+    line-height: 17px;
+    color: #9B9B9B;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    }
+  .transferSubHead {
+    font-size: 14px;
+    line-height: 17px;
+    color: #4a4a4a;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0;
+    }
+
+  /*Tour Accommodation*/
+  .tourQuoteHotelCont {
+      box-shadow: 0px 8px 10px rgb(0 0 0 / 20%);
+      padding: 25px 25px 35px;
+      border-radius: 10px;
+      background-color: #fff;
+      margin-bottom: 20px;
+    }
+  .tourQuoteHotelHead {
+      font-size: 16px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+  .tourQuoteHotelDescBox {
+      box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+      padding: 25px 25px 35px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+  .tourQuoteHotelTitle {
+      font-size: 16px;
+      line-height: 17px;
+      color: #4a4a4a;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+  .tourQuoteHotelBox {
+      margin: 0 15px 25px;
+    }
+  .tourQuoteHotelBox:last-child {
+    margin-bottom: 0;
+    }
+  .hotelImageBox {
+      width: 220px;
+      height: 190px;
+      overflow: hidden;
+      border-radius: 5px;
+      margin-right: 25px;
+    }
+  .hotelImageBox img {
+      width: 220px;
+      height: 190px;
+      object-fit: cover;
+    }
+  .hotelDescBox {
+      display: flex;
+      flex-direction: column;
+    }
+  .hotelTopSection {
+      margin-bottom: 25px;
+    }
+  .hotelType {
+      display: inline-block;
+      font-size: 12px;
+      line-height: 12px;
+      color: #fff;
+      font-weight: 600;
+      padding: 4px 6px;
+      background-color: #6A11CB;
+      border: 1px solid #6A11CB;
+      border-radius: 3px;
+      text-transform: capitalize;
+      margin-bottom: 5px;
+    }
+  .tourHotelDtls {
+    display: flex;
+    align-items: end;
+    margin-bottom: 5px;
+  }
+  .hotelName {
+    font-size: 20px;
+    line-height: 22px;
+    color: #001;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-align: left;
+    margin-right: 5px;
+    text-transform: capitalize;
+    }
+  .hotelStarRating {
+    position: relative;
+    top: -2px;
+  }
+  .hotelStarRating img {
+    width: 13px;
+    margin-top: 0;
+    margin-right: 1px;
+    margin-left: 1px;
+  }
+  .hotelFooter {
+    margin-bottom: 0;
+    }
+  .hotelDaysBadge, .hotelRoomCont {
+    width: 150px;
+    margin-right: 200px;
+    display: flex;
+    flex-direction: column;
+    }
+  .hotelWebCont {
+    display: flex;
+    flex-direction: column;
+    }
+  .hoteDaysBadge_heading, .hotelRoomCont_heading, .hotelWebCont_heading {
+    font-size: 12px;
+    line-height: 14px;
+    color: #9B9B9B;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 3px;
+    margin-top: 0;
+    }
+  .hotelDaysBadge_nightCount, .hotelRoomCont_type, .hotelWebCont_name {
+    font-size: 14px;
+    line-height: 16px;
+    color: #4a4a4a;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: 0;
+    margin-top: 0;
+    }
+  .hotelCheckInOut {
+    display: flex;
+    flex-direction: column;
+    }
+  .hotelCheckInCont {
+    display: flex;
+    margin-bottom: 3px;
+    }
+  .hotelCheckOutCont {
+      display: flex;
+    } 
+  .hotelCheckInCont_heading, .hotelCheckOutCont_heading {
+      font-size: 12px;
+      line-height: 14px;
+      color: #9B9B9B;
+      font-weight: 600;
+      text-align: left;
+    margin-bottom: 1px;
+    width: 70px;
+    margin-right: 10px;
+    }
+  .hotelCheckInCont_date, .hotelCheckOutCont_date {
+      font-size: 14px;
+      line-height: 14px;
+      color: #4a4a4a;
+      font-weight: 600;
+      text-align: left;
+      margin-bottom: 0;
+    }
+  .hotelRoomDtls {
+      display: flex;
+      flex-direction: column;
+    }
+
+  /*Tour Itinerary*/
+  .tourQuoteItineraryCont {
+      box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+      padding: 35px 30px 45px;
+      border-radius: 10px;
+      background-color: #fff;
+      margin-bottom: 20px;
+    }
+  .tourQuoteItineraryHead {
+      font-size: 16px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+  .tourQuoteItineraryBox {
+      margin: 0 15px;
+    display: flex;
+    flex-direction: column;
+    }
+  .dayDescription {
+    margin-top: 10px;
+    border-top: 1px solid #e7e7e7;
+    padding-top: 10px;
+  }
+  .dayDescription p {
+    font-size: 14px;
+    line-height: 20px;
+    color: #001;
+    text-align: justify;
+    margin-bottom: 15px;
+  }
+  .tourQuoteLeftBorderMarker {
+      margin-right: 10px;
+      border-left: 2px solid #33D18F;
+      height: 45px;
+    }
+  .tourQuoteDayPlanHead {
+      font-size: 16px;
+      line-height: 19px;
+      color: #001;
+      font-weight: 600;
+      margin-bottom: 3px;
+      text-align: left;
+    }
+  .tourQuoteDayPlanSubHead {
+      font-size: 14px;
+      line-height: 17px;
+      color: #707070;
+      margin-bottom: 5px;
+    }
+  .tourQuoteItinerarySeparator {
+    margin: 10px 15px 20px;
+    border-top: 5px solid #f9f9f9;
+    }
+  .tourQuoteItinerarySeparator:last-child {
+    margin: 0;
+    border-top: 0;
+    }
+
+  /*Tour Inclusions & Exclusions*/
+  .tourQuoteIncBox, .tourQuoteOverviewBox {
+      margin: 0 15px;
+    font-size: 14px;
+      line-height: 26px;
+      color: #001;
+    }
+  .tourQuoteInclusionHeading, .tourQuoteExclusionHeading {
+      font-size: 16px;
+      line-height: 19px;
+      color: #001;
+      font-weight: 600;
+      margin-bottom: 0;
+      text-align: left;
+    padding-bottom: 10px;
+      border-bottom: 1px solid #e7e7e7;
+    }
+  .tourQuoteUnlistedItem ul {
+    list-style: inside;
+    }
+  .tourQuoteUnlistedItem ul li {
+    margin-top: 0 !important;
+      border-top: 0 !important;
+      padding-top: 0 !important;
+    }
+    
+  .tourQuoteInclusions {
+      margin-top: 0;
+    }
+  .tourQuoteExclusions {
+      margin-top: 25px;
+    }
+  .tourQuoteInclusions ul, .tourQuoteExclusions ul {
+      list-style: inside;
+    }
+  .tourQuoteInclusions ul li:first-child, .tourQuoteExclusions ul li:first-child {
+      margin-top: 0;
+      border-top: 0;
+      padding-top: 0;
+    }
+
+  /*Tour Visa*/
+  .tourQuoteVisaPolicyCont {
+      box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+      padding: 35px 30px 45px;
+      border-radius: 10px;
+      background-color: #fff;
+      margin-bottom: 20px;
+    }
+  .tourQuoteVisaPolicyHead {
+      font-size: 16px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+  .tourQuoteVisaPolicyBox {
+      margin: 0 15px;
+    font-size: 14px;
+      line-height: 26px;
+      color: #001;
+    }
+  .tourQuoteVisaHeading{
+      font-size: 16px;
+      line-height: 19px;
+      color: #001;
+      font-weight: 600;
+      margin-bottom: 0;
+      text-align: left;
+    }
+  .tourQuoteVisa {
+      margin-top: 0;
+    }
+  .tourQuoteVisa ul {
+      list-style: inside;
+    }
+  .tourQuoteVisa ul li:first-child {
+      margin-top: 10px;
+      border-top: 1px solid #e7e7e7;
+      padding-top: 10px;
+    }
+  .tourQuoteVisaAddPolicy {
+    margin: 15px 0 0;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    }
+  .tourQuoteVisaPolicySeparator {
+    margin: 20px 0;
+    border-top: 5px solid #f9f9f9;
+    }
+  .tourQuoteVisaPolicySeparator:last-child {
+    margin: 0;
+    border-top: 0;
+    }
+
+  /*Tour Booking & Cancellation*/
+  .tourQuoteBookPolicyCont {
+      box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+      padding: 35px 30px 45px;
+      border-radius: 10px;
+      background-color: #fff;
+      margin-bottom: 20px;
+    }
+  .tourQuoteBookPolicyHead {
+      font-size: 16px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+  .tourQuoteBookPolicyBox {
+      margin: 0 15px;
+    font-size: 14px;
+      line-height: 26px;
+      color: #001;
+    }
+  .tourQuoteBookHeading, .tourQuoteCancelHeading {
+      font-size: 16px;
+      line-height: 19px;
+      color: #001;
+      font-weight: 600;
+      margin-bottom: 0;
+      text-align: left;
+    }
+  .tourQuoteBooking {
+      margin-top: 0;
+    }
+  .tourQuoteCancellation {
+      margin-top: 25px;
+    }
+  .tourQuoteBooking ul, .tourQuoteCancellation ul {
+      list-style: inside;
+    }
+  .tourQuoteBooking ul li:first-child, .tourQuoteCancellation ul li:first-child {
+      margin-top: 10px;
+      border-top: 1px solid #e7e7e7;
+      padding-top: 10px;
+    }
+  .tourQuoteBookAddPolicy, .tourQuoteCancelAddPolicy {
+    margin: 15px 0 0;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    }
+  .tourQuoteBookPolicySeparator {
+    margin: 10px 0;
+    border-top: 5px solid #f9f9f9;
+    display: none;
+    }
+
+  /*Tour Imp Notes*/
+  .tourQuoteImpCont {
+      box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+      padding: 35px 30px 45px;
+      border-radius: 10px;
+      background-color: #fff;
+      margin-bottom: 20px;
+    }
+  .tourQuoteImpHead {
+      font-size: 16px;
+      line-height: 16px;
+      color: #001;
+      font-weight: 600;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+  .tourQuoteImpBox {
+      margin: 0 15px;
+    display: flex;
+    flex-direction: column;
+    }
+  .tourQuoteImpHeading {
+      font-size: 16px;
+      line-height: 19px;
+      color: #001;
+      font-weight: 600;
+      margin-bottom: 0;
+      text-align: left;
+    }
+  .tourQuoteImp {
+      margin-top: 0;
+    font-size: 14px;
+      line-height: 26px;
+      color: #001;
+    }
+  .tourQuoteImp ul {
+      list-style: inside;
+    }
+  .tourQuoteImp ul li:first-child {
+      margin-top: 10px;
+      border-top: 1px solid #e7e7e7;
+      padding-top: 10px;
+    }
+  .tourQuoteImpAddPolicy {
+    margin: 15px 0 0;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    }
+  .tourQuoteImpSeparator {
+    margin: 10px 0;
+    border-top: 5px solid #f9f9f9;
+    display: none;
+    }
+
+  /*Footer*/
+  .tourQuoteFooterCont {
+      box-shadow: 0px 2px 10px rgb(0 0 0 / 20%);
+      padding: 35px 30px 45px;
+      border-radius: 10px;
+      background-color: #fff;
+      font-size: 13px;
+      line-height: 20px;
+      color: #4a4a4a;
+      font-weight: 400;
+    }
+  }
