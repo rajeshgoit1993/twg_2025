@@ -1526,56 +1526,916 @@ endif;
     return $data;
   }
 
-  public static function get_price_part_seperate($price, $adult, $extra_adult, $child_with_bed, $child_without_bed, $infant, $solo_traveller)
+  public static function get_price_part_seperate($price,$adult,$extra_adult,$child_with_bed,$child_without_bed,$infant,$solo_traveller)
   {
-      // Sanitize inputs to ensure numeric values, defaulting to 0 if invalid
-      $price = is_numeric($price) ? floatval($price) : 0;
-      $adult = is_numeric($adult) ? intval($adult) : 0;
-      $extra_adult = is_numeric($extra_adult) ? intval($extra_adult) : 0;
-      $child_with_bed = is_numeric($child_with_bed) ? intval($child_with_bed) : 0;
-      $child_without_bed = is_numeric($child_without_bed) ? intval($child_without_bed) : 0;
-      $infant = is_numeric($infant) ? intval($infant) : 0;
-      $solo_traveller = is_numeric($solo_traveller) ? intval($solo_traveller) : 0;
-  
-      // Calculate total travelers
-      $total_travelers = $adult + $extra_adult + $child_with_bed + $child_without_bed + $infant + $solo_traveller;
-  
-      // If no travelers or price is 0, return zeroed-out values
-      if ($total_travelers == 0 || $price == 0) {
-          return [
-              'query_pricetopay_adult' => 0,
-              'query_paytotal_adult' => 0,
-              'query_paytotal_exadult' => 0,
-              'query_paytotal_childbed' => 0,
-              'query_paytotal_childwbed' => 0,
-              'query_paytotal_infant' => 0,
-              'query_paytotal_single' => 0,
-          ];
+    $price=unserialize($price);
+
+    $data1=[
+    "quote_airfare" => array_key_exists('quote_airfare',$price) ? $price['quote_airfare'] : 0 ,
+    "quote_airfare_remarks" => array_key_exists('quote_airfare_remarks',$price) ? $price['quote_airfare_remarks'] : 0 , 
+    "query_air_adult" => $price['query_air_adult'],
+    "query_air_exadult" =>$price['query_air_exadult'],
+    "query_air_childbed" => $price['query_air_childbed'],
+    "query_air_childwbed" => $price['query_air_childwbed'],
+    "query_air_infant" => $price['query_air_infant'],
+    "query_air_single" => $price['query_air_single'],
+    "quote_cruise_fare" =>array_key_exists('quote_cruise_fare',$price) ? $price['quote_cruise_fare'] : 0 ,  
+    "quote_cruise_fare_remarks" =>array_key_exists('quote_cruise_fare_remarks',$price) ? $price['quote_cruise_fare_remarks'] : 0 ,  
+    "query_cruise_adult" => $price['query_cruise_adult'],
+    "query_cruise_exadult" => $price['query_cruise_exadult'],
+    "query_cruise_childbed" => $price['query_cruise_childbed'],
+    "query_cruise_childwbed" => $price['query_cruise_childwbed'],
+    "query_cruise_infant" => $price['query_cruise_infant'],
+    "query_cruise_single" => $price['query_cruise_single'],
+    "port_charge_supplier" =>array_key_exists('port_charge_supplier',$price) ? $price['port_charge_supplier'] : 0 , 
+    "port_charge_fare_remarks" =>array_key_exists('port_charge_fare_remarks',$price) ? $price['port_charge_fare_remarks'] : 0 ,
+    "query_cruiseport_adult" =>array_key_exists('query_cruiseport_adult',$price) ? $price['query_cruiseport_adult'] : 0 ,
+    "query_cruiseport_exadult" =>array_key_exists('query_cruiseport_exadult',$price) ? $price['query_cruiseport_exadult'] : 0 ,
+    "query_cruiseport_childbed" =>array_key_exists('query_cruiseport_childbed',$price) ? $price['query_cruiseport_childbed'] : 0 , 
+    "query_cruiseport_childwbed" =>array_key_exists('query_cruiseport_childwbed',$price) ? $price['query_cruiseport_childwbed'] : 0 , 
+    "query_cruiseport_infant" =>array_key_exists('query_cruiseport_infant',$price) ? $price['query_cruiseport_infant'] : 0 , 
+    "query_cruiseport_single" =>array_key_exists('query_cruiseport_single',$price) ? $price['query_cruiseport_single'] : 0 ,
+    "gratuity_supplier" =>array_key_exists('gratuity_supplier',$price) ? $price['gratuity_supplier'] : 0 , 
+    "gratuity_remarks" =>array_key_exists('gratuity_remarks',$price) ? $price['gratuity_remarks'] : 0 , 
+    "query_cruisegratuity_adult" =>array_key_exists('query_cruisegratuity_adult',$price) ? $price['query_cruisegratuity_adult'] : 0 ,
+    "query_cruisegratuity_exadult" =>array_key_exists('query_cruisegratuity_exadult',$price) ? $price['query_cruisegratuity_exadult'] : 0 , 
+    "query_cruisegratuity_childbed" =>array_key_exists('query_cruisegratuity_childbed',$price) ? $price['query_cruisegratuity_childbed'] : 0 , 
+    "query_cruisegratuity_childwbed" =>array_key_exists('query_cruisegratuity_childwbed',$price) ? $price['query_cruisegratuity_childwbed'] : 0 ,  
+    "query_cruisegratuity_infant" =>array_key_exists('query_cruisegratuity_infant',$price) ? $price['query_cruisegratuity_infant'] : 0 , 
+    "query_cruisegratuity_single" =>array_key_exists('query_cruisegratuity_single',$price) ? $price['query_cruisegratuity_single'] : 0 , 
+    "cruise_gst_fare_supplier" =>array_key_exists('cruise_gst_fare_supplier',$price) ? $price['cruise_gst_fare_supplier'] : 0 ,
+    "cruise_gst_fare_remarks" =>array_key_exists('cruise_gst_fare_remarks',$price) ? $price['cruise_gst_fare_remarks'] : 0 ,
+    "query_cruisegst_adult" =>array_key_exists('query_cruisegst_adult',$price) ? $price['query_cruisegst_adult'] : 0 , 
+    "query_cruisegst_exadult" =>array_key_exists('query_cruisegst_exadult',$price) ? $price['query_cruisegst_exadult'] : 0 ,
+    "query_cruisegst_childbed" =>array_key_exists('query_cruisegst_childbed',$price) ? $price['query_cruisegst_childbed'] : 0 ,  
+    "query_cruisegst_childwbed" => array_key_exists('query_cruisegst_childwbed',$price) ? $price['query_cruisegst_childwbed'] : 0 ,
+    "query_cruisegst_infant" => array_key_exists('query_cruisegst_infant',$price) ? $price['query_cruisegst_infant'] : 0 ,
+    "query_cruisegst_single" => array_key_exists('query_cruisegst_single',$price) ? $price['query_cruisegst_single'] : 0 ,
+    "accommodation_fare_supplier" =>array_key_exists('accommodation_fare_supplier',$price) ? $price['accommodation_fare_supplier'] : 0 ,  
+    "accommodation_fare_remarks" =>array_key_exists('accommodation_fare_remarks',$price) ? $price['accommodation_fare_remarks'] : 0 , 
+    "query_hotel_adult" =>array_key_exists('query_hotel_adult',$price) ? $price['query_hotel_adult'] : 0 ,  
+    "query_hotel_exadult" => array_key_exists('query_hotel_exadult',$price) ? $price['query_hotel_exadult'] : 0 ,
+    "query_hotel_childbed" =>array_key_exists('query_hotel_childbed',$price) ? $price['query_hotel_childbed'] : 0 , 
+    "query_hotel_childwbed" =>array_key_exists('query_hotel_childwbed',$price) ? $price['query_hotel_childwbed'] : 0 , 
+    "query_hotel_infant" =>array_key_exists('query_hotel_infant',$price) ? $price['query_hotel_infant'] : 0 ,   
+    "query_hotel_single" => array_key_exists('query_hotel_single',$price) ? $price['query_hotel_single'] : 0 ,  
+    "sightseeing_fare_supplier" =>array_key_exists('sightseeing_fare_supplier',$price) ? $price['sightseeing_fare_supplier'] : 0 ,  
+    "sightseeing_fare_remarks" =>array_key_exists('sightseeing_fare_remarks',$price) ? $price['sightseeing_fare_remarks'] : 0 ,  
+    "query_tours_adult" => array_key_exists('query_tours_adult',$price) ? $price['query_tours_adult'] : 0 ,  
+    "query_tours_exadult" =>array_key_exists('query_tours_exadult',$price) ? $price['query_tours_exadult'] : 0 ,   
+    "query_tours_childbed" => array_key_exists('query_tours_childbed',$price) ? $price['query_tours_childbed'] : 0 , 
+    "query_tours_childwbed" => array_key_exists('query_tours_childwbed',$price) ? $price['query_tours_childwbed'] : 0 , 
+    "query_tours_infant" =>array_key_exists('query_tours_infant',$price) ? $price['query_tours_infant'] : 0 , 
+    "query_tours_single" =>array_key_exists('query_tours_single',$price) ? $price['query_tours_single'] : 0 , 
+    "transfers_fare_supplier" => array_key_exists('transfers_fare_supplier',$price) ? $price['transfers_fare_supplier'] : 0 , 
+    "transfers_fare_remarks" =>array_key_exists('transfers_fare_remarks',$price) ? $price['transfers_fare_remarks'] : 0 ,  
+    "query_transfer_adult" => array_key_exists('query_transfer_adult',$price) ? $price['query_transfer_adult'] : 0 ,  
+    "query_transfer_exadult" =>array_key_exists('query_transfer_exadult',$price) ? $price['query_transfer_exadult'] : 0 , 
+    "query_transfer_childbed" =>array_key_exists('query_transfer_childbed',$price) ? $price['query_transfer_childbed'] : 0 , 
+    "query_transfer_childwbed" =>array_key_exists('query_transfer_childwbed',$price) ? $price['query_transfer_childwbed'] : 0 , 
+    "query_transfer_infant" =>array_key_exists('query_transfer_infant',$price) ? $price['query_transfer_infant'] : 0 ,  
+    "query_transfer_single" =>array_key_exists('query_transfer_single',$price) ? $price['query_transfer_single'] : 0 ,  
+    "visa_charges_fare_supplier" => array_key_exists('visa_charges_fare_supplier',$price) ? $price['visa_charges_fare_supplier'] : 0 ,  
+    "visa_charges_fare_remarks" =>array_key_exists('visa_charges_fare_remarks',$price) ? $price['visa_charges_fare_remarks'] : 0 , 
+    "query_visa_adult" =>array_key_exists('query_visa_adult',$price) ? $price['query_visa_adult'] : 0 , 
+    "query_visa_exadult" =>array_key_exists('query_visa_exadult',$price) ? $price['query_visa_exadult'] : 0 ,  
+    "query_visa_childbed" =>array_key_exists('query_visa_childbed',$price) ? $price['query_visa_childbed'] : 0 , 
+    "query_visa_childwbed" =>array_key_exists('query_visa_childwbed',$price) ? $price['query_visa_childwbed'] : 0 ,  
+    "query_visa_infant" =>array_key_exists('query_visa_infant',$price) ? $price['query_visa_infant'] : 0 , 
+    "query_visa_single" =>array_key_exists('query_visa_single',$price) ? $price['query_visa_single'] : 0 ,   
+    "travel_insurance_fare_supplier" => array_key_exists('travel_insurance_fare_supplier',$price) ? $price['travel_insurance_fare_supplier'] : 0 ,  
+    "travel_insurance_fare_remarks" => array_key_exists('travel_insurance_fare_remarks',$price) ? $price['travel_insurance_fare_remarks'] : 0 ,  
+    "query_inc_adult" => array_key_exists('query_inc_adult',$price) ? $price['query_inc_adult'] : 0 , 
+    "query_inc_exadult" =>array_key_exists('query_inc_exadult',$price) ? $price['query_inc_exadult'] : 0 ,  
+    "query_inc_childbed" =>array_key_exists('query_inc_childbed',$price) ? $price['query_inc_childbed'] : 0 , 
+    "query_inc_childwbed" =>array_key_exists('query_inc_childwbed',$price) ? $price['query_inc_childwbed'] : 0 ,   
+    "query_inc_infant" =>array_key_exists('query_inc_infant',$price) ? $price['query_inc_infant'] : 0 , 
+    "query_inc_single" =>array_key_exists('query_inc_single',$price) ? $price['query_inc_single'] : 0 , 
+    "meals_fare_supplier" =>array_key_exists('meals_fare_supplier',$price) ? $price['meals_fare_supplier'] : 0 ,   
+    "meals_fare_remarks" =>array_key_exists('meals_fare_remarks',$price) ? $price['meals_fare_remarks'] : 0 ,  
+    "query_meals_adult" =>array_key_exists('query_meals_adult',$price) ? $price['query_meals_adult'] : 0 , 
+    "query_meals_exadult" =>array_key_exists('query_meals_exadult',$price) ? $price['query_meals_exadult'] : 0 ,   
+    "query_meals_childbed" =>array_key_exists('query_meals_childbed',$price) ? $price['query_meals_childbed'] : 0 ,
+    "query_meals_childwbed" =>array_key_exists('query_meals_childwbed',$price) ? $price['query_meals_childwbed'] : 0 , 
+    "query_meals_infant" =>array_key_exists('query_meals_infant',$price) ? $price['query_meals_infant'] : 0 ,  
+    "query_meals_single" =>array_key_exists('query_meals_single',$price) ? $price['query_meals_single'] : 0 ,  
+    "addon_service_fare_supplier" =>array_key_exists('addon_service_fare_supplier',$price) ? $price['addon_service_fare_supplier'] : 0 ,  
+    "addon_service_fare_remarks" =>array_key_exists('addon_service_fare_remarks',$price) ? $price['addon_service_fare_remarks'] : 0 , 
+    "query_additionalservice_adult" => array_key_exists('query_additionalservice_adult',$price) ? $price['query_additionalservice_adult'] : 0 , 
+    "query_additionalservice_exadult" => array_key_exists('query_additionalservice_exadult',$price) ? $price['query_additionalservice_exadult'] : 0 ,
+    "query_additionalservice_childbed" => array_key_exists('query_additionalservice_childbed',$price) ? $price['query_additionalservice_childbed'] : 0 , 
+    "query_additionalservice_childwbed" =>array_key_exists('query_additionalservice_childwbed',$price) ? $price['query_additionalservice_childwbed'] : 0 , 
+    "query_additionalservice_infant" =>array_key_exists('query_additionalservice_infant',$price) ? $price['query_additionalservice_infant'] : 0 , 
+    "query_additionalservice_single" =>array_key_exists('query_additionalservice_single',$price) ? $price['query_additionalservice_single'] : 0 ,
+    ];
+
+     $total_adult=0;
+     if(array_key_exists('query_air_adult',$price) && $price['query_air_adult']!='' && $price['query_air_adult']!=0)
+     {
+     $total_adult=$total_adult+$price['query_air_adult'];
+     }
+      if(array_key_exists('query_cruise_adult',$price) && $price['query_cruise_adult']!='' && $price['query_cruise_adult']!=0)
+     {
+     $total_adult=$total_adult+$price['query_cruise_adult'];
+     }
+      if(array_key_exists('query_cruiseport_adult',$price) && $price['query_cruiseport_adult']!='' && $price['query_cruiseport_adult']!=0)
+     {
+     $total_adult=$total_adult+$price['query_cruiseport_adult'];
+     }
+      if(array_key_exists('query_cruisegratuity_adult',$price) && $price['query_cruisegratuity_adult']!='' && $price['query_cruisegratuity_adult']!=0)
+     {
+     $total_adult=$total_adult+$price['query_cruisegratuity_adult'];
+     }
+      if(array_key_exists('query_cruisegst_adult',$price) && $price['query_cruisegst_adult']!='' && $price['query_cruisegst_adult']!=0)
+     {
+     $total_adult=$total_adult+$price['query_cruisegst_adult'];
+     }
+      if(array_key_exists('query_hotel_adult',$price) && $price['query_hotel_adult']!='' && $price['query_hotel_adult']!=0)
+     {
+     $total_adult=$total_adult+$price['query_hotel_adult'];
+     }
+      if(array_key_exists('query_tours_adult',$price) && $price['query_tours_adult']!='' && $price['query_tours_adult']!=0)
+     {
+     $total_adult=$total_adult+$price['query_tours_adult'];
+     }
+      if(array_key_exists('query_transfer_adult',$price) && $price['query_transfer_adult']!='' && $price['query_transfer_adult']!=0)
+     {
+     $total_adult=$total_adult+$price['query_transfer_adult'];
+     }
+      if(array_key_exists('query_visa_adult',$price) && $price['query_visa_adult']!='' && $price['query_visa_adult']!=0)
+     {
+     $total_adult=$total_adult+$price['query_visa_adult'];
+     }
+      if(array_key_exists('query_inc_adult',$price) && $price['query_inc_adult']!='' && $price['query_inc_adult']!=0)
+     {
+     $total_adult=$total_adult+$price['query_inc_adult'];
+     }
+      if(array_key_exists('query_meals_adult',$price) && $price['query_meals_adult']!='' && $price['query_meals_adult']!=0)
+     {
+     $total_adult=$total_adult+$price['query_meals_adult'];
+     }
+      if(array_key_exists('query_additionalservice_adult',$price) && $price['query_additionalservice_adult']!='' && $price['query_additionalservice_adult']!=0)
+     {
+     $total_adult=$total_adult+$price['query_additionalservice_adult'];
+     }
+     //
+     $total_exadult=0;
+     if(array_key_exists('query_air_exadult',$price) && $price['query_air_exadult']!='' && $price['query_air_exadult']!=0)
+     {
+     $total_exadult=$total_exadult+$price['query_air_exadult'];
+     }
+      if(array_key_exists('query_cruise_exadult',$price) && $price['query_cruise_exadult']!='' && $price['query_cruise_exadult']!=0)
+     {
+     $total_exadult=$total_exadult+$price['query_cruise_exadult'];
+     }
+      if(array_key_exists('query_cruiseport_exadult',$price) && $price['query_cruiseport_exadult']!='' && $price['query_cruiseport_exadult']!=0)
+     {
+     $total_exadult=$total_exadult+$price['query_cruiseport_exadult'];
+     }
+      if(array_key_exists('query_cruisegratuity_exadult',$price) && $price['query_cruisegratuity_exadult']!='' && $price['query_cruisegratuity_exadult']!=0)
+     {
+     $total_exadult=$total_exadult+$price['query_cruisegratuity_exadult'];
+     }
+      if(array_key_exists('query_cruisegst_exadult',$price) && $price['query_cruisegst_exadult']!='' && $price['query_cruisegst_exadult']!=0)
+     {
+     $total_exadult=$total_exadult+$price['query_cruisegst_exadult'];
+     }
+      if(array_key_exists('query_hotel_exadult',$price) && $price['query_hotel_exadult']!='' && $price['query_hotel_exadult']!=0)
+     {
+     $total_exadult=$total_exadult+$price['query_hotel_exadult'];
+     }
+      if(array_key_exists('query_tours_exadult',$price) && $price['query_tours_exadult']!='' && $price['query_tours_exadult']!=0)
+     {
+     $total_exadult=$total_exadult+$price['query_tours_exadult'];
+     }
+      if(array_key_exists('query_transfer_exadult',$price) && $price['query_transfer_exadult']!='' && $price['query_transfer_exadult']!=0)
+     {
+     $total_exadult=$total_exadult+$price['query_transfer_exadult'];
+     }
+      if(array_key_exists('query_visa_exadult',$price) && $price['query_visa_exadult']!='' && $price['query_visa_exadult']!=0)
+     {
+     $total_exadult=$total_exadult+$price['query_visa_exadult'];
+     }
+      if(array_key_exists('query_inc_exadult',$price) && $price['query_inc_exadult']!='' && $price['query_inc_exadult']!=0)
+     {
+     $total_exadult=$total_exadult+$price['query_inc_exadult'];
+     }
+      if(array_key_exists('query_meals_exadult',$price) && $price['query_meals_exadult']!='' && $price['query_meals_exadult']!=0)
+     {
+     $total_exadult=$total_exadult+$price['query_meals_exadult'];
+     }
+      if(array_key_exists('query_additionalservice_exadult',$price) && $price['query_additionalservice_exadult']!='' && $price['query_additionalservice_exadult']!=0)
+     {
+     $total_exadult=$total_exadult+$price['query_additionalservice_exadult'];
+     }
+     //
+     $total_childbed=0;
+     if(array_key_exists('query_air_childbed',$price) && $price['query_air_childbed']!='' && $price['query_air_childbed']!=0)
+     {
+     $total_childbed=$total_childbed+$price['query_air_childbed'];
+     }
+      if(array_key_exists('query_cruise_childbed',$price) && $price['query_cruise_childbed']!='' && $price['query_cruise_childbed']!=0)
+     {
+     $total_childbed=$total_childbed+$price['query_cruise_childbed'];
+     }
+      if(array_key_exists('query_cruiseport_childbed',$price) && $price['query_cruiseport_childbed']!='' && $price['query_cruiseport_childbed']!=0)
+     {
+     $total_childbed=$total_childbed+$price['query_cruiseport_childbed'];
+     }
+      if(array_key_exists('query_cruisegratuity_childbed',$price) && $price['query_cruisegratuity_childbed']!='' && $price['query_cruisegratuity_childbed']!=0)
+     {
+     $total_childbed=$total_childbed+$price['query_cruisegratuity_childbed'];
+     }
+      if(array_key_exists('query_cruisegst_childbed',$price) && $price['query_cruisegst_childbed']!='' && $price['query_cruisegst_childbed']!=0)
+     {
+     $total_childbed=$total_childbed+$price['query_cruisegst_childbed'];
+     }
+      if(array_key_exists('query_hotel_childbed',$price) && $price['query_hotel_childbed']!='' && $price['query_hotel_childbed']!=0)
+     {
+     $total_childbed=$total_childbed+$price['query_hotel_childbed'];
+     }
+      if(array_key_exists('query_tours_childbed',$price) && $price['query_tours_childbed']!='' && $price['query_tours_childbed']!=0)
+     {
+     $total_childbed=$total_childbed+$price['query_tours_childbed'];
+     }
+      if(array_key_exists('query_transfer_childbed',$price) && $price['query_transfer_childbed']!='' && $price['query_transfer_childbed']!=0)
+     {
+     $total_childbed=$total_childbed+$price['query_transfer_childbed'];
+     }
+      if(array_key_exists('query_visa_childbed',$price) && $price['query_visa_childbed']!='' && $price['query_visa_childbed']!=0)
+     {
+     $total_childbed=$total_childbed+$price['query_visa_childbed'];
+     }
+      if(array_key_exists('query_inc_childbed',$price) && $price['query_inc_childbed']!='' && $price['query_inc_childbed']!=0)
+     {
+     $total_childbed=$total_childbed+$price['query_inc_childbed'];
+     }
+      if(array_key_exists('query_meals_childbed',$price) && $price['query_meals_childbed']!='' && $price['query_meals_childbed']!=0)
+     {
+     $total_childbed=$total_childbed+$price['query_meals_childbed'];
+     }
+      if(array_key_exists('query_additionalservice_childbed',$price) && $price['query_additionalservice_childbed']!='' && $price['query_additionalservice_childbed']!=0)
+     {
+     $total_childbed=$total_childbed+$price['query_additionalservice_childbed'];
+     }
+       //
+     $total_childwbed=0;
+     if(array_key_exists('query_air_childwbed',$price) && $price['query_air_childwbed']!='' && $price['query_air_childwbed']!=0)
+     {
+     $total_childwbed=$total_childwbed+$price['query_air_childwbed'];
+     }
+      if(array_key_exists('query_cruise_childwbed',$price) && $price['query_cruise_childwbed']!='' && $price['query_cruise_childwbed']!=0)
+     {
+     $total_childwbed=$total_childwbed+$price['query_cruise_childwbed'];
+     }
+      if(array_key_exists('query_cruiseport_childwbed',$price) && $price['query_cruiseport_childwbed']!='' && $price['query_cruiseport_childwbed']!=0)
+     {
+     $total_childwbed=$total_childwbed+$price['query_cruiseport_childwbed'];
+     }
+      if(array_key_exists('query_cruisegratuity_childwbed',$price) && $price['query_cruisegratuity_childwbed']!='' && $price['query_cruisegratuity_childwbed']!=0)
+     {
+     $total_childwbed=$total_childwbed+$price['query_cruisegratuity_childwbed'];
+     }
+      if(array_key_exists('query_cruisegst_childwbed',$price) && $price['query_cruisegst_childwbed']!='' && $price['query_cruisegst_childwbed']!=0)
+     {
+     $total_childwbed=$total_childwbed+$price['query_cruisegst_childwbed'];
+     }
+      if(array_key_exists('query_hotel_childwbed',$price) && $price['query_hotel_childwbed']!='' && $price['query_hotel_childwbed']!=0)
+     {
+     $total_childwbed=$total_childwbed+$price['query_hotel_childwbed'];
+     }
+      if(array_key_exists('query_tours_childwbed',$price) && $price['query_tours_childwbed']!='' && $price['query_tours_childwbed']!=0)
+     {
+     $total_childwbed=$total_childwbed+$price['query_tours_childwbed'];
+     }
+      if(array_key_exists('query_transfer_childwbed',$price) && $price['query_transfer_childwbed']!='' && $price['query_transfer_childwbed']!=0)
+     {
+     $total_childwbed=$total_childwbed+$price['query_transfer_childwbed'];
+     }
+      if(array_key_exists('query_visa_childwbed',$price) && $price['query_visa_childwbed']!='' && $price['query_visa_childwbed']!=0)
+     {
+     $total_childwbed=$total_childwbed+$price['query_visa_childwbed'];
+     }
+      if(array_key_exists('query_inc_childwbed',$price) && $price['query_inc_childwbed']!='' && $price['query_inc_childwbed']!=0)
+     {
+     $total_childwbed=$total_childwbed+$price['query_inc_childwbed'];
+     }
+      if(array_key_exists('query_meals_childwbed',$price) && $price['query_meals_childwbed']!='' && $price['query_meals_childwbed']!=0)
+     {
+     $total_childwbed=$total_childwbed+$price['query_meals_childwbed'];
+     }
+      if(array_key_exists('query_additionalservice_childwbed',$price) && $price['query_additionalservice_childwbed']!='' && $price['query_additionalservice_childwbed']!=0)
+     {
+     $total_childwbed=$total_childwbed+$price['query_additionalservice_childwbed'];
+     }
+        //
+     $total_infant=0;
+     if(array_key_exists('query_air_infant',$price) &&  $price['query_air_infant']!='' && $price['query_air_infant']!=0)
+     {
+     $total_infant=$total_infant+$price['query_air_infant'];
+     }
+      if(array_key_exists('query_cruise_infant',$price) &&  $price['query_cruise_infant']!='' && $price['query_cruise_infant']!=0)
+     {
+     $total_infant=$total_infant+$price['query_cruise_infant'];
+     }
+      if(array_key_exists('query_cruiseport_infant',$price) &&  $price['query_cruiseport_infant']!='' && $price['query_cruiseport_infant']!=0)
+     {
+     $total_infant=$total_infant+$price['query_cruiseport_infant'];
+     }
+      if(array_key_exists('query_cruisegratuity_infant',$price) &&  $price['query_cruisegratuity_infant']!='' && $price['query_cruisegratuity_infant']!=0)
+     {
+     $total_infant=$total_infant+$price['query_cruisegratuity_infant'];
+     }
+      if(array_key_exists('query_cruisegst_infant',$price) &&  $price['query_cruisegst_infant']!='' && $price['query_cruisegst_infant']!=0)
+     {
+     $total_infant=$total_infant+$price['query_cruisegst_infant'];
+     }
+      if(array_key_exists('query_hotel_infant',$price) &&  $price['query_hotel_infant']!='' && $price['query_hotel_infant']!=0)
+     {
+     $total_infant=$total_infant+$price['query_hotel_infant'];
+     }
+      if(array_key_exists('query_tours_infant',$price) &&  $price['query_tours_infant']!='' && $price['query_tours_infant']!=0)
+     {
+     $total_infant=$total_infant+$price['query_tours_infant'];
+     }
+      if(array_key_exists('query_transfer_infant',$price) &&  $price['query_transfer_infant']!='' && $price['query_transfer_infant']!=0)
+     {
+     $total_infant=$total_infant+$price['query_transfer_infant'];
+     }
+      if(array_key_exists('query_visa_infant',$price) &&  $price['query_visa_infant']!='' && $price['query_visa_infant']!=0)
+     {
+     $total_infant=$total_infant+$price['query_visa_infant'];
+     }
+      if(array_key_exists('query_inc_infant',$price) &&  $price['query_inc_infant']!='' && $price['query_inc_infant']!=0)
+     {
+     $total_infant=$total_infant+$price['query_inc_infant'];
+     }
+      if(array_key_exists('query_meals_infant',$price) &&  $price['query_meals_infant']!='' && $price['query_meals_infant']!=0)
+     {
+     $total_infant=$total_infant+$price['query_meals_infant'];
+     }
+      if(array_key_exists('query_additionalservice_infant',$price) &&  $price['query_additionalservice_infant']!='' && $price['query_additionalservice_infant']!=0)
+     {
+     $total_infant=$total_infant+$price['query_additionalservice_infant'];
+     }
+        //
+     $total_single=0;
+     if(array_key_exists('query_air_single',$price) && $price['query_air_single']!='' && $price['query_air_single']!=0)
+     {
+     $total_single=$total_single+$price['query_air_single'];
+     }
+      if(array_key_exists('query_cruise_single',$price) && $price['query_cruise_single']!='' && $price['query_cruise_single']!=0)
+     {
+     $total_single=$total_single+$price['query_cruise_single'];
+     }
+      if(array_key_exists('query_cruiseport_single',$price) && $price['query_cruiseport_single']!='' && $price['query_cruiseport_single']!=0)
+     {
+     $total_single=$total_single+$price['query_cruiseport_single'];
+     }
+      if(array_key_exists('query_cruisegratuity_single',$price) && $price['query_cruisegratuity_single']!='' && $price['query_cruisegratuity_single']!=0)
+     {
+     $total_single=$total_single+$price['query_cruisegratuity_single'];
+     }
+      if(array_key_exists('query_cruisegst_single',$price) && $price['query_cruisegst_single']!='' && $price['query_cruisegst_single']!=0)
+     {
+     $total_single=$total_single+$price['query_cruisegst_single'];
+     }
+      if(array_key_exists('query_hotel_single',$price) && $price['query_hotel_single']!='' && $price['query_hotel_single']!=0)
+     {
+     $total_single=$total_single+$price['query_hotel_single'];
+     }
+      if(array_key_exists('query_tours_single',$price) && $price['query_tours_single']!='' && $price['query_tours_single']!=0)
+     {
+     $total_single=$total_single+$price['query_tours_single'];
+     }
+      if(array_key_exists('query_transfer_single',$price) && $price['query_transfer_single']!='' && $price['query_transfer_single']!=0)
+     {
+     $total_single=$total_single+$price['query_transfer_single'];
+     }
+      if(array_key_exists('query_visa_single',$price) && $price['query_visa_single']!='' && $price['query_visa_single']!=0)
+     {
+     $total_single=$total_single+$price['query_visa_single'];
+     }
+      if(array_key_exists('query_inc_single',$price) && $price['query_inc_single']!='' && $price['query_inc_single']!=0)
+     {
+     $total_single=$total_single+$price['query_inc_single'];
+     }
+      if(array_key_exists('query_meals_single',$price) && $price['query_meals_single']!='' && $price['query_meals_single']!=0)
+     {
+     $total_single=$total_single+$price['query_meals_single'];
+     }
+      if(array_key_exists('query_additionalservice_single',$price) && $price['query_additionalservice_single']!='' && $price['query_additionalservice_single']!=0)
+     {
+     $total_single=$total_single+$price['query_additionalservice_single'];
+     }
+     
+     $query_markup_adult=0;
+     if(array_key_exists('query_markup_adult',$price) && $price['query_markup_adult']!='')
+     {
+      $query_markup_adult=$price['query_markup_adult'];
+     }
+     $query_markup_exadult=0;
+     if(array_key_exists('query_markup_exadult',$price) && $price['query_markup_exadult']!='')
+     {
+      $query_markup_exadult=$price['query_markup_exadult'];
+     }
+     $query_markup_childbed=0;
+      if(array_key_exists('query_markup_childbed',$price) && $price['query_markup_childbed']!='')
+     {
+      $query_markup_childbed=$price['query_markup_childbed'];
+     }
+     $query_markup_childwbed=0;
+     if(array_key_exists('query_markup_childwbed',$price) && $price['query_markup_childwbed']!='')
+     {
+      $query_markup_childwbed=$price['query_markup_childwbed'];
+     }
+     $query_markup_infant=0;
+      if(array_key_exists('query_markup_infant',$price) && $price['query_markup_infant']!='')
+     {
+     $query_markup_infant=$price['query_markup_infant'];
+     }
+     $query_markup_single=0;
+     if(array_key_exists('query_markup_single',$price) && $price['query_markup_single']!='')
+     {
+     $query_markup_single=$price['query_markup_single'];
+     }
+     
+     if(array_key_exists('pricemarkup',$price) && $price['pricemarkup']==1)
+     {
       }
-  
-      // Calculate price per traveler
-      $price_per_traveler = $price / $total_travelers;
-  
-      // Calculate individual costs
-      $query_paytotal_adult = round($price_per_traveler * $adult);
-      $query_paytotal_exadult = round($price_per_traveler * $extra_adult);
-      $query_paytotal_childbed = round($price_per_traveler * $child_with_bed);
-      $query_paytotal_childwbed = round($price_per_traveler * $child_without_bed);
-      $query_paytotal_infant = round($price_per_traveler * $infant);
-      $query_paytotal_single = round($price_per_traveler * $solo_traveller);
-  
-      // Total price
-      $query_pricetopay_adult = $query_paytotal_adult + $query_paytotal_exadult + $query_paytotal_childbed + $query_paytotal_childwbed + $query_paytotal_infant + $query_paytotal_single;
-  
-      return [
-          'query_pricetopay_adult' => $query_pricetopay_adult,
-          'query_paytotal_adult' => $query_paytotal_adult,
-          'query_paytotal_exadult' => $query_paytotal_exadult,
-          'query_paytotal_childbed' => $query_paytotal_childbed,
-          'query_paytotal_childwbed' => $query_paytotal_childwbed,
-          'query_paytotal_infant' => $query_paytotal_infant,
-          'query_paytotal_single' => $query_paytotal_single,
-      ];
+     elseif(array_key_exists('pricemarkup',$price) && $price['pricemarkup']==2)
+     {
+      $percentage_markup=$price['markup_percentage'];
+
+      $query_markup_adult=round($total_adult*$percentage_markup/100);
+      $query_markup_exadult=round($total_exadult*$percentage_markup/100);
+      $query_markup_childbed=round($total_childbed*$percentage_markup/100);
+      $query_markup_childwbed=round($total_childwbed*$percentage_markup/100);
+      $query_markup_infant=round($total_infant*$percentage_markup/100);
+      $query_markup_single=round($total_single*$percentage_markup/100);
+     }
+      //
+     $query_discount_adult=0;
+     if(array_key_exists('query_discount_adult',$price) && $price['query_discount_adult']!='')
+     {
+     $query_discount_adult=$price['query_discount_adult'];
+     }
+     $query_discount_exadult=0;
+      if(array_key_exists('query_discount_exadult',$price) && $price['query_discount_exadult']!='')
+     {
+      $query_discount_exadult=$price['query_discount_exadult'];
+     }
+     $query_discount_childbed=0;
+      if(array_key_exists('query_discount_childbed',$price) && $price['query_discount_childbed']!='')
+     {
+      $query_discount_childbed=$price['query_discount_childbed'];
+     }
+     $query_discount_childwbed=0;
+     if(array_key_exists('query_discount_childwbed',$price) && $price['query_discount_childwbed']!='')
+     {
+     $query_discount_childwbed=$price['query_discount_childwbed'];
+     }
+     $query_discount_infant=0;
+     if(array_key_exists('query_discount_infant',$price) && $price['query_discount_infant']!='')
+     {
+      $query_discount_infant=$price['query_discount_infant'];
+     }
+     $query_discount_single=0;
+     if(array_key_exists('query_discount_single',$price) && $price['query_discount_single']!='')
+     {
+      $query_discount_single=$price['query_discount_single'];
+     }
+     if(array_key_exists('pricediscountpositive',$price) && $price['pricediscountpositive']==1)
+     {
+      
+      
+     }
+     elseif(array_key_exists('pricediscountpositive',$price) && $price['pricediscountpositive']==2)
+     {
+      $discountpositive_percentage=$price['discountpositive_percentage'];
+
+      $query_discount_adult=round(($total_adult+$query_markup_adult)*$discountpositive_percentage/100);
+      $query_discount_exadult=round(($total_exadult+$query_markup_exadult)*$discountpositive_percentage/100);
+      $query_discount_childbed=round(($total_childbed+$query_markup_childbed)*$discountpositive_percentage/100);
+      $query_discount_childwbed=round(($total_childwbed+$query_markup_childwbed)*$discountpositive_percentage/100);
+      $query_discount_infant=round(($total_infant+$query_markup_infant)*$discountpositive_percentage/100);
+      $query_discount_single=round(($total_single+$query_markup_single)*$discountpositive_percentage/100);
+     }
+     $query_total_adult=round($total_adult+$query_markup_adult+$query_discount_adult);
+     $query_total_exadult=round($total_exadult+$query_markup_exadult+$query_discount_exadult);
+     $query_total_childbed=round($total_childbed+$query_markup_childbed+$query_discount_childbed);
+     $query_total_childwbed=round($total_childwbed+$query_markup_childwbed+$query_discount_childwbed);
+     $query_total_infant=round($total_infant+$query_markup_infant+$query_discount_infant);
+     $query_total_single=round($total_single+$query_markup_single+$query_discount_single);
+
+     $query_total_group=($query_total_adult*$adult)+($query_total_exadult*$extra_adult)+($query_total_childbed*$child_with_bed)+($query_total_childwbed*$child_without_bed)+($query_total_infant*$infant)+($query_total_single*$solo_traveller);
+    
+    //
+     $query_discount_minus_adult=0;
+     if(array_key_exists('query_discount_minus_adult',$price) && $price['query_discount_minus_adult']!='')
+     {
+     $query_discount_minus_adult=$price['query_discount_minus_adult'];
+     }
+     $query_discount_minus_exadult=0;
+      if(array_key_exists('query_discount_minus_exadult',$price) && $price['query_discount_minus_exadult']!='')
+     {
+    $query_discount_minus_exadult=$price['query_discount_minus_exadult'];
+     }
+     $query_discount_minus_childbed=0;
+      if(array_key_exists('query_discount_minus_childbed',$price) && $price['query_discount_minus_childbed']!='')
+     {
+    $query_discount_minus_childbed=$price['query_discount_minus_childbed'];
+     }
+     $query_discount_minus_childwbed=0;
+     if(array_key_exists('query_discount_minus_childwbed',$price) && $price['query_discount_minus_childwbed']!='')
+     {
+     $query_discount_minus_childwbed=$price['query_discount_minus_childwbed'];
+     }
+     $query_discount_minus_infant=0;
+     if(array_key_exists('query_discount_minus_infant',$price) && $price['query_discount_minus_infant']!='')
+     {
+      $query_discount_minus_infant=$price['query_discount_minus_infant'];
+     }
+     $query_discount_minus_single=0;
+     if(array_key_exists('query_discount_minus_single',$price) && $price['query_discount_minus_single']!='')
+     {
+      $query_discount_minus_single=$price['query_discount_minus_single'];
+     }
+     if(array_key_exists('pricediscountnegative',$price) && $price['pricediscountnegative']==1)
+     {
+      
+      
+     }
+     elseif(array_key_exists('pricediscountnegative',$price) && $price['pricediscountnegative']==2)
+     {
+      $discountnegative_percentage=$price['discountnegative_percentage'];
+      $divide_val=$discountnegative_percentage+100;
+      $query_discount_minus_adult=round($query_total_adult*$discountnegative_percentage/$divide_val);
+      $query_discount_minus_exadult=round($query_total_exadult*$discountnegative_percentage/$divide_val);
+      $query_discount_minus_childbed=round($query_total_childbed*$discountnegative_percentage/$divide_val);
+      $query_discount_minus_childwbed=round($query_total_childwbed*$discountnegative_percentage/$divide_val);
+      $query_discount_minus_infant=round($query_total_infant*$discountnegative_percentage/$divide_val);
+      $query_discount_minus_single=round($query_total_single*$discountnegative_percentage/$divide_val);
+     }
+      elseif(array_key_exists('pricediscountnegative',$price) && $price['pricediscountnegative']==3)
+     {
+     
+      $discountnegative_percentage=array_key_exists('discount_coupon',$price) ? $price['discount_coupon'] : 0;
+     
+      $divide_val=$discountnegative_percentage+100;
+      $query_discount_minus_adult=round($query_total_adult*$discountnegative_percentage/$divide_val);
+      $query_discount_minus_exadult=round($query_total_exadult*$discountnegative_percentage/$divide_val);
+      $query_discount_minus_childbed=round($query_total_childbed*$discountnegative_percentage/$divide_val);
+      $query_discount_minus_childwbed=round($query_total_childwbed*$discountnegative_percentage/$divide_val);
+      $query_discount_minus_infant=round($query_total_infant*$discountnegative_percentage/$divide_val);
+      $query_discount_minus_single=round($query_total_single*$discountnegative_percentage/$divide_val);
+
+     }
+
+      $query_total_discount_group=($query_discount_minus_adult*$adult)+($query_discount_minus_exadult*$extra_adult)+($query_discount_minus_childbed*$child_with_bed)+($query_discount_minus_childwbed*$child_without_bed)+($query_discount_minus_infant*$infant)+($query_discount_minus_single*$solo_traveller);
+
+     // $query_total_discount_group=$query_discount_minus_adult+$query_discount_minus_exadult+$query_discount_minus_childbed+$query_discount_minus_childwbed+$query_discount_minus_infant+$query_discount_minus_single;
+
+     //
+    //  $query_discount_adult=0;
+    //  if(array_key_exists('query_discount_adult',$price) && $price['query_discount_adult']!='')
+    //  {
+    //  $query_discount_adult=$price['query_discount_adult'];
+    //  }
+    //  $query_discount_exadult=0;
+    //   if(array_key_exists('query_discount_exadult',$price) && $price['query_discount_exadult']!='')
+    //  {
+    // $query_discount_exadult=$price['query_discount_exadult'];
+    //  }
+    //  $query_discount_childbed=0;
+    //   if(array_key_exists('query_discount_childbed',$price) && $price['query_discount_childbed']!='')
+    //  {
+    // $query_discount_childbed=$price['query_discount_childbed'];
+    //  }
+    //  $query_discount_childwbed=0;
+    //  if(array_key_exists('query_discount_childwbed',$price) && $price['query_discount_childwbed']!='')
+    //  {
+    //  $query_discount_childwbed=$price['query_discount_childwbed'];
+    //  }
+    //  $query_discount_infant=0;
+    //  if(array_key_exists('query_discount_infant',$price) && $price['query_discount_infant']!='')
+    //  {
+    //   $query_discount_infant=$price['query_discount_infant'];
+    //  }
+    //  $query_discount_single=0;
+    //  if(array_key_exists('query_discount_single',$price) && $price['query_discount_single']!='')
+    //  {
+    //   $query_discount_single=$price['query_discount_single'];
+    //  }
+    //  if(array_key_exists('pricediscountpositive',$price) && $price['pricediscountpositive']==1)
+    //  {
+      
+      
+    //  }
+    //  elseif(array_key_exists('pricediscountpositive',$price) && $price['pricediscountpositive']==2)
+    //  {
+    //   $percentage_markup=$price['markup_percentage'];
+
+    //   $query_discount_adult=($total_adult+$query_markup_adult)*$percentage_markup/100;
+    //   $query_discount_exadult=($total_exadult+$query_markup_exadult)*$percentage_markup/100;
+    //   $query_discount_childbed=($total_childbed+$query_markup_childbed)*$percentage_markup/100;
+    //   $query_discount_childwbed=($total_childwbed+$query_markup_childwbed)*$percentage_markup/100;
+    //   $query_discount_infant=($total_infant+$query_markup_infant)*$percentage_markup/100;
+    //   $query_discount_single=($total_single+$query_markup_single)*$percentage_markup/100;
+    //  }
+
+
+    //  $query_total_adult=$total_adult+$query_markup_adult+$query_discount_adult;
+    //  $query_total_exadult=$total_exadult+$query_markup_exadult+$query_discount_exadult;
+    //  $query_total_childbed=$total_childbed+$query_markup_childbed+$query_discount_childbed;
+    //  $query_total_childwbed=$total_childwbed+$query_markup_childwbed+$query_discount_childwbed;
+    //  $query_total_infant=$total_infant+$query_markup_infant+$query_discount_infant;
+    //  $query_total_single=$total_single+$query_markup_single+$query_discount_single;
+
+    //  $query_total_group=($query_total_adult*$adult)+($query_total_exadult*$extra_adult)+($query_total_childbed*$child_with_bed)+($query_total_childwbed*$child_without_bed)+($query_total_infant*$infant)+($query_total_single*$solo_traveller);
+    
+    //
+     $query_gst_adult=0;
+     if(array_key_exists('query_gst_adult',$price) && $price['query_gst_adult']!='')
+     {
+     $query_gst_adult=$price['query_gst_adult'];
+     }
+     $query_gst_exadult=0;
+      if(array_key_exists('query_gst_exadult',$price) && $price['query_gst_exadult']!='')
+     {
+    $query_gst_exadult=$price['query_gst_exadult'];
+     }
+     $query_gst_childbed=0;
+      if(array_key_exists('query_gst_childbed',$price) && $price['query_gst_childbed']!='')
+     {
+    $query_gst_childbed=$price['query_gst_childbed'];
+     }
+     $query_gst_childwbed=0;
+     if(array_key_exists('query_gst_childwbed',$price) && $price['query_gst_childwbed']!='')
+     {
+     $query_gst_childwbed=$price['query_gst_childwbed'];
+     }
+     $query_gst_infant=0;
+     if(array_key_exists('query_gst_infant',$price) && $price['query_gst_infant']!='')
+     {
+      $query_gst_infant=$price['query_gst_infant'];
+     }
+     $query_gst_single=0;
+     if(array_key_exists('query_gst_single',$price) && $price['query_gst_single']!='')
+     {
+      $query_gst_single=$price['query_gst_single'];
+     }
+     if(array_key_exists('gst_percentage',$price) && $price['gst_percentage']==1)
+     {
+      
+      
+     }
+     elseif(array_key_exists('gst_percentage',$price) && $price['gst_percentage']==2)
+     {
+       $gst_percentage=$price['gst_percentage'];
+      
+      $query_gst_adult=round(($query_total_adult-$query_discount_minus_adult)*$gst_percentage/100);
+      $query_gst_exadult=round(($query_total_exadult-$query_discount_minus_exadult)*$gst_percentage/100);
+      $query_gst_childbed=round(($query_total_childbed-$query_discount_minus_childbed)*$gst_percentage/100);
+      $query_gst_childwbed=round(($query_total_childwbed-$query_discount_minus_childwbed)*$gst_percentage/100);
+      $query_gst_infant=round(($query_total_infant-$query_discount_minus_infant)*$gst_percentage/100);
+      $query_gst_single=round(($query_total_single-$query_discount_minus_single)*$gst_percentage/100);
+      
+     }
+     $query_total_gst_group=($query_gst_adult*$adult)+($query_gst_exadult*$extra_adult)+($query_gst_childbed*$child_with_bed)+($query_gst_childwbed*$child_without_bed)+($query_gst_infant*$infant)+($query_gst_single*$solo_traveller);
+
+     $query_gsttotal_adult=round($query_total_adult-$query_discount_minus_adult+$query_gst_adult);
+     $query_gsttotal_exadult=round($query_total_exadult-$query_discount_minus_exadult+$query_gst_exadult);
+     $query_gsttotal_childbed=round($query_total_childbed-$query_discount_minus_childbed+$query_gst_childbed);
+     $query_gsttotal_childwbed=round($query_total_childwbed-$query_discount_minus_childwbed+$query_gst_childwbed);
+     $query_gsttotal_infant=round($query_total_infant-$query_discount_minus_infant+$query_gst_infant);
+     $query_gsttotal_single=round($query_total_single-$query_discount_minus_single+$query_gst_single);
+
+    //TCS CALCULATION
+     $query_tcs_adult=0;
+     if(array_key_exists('query_tcs_adult',$price) && $price['query_tcs_adult']!='')
+     {
+     $query_tcs_adult=$price['query_tcs_adult'];
+     }
+     $query_tcs_exadult=0;
+      if(array_key_exists('query_tcs_exadult',$price) && $price['query_tcs_exadult']!='')
+     {
+    $query_tcs_exadult=$price['query_tcs_exadult'];
+     }
+     $query_tcs_childbed=0;
+      if(array_key_exists('query_tcs_childbed',$price) && $price['query_tcs_childbed']!='')
+     {
+    $query_tcs_childbed=$price['query_tcs_childbed'];
+     }
+     $query_tcs_childwbed=0;
+     if(array_key_exists('query_tcs_childwbed',$price) && $price['query_tcs_childwbed']!='')
+     {
+     $query_tcs_childwbed=$price['query_tcs_childwbed'];
+     }
+     $query_tcs_infant=0;
+     if(array_key_exists('query_tcs_infant',$price) && $price['query_tcs_infant']!='')
+     {
+      $query_tcs_infant=$price['query_tcs_infant'];
+     }
+     $query_tcs_single=0;
+     if(array_key_exists('query_tcs_single',$price) && $price['query_tcs_single']!='')
+     {
+      $query_tcs_single=$price['query_tcs_single'];
+     }
+     if(array_key_exists('query_tcs_curr',$price) && $price['query_tcs_curr']==1)
+     {
+      
+      
+     }
+     elseif(array_key_exists('query_tcs_curr',$price) && $price['query_tcs_curr']==2)
+     {
+      $tcs_percentage=$price['tcs_percentage'];
+
+      $query_tcs_adult=round($query_gsttotal_adult*$tcs_percentage/100);
+      $query_tcs_exadult=round($query_gsttotal_exadult*$tcs_percentage/100);
+      $query_tcs_childbed=round($query_gsttotal_childbed*$tcs_percentage/100);
+      $query_tcs_childwbed=round($query_gsttotal_childwbed*$tcs_percentage/100);
+      $query_tcs_infant=round($query_gsttotal_infant*$tcs_percentage/100);
+      $query_tcs_single=round($query_gsttotal_single*$tcs_percentage/100);
+     }
+
+     $query_total_tcs_group=($query_tcs_adult*$adult)+($query_tcs_exadult*$extra_adult)+($query_tcs_childbed*$child_with_bed)+($query_tcs_childwbed*$child_without_bed)+($query_tcs_infant*$infant)+($query_tcs_single*$solo_traveller);
+
+     $query_tcstotal_adult=round($query_gsttotal_adult+$query_tcs_adult);
+     $query_tcstotal_exadult=round($query_gsttotal_exadult+$query_tcs_exadult);
+     $query_tcstotal_childbed=round($query_gsttotal_childbed+$query_tcs_childbed);
+     $query_tcstotal_childwbed=round($query_gsttotal_childwbed+$query_tcs_childwbed);
+     $query_tcstotal_infant=round($query_gsttotal_infant+$query_tcs_infant);
+     $query_tcstotal_single=round($query_gsttotal_single+$query_tcs_single);
+     //Pg Charges
+    
+     $query_pgcharges_adult=0;
+     if(array_key_exists('query_pgcharges_adult',$price) && $price['query_pgcharges_adult']!='')
+     {
+     $query_pgcharges_adult=$price['query_pgcharges_adult'];
+     }
+     $query_pgcharges_exadult=0;
+      if(array_key_exists('query_pgcharges_exadult',$price) && $price['query_pgcharges_exadult']!='')
+     {
+    $query_pgcharges_exadult=$price['query_pgcharges_exadult'];
+     }
+     $query_pgcharges_childbed=0;
+      if(array_key_exists('query_pgcharges_childbed',$price) && $price['query_pgcharges_childbed']!='')
+     {
+    $query_pgcharges_childbed=$price['query_pgcharges_childbed'];
+     }
+     $query_pgcharges_childwbed=0;
+     if(array_key_exists('query_pgcharges_childwbed',$price) && $price['query_pgcharges_childwbed']!='')
+     {
+     $query_pgcharges_childwbed=$price['query_pgcharges_childwbed'];
+     }
+     $query_pgcharges_infant=0;
+     if(array_key_exists('query_pgcharges_infant',$price) && $price['query_pgcharges_infant']!='')
+     {
+      $query_pgcharges_infant=$price['query_pgcharges_infant'];
+     }
+     $query_pgcharges_single=0;
+     if(array_key_exists('query_pgcharges_single',$price) && $price['query_pgcharges_single']!='')
+     {
+      $query_pgcharges_single=$price['query_pgcharges_single'];
+     }
+     if(array_key_exists('pg_charges',$price) && $price['pg_charges']==1)
+     {
+      
+      
+     }
+     elseif(array_key_exists('pg_charges',$price) && $price['pg_charges']==2)
+     {
+      $pgcharges_percentage=1;
+
+      $query_pgcharges_adult=round($query_tcstotal_adult*$pgcharges_percentage/100);
+      $query_pgcharges_exadult=round($query_tcstotal_exadult*$pgcharges_percentage/100);
+      $query_pgcharges_childbed=round($query_tcstotal_childbed*$pgcharges_percentage/100);
+      $query_pgcharges_childwbed=round($query_tcstotal_childwbed*$pgcharges_percentage/100);
+      $query_pgcharges_infant=round($query_tcstotal_infant*$pgcharges_percentage/100);
+      $query_pgcharges_single=round($query_tcstotal_single*$pgcharges_percentage/100);
+     }
+
+     $query_total_pg_group=($query_pgcharges_adult*$adult)+($query_pgcharges_exadult*$extra_adult)+($query_pgcharges_childbed*$child_with_bed)+($query_pgcharges_childwbed*$child_without_bed)+($query_pgcharges_infant*$infant)+($query_pgcharges_single*$solo_traveller);
+
+   
+     $query_grand_adult=round($query_tcstotal_adult+$query_pgcharges_adult);
+     $query_grand_exadult=round($query_tcstotal_exadult+$query_pgcharges_exadult);
+     $query_grand_childbed=round($query_tcstotal_childbed+$query_pgcharges_childbed);
+     $query_grand_childwbed=round($query_tcstotal_childwbed+$query_pgcharges_childwbed);
+     $query_grand_infant=round($query_tcstotal_infant+$query_pgcharges_infant);
+     $query_grand_single=round($query_tcstotal_single+$query_pgcharges_single);
+
+     $query_paytotal_adult=round($query_grand_adult*$adult);
+     $query_paytotal_exadult=round($query_grand_exadult*$extra_adult);
+     $query_paytotal_childbed=round($query_grand_childbed*$child_with_bed);
+     $query_paytotal_childwbed=round($query_grand_childwbed*$child_without_bed);
+     $query_paytotal_infant=round($query_grand_infant*$infant);
+     $query_paytotal_single=round($query_grand_single*$solo_traveller);
+
+    $query_pricetopay_adult=$query_paytotal_adult+$query_paytotal_exadult+$query_paytotal_childbed+$query_paytotal_childwbed+$query_paytotal_infant+$query_paytotal_single;
+     
+
+
+
+
+    $data2=["query_tourtotal_adult" => $total_adult,
+    "query_tourtotal_exadult" =>$total_exadult,
+    "query_tourtotal_childbed" => $total_childbed,
+    "query_tourtotal_childwbed" =>$total_childwbed,
+    "query_tourtotal_infant" => $total_infant,
+    "query_tourtotal_single" =>  $total_single,
+    "pricemarkup" =>array_key_exists('pricemarkup',$price) ? $price['pricemarkup'] : 0 , 
+    "markup_percentage" =>array_key_exists('markup_percentage',$price) ? $price['markup_percentage'] : 0 ,
+    "query_markup_adult" =>$query_markup_adult,
+    "query_markup_exadult" => $query_markup_exadult,
+    "query_markup_childbed" => $query_markup_childbed,
+    "query_markup_childwbed" =>$query_markup_childwbed,
+    "query_markup_infant" => $query_markup_infant,
+    "query_markup_single" =>$query_markup_single,
+    "pricediscountpositive" =>array_key_exists('pricediscountpositive',$price) ? $price['pricediscountpositive'] : 0 , 
+    "discountpositive_percentage" =>array_key_exists('discountpositive_percentage',$price) ? $price['discountpositive_percentage'] : 0 , 
+    "query_discount_adult" => $query_discount_adult,
+    "query_discount_exadult" =>$query_discount_exadult,
+    "query_discount_childbed" => $query_discount_childbed,
+    "query_discount_childwbed" => $query_discount_childwbed,
+    "query_discount_infant" => $query_discount_infant,
+    "query_discount_single" => $query_discount_single,
+    "query_total_adult" => $query_total_adult,
+    "query_total_exadult" => $query_total_exadult,
+    "query_total_childbed" => $query_total_childbed,
+    "query_total_childwbed" => $query_total_childwbed,
+    "query_total_infant" => $query_total_infant,
+    "query_total_single" => $query_total_single,
+    "query_total_group" => $query_total_group,
+    "pricediscountnegative" =>array_key_exists('pricediscountnegative',$price) ? $price['pricediscountnegative'] : 0 , 
+    "discountnegative_percentage" =>array_key_exists('discountnegative_percentage',$price) ? $price['discountnegative_percentage'] : 0 , 
+    "discount_coupon" =>array_key_exists('discount_coupon',$price) ? $price['discount_coupon'] : 0 , 
+    "coupon_id" =>array_key_exists('coupon_id',$price) ? $price['coupon_id'] : 0 , 
+    "query_discount_minus_adult" => $query_discount_minus_adult,
+    "query_discount_minus_exadult" => $query_discount_minus_exadult,
+    "query_discount_minus_childbed" =>$query_discount_minus_childbed,
+    "query_discount_minus_childwbed" => $query_discount_minus_childwbed,
+    "query_discount_minus_infant" => $query_discount_minus_infant,
+    "query_discount_minus_single" => $query_discount_minus_single,
+    "query_total_discount_group" => $query_total_discount_group,
+    "query_gst_curr" =>array_key_exists('query_gst_curr',$price) ? $price['query_gst_curr'] : 0 ,  
+    "gst_percentage" =>array_key_exists('gst_percentage',$price) ? $price['gst_percentage'] : 0 ,  
+    "query_gst_adult" => $query_gst_adult,
+    "query_gst_exadult" => $query_gst_exadult,
+    "query_gst_childbed" => $query_gst_childbed,
+    "query_gst_childwbed" => $query_gst_childwbed,
+    "query_gst_infant" => $query_gst_infant,
+    "query_gst_single" => $query_gst_single,
+    "query_total_gst_group" => $query_total_gst_group,
+    "query_gsttotal_adult" => $query_gsttotal_adult,
+    "query_gsttotal_exadult" =>$query_gsttotal_exadult,
+    "query_gsttotal_childbed" => $query_gsttotal_childbed,
+    "query_gsttotal_childwbed" => $query_gsttotal_childwbed,
+    "query_gsttotal_infant" => $query_gsttotal_infant,
+    "query_gsttotal_single" => $query_gsttotal_single,
+    "query_tcs_curr" =>array_key_exists('query_tcs_curr',$price) ? $price['query_tcs_curr'] : 0 , 
+    "tcs_percentage" =>array_key_exists('tcs_percentage',$price) ? $price['tcs_percentage'] : 0 , 
+    "query_tcs_adult" => $query_tcs_adult,
+    "query_tcs_exadult" =>  $query_tcs_exadult,
+    "query_tcs_childbed" =>  $query_tcs_childbed,
+    "query_tcs_childwbed" => $query_tcs_childwbed,
+    "query_tcs_infant" =>  $query_tcs_infant,
+    "query_tcs_single" =>  $query_tcs_single,
+    "query_total_tcs_group" => $query_total_tcs_group,
+    "query_tcstotal_adult" => $query_tcstotal_adult,
+    "query_tcstotal_exadult" =>$query_tcstotal_exadult,
+    "query_tcstotal_childbed" => $query_tcstotal_childbed,
+    "query_tcstotal_childwbed" => $query_tcstotal_childwbed,
+    "query_tcstotal_infant" => $query_tcstotal_infant,
+    "query_tcstotal_single" => $query_tcstotal_single,
+    "pg_charges" =>array_key_exists('pg_charges',$price) ? $price['pg_charges'] : 0 ,  
+    "pgcharges_percentage" => array_key_exists('pgcharges_percentage',$price) ? $price['pgcharges_percentage'] : 0 ,  
+    "query_pgcharges_adult" =>$query_pgcharges_adult,
+    "query_pgcharges_exadult" => $query_pgcharges_exadult,
+    "query_pgcharges_childbed" => $query_pgcharges_childbed,
+    "query_pgcharges_childwbed" => $query_pgcharges_childwbed,
+    "query_pgcharges_infant" => $query_pgcharges_infant,
+    "query_pgcharges_single" => $query_pgcharges_single,
+    "query_total_pg_group" => $query_total_pg_group,
+    "query_grand_adult" =>  $query_grand_adult,
+    "query_grand_exadult" =>  $query_grand_exadult,
+    "query_grand_childbed" =>  $query_grand_childbed,
+    "query_grand_childwbed" =>  $query_grand_childwbed,
+    "query_grand_infant" =>  $query_grand_infant,
+    "query_grand_single" => $query_grand_single,
+    "query_paytotal_adult" => $query_paytotal_adult,
+    "query_paytotal_exadult" =>$query_paytotal_exadult,
+    "query_paytotal_childbed" => $query_paytotal_childbed,
+    "query_paytotal_childwbed" => $query_paytotal_childwbed,
+    "query_paytotal_infant" =>$query_paytotal_infant,
+    "query_paytotal_single" => $query_paytotal_single,
+    "query_pricetopay_adult" => $query_pricetopay_adult,
+        ];
+
+    $data=array_merge($data1,$data2);
+   
+    return $data;
   }
 
   /************************************/
