@@ -28,7 +28,7 @@
                            <div class="col-md-6">
                                     <div class="form-group">
                                       <label for="package_code" class="field-required">Package Code</label>
-                                      <input type="text" placeholder="Package Code" value="{{$packagesData->package_code}}" name="package_code" class="form-control package_code"    @if($action_type=='quote' || $action_type=='quote_edit') readonly @else required @endif>
+                                      <input type="text" placeholder="Package Code" value="{{$packagesData->package_code}}" name="package_code" class="form-control package_code"    @if($action_type=='quote' || $action_type=='quote_edit' || $action_type=='quote_copy') readonly @else required @endif>
                                       <span class="package_code_availibility"> </span>
                                     </div>
                                   </div>
@@ -126,7 +126,7 @@
                             </div>
 
                             <!-- suitable for -->
-                           @if($action_type == 'quote' || $action_type == 'quote_edit')
+                           @if($action_type == 'quote' || $action_type == 'quote_edit' || $action_type == 'quote_copy')
                            <div class="col-md-12">
                            
                        <label for="admin_remarks">Trip Remarks</label>

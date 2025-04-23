@@ -266,8 +266,8 @@
 											    $child_without_bed = 0;
 											    $infant = 0;
 
-											    if ($query->quote1_number_of_adult != '' && $query->quote1_number_of_adult != 0) {
-											        $adult += (int) $query->quote1_number_of_adult;
+											    if ($query->adult != '' && $query->adult != 0) {
+											        $adult += (int) $query->adult;
 											    }
 
 											    if ($query->extra_adult != '' && $query->extra_adult != 0) {
@@ -323,8 +323,8 @@
 										<!-- --------- -->
 
 										<!-- nationality -->
-										@if($query->nationality!="")
-											<p class="q-dtls">{{ $query->nationality }}</p>
+										@if($query->country_of_residence!="")
+											<p class="q-dtls">{{ $query->country_of_residence }}</p>
 										@endif
 										</div>
 									</td>
@@ -417,15 +417,14 @@
 											@endif -->
 
 											<!-- tour name & link -->
-											@if(is_numeric((int) CustomHelpers::get_query_field((int)$query->query_reference, 'packageId')))
-											    @php
-											        $packageId = (int) CustomHelpers::get_query_field((int)$query->query_reference, 'packageId');
-											        $packageName = $query->package_name;
-											        $href_id = CustomHelpers::custom_encrypt($packageId);
-											        $form_action = url('/Holidays/' . str_slug($packageName)) . '?package_id=' . $href_id;
-											    @endphp
-
-											    @if(!empty($packageName)) <!-- Check if package name is not empty -->
+											@if(is_numeric((int)$query->packageId))
+											    <?php
+											        $href_id1 = CustomHelpers::custom_encrypt((int)$query->packageId);
+											        $packageName = CustomHelpers::get_package_name((int)$query->packageId);
+											        $form_action = url("/holidays/" . str_slug($packageName)) . '?package_id=' . $href_id1;
+											    ?>
+											    
+											    @if(!empty($packageName))
 											        <div class="pdngTop7"><u><h5>Tour Name</h5></u></div>
 											        <p class="q-dtls">
 											            <a href="{{ $form_action }}" target="_blank">
@@ -675,6 +674,22 @@
 									<!-- quote status -->
 									<td id={{ $query->query_reference }}>
 										<!-- booking label -->
+@if(Sentinel::check())
+										@if(Sentinel::getUser()->inRole('administrator') || Sentinel::getUser()->inRole('super_admin') || Sentinel::getUser()->inRole('supervisor'))
+
+										<div class="dashboard-inner-table textCenter">
+												<div><u><h5>Assign Consultant</h5></u></div>
+											    <select class="user_assign q-select">
+													<option @if($query->assign_id=="0") selected @endif value="0">Unassigned</option>
+													@foreach($employee as $employees)
+													   <option value="{{ $employees->id }}" @if($query->assign_id==$employees->id) selected @endif >{{ $employees->first_name }} {{ $employees->last_name }}</option>
+													@endforeach
+												</select>
+											</div>
+											@endif
+										@endif
+
+
 										<div class="dashboard-inner-table">
 											<table>
 												<tr>

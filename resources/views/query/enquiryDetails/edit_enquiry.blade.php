@@ -301,7 +301,7 @@
 <div class="col-md-6">
     <div class="form-group">
         <label for="date_arrival">Travel Date</label>
-        <input type="date" class="lead-input-text fullWidth" id="date_arrival" name="date_arrival" value="{{ old('date_arrival', $data->date_arrival) }}" required />
+        <input type="text" class="lead-input-text fullWidth" id="date_arrival" name="date_arrival" value="{{ date('d M Y', strtotime($data->date_arrival)) }}" required />
     </div>
 </div>
 
@@ -549,7 +549,7 @@
 </div>
 
 <script type="text/javascript">
-$('#editEnquiryModal').on('shown.bs.modal', function () {
+$('#editEnquiryModal, #enquiryModal').on('shown.bs.modal', function () {
     var APP_URL = document.querySelector("#APP_URL").value;
 
     function fetchCountryData(endpoint, elementId) {

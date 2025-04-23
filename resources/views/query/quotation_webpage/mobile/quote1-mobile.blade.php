@@ -18,8 +18,8 @@
 <!-- Title & Services -->
 <?php
     $price_data_first = CustomHelpers::get_price_part_seperate(
-        $data1->option1_price,
-        $data1->quote1_number_of_adult,
+        $data1->price,
+        $data1->adult,
         $data1->extra_adult,
         $data1->child_with_bed,
         $data1->child_without_bed,
@@ -70,16 +70,37 @@
         <div class="tourQuoteDateBox">
             <h4 class="tourQuoteDateBoxHead">TOUR DATE</h4>
             <?php
-                // Use tour_date directly from quote table, assume YYYY-MM-DD format
-                $tourDate = $data1->tour_date ?? date('Y-m-d'); // Fallback to current date if null
-                // Ensure it’s a valid date and convert to display format
-                $datefrom_print = date("d M Y", strtotime($tourDate));
+                    $originalDate = $data1->tour_date;
+                    
+                    if($originalDate=="N" || $originalDate==""):
+                        $originalDate=date("d-m-Y");
+                    endif;
+                    
+                    $datefrom = str_replace(' ', '', $originalDate);
+                    $datefrom=explode("-", $datefrom);
+                    
+                    $datefrom_year=$datefrom["2"];
+                    $datefrom_day=$datefrom["1"];                   
+                    $datefrom_month=$datefrom["0"];
 
-                // Calculate stop date using duration
-                $to_days = ($data1->duration ?? 1) - 1; // Subtract 1 to exclude the start day if duration includes it
-                $stop_date = date('Y-m-d', strtotime($tourDate . ' +' . $to_days . ' days'));
-                $stop_date_print = date("d M Y", strtotime($stop_date));
-            ?>
+                    $datefrom=$datefrom_year."-".$datefrom_month."-".$datefrom_day;
+                    
+                    $datefrom = "$datefrom_year-$datefrom_day-$datefrom_month";
+                    $stop_date = $datefrom;
+                    $date_to=$datefrom;
+
+                    $datefrom_print = date("d M Y", strtotime($datefrom));
+                    $day_from = strtotime($datefrom);
+                    $day_from = date('D', $day_from);
+                    
+                    $to_days=$data1->duration-1;
+                    
+                    $stop_date = date('Y-m-d', strtotime($stop_date . ' +'.$to_days.' days'));
+                    $stop_date_print= date("d M Y", strtotime($stop_date));
+
+                    $day_to = strtotime($stop_date);
+                    $day_to = date('D', $day_to);
+                ?>
             <h3 class="tourQuoteDepDate">{{ $datefrom_print }}</h3>
             <p class="tourQuoteDateBoxHead appendTop10">TO</p>
             <p class="tourQuoteRetDate">{{ $stop_date_print }}</p>
@@ -89,16 +110,11 @@
         <div class="tourQuotePriceBox">
             @if(($data1->price_type ?? '') === "Per Person")
                 <div>
-                    <?php 
-                        $total_people = ($data1->adult ?? 0) + ($data1->extra_adult ?? 0) + 
-                                       ($data1->child_with_bed ?? 0) + ($data1->child_without_bed ?? 0) + 
-                                       ($data1->infant ?? 0) + ($data1->solo_traveller ?? 0); 
-                        $total_people = $total_people ?: 1; // Avoid division by zero
-                    ?>
+
                     <div class="makeflexCenterBewtween">
                         <p class="tourQuotePriceBoxSubHead">Total Basic Cost</p>
                         <p class="tourQuotePriceValue defaultCurrency">
-                            {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_group'] / $total_people)) : round($price_data_first['query_total_group'] / $total_people) }}
+                           {{CustomHelpers::get_indian_currency(round($price_data_first['query_total_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller)))}}
                         </p>
                     </div>
                     <div class="tourQuotePriceSeparator"></div>
@@ -106,36 +122,36 @@
                         <p class="tourQuotePriceBoxSubHead">Discount (-)</p>
                         <p class="tourQuotePriceValue">
                             <span class="tourQuoteDefaultCurency"> </span>
-                            {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_discount_group'] / $total_people)) : round($price_data_first['query_total_discount_group'] / $total_people) }}
+                             {{CustomHelpers::get_indian_currency(round($price_data_first['query_total_discount_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller)))}}
                         </p>
                     </div>
-                    @if(round($price_data_first['query_total_gst_group'] / $total_people) > 0)
+                    @if(round($price_data_first['query_total_gst_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller))>0)
                         <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="tourQuotePriceBoxSubHead">GST @if(isset($price_data_first['query_gst_curr']) && $price_data_first['query_gst_curr'] == 2) ({{ $price_data_first['gst_percentage'] ?? 0 }}%) @endif</p>
+                            <p class="tourQuotePriceBoxSubHead">GST @if($price_data_first['query_gst_curr']==2)&nbsp;({{ $price_data_first['gst_percentage'] }}%) @endif</p>
                             <p class="tourQuotePriceValue">
                                 <span class="tourQuoteDefaultCurency"> </span>
-                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group'] / $total_people)) : round($price_data_first['query_total_gst_group'] / $total_people) }}
+                               {{CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller)))}}
                             </p>
                         </div>
                     @endif
-                    @if(round($price_data_first['query_total_tcs_group'] / $total_people) > 0)
+                    @if(round($price_data_first['query_total_tcs_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller))>0)
                         <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="tourQuotePriceBoxSubHead">TCS @if(isset($price_data_first['query_tcs_curr']) && $price_data_first['query_tcs_curr'] == 2) ({{ $price_data_first['tcs_percentage'] ?? 0 }}%) @endif</p>
+                            <p class="tourQuotePriceBoxSubHead">TCS @if($price_data_first['query_tcs_curr']==2)&nbsp;({{$price_data_first['tcs_percentage']}}%) @endif</p>
                             <p class="tourQuotePriceValue">
                                 <span class="tourQuoteDefaultCurency"> </span>
-                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group'] / $total_people)) : round($price_data_first['query_total_tcs_group'] / $total_people) }}
+                                {{CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller)))}}
                             </p>
                         </div>
                     @endif
-                    @if(round($price_data_first['query_total_pg_group'] / $total_people) > 0)
+                   @if(round($price_data_first['query_total_pg_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller))>0)
                         <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="tourQuotePriceBoxSubHead">PG @if(isset($price_data_first['pg_charges']) && $price_data_first['pg_charges'] == 2) ({{ $price_data_first['pgcharges_percentage'] ?? 0 }}%) @endif</p>
+                            <p class="tourQuotePriceBoxSubHead">PG @if($price_data_first['pg_charges']==2)&nbsp;({{$price_data_first['pgcharges_percentage']}}%) @endif</p>
                             <p class="tourQuotePriceValue">
                                 <span class="tourQuoteDefaultCurency"> </span>
-                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group'] / $total_people)) : round($price_data_first['query_total_pg_group'] / $total_people) }}
+                                 {{CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller)))}}
                             </p>
                         </div>
                     @endif
@@ -143,23 +159,23 @@
                     <div class="flexBetween">
                         <div>
                             <p class="tourQuotePriceTotal">Grand Total</p>
-                            <p class="tourQuotePriceTagline">( {{ $data1->anything ?? 'N/A' }} )</p>
+                            <p class="tourQuotePriceTagline">( {{ $data1->anything }} )</p>
                         </div>
                         <div>
                             <p class="tourQuotePriceTotalValue">
                                 <span class="tourQuoteDefaultCurency"> </span>
-                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_pricetopay_adult'] / $total_people)) : round($price_data_first['query_pricetopay_adult'] / $total_people) }}
+                                {{CustomHelpers::get_indian_currency(round($price_data_first['query_pricetopay_adult']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller)))}}
                             </p>
                         </div>
                     </div>
                 </div>
-            @elseif(($data1->price_type ?? '') === "Group Price")
+           @elseif($data1->price_type=="Group Price")
                 <div>
                     <div class="makeflexCenterBewtween">
                         <p class="tourQuotePriceBoxSubHead">Total Basic Cost</p>
                         <p class="tourQuotePriceValue">
                             <span class="tourQuoteDefaultCurency"> </span>
-                            {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency($price_data_first['query_total_group']) : $price_data_first['query_total_group'] }}
+                           {{ CustomHelpers::get_indian_currency($price_data_first['query_total_group']) }}
                         </p>
                     </div>
                     <div class="tourQuotePriceSeparator"></div>
@@ -167,36 +183,38 @@
                         <p class="tourQuotePriceBoxSubHead">Discount (-)</p>
                         <p class="tourQuotePriceValue">
                             <span class="tourQuoteDefaultCurency"> </span>
-                            {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency($price_data_first['query_total_discount_group']) : $price_data_first['query_total_discount_group'] }}
+                             {{ CustomHelpers::get_indian_currency($price_data_first['query_total_discount_group']) }}
                         </p>
                     </div>
-                    @if(round($price_data_first['query_total_gst_group']) > 0)
+                     @if(round($price_data_first['query_total_gst_group'])>0)
                         <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="tourQuotePriceBoxSubHead">GST @if(isset($price_data_first['query_gst_curr']) && $price_data_first['query_gst_curr'] == 2) ({{ $price_data_first['gst_percentage'] ?? 0 }}%) @endif</p>
+                            <p class="tourQuotePriceBoxSubHead">GST @if($price_data_first['query_gst_curr']==2)&nbsp;({{ $price_data_first['gst_percentage'] }}%) @endif</p>
                             <p class="tourQuotePriceValue">
                                 <span class="tourQuoteDefaultCurency"> </span>
-                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group'])) : round($price_data_first['query_total_gst_group']) }}
+                                {{ CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group'])) }}
                             </p>
                         </div>
                     @endif
-                    @if(round($price_data_first['query_total_tcs_group']) > 0)
+                    @if(round($price_data_first['query_total_tcs_group'])>0)
                         <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="tourQuotePriceBoxSubHead">TCS @if(isset($price_data_first['query_tcs_curr']) && $price_data_first['query_tcs_curr'] == 2) ({{ $price_data_first['tcs_percentage'] ?? 0 }}%) @endif</p>
+                            <p class="tourQuotePriceBoxSubHead">TCS @if($price_data_first['query_tcs_curr']==2)&nbsp;({{ $price_data_first['tcs_percentage'] }}%) @endif</p>
                             <p class="tourQuotePriceValue">
                                 <span class="tourQuoteDefaultCurency"> </span>
-                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group'])) : round($price_data_first['query_total_tcs_group']) }}
+                                {{ CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group'])) }}
                             </p>
                         </div>
                     @endif
-                    @if(round($price_data_first['query_total_pg_group']) > 0)
+                    @if(round($price_data_first['query_total_pg_group'])>0)
                         <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="tourQuotePriceBoxSubHead">PG @if(isset($price_data_first['pg_charges']) && $price_data_first['pg_charges'] == 2) ({{ $price_data_first['pgcharges_percentage'] ?? 0 }}%) @endif</p>
+                            <p class="tourQuotePriceBoxSubHead">PG @if($price_data_first['pg_charges']==2) selected 
+                  ({{$price_data_first['pgcharges_percentage']}}%)
+                   @endif</p>
                             <p class="tourQuotePriceValue">
                                 <span class="tourQuoteDefaultCurency"> </span>
-                                {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group'])) : round($price_data_first['query_total_pg_group']) }}
+                                {{CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group']))}}
                             </p>
                         </div>
                     @endif
@@ -205,7 +223,7 @@
                         <p class="tourQuotePriceTotal">Grand Total</p>
                         <p class="tourQuotePriceTotalValue">
                             <span class="tourQuoteDefaultCurency"> </span>
-                            {{ class_exists('CustomHelpers') ? CustomHelpers::get_indian_currency(round($price_data_first['query_pricetopay_adult'])) : round($price_data_first['query_pricetopay_adult']) }}
+                            {{CustomHelpers::get_indian_currency(round($price_data_first['query_pricetopay_adult']))}}
                         </p>
                     </div>
                 </div>
@@ -214,13 +232,15 @@
     </div>
 
     <!-- Quote Validity -->
-    @if(($data1->validity_show_on_frontend ?? 'No') === 'No' && !empty($data1->quote_validaty))
+     @if($data1->validity_show_on_frontend=='No')
+        @if($data1->quote_validity!="")
         <div class="tourQuoteValidity">
             QUOTE VALIDITY - {{ date("d M Y", strtotime(str_replace('/', '-', $data1->quote_validaty))) }}
-            @if(($data1->validity_time ?? '23:59:59') !== '23:59:59')
-                {{ $data1->validity_time }}
-            @endif
+            @if($data1->validity_time!='23:59:59')
+                {{$data1->validity_time}}
+                @endif
         </div>
+        @endif
     @else
         <div class="tourQuoteValidity">Pay Immediately</div>
     @endif
@@ -337,133 +357,156 @@
 
 <!-- Accommodation -->
 <div class="mtourQuoteHotelCont">
-    <h4 class="mtourQuoteHotelHead">ACCOMMODATION</h4>
-    <?php
-        $acco = $data1->option1_accommodation ? unserialize($data1->option1_accommodation) : [];
-        $i = 1;
-    ?>
-    @if(is_array($acco) && !empty($acco))
-        @foreach($acco as $acco_data)
-            <div class="mtourQuoteHotelBox">
-                <div class="mtourQuoteHotelTitle">
-                    {{ $acco_data["city"] }}
-                    @if($i > 1)
+            <h4 class="mtourQuoteHotelHead">ACCOMMODATION</h4>
+            <?php
+                $acco=unserialize($data1->accommodation);
+                $i="1";
+
+            ?>
+            @foreach($acco as $acco_data)
+                <div class="mtourQuoteHotelBox">
+                    <div class="mtourQuoteHotelTitle">{{ $acco_data["city"] }}
+                        @if($i>1)
                         <br>
-                    @endif
-                </div>
-                <div class="mtourQuoteHotelDescBox">
-                    <div class="flex-column">
-                        <!-- Property Image -->
-                        <div class="mhotelImageBox">
-                            @if(array_key_exists("hotel", $acco_data))
-                                @if($acco_data["hotel"] != "" && $acco_data["hotel"] != "other")
-                                    <img src="{{ url('/public/uploads/package_hotel/'.CustomHelpers::getpackagerecord($acco_data['hotel'], 'package_hotel', 'hotel_image')) }}" alt="img">
-                                @elseif($acco_data["hotel"] == "other")
-                                    <img src="{{ url('/public/uploads/no-image.png') }}" alt="img">
+                        @endif
+                    </div>
+                    <div class="mtourQuoteHotelDescBox">
+                        <div class="flex-column">
+                            <!--Property Image-->
+                            <div class="mhotelImageBox">
+                                @if(array_key_exists("hotel",$acco_data))
+                                    @if($acco_data["hotel"]!="" && $acco_data["hotel"]!="other")
+                                        <img src="{{ url('/public/uploads/package_hotel/'.CustomHelpers::getpackagerecord($acco_data['hotel'],'package_hotel','hotel_image')) }}" alt="img">
+                                        @elseif($acco_data["hotel"]=="other")
+                                        <img src="{{ url('/public/uploads/no-image.png') }}" alt="img">
+                                    @endif
+                                    @else
+                                        <img src="{{ url('/public/uploads/no-image.png') }}" alt="img">
                                 @endif
-                            @else
-                                <img src="{{ url('/public/uploads/no-image.png') }}" alt="img">
-                            @endif
-                        </div>
-                        <div class="mhotelDescBox">
-                            <div class="mhotelTopSection">
-                                <div class="mhotelType">Hotel</div>
-                                <!-- Hotel Name -->
-                                <div class="mtourHotelDtls">
-                                    <h5 class="mhotelName">
-                                        @if(array_key_exists("hotel", $acco_data) && $acco_data["hotel"] != "" && $acco_data["hotel"] != "other")
-                                            {{ CustomHelpers::getpackagerecord($acco_data["hotel"], 'package_hotel', 'hotelname') }}
-                                        @elseif(array_key_exists("other_hotel", $acco_data) && $acco_data["other_hotel"] != "")
-                                            {{ $acco_data["other_hotel"] }}
+                            </div>
+                            <div class="mhotelDescBox">
+                                <div class="mhotelTopSection">
+                                    <div class="mhotelType">Hotel</div>
+                                    <!--Hotel Name-->
+                                    <div class="mtourHotelDtls">
+                                        <h5 class="mhotelName">
+                                            @if(array_key_exists("hotel",$acco_data)
+                                                && $acco_data["hotel"]!=""
+                                                && $acco_data["hotel"]!="other")
+                                                {{CustomHelpers::getpackagerecord($acco_data["hotel"],'package_hotel','hotelname')}}
+                                                {{CustomHelpers::getpackagerecord($acco_data["hotel"],'package_hotel','hotelname')}}
+                                            @elseif(array_key_exists("other_hotel",$acco_data) && $acco_data["other_hotel"]!="")
+                                                {{$acco_data["other_hotel"]}}
+                                            @endif
+                                        </h5>
+                                    </div>
+                                    <div class="mhotelStarRating">
+                                        @if(array_key_exists("star",$acco_data) && $acco_data["star"]!="" && $acco_data["star"]!="other")
+                                            {{CustomHelpers::get_star_rating($acco_data["star"])}}
+                                        @elseif(array_key_exists("star_other",$acco_data) && $acco_data["star_other"]!="")
+                                            {{CustomHelpers::get_star_rating($acco_data["star_other"])}}
                                         @endif
-                                    </h5>
+                                    </div>
+                                    <!--Destination City Name-->
+                                    <div class="mhotelCityName">{{ $acco_data["city"] }}</div>
                                 </div>
-                                <div class="mhotelStarRating">
-                                    @if(array_key_exists("star", $acco_data) && $acco_data["star"] != "" && $acco_data["star"] != "other")
-                                        {{ CustomHelpers::get_star_rating($acco_data["star"]) }}
-                                    @elseif(array_key_exists("star_other", $acco_data) && $acco_data["star_other"] != "")
-                                        {{ CustomHelpers::get_star_rating($acco_data["star_other"]) }}
+
+                                <div class="mhotelFooter">
+                                    <div>
+                                        <?php
+                                                $day1="0";
+                                                $day="0";
+                                            ?>
+                                                @if($acco_data!="" && array_key_exists("night",$acco_data))
+                                                <?php
+                                                    $day1=(int)filter_var($acco_data["night"]["0"], FILTER_SANITIZE_NUMBER_INT);
+
+                                                    $day1=$day1-1;
+                          
+                                                ?>
+                                                @endif
+                                                <?php
+                                                $datefrom_checkin = "$datefrom_year-$datefrom_day-$datefrom_month";
+                                                $checkin_date = date('Y-m-d', strtotime($datefrom_checkin . ' +'.$day1.' days'));
+                                                $checkin_date_print= date("d M Y", strtotime($checkin_date));
+                                                $day_checkin = strtotime($checkin_date);
+                                                $day_checkin = date('D', $day_checkin);
+                                                ?>
+                                                @if($acco_data!="" && array_key_exists("night",$acco_data))
+                                                @foreach($acco_data["night"] as $accday)
+                                                <?php $day=(int)filter_var($accday, FILTER_SANITIZE_NUMBER_INT); ?>
+                                                @endforeach
+                                                @endif
+                                                <?php
+                                                $datefrom_checkout = "$datefrom_year-$datefrom_day-$datefrom_month";
+                                                $checkout_date = date('Y-m-d', strtotime($datefrom_checkout . ' +'.$day.' days'));
+                                                $checkout_date_print= date("d M Y", strtotime($checkout_date));
+                                                $day_checkout = strtotime($checkout_date);
+                                                $day_checkout = date('D', $day_checkout);
+                                                ?>
+                                       
+
+                                        <div class="flexBetween appendBottom20">
+                                            <!-- Room Type -->
+                                            <div class="mhotelRoomCont">
+                                                <p class="mhotelRoomCont_heading">ROOM TYPE</p>
+                                                @if($acco_data["category"]!="")
+                                                <p class="mhotelRoomCont_type">{{ $acco_data["category"] }}</p>
+                                                @endif
+                                            </div>
+
+                                            <!-- No of Nights -->
+                                            <div>
+                                                <p class="mhotelDaysBadge_heading">NO OF NIGHTS</p>
+                                                <p class="mhotelDaysBadge_nightCount">
+                                                <?php
+                                                     $date1=date_create($checkin_date);
+                                                     $date2=date_create($checkout_date);
+                                                    $diff=date_diff($date1,$date2);
+                                                    ?>
+                                                    @if($diff->format("%a")>1) {{$diff->format("%a Nights") }} @else {{$diff->format("%a Night") }} @endif
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!--Check-in & Checkout-->
+                                        <div class="mhotelCheckInOut">
+                                            <div class="mhotelCheckInCont">
+                                                <p class="mhotelCheckInCont_heading">CHECK-IN </p>
+                                                <p class="mhotelCheckInCont_date">{{ $checkin_date_print }}</p>
+                                            </div>
+                                            <!--<div>
+                                                <h5 class="mhotelDaysBadge_nightCount">
+                                                    <?php
+                                                     $date1=date_create($checkin_date);
+                                                     $date2=date_create($checkout_date);
+                                                    $diff=date_diff($date1,$date2);
+                                                    ?>
+                                                    @if($diff->format("%a")>1) {{$diff->format("%a Nights") }} @else {{$diff->format("%a Night") }} @endif
+                                                </h5>
+                                            </div>-->
+                                            <div class="mhotelCheckOutCont">
+                                                <p class="mhotelCheckOutCont_heading">CHECKOUT </p>
+                                                <p class="mhotelCheckOutCont_date">{{ $checkout_date_print }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Hotel Website -->
+                                    @if($acco_data["hotel_link"]!="")
+                                    <div class="mhotelWebCont">
+                                            <p class="mhotelWebCont_heading">HOTEL WEBSITE</p>
+                                            <p class="mhotelWebCont_name">{{ $acco_data["hotel_link"] }}</p>
+                                    </div>
                                     @endif
                                 </div>
-                                <!-- Destination City Name -->
-                                <div class="mhotelCityName">{{ $acco_data["city"] }}</div>
-                            </div>
-
-                            <div class="mhotelFooter">
-                                <div>
-                                    <?php
-                                        $day1 = "0";
-                                        $day = "0";
-                                        if (array_key_exists("night", $acco_data) && is_array($acco_data["night"]) && !empty($acco_data["night"])) {
-                                            $day1 = (int) filter_var($acco_data["night"][0], FILTER_SANITIZE_NUMBER_INT);
-                                            $day1 = $day1 - 1;
-                                            $datefrom_checkin = "$datefrom_year-$datefrom_day-$datefrom_month";
-                                            $checkin_date = date('Y-m-d', strtotime($datefrom_checkin . ' +'.$day1.' days'));
-                                            $checkin_date_print = date("d M Y", strtotime($checkin_date));
-                                            $day_checkin = date('D', strtotime($checkin_date));
-
-                                            foreach ($acco_data["night"] as $accday) {
-                                                $day = (int) filter_var($accday, FILTER_SANITIZE_NUMBER_INT);
-                                            }
-                                            $datefrom_checkout = "$datefrom_year-$datefrom_day-$datefrom_month";
-                                            $checkout_date = date('Y-m-d', strtotime($datefrom_checkout . ' +'.$day.' days'));
-                                            $checkout_date_print = date("d M Y", strtotime($checkout_date));
-                                            $day_checkout = date('D', strtotime($checkout_date));
-                                        }
-                                    ?>
-                                    <div class="flexBetween appendBottom20">
-                                        <!-- Room Type -->
-                                        <div class="mhotelRoomCont">
-                                            <p class="mhotelRoomCont_heading">ROOM TYPE</p>
-                                            @if(array_key_exists("category", $acco_data) && $acco_data["category"] != "")
-                                                <p class="mhotelRoomCont_type">{{ $acco_data["category"] }}</p>
-                                            @endif
-                                        </div>
-
-                                        <!-- No of Nights -->
-                                        <div>
-                                            <p class="mhotelDaysBadge_heading">NO OF NIGHTS</p>
-                                            <p class="mhotelDaysBadge_nightCount">
-                                                <?php
-                                                    if ($day1 !== "0" && $day !== "0") {
-                                                        $date1 = date_create($checkin_date);
-                                                        $date2 = date_create($checkout_date);
-                                                        $diff = date_diff($date1, $date2);
-                                                        echo $diff->format("%a") > 1 ? $diff->format("%a Nights") : $diff->format("%a Night");
-                                                    }
-                                                ?>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Check-in & Checkout -->
-                                    <div class="mhotelCheckInOut">
-                                        <div class="mhotelCheckInCont">
-                                            <p class="mhotelCheckInCont_heading">CHECK-IN</p>
-                                            <p class="mhotelCheckInCont_date">{{ $checkin_date_print ?? '' }}</p>
-                                        </div>
-                                        <div class="mhotelCheckOutCont">
-                                            <p class="mhotelCheckOutCont_heading">CHECKOUT</p>
-                                            <p class="mhotelCheckOutCont_date">{{ $checkout_date_print ?? '' }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Hotel Website -->
-                                @if(array_key_exists("hotel_link", $acco_data) && $acco_data["hotel_link"] != "")
-                                    <div class="mhotelWebCont">
-                                        <p class="mhotelWebCont_heading">HOTEL WEBSITE</p>
-                                        <p class="mhotelWebCont_name">{{ $acco_data["hotel_link"] }}</p>
-                                    </div>
-                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
                 <?php $i++; ?>
             @endforeach
-        @endif
-    </div>
+        </div>
 
     <!-- Itinerary -->
     @php

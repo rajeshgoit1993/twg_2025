@@ -15,6 +15,7 @@
                         <td>Date & Time</td>
                         <td>Raise</td>
                         <td>Status</td>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +42,7 @@
                                     <span style="color:yellow">Open</span>
                                 @else
                                     <span style="color:green">Closed</span>
+                                    <a href="#" class="view_raise_remarks" raise_id="{{ $data->id }}"><span class="fa fa-eye"></span></a>
                                 @endif
                             </td>
                         </tr>

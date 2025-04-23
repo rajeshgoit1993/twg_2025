@@ -149,6 +149,7 @@
 
 											<!-- travel date -->
 											<p class="q-dtls">
+												
 												@if($query->date_arrival!="")
 												<?php
 													$date_arrival = $query->date_arrival;
@@ -307,9 +308,10 @@
 									<!-- ********************** -->
 
 									<!-- lead status, enquiry timeline & booking label -->
-									<td id="{{ $query->id }}">
+									<td id="{{ $query->id }}" enquiry_ref_no="{{$query->enquiry_ref_no}}"  quote_ref_no="{{$query->quo_ref}}">
 										<div class="dashboard-inner-table textCenter">
 											<div><u><h5>Update status</h5></u></div>
+											<div>
 										    <select class="query_status q-select">
 											    @if($val == 'pending_quote')
 											        <option value="pending_quote" @if($query->status == "pending_quote") selected @endif>Pending Quote</option>
@@ -328,7 +330,7 @@
 											        <option value="tour_cancelled" @if($query->status == "tour_cancelled") selected @endif>Tour Cancelled</option>
 											    @endif
 											</select>
-
+</div>
 											<!-- --- -->
 
 											<!-- add lead remarks -->
@@ -438,7 +440,7 @@
 									</td>
 
 									<!-- ********************** -->
-
+									
 									<!-- lead action -->
 									<td>
 										<!-- view lead -->

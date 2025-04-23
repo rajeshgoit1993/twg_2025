@@ -83,4 +83,31 @@ $(document).ready(function() {
 	        }
 	    });
 	});
+
+	$(document).on("click",".view_raise_remarks", function(e)
+    {
+e.preventDefault(); 
+        var id = $(this).attr('raise_id'); // Get the data-id attribute value
+
+        // Make an AJAX POST request to get enquiry raise details
+        $.ajax({
+            type: 'post', // HTTP method
+            url: APP_URL + '/view_raise_remarks', // URL to send the request to
+            data: { id: id }, // Data to be sent to the server (ID)
+            
+            // Function to execute on successful response
+            success: function(data) {
+                
+                $(".view_raise_remarks_body").html('').html(data.output); // Update modal body content
+               $("#view_raise_remarks_modal").modal('toggle');  // Show the modal
+            },
+            
+            // Function to execute if there's an error in the request
+            error: function(data) {
+                // Handle error here (e.g., log the error, show a message)
+            }
+        });
+
+
+    })
 });

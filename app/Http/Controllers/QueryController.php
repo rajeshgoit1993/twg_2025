@@ -95,50 +95,6 @@ class QueryController extends Controller
     /**********************/
 
 
-    /*public function index() 
-    {
-        $check_data_lm=ActivateService::where('services','=','laed_manager')->first();
-        if($check_data_lm->activation==1):
-        
-        $employee_id=Sentinel::getUser()->id;
-        if(Sentinel::getUser()->roles()->first()->slug != 'employee'):
-        $queries = Query::where([
-        ['lead_verified','=','1'],
-        ['quo_send','=','0'],
-        ["webnotation","=",env("WEBSITENAME")],
-        ['delete_status','=',1]])
-        ->where(function ($queries) {
-          $queries->whereIn('status', ['pending_quote'])
-          ->orWhereNull('status');
-          }
-        )
-        ->orderBy('created_at', 'desc')
-        ->get();
-        else:
-            $queries = Query::where([
-        ['lead_verified','=','1'],
-        ['quo_send','=','0'],
-        ['assign_id','=',$employee_id],
-        ["webnotation","=",env("WEBSITENAME")],
-        ['delete_status','=',1]])
-        ->where(function ($queries) {
-          $queries->whereIn('status', ['pending_quote'])
-          ->orWhereNull('status');
-          }
-        )
-        ->orderBy('created_at', 'desc')
-        ->get();
-        endif;
-        $role = Sentinel::findRoleById(15);
-        
-        $employee = $role->users()->with('roles')->get();
-        $val='pending_quote';
-        $booking_lavel=LeadDynamicField::where([['field_type',8],['status',1]])->get();
-        return view('query.list',['queries'=>$queries,'employee'=>$employee,'val'=>$val,'booking_lavel'=>$booking_lavel]);
-        else:
-        return response()->view('error.404', [], 404);
-        endif;
-    }*/
 
     public function index() {
         $check_data_lm = ActivateService::where('services', '=', 'laed_manager')->first();
@@ -235,9 +191,11 @@ class QueryController extends Controller
         
         if ($check_data && $check_data->activation == 1) {
             $val = 1; // Set a value (if needed)
+            $employee_id = Sentinel::getUser()->id;
             
-            // Retrieve queries where webnotation matches the environment variable WEBSITENAME and delete_status is 1
-            $queries = Query::where([
+            if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
+
+                $queries = Query::where([
                 ["webnotation", "=", env("WEBSITENAME")],
                 ['delete_status', '=', 1]
             ])->where(function ($queries) {
@@ -246,9 +204,26 @@ class QueryController extends Controller
                         ->orWhereNull('status');
             })->orderBy('created_at', 'desc')
             ->get();
+            }
+            else
+            {
+             $queries = Query::where([
+                ["webnotation", "=", env("WEBSITENAME")],
+                ['delete_status', '=', 1],
+                ['assign_id', '=', $employee_id]
+            ])->where(function ($queries) {
+                // Filter queries based on status being 'interested' or null
+                $queries->whereIn('status', ['interested'])
+                        ->orWhereNull('status');
+            })->orderBy('created_at', 'desc')
+            ->get();
+            }
             
+            
+            $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
             // Return the view with queries and additional data
-            return view('query.enquiry', ['queries' => $queries, 'val' => $val]);
+            return view('query.enquiry', ['queries' => $queries, 'val' => $val, 'employee' => $employee,]);
         } else {
             // If the 'leads' service is not activated, return a 404 error view
             return response()->view('error.404', [], 404);
@@ -263,12 +238,30 @@ class QueryController extends Controller
             $val = 2; // Set a value (if needed)
             
             // Retrieve queries where webnotation matches the environment variable WEBSITENAME and delete_status is 1
-            $queries = Query::where([
+             $employee_id = Sentinel::getUser()->id;
+             if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
+
+                $queries = Query::where([
                 ["webnotation", "=", env("WEBSITENAME")],
                 ['delete_status', '=', 1]
             ])->whereIn('status', ['add_lead_follow_up', 'lead_verify_pending'])
             ->orderBy('created_at', 'desc')
             ->get();
+
+             }
+               else {
+
+                $queries = Query::where([
+                ["webnotation", "=", env("WEBSITENAME")],
+                ['delete_status', '=', 1],
+                ['assign_id', '=', $employee_id]
+            ])->whereIn('status', ['add_lead_follow_up', 'lead_verify_pending'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+              }
+             $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
             
             // Retrieve lead booking levels if needed
             $booking_lavel = LeadDynamicField::where([['field_type', 8], ['status', 1]])->get();
@@ -277,6 +270,7 @@ class QueryController extends Controller
             return view('query.enquiry', [
                 'queries' => $queries,
                 'val' => $val,
+                'employee' => $employee,
                 'booking_lavel' => $booking_lavel
             ]);
         } else {
@@ -917,21 +911,23 @@ class QueryController extends Controller
 
     public function send_saved_quote(Request $request) {
         // Update main query status
-        $main_query = Query::find($request->id);
+        $quote_id= $request->id;
+        $data= Quote::find($quote_id);
+        $data->send_option = 1;
+        $data->quote_view = 0;
+        $data->save();
+      
+
+        $main_query = Query::find($data->query_reference);
         $main_query->quo_send = 1;
         $main_query->status = 'quote_sent';
         $main_query->save();
 
-        // Update option 1 quotation data
-        $data = Option1Quotation::where("query_reference", "=", $request->id)->first();
-        $data->send_option = 1;
-        $data->quote_view = 0;
-        $data->save();
 
         // Send email to customer
         $reference = $data->quo_ref;
-        $to = $data->email;
-        $email = $data->email;
+        $to = $main_query->email;
+        $email = $main_query->email;
 
         Mail::send('query.mail.mail1', compact("data"), function ($message) use ($to, $reference) {
             $message->from($this->mail_from_sender);
@@ -997,7 +993,7 @@ class QueryController extends Controller
                         ['quote.del_status', '=', 1],
                         ['quote.send_option', '=', 0]
                     ])
-                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed', 'rt_package_query.enquiry_ref_no', 'rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.assign_id', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed', 'rt_package_query.enquiry_ref_no', 'rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name')
                     ->orderBy('created_at', 'desc')
                     ->get(); 
 
@@ -1011,14 +1007,15 @@ class QueryController extends Controller
                         ['quote.send_option', '=', 0],
                         ['quote.assign_id', '=', $employee_id]
                     ])
-                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed', 'rt_package_query.enquiry_ref_no', 'rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed', 'rt_package_query.enquiry_ref_no', 'rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.assign_id')
                     ->orderBy('created_at', 'desc')
                     ->get();
 
             }
             $booking_lavel = LeadDynamicField::where([['field_type', 8], ['status', 1]])->get();
-
-            return view('query.savedquote.quotation', compact("data", 'booking_lavel'));
+           $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
+            return view('query.savedquote.quotation', compact("data", 'booking_lavel','employee'));
         } else {
             return response()->view('error.404', [], 404);
         }
@@ -1031,37 +1028,38 @@ class QueryController extends Controller
             $employee_id = Sentinel::getUser()->id;
 
             if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['quote_sent'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->orderBy('created_at', 'desc')
                     ->get();
 
             } else {
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.assign_id', '=', $employee_id],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.assign_id', '=', $employee_id],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['quote_sent'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->orderBy('created_at', 'desc')
                     ->get();
             }
-
+          $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
             $val = 'quote_sent';
             $booking_lavel = LeadDynamicField::where([['field_type', 8], ['status', 1]])->get();
 
-            return view('query.quotation', compact("data", 'booking_lavel', 'val'));
+            return view('query.quotation', compact("data", 'booking_lavel', 'val','employee'));
         } else {
             return response()->view('error.404', [], 404);
         }
@@ -1078,33 +1076,34 @@ class QueryController extends Controller
             $employee_id = Sentinel::getUser()->id;
 
             if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['lead_follow_up', 'follow_up_pending'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             } else {
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.assign_id', '=', $employee_id],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.assign_id', '=', $employee_id],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['lead_follow_up', 'follow_up_pending'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             }
-
+ $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
             $val = 'lead_follow_ups';
             $booking_lavel = LeadDynamicField::where([['field_type', 8], ['status', 1]])->get();
-            return view('query.quotation', compact("data", "booking_lavel", "val"));
+            return view('query.quotation', compact("data", "booking_lavel", "val",'employee'));
         } else {
             return response()->view('error.404', [], 404);
         }
@@ -1121,12 +1120,12 @@ class QueryController extends Controller
             $employee_id = Sentinel::getUser()->id;
 
             if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', [
                         'quote_sent',
@@ -1137,17 +1136,17 @@ class QueryController extends Controller
                         'under_cancellation',
                         'issue_voucher'
                     ])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->orderBy('created_at', 'desc')
                     ->get();
             } else {
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
                         ['option1_quotation.assign_id', '=', $employee_id],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', [
                         'quote_sent',
@@ -1158,15 +1157,16 @@ class QueryController extends Controller
                         'under_cancellation',
                         'issue_voucher'
                     ])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->orderBy('created_at', 'desc')
                     ->get();
             }
-
+          $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
             $val = 'quote_sent';
             $booking_lavel = LeadDynamicField::where([['field_type', 8], ['status', 1]])->get();
 
-            return view('query.search_leads', compact("data", 'booking_lavel', 'val'));
+            return view('query.search_leads', compact("data", 'booking_lavel', 'val','employee'));
         } else {
             return response()->view('error.404', [], 404);
         }
@@ -1188,29 +1188,31 @@ class QueryController extends Controller
             if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
                 // Query to fetch data for non-employees
                 $data = DB::table('quote_raise_concern')
-                    ->join('option1_quotation', 'option1_quotation.query_reference', '=', 'quote_raise_concern.query_reference')
+                    ->join('quote', 'quote.query_reference', '=', 'quote_raise_concern.query_reference')
                     ->join('rt_package_query', 'rt_package_query.id', '=', 'quote_raise_concern.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('quote_raise_concern.status', [0, 1])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no')
                     ->get();
+
+                    
             } else {
                 // Query to fetch data for employees
                 $data = DB::table('quote_raise_concern')
-                    ->join('option1_quotation', 'option1_quotation.query_reference', '=', 'quote_raise_concern.query_reference')
+                    ->join('quote', 'quote.query_reference', '=', 'quote_raise_concern.query_reference')
                     ->join('rt_package_query', 'rt_package_query.id', '=', 'quote_raise_concern.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.assign_id', '=', $employee_id],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.assign_id', '=', $employee_id],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('quote_raise_concern.status', [0, 1])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.date_arrival', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no')
                     ->get();
             }
 
@@ -1238,42 +1240,43 @@ class QueryController extends Controller
             // Check if the user is not an employee
             if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
                 // Query to fetch data for non-employees
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
-                    ->join('rt_payments', 'rt_payments.quote_ref_no', '=', 'option1_quotation.quo_ref')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
+                    ->join('rt_payments', 'rt_payments.quote_ref_no', '=', 'quote.quo_ref')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['process_booking'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->orderBy('rt_payments.created_at', 'desc')
                     ->distinct()
                     ->get();
             } else {
                 // Query to fetch data for employees
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.assign_id', '=', $employee_id],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.assign_id', '=', $employee_id],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['process_booking'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             }
 
             // Set the booking status value
             $val = 'process_booking';
-
+            $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
             // Fetch booking level information
             $booking_lavel = LeadDynamicField::where([['field_type', 8], ['status', 1]])->get();
 
             // Return the view with the data, booking level information, and status value
-            return view('query.quotation', compact("data", "booking_lavel", "val"));
+            return view('query.quotation', compact("data", "booking_lavel", "val",'employee'));
         } else {
             // If the lead manager service is not activated, return a 404 error view
             return response()->view('error.404', [], 404);
@@ -1626,37 +1629,39 @@ class QueryController extends Controller
             // Determine if the current user is not an employee
             if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
                 // Query to fetch quotations for non-employee users
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['payment_follow_up'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             } else {
                 // Query to fetch quotations for employee users
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.assign_id', '=', $employee_id],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.assign_id', '=', $employee_id],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['payment_follow_up'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             }
 
             // Prepare data for the view
+            $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
             $val = 'payment_follow_up';
             $booking_lavel = LeadDynamicField::where([['field_type', 8], ['status', 1]])->get();
 
             // Return the view with data
-            return view('query.quotation', compact("data", "booking_lavel", "val"));
+            return view('query.quotation', compact("data", "booking_lavel", "val",'employee'));
         } else {
             // Return a 404 error response if the service is not activated
             return response()->view('error.404', [], 404);
@@ -1678,37 +1683,39 @@ class QueryController extends Controller
             // Determine if the current user is not an employee
             if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
                 // Query to fetch quotations for non-employee users
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['under_cancellation'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             } else {
                 // Query to fetch quotations for employee users
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.assign_id', '=', $employee_id],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.assign_id', '=', $employee_id],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['under_cancellation'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             }
 
             // Prepare data for the view
+            $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
             $val = 'under_cancellation';
             $booking_lavel = LeadDynamicField::where([['field_type', 8], ['status', 1]])->get();
 
             // Return the view with data
-            return view('query.quotation', compact("data", "booking_lavel", "val"));
+            return view('query.quotation', compact("data", "booking_lavel", "val",'employee'));
         } else {
             // Return a 404 error response if the service is not activated
             return response()->view('error.404', [], 404);
@@ -1795,37 +1802,39 @@ class QueryController extends Controller
             // Determine if the current user is not an employee
             if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
                 // Query to fetch quotations for non-employee users
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['issue_voucher'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             } else {
                 // Query to fetch quotations for employee users
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.assign_id', '=', $employee_id],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.assign_id', '=', $employee_id],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['issue_voucher'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             }
 
             // Prepare data for the view
+            $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
             $val = 'confirmation';
             $booking_lavel = LeadDynamicField::where([['field_type', 8], ['status', 1]])->get();
 
             // Return the view with data
-            return view('query.quotation', compact("data", "booking_lavel", "val"));
+            return view('query.quotation', compact("data", "booking_lavel", "val",'employee'));
         } else {
             // Return a 404 error response if the service is not activated
             return response()->view('error.404', [], 404);
@@ -1849,37 +1858,41 @@ class QueryController extends Controller
             // Determine if the current user is not an employee
             if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
                 // Query to fetch quotations for non-employee users
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['voucher_issued'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             } else {
                 // Query to fetch quotations for employee users
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.assign_id', '=', $employee_id],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.assign_id', '=', $employee_id],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['voucher_issued'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             }
 
             // Prepare data for the view
+
+            $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
+
             $val = 'voucher_issued';
             $booking_lavel = LeadDynamicField::where([['field_type', 8], ['status', 1]])->get();
 
             // Return the view with data
-            return view('query.quotation', compact("data", "booking_lavel", "val"));
+            return view('query.quotation', compact("data", "booking_lavel", "val",'employee'));
         } else {
             // Return a 404 error response if the service is not activated
             return response()->view('error.404', [], 404);
@@ -1903,37 +1916,39 @@ class QueryController extends Controller
             // Determine if the current user is not an employee
             if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
                 // Query to fetch quotations for non-employee users
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['tour_cancelled'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             } else {
                 // Query to fetch quotations for employee users
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.assign_id', '=', $employee_id],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.assign_id', '=', $employee_id],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['tour_cancelled'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             }
 
             // Prepare data for the view
             $val = 'tour_cancelled';
+             $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
             $booking_lavel = LeadDynamicField::where([['field_type', 8], ['status', 1]])->get();
 
             // Return the view with data
-            return view('query.quotation', compact("data", "booking_lavel", "val"));
+            return view('query.quotation', compact("data", "booking_lavel", "val",'employee'));
         } else {
             // Return a 404 error response if the service is not activated
             return response()->view('error.404', [], 404);
@@ -1955,37 +1970,38 @@ class QueryController extends Controller
             // Determine if the current user is not an employee
             if (Sentinel::getUser()->roles()->first()->slug != 'employee') {
                 // Query to fetch quotations for non-employee users
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['process_refund', 'refund_processed', 'refund_under_process'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.cancellation_charge', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             } else {
                 // Query to fetch quotations for employee users
-                $data = DB::table('option1_quotation')
-                    ->join('rt_package_query', 'rt_package_query.id', '=', 'option1_quotation.query_reference')
+                $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
                     ->where([
-                        ["option1_quotation.webnotation", "=", env("WEBSITENAME")],
-                        ['option1_quotation.assign_id', '=', $employee_id],
-                        ['option1_quotation.del_status', '=', 1],
-                        ['option1_quotation.send_option', '=', 1]
+                        ["quote.webnotation", "=", env("WEBSITENAME")],
+                        ['quote.assign_id', '=', $employee_id],
+                        ['quote.del_status', '=', 1],
+                        ['quote.send_option', '=', 1]
                     ])
                     ->whereIn('rt_package_query.status', ['process_refund', 'refund_processed', 'refund_under_process'])
-                    ->select('option1_quotation.*', 'rt_package_query.destinations', 'rt_package_query.cancellation_charge', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed')
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.date_arrival', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed','rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name', 'rt_package_query.country_of_residence', 'rt_package_query.packageId', 'rt_package_query.enquiry_ref_no', 'rt_package_query.assign_id')
                     ->get();
             }
 
             // Prepare data for the view
             $val = 'refund_issued';
             $booking_lavel = LeadDynamicField::where([['field_type', 8], ['status', 1]])->get();
-
+            $role = Sentinel::findRoleById(15);
+            $employee = $role->users()->with('roles')->get();
             // Return the view with data
-            return view('query.quotation', compact("data", "booking_lavel", "val"));
+            return view('query.quotation', compact("data", "booking_lavel", "val",'employee'));
         } else {
             // Return a 404 error response if the service is not activated
             return response()->view('error.404', [], 404);
@@ -2723,10 +2739,10 @@ class QueryController extends Controller
     
         // Logic to allow Create Quotation only if from_package and quotation_created is false
         $allowCreateQuotation = false;
-        if ($data->from_package && !$data->quotation_created) {
+        if ($data->packageId !='') {
             $allowCreateQuotation = true;
         }
-    
+
         // Return view with flags
         return view('query.quo_first', compact("data", "airlines", "allowCreateQuotation"));
     }
@@ -2777,7 +2793,7 @@ class QueryController extends Controller
         // Save the updated main query
         $main_query->save();
 
-      if($action_type == 'quote')
+      if($action_type == 'quote' || $action_type == 'quote_copy')
       {
      $data = new Quote;
      // Generate a unique code
@@ -2862,9 +2878,9 @@ class QueryController extends Controller
         $data->cancel_policy = $request->cancellation;
         $data->visa_policies = $request->visa_policies;
         $data->visa = $request->visa;
-        $validaty_date = $request->validaty;
-        $validaty_timestamp = strtotime(str_replace('/', '-', $validaty_date));
-        $data->quote_validaty = date('Y-m-d', $validaty_timestamp);
+        $validity_date = $request->validity;
+        $validity_timestamp = strtotime(str_replace('/', '-', $validity_date));
+        $data->quote_validity = date('Y-m-d', $validity_timestamp);
        
         $data->validity_time = $request->validity_time;
         $data->validity_show_on_frontend = $request->validity_show_on_frontend;
@@ -3050,7 +3066,7 @@ class QueryController extends Controller
         $data->option1_cancellation = $request->cancellation;
         $data->option1_package_impnotes = serialize($request->package_impnotes);
         $data->option1_extra_imp = $request->extra_imp;
-        $data->option1_validaty = $request->validaty;
+        $data->option1_validity = $request->validity;
         $data->validity_time = $request->validity_time;
         $data->validity_show_on_frontend = $request->validity_show_on_frontend;
         $data->tour_date = $request->tour_date;
@@ -3433,7 +3449,7 @@ class QueryController extends Controller
       $data->option1_cancellation=$request->cancellation;
       $data->option1_package_impnotes=serialize($request->package_impnotes);
       $data->option1_extra_imp=$request->extra_imp;
-      $data->option1_validaty=$request->validaty;
+      $data->option1_validity=$request->validity;
       $data->option1_quotation_header=serialize($request->quotation_header);
       $data->option1_quotation_header_extra=$request->quotation_header_extra;
       $data->option1_quotation_footer=serialize($request->quotation_footer);
@@ -3542,7 +3558,7 @@ class QueryController extends Controller
         $data->option2_cancellation=$request->cancellation;
         $data->option2_package_impnotes=serialize($request->package_impnotes);
         $data->option2_extra_imp=$request->extra_imp;
-        $data->option2_validaty=$request->validaty;
+        $data->option2_validity=$request->validity;
         $data->option2_quotation_header=serialize($request->quotation_header);
         $data->option2_quotation_header_extra=$request->quotation_header_extra;
         $data->option2_quotation_footer=serialize($request->quotation_footer);
@@ -3634,7 +3650,7 @@ class QueryController extends Controller
       $data->option3_cancellation=$request->cancellation;
       $data->option3_package_impnotes=serialize($request->package_impnotes);
       $data->option3_extra_imp=$request->extra_imp;
-      $data->option3_validaty=$request->validaty;
+      $data->option3_validity=$request->validity;
       $data->option3_quotation_header=serialize($request->quotation_header);
       $data->option3_quotation_header_extra=$request->quotation_header_extra;
       $data->option3_quotation_footer=serialize($request->quotation_footer);
@@ -3733,7 +3749,7 @@ class QueryController extends Controller
       $data->option4_cancellation=$request->cancellation;
       $data->option4_package_impnotes=serialize($request->package_impnotes);
       $data->option4_extra_imp=$request->extra_imp;
-      $data->option4_validaty=$request->validaty;
+      $data->option4_validity=$request->validity;
       $data->option4_quotation_header=serialize($request->quotation_header);
       $data->option4_quotation_header_extra=$request->quotation_header_extra;
       $data->option4_quotation_footer=serialize($request->quotation_footer);
@@ -3845,7 +3861,7 @@ class QueryController extends Controller
       $data->option1_cancellation=$request->cancellation;
       $data->option1_package_impnotes=serialize($request->package_impnotes);
       $data->option1_extra_imp=$request->extra_imp;
-      $data->option1_validaty=$request->validaty;
+      $data->option1_validity=$request->validity;
       
       $data->date_arrival=date('Y-m-d', strtotime($request->date_arrival));
      $data->message=$request->message;
@@ -3996,7 +4012,7 @@ class QueryController extends Controller
       $data_option2->option2_cancellation=$quotation2_data->option2_cancellation;
       $data_option2->option2_package_impnotes=$quotation2_data->option2_package_impnotes;
       $data_option2->option2_extra_imp=$quotation2_data->option2_extra_imp;
-      $data_option2->option2_validaty=$quotation2_data->option2_validaty;
+      $data_option2->option2_validity=$quotation2_data->option2_validity;
       $data_option2->option2_quotation_header=$quotation2_data->option2_quotation_header;
       $data_option2->option2_quotation_header_extra=$quotation2_data->option2_quotation_header_extra;
       $data_option2->option2_quotation_footer=$quotation2_data->option2_quotation_footer;
@@ -4036,7 +4052,7 @@ class QueryController extends Controller
       $data_option3->option3_cancellation=$quotation3_data->option3_cancellation;
       $data_option3->option3_package_impnotes=$quotation3_data->option3_package_impnotes;
       $data_option3->option3_extra_imp=$quotation3_data->option3_extra_imp;
-      $data_option3->option3_validaty=$quotation3_data->option3_validaty;
+      $data_option3->option3_validity=$quotation3_data->option3_validity;
       $data_option3->option3_quotation_header=$quotation2_data->option3_quotation_header;
       $data_option3->option3_quotation_header_extra=$quotation3_data->option3_quotation_header_extra;
       $data_option3->option3_quotation_footer=$quotation3_data->option3_quotation_footer;
@@ -4077,7 +4093,7 @@ class QueryController extends Controller
       $data_option4->option4_cancellation=$quotation4_data->option4_cancellation;
       $data_option4->option4_package_impnotes=$quotation4_data->option4_package_impnotes;
       $data_option4->option4_extra_imp=$quotation4_data->option4_extra_imp;
-      $data_option4->option4_validaty=$quotation4_data->option4_validaty;
+      $data_option4->option4_validity=$quotation4_data->option4_validity;
       $data_option4->option4_quotation_header=$quotation4_data->option4_quotation_header;
       $data_option4->option4_quotation_header_extra=$quotation4_data->option4_quotation_header_extra;
       $data_option4->option4_quotation_footer=$quotation4_data->option4_quotation_footer;
@@ -4123,7 +4139,7 @@ class QueryController extends Controller
         else
         {
           $content_id=CustomHelpers::custom_decrypt($request->content_id);
-          $quote=Option1Quotation::find($content_id); 
+          $quote=Quote::find($content_id); 
      
           $data=new RaiseConcern;
           $data->quotation_ref_no=$quote->quo_ref;  
@@ -4238,24 +4254,12 @@ class QueryController extends Controller
     
         Session::put($unique_code . 'quote1_id', $data1->id);
     
-        // Debug unserialized fields for safety
-        \Log::info('Unserialized Data:', [
-            'package_service' => $data1->package_service ? unserialize($data1->package_service) : [],
-            'transfers' => $data1->transfers ? unserialize($data1->transfers) : [],
-            'option1_accommodation' => $data1->option1_accommodation ? unserialize($data1->option1_accommodation) : [],
-            'option1_dayItinerary' => $data1->option1_dayItinerary ? unserialize($data1->option1_dayItinerary) : [],
-            'quote_inc' => $data1->quote_inc ? unserialize($data1->quote_inc) : [],
-            'quote_exc' => $data1->quote_exc ? unserialize($data1->quote_exc) : [],
-            'option1_package_visa' => $data1->option1_package_visa ? unserialize($data1->option1_package_visa) : [],
-            'option1_package_payment' => $data1->option1_package_payment ? unserialize($data1->option1_package_payment) : [],
-            'option1_package_can' => $data1->option1_package_can ? unserialize($data1->option1_package_can) : [],
-            'option1_package_impnotes' => $data1->option1_package_impnotes ? unserialize($data1->option1_package_impnotes) : [],
-        ]);
+       
     
         // Ensure status for first.blade.php
         $data1->status = "1"; // Remove if not desired
     
-        return $this->getQuotationViewBasedOnStatus($data1, null, null, null);
+        return $this->getQuotationViewBasedOnStatus($data1);
     }
 
     private function clearQuotationSessionData($unique_code) {
@@ -4266,19 +4270,9 @@ class QueryController extends Controller
         Session::forget($unique_code . 'quote4_id');
     }
 
-    private function getQuotationViewBasedOnStatus($data1, $data2, $data3, $data4)
+    private function getQuotationViewBasedOnStatus($data1)
 {
-    if ($data1 && $data1->status == "1" && !$data2 && !$data3 && !$data4) {
-        return view("query.quotation_webpage.first", compact("data1"));
-    } elseif ($data1 && $data1->status == "1" && $data2 && $data2->status == "1" && !$data3 && !$data4) {
-        return view("query.quotation_webpage.second", compact("data2", "data1"));
-    } elseif ($data1 && $data1->status == "1" && $data2 && $data2->status == "1" && $data3 && $data3->status == "1" && !$data4) {
-        return view("query.quotation_webpage.three", compact("data3", "data2", "data1"));
-    } elseif ($data1 && $data1->status == "1" && $data2 && $data2->status == "1" && $data3 && $data3->status == "1" && $data4 && $data4->status == "1") {
-        return view("query.quotation_webpage.four", compact("data4", "data3", "data2", "data1"));
-    } else {
-        return redirect(route('home'));
-    }
+    return view("query.quotation_webpage.first", compact("data1"));
 }
 
     private function getQuotationViewForCustomer($data1, $data2, $data3, $data4) {
@@ -4506,111 +4500,38 @@ class QueryController extends Controller
     }
 
 
-    /**********************/
-
-    
-    /*public function edit_quation($id,$id2)
-    {
-        $data=Query::find($id2);
-        $airlines = airlineList::where('status','1')->get();
-        $iatalist = iataList::where('status','1')->get();
-        $rates =rates::all();
-        $inclusions = PkgInclusions::where('status','1')->get();
-        $exclusions = PkgExclusions::where('status','1')->get();
-        $paymentPolicy = PkgPaymentPolicy::where('status','1')->get();
-        $cancelPolicy = PkgCancelPolicy::where('status','1')->get();
-        $visaPolicy = PkgVisa::where('status','1')->get();
-        $imp_notes=ImportantNotes::all();
-        $package_hotel=PackageHotel::all();
-        $transport=Transport::all();
-        $quotation_header=QuotationHeader::all();
-        $quotation_footer=QuotationFooter::all();
-        $reference_data=Option1Quotation::where('quo_ref',$id)->get()->first();
-        $reference_data2=Option2Quotation::where('quotation_ref_no',$id)->get()->first();
-        $reference_data3=Option3Quotation::where('quotation_ref_no',$id)->get()->first(); 
-        $reference_data4=Option4Quotation::where('quotation_ref_no',$id)->get()->first(); 
-        $custom_id=$id;
-
-        $supplier=Supplier::all();
-          $gst=QuoteCharges::where('charges_type','=','GST')->get();
-          $tcs=QuoteCharges::where('charges_type','=','TCS')->get();
-          $pg=QuoteCharges::where('charges_type','=','PG')->get();
-          $markup_profit=QuoteCharges::where('charges_type','=','Markup Profit')->get();
-          $discunt_positive=QuoteCharges::where('charges_type','=','Discount (+)')->get();
-          $discunt_negative=QuoteCharges::where('charges_type','=','Discount (-)')->get();
-          $icons    =Icons::all();
-       $coupons=Coupon::all();
-        return view('query.quotationedit.edit',compact("data","rates","paymentPolicy","cancelPolicy","visaPolicy","imp_notes","package_hotel","transport","quotation_header","quotation_footer","reference_data","custom_id","reference_data2","reference_data3","reference_data4","airlines","iatalist","supplier",'gst','tcs','pg','inclusions','exclusions','markup_profit','discunt_positive','discunt_negative','icons','airlines','iatalist','inclusions','exclusions','coupons'));  
-    }*/
-
-    
-
-
-    /**********************/
-
-
-    /*public function copy_reference($id,Request $request)
-    {
-      $id=$id;
-      $data=Query::find($id);
-      $rates =rates::all();
-      $paymentPolicy = PkgPaymentPolicy::where('status','1')->get();
-      $cancelPolicy = PkgCancelPolicy::where('status','1')->get();
-      $visaPolicy = PkgVisa::where('status','1')->get();
-      $imp_notes=ImportantNotes::all();
-      $package_hotel=PackageHotel::all();
-      $transport=Transport::all();
-      $quotation_header=QuotationHeader::all();
-      $quotation_footer=QuotationFooter::all();
-      $select_type=$request->select_type;
-      $custom_id="";
-      if($select_type=="1"):
-      $reference_data=Option1Quotation::where('quo_ref',$request->q_reference_no)->get()->first();
-      
-      if($reference_data):
-      return view('query.edit_reference.edit',compact("data","rates","paymentPolicy","cancelPolicy","visaPolicy","imp_notes","package_hotel","transport","quotation_header","quotation_footer","reference_data","custom_id"));  
-      else:
-        return redirect()->back()->with('warning', 'Enter Correct Quotation Reference Id');   ;
-      endif;
-      elseif($select_type=="2"):
-
-      endif;
-    }*/
-
     public function copy_reference($id, Request $request)
     {
         $data = Query::find($id);
         if (!$data) {
             return redirect()->back()->with('error', 'Invalid Query ID');
         }
-
-        $rates = Rates::all();
-        $paymentPolicy = PkgPaymentPolicy::where('status', '1')->get();
-        $cancelPolicy = PkgCancelPolicy::where('status', '1')->get();
-        $visaPolicy = PkgVisa::where('status', '1')->get();
-        $imp_notes = ImportantNotes::all();
-        $package_hotel = PackageHotel::all();
-        $transport = Transport::all();
-        $quotation_header = QuotationHeader::all();
-        $quotation_footer = QuotationFooter::all();
-        $custom_id = "";
-        $select_type = $request->select_type;
+     $select_type=$request->select_type;
+        
 
         if ($select_type == "1") {
-            $reference_data = Option1Quotation::where('quo_ref', $request->q_reference_no)->first();
 
-            if ($reference_data) {
-                return view('query.edit_reference.edit', compact(
-                    "data", "rates", "paymentPolicy", "cancelPolicy", "visaPolicy",
-                    "imp_notes", "package_hotel", "transport", "quotation_header",
-                    "quotation_footer", "reference_data", "custom_id"
-                ));
-            } else {
-                return redirect()->back()->with('warning', 'Enter Correct Quotation Reference ID');
-            }
+        $Packages =DB::table('quote')
+              ->where('quo_ref',$request->q_reference_no)
+              ->first();
+              if(!$Packages)
+              {
+          return redirect()->back()->with('error', 'Invalid Reference No');      
+              }
+        return $this->quote_create_edit($data,$Packages, 'quote_copy');
+           
+           
         } elseif ($select_type == "2") {
-            // Handle select_type == 2 logic here
-            return redirect()->back()->with('warning', 'Option 2 is not implemented yet.');
+
+       
+       $Packages = Packages::where('package_code','=',$request->q_reference_no)->first();
+        if(!$Packages)
+              {
+          return redirect()->back()->with('error', 'Invalid Package Code');      
+              }
+       return $this->quote_create_edit($data,$Packages, 'quote');
+
+          
         }
 
         return redirect()->back()->with('error', 'Invalid Selection Type');
@@ -5269,86 +5190,7 @@ class QueryController extends Controller
     /**********************/
 
 
-    /*old saveQuery*/
-    /*public function saveQuery(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required',
-            'mobile' => 'required',
-            'email' => 'required'
-      ]);
-
-        $query = new Query;
-        if(Sentinel::check()){
-            $query->userId = Sentinel::getUser()->id;
-        }
-
-        $query->packageId = $request->packageId;
-        $query->name = $request->name;
-        $query->email = $request->email;
-        $query->mobile = $request->mobile;
-        $query->message = $request->message;
-
-        if($query->save()){
-            return redirect ('/packages-detail/'.Crypt::encrypt(['id'=>$request->packageId]))->with('message', 'Thanks You! Your query has been submitted.');
-        }       
-    }*/
-
-    /*saveQuery linked with swal message*/
-    /*public function saveQuery(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required',
-            'mobile' => 'required',
-            'email' => 'required',
-            'time_call' => 'required',
-            'city_of_residence' => 'required',
-            'country_of_residence' => 'required',
-            'destinations' => 'required', 
-            'date_arrival' => 'required'             
-        ]); 
-     
-        $query = new Query;
-        $query->channel_type = $request->channel_type;
-        $query->service_type = $request->service_type;
-        $query->packageId = $request->packageId;
-        $query->name = $request->name;
-        $query->email = $request->email;
-        $query->mobile = $request->mobile;
-        $query->message = $request->message;
-        $query->city_of_residence = $request->city_of_residence;
-        $query->country_of_residence = $request->country_of_residence;
-        $query->destinations = $request->destinations;
-        $query->date_arrival = date("Y-m-d",strtotime($request->date_arrival));
-        $query->duration = $request->duration;
-        $query->span_value_adult = $request->span_value_adult;
-        $query->span_value_child = $request->span_value_child;
-        $query->span_value_infant = $request->span_value_infant;
-        $query->span_value_child_without_bed = $request->span_value_child_without_bed;
-        $query->hotel_pre = $request->hotel_pre;
-        $query->exp_budget = $request->exp_budget;
-        $query->time_call = $request->time_call;
-        $query->accept_value = $request->accept_value; 
-        $query->package_name = $request->package_name;
-        $query->status = 'interested';
-     
-       if(env("WEBSITENAME")==1):
-        $query->webnotation = 1;
-        elseif(env("WEBSITENAME")==0):
-        $query->webnotation = 0;
-        endif;
-        if($query->save()){
-           $reference=date("Y").date("d").date("m").$query->id;
-            $data=Query::find($query->id);
-             $data->enquiry_ref_no=$reference;
-             $data->save();
-        $this->send_enquiry_email($query,'na');
-
-        CustomHelpers::save_enquiry_tracker($query->id,'New Enquiry Initiated');
-
-         echo 'success';
-        }
-    }*/
+    
 
     public function saveQuery(Request $request) {
         $this->validate($request, [
@@ -6303,21 +6145,7 @@ class QueryController extends Controller
 
     /**********************/
 
-    /*public function add_new_lead() 
-    {
-      $check_data=ActivateService::where('services','=','leads')->first();
-        if($check_data->activation==1):
-         $package_data = Packages::all();
-        //return view('query.list',['queries'=>$queries]);
-         if(Sentinel::getUser()->inRole('administrator') || Sentinel::getUser()->inRole('supervisor') || Sentinel::getUser()->inRole('super_admin') || Sentinel::getUser()->inRole('employee')):
-        return view('query.addquery',['package_data'=>$package_data]);
-        else:
-       return redirect(route('webLeads'));
-        endif;
-        else:
-       return response()->view('error.404', [], 404);
-        endif;
-    }*/
+    
 
     public function add_new_lead() 
     {
@@ -6616,7 +6444,15 @@ class QueryController extends Controller
         foreach ($fields_to_check as $field => $label) {
             if ($query->$field != $request->$field) {
                 $remarks .= '<p class="historyDescription">' . $label . ' changed from ' . $query->$field . ' to ' . $request->$field . '</p>';
-                $query->$field = $request->$field;
+                if($field=='date_arrival')
+                {
+                $query->$field = date('Y-m-d', strtotime($request->$field)); 
+                }
+                else
+                {
+                   $query->$field = $request->$field; 
+                }
+                
             }
         }
 

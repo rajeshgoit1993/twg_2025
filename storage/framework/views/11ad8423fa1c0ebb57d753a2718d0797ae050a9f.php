@@ -20,8 +20,8 @@
 			<form action="<?php echo e(URL::to('/save_quote')); ?>" method="post" id="quo1" name="quo1">
 				<input type="hidden" name="type" value=""/>
 				<input type="hidden" name="query_id" value="<?php echo e($data->id); ?>"/>
-				<input type="hidden" name="action_type" value="<?php echo e($action_type); ?>"/>
-				<?php if($action_type != 'quote'): ?>
+				<input type="hidden" name="action_type" value="<?php echo e($action_type); ?>"/> 
+				<?php if($action_type == 'quote_edit'): ?>
 				<input type="hidden" name="quote_id" value="<?php echo e($packagesData->id); ?>"/>
 				<?php endif; ?>
 				<?php echo e(csrf_field()); ?>

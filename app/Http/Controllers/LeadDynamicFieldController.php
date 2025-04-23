@@ -306,7 +306,17 @@ class LeadDynamicFieldController extends Controller
 
     return $output_data;
   }*/
+  public function view_raise_remarks(Request $request)
+  {
+    $id = $request->id;
+    $data = RaiseConcern::find($id);
+    $output_data = [
+        'output' => $data->admin_remarks,
+        
+    ];
 
+    return $output_data;
+  }
   public function get_enquiry_raise(Request $request) {
     $id = $request->id;
 
@@ -315,7 +325,7 @@ class LeadDynamicFieldController extends Controller
 
     // Get additional details from helper methods or other sources
     $enq_ref_no = CustomHelpers::get_master_table_data('rt_package_query', 'id', $id, 'enquiry_ref_no');
-    $quote_ref_no = CustomHelpers::get_master_table_data('option1_quotation', 'query_reference', $id, 'quo_ref');
+    $quote_ref_no = CustomHelpers::get_master_table_data('quote', 'query_reference', $id, 'quo_ref');
     $query_reference = (int)$id;
 
     // Render a view with the retrieved data

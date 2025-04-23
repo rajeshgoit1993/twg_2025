@@ -148,7 +148,7 @@
     column-gap: 20px;
 }
 .quoteDtlsCont .left-section {
-    /*max-width: 850px;*/
+    max-width: 850px;
     flex: 1;
 }
 .quoteDtlsCont .right-section {

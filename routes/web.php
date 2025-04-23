@@ -431,6 +431,8 @@ Route::get('/edit_quation/{id}/{id2}','QueryController@edit_quation')->middlewar
 Route::POST('/get_enquiry_history','LeadDynamicFieldController@get_enquiry_history')->middleware('login');
 Route::get('/get_payment_history','LeadDynamicFieldController@get_payment_history')->middleware('login');
 Route::post('/get_enquiry_raise','LeadDynamicFieldController@get_enquiry_raise')->middleware('login');
+Route::post('/view_raise_remarks','LeadDynamicFieldController@view_raise_remarks')->middleware('login');
+
 Route::post('/update_raise_concern','LeadDynamicFieldController@update_raise_concern')->middleware('login');
 Route::get('/add_lead_follow_up_data','LeadDynamicFieldController@add_lead_follow_up_data')->middleware('login');
 Route::get('/add_payment_follow_up','LeadDynamicFieldController@add_payment_follow_up')->middleware('login');
@@ -689,7 +691,6 @@ Route::get('/enq_with_otp','QueryController@savequery_with_otp');
 
 //contact-us enquiry form
 Route::post('/saveQuery','QueryController@saveQuery');
-
 Route::post('/saveQuery3','QueryController@saveQuery');
 Route::post('/saveQuery1','QueryController@saveQuery1');
 Route::post('/saveQuery2','QueryController@saveQuery2');
@@ -809,7 +810,7 @@ Route::get("/holidays/{id}/theme/{id1}","FrontController@packages2");
 Route::post("/holidays/{id}/theme/{id1}","FrontController@packages2");
 
 Route::get("/theme/{id}","PackagesController@index");
-Route::post("/enq_data","QueryController@enq_data");
+Route::post("/enq_data","QueryController@enq_datas");
 Route::get("/enq_datas","QueryController@enq_datas");
 Route::post("/enq_update_data","QueryController@enq_update_data");
 Route::get("/Testimonial-Detail/{id}","FrontController@testimonial_detail")->name('testimonials');

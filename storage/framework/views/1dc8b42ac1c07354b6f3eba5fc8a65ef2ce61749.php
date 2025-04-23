@@ -120,7 +120,7 @@
 				text-align: left;
 			}
 			
-			@media screen and (max-width: 480px) 
+			@media  screen and (max-width: 480px) 
 			{
 				table {
 					width: 100% !important;
@@ -146,17 +146,17 @@
 					<td style="height: 40px;background-color: #fff;" >
 						<div class="logo-text" >
 						<span>
-							@if(env("WEBSITENAME")==1)
+							<?php if(env("WEBSITENAME")==1): ?>
 							<a href="https://www.theworldgateway.com/" target="_blank" style="text-decoration: none;letter-spacing: 0px;color: #676767;"><span>TheWo</span><span style="color:#DC1F3E;">rl</span><span style="color: #676767;">d</span><span style="color:#DC1F3E;">Gateway</span></a>
-							@elseif(env("WEBSITENAME")==0)
+							<?php elseif(env("WEBSITENAME")==0): ?>
 							<a href="http://www.rapidextravels.com/" style="text-decoration: none;letter-spacing: 1px;font-weight: bold;color: #000;">Rapidex Travels</a>
-							@endif
+							<?php endif; ?>
 							</span>
 						</div>
 					</td>
 					<td>
 						<div class="access_quote">
-							<a href="{{ url('/quotes/'.$data->unique_code) }}" target="_blank;">Access Your Quote</a>
+							<a href="<?php echo e(url('/quotes/'.$data->unique_code)); ?>" target="_blank;">Access Your Quote</a>
 						</div>
 					</td>
 				</tr>
@@ -173,21 +173,23 @@
 				<tr>
 					<td class="text" colspan="2">
 						<!-- welcome greetings -->
-						<p>Dear {{$data->name}},</p>
+						<p>Dear <?php echo e($data->name); ?>,</p>
 
-						@if($data!="" && $data->quote_header!="" && $data->quote_header!="N;")
+						<?php if($data!="" && $data->quote_header!="" && $data->quote_header!="N;"): ?>
 						<?php
 							$header=$data->quote_header;
 							$header_data=DB::table('quotation_header')->where('id',$header)->first();
 						?>
-						@if($header_data!='')
-							{!! $header_data->header_desc !!}
-						@endif
-						@endif
-						{!! $data->quote_header_extra !!}
+						<?php if($header_data!=''): ?>
+							<?php echo $header_data->header_desc; ?>
+
+						<?php endif; ?>
+						<?php endif; ?>
+						<?php echo $data->quote_header_extra; ?>
+
 
 						<!-- quote link -->
-						<div class="link_below">Below is the link to the original quote in case you have lost track of it, <a href="{{url('/quotes/'.$data->unique_code)}}" target="_blank">you can review the details here</a></div>
+						<div class="link_below">Below is the link to the original quote in case you have lost track of it, <a href="<?php echo e(url('/quotes/'.$data->unique_code)); ?>" target="_blank">you can review the details here</a></div>
 						
 						<!--Tour Date-->
 						<?php
@@ -216,12 +218,12 @@
 							$day_to = date('D', $day_to);
 						?>
 						<div class="requested">You've Requested</div>
-						<div class="mobile_font">Package Name : <b>{{ $data->custom_package_name }}</b></div>
-						<div class="mobile_font">Departure City : <b>{{ $data->sourcecity }}</b></div>
+						<div class="mobile_font">Package Name : <b><?php echo e($data->custom_package_name); ?></b></div>
+						<div class="mobile_font">Departure City : <b><?php echo e($data->sourcecity); ?></b></div>
 						<!--Date format: Fri,04 Oct'19-->
-						<!--<div class="mobile_font">Tour Date : <b><?php echo "$day_from"; ?>,{{ $datefrom_print }} - <?php echo "$day_to"; ?>,{{ $stop_date_print }}</b></div><-->
+						<!--<div class="mobile_font">Tour Date : <b><?php echo "$day_from"; ?>,<?php echo e($datefrom_print); ?> - <?php echo "$day_to"; ?>,<?php echo e($stop_date_print); ?></b></div><-->
 						<!--Date format: 04 Oct'19-->
-						<div class="mobile_font">Tour Date : <b>{{ $datefrom_print }} - {{ $stop_date_print }}</b></div>
+						<div class="mobile_font">Tour Date : <b><?php echo e($datefrom_print); ?> - <?php echo e($stop_date_print); ?></b></div>
 
 						<!-- Tour Price -->
 						<?php
@@ -229,7 +231,7 @@
 						?>
 
 						<!-- per person price -->
-						@if($data->option1_price_type=="1")
+						<?php if($data->option1_price_type=="1"): ?>
 						<!-- package price -->
 						<div class="mobile_font">Package Price : <b>Rs. <?php CustomHelpers::get_indian_currency(round($price_data_first['query_total_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller))); ?></b>
 						</div>
@@ -239,32 +241,32 @@
 						</div>
 
 						<!-- gst -->
-						@if(round($price_data_first['query_total_gst_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller))>0)
+						<?php if(round($price_data_first['query_total_gst_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller))>0): ?>
 							<div class="mobile_font">
-								<i>GST @if($price_data_first['query_gst_curr']==2)&nbsp;({{ $price_data_first['gst_percentage'] }}%) @endif  : <b>Rs. {{CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller)))}} </b></i>
+								<i>GST <?php if($price_data_first['query_gst_curr']==2): ?>&nbsp;(<?php echo e($price_data_first['gst_percentage']); ?>%) <?php endif; ?>  : <b>Rs. <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller)))); ?> </b></i>
 							</div>
-						@endif
+						<?php endif; ?>
 
 						<!-- tcs -->
-						@if(round($price_data_first['query_total_tcs_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller))>0)
+						<?php if(round($price_data_first['query_total_tcs_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller))>0): ?>
 							<div class="mobile_font">
-								<i>TCS @if($price_data_first['query_tcs_curr']==2)&nbsp;({{$price_data_first['tcs_percentage']}}%) @endif : <b>Rs. {{CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller)))}}</b></i>
+								<i>TCS <?php if($price_data_first['query_tcs_curr']==2): ?>&nbsp;(<?php echo e($price_data_first['tcs_percentage']); ?>%) <?php endif; ?> : <b>Rs. <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller)))); ?></b></i>
 							</div>
-						@endif
+						<?php endif; ?>
 
 						<!-- other -->
-						@if(round($price_data_first['query_total_pg_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller))>0)
+						<?php if(round($price_data_first['query_total_pg_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller))>0): ?>
 							<div class="mobile_font">
-								<i>PG @if($price_data_first['pg_charges']==2)&nbsp;({{$price_data_first['pgcharges_percentage']}}%) @endif : <b>Rs. {{CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller)))}}</b></i>
+								<i>PG <?php if($price_data_first['pg_charges']==2): ?>&nbsp;(<?php echo e($price_data_first['pgcharges_percentage']); ?>%) <?php endif; ?> : <b>Rs. <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller)))); ?></b></i>
 							</div>
-						@endif
+						<?php endif; ?>
 
 						<!-- price to pay -->
 						<div class="mobile_font">Price To PAY : <b>Rs. <?php CustomHelpers::get_indian_currency(round($price_data_first['query_pricetopay_adult']/($data->adult+$data->extra_adult+$data->child_with_bed+$data->child_without_bed+$data->infant+$data->solo_traveller))); ?> (Per Person)</b>
 						</div>
 
 						<!-- group price -->
-						@elseif($data->option1_price_type=="2")
+						<?php elseif($data->option1_price_type=="2"): ?>
 						<!-- package price -->
 						<div class="mobile_font">Package Price : <b>Rs. <?php CustomHelpers::get_indian_currency($$price_data_first['query_total_group']); ?></b></div>
 						
@@ -274,49 +276,51 @@
 						</div>
 
 						<!-- gst -->
-						@if(round($price_data_first['query_total_gst_group'])>0)
+						<?php if(round($price_data_first['query_total_gst_group'])>0): ?>
 							<div class="mobile_font">
-								<i>GST @if($price_data_first['query_gst_curr']==2)&nbsp;({{ $price_data_first['gst_percentage'] }}%) @endif : <b>Rs. {{ CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group'])) }}</b></i>
+								<i>GST <?php if($price_data_first['query_gst_curr']==2): ?>&nbsp;(<?php echo e($price_data_first['gst_percentage']); ?>%) <?php endif; ?> : <b>Rs. <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group']))); ?></b></i>
 							</div>
-						@endif
+						<?php endif; ?>
 
 						<!-- tcs -->
-						@if(round($price_data_first['query_total_tcs_group'])>0)
+						<?php if(round($price_data_first['query_total_tcs_group'])>0): ?>
 							<div class="mobile_font">
-								<i>TCS @if($price_data_first['query_tcs_curr']==2)&nbsp;({{ $price_data_first['tcs_percentage'] }}%) @endif : <b>Rs. {{ CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group'])) }}</b></i>
+								<i>TCS <?php if($price_data_first['query_tcs_curr']==2): ?>&nbsp;(<?php echo e($price_data_first['tcs_percentage']); ?>%) <?php endif; ?> : <b>Rs. <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group']))); ?></b></i>
 							</div>
-						@endif
+						<?php endif; ?>
 
 						<!-- other -->
-						@if(round($price_data_first['query_total_pg_group'])>0)
+						<?php if(round($price_data_first['query_total_pg_group'])>0): ?>
 							<div class="mobile_font">
-								<i>PG @if($price_data_first['pg_charges']==2) selected ({{$price_data_first['pgcharges_percentage']}}%) @endif : <b>Rs. {{CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group']))}}</b></i>
+								<i>PG <?php if($price_data_first['pg_charges']==2): ?> selected (<?php echo e($price_data_first['pgcharges_percentage']); ?>%) <?php endif; ?> : <b>Rs. <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group']))); ?></b></i>
 							</div>
-						@endif
+						<?php endif; ?>
 
 						<!-- price to pay -->
 						<div class="mobile_font" style="margin-bottom: 0px;">Price To PAY : <b>Rs. <?php CustomHelpers::get_indian_currency(round($price_data_first['query_pricetopay_adult'])); ?> (Group Price)</b></div>
-						@endif
+						<?php endif; ?>
 
 						<!--click here to view quote-->
 						<div style="margin-top: 20px;margin-bottom: 20px;font-family: lato;font-size: 20px;color: #0061E6;font-weight: bold;font: normal;">
-							<a href="{{ url('/quotes/'.$data->unique_code) }}" target="_blank">Click Here To View Your Quote</a>
+							<a href="<?php echo e(url('/quotes/'.$data->unique_code)); ?>" target="_blank">Click Here To View Your Quote</a>
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td class="text" colspan="2">
 						<!--Signature-->
-						@if($data!="" && $data->quote_footer!="" && $data->quote_footer!="N;")
+						<?php if($data!="" && $data->quote_footer!="" && $data->quote_footer!="N;"): ?>
 							<?php
 							$footer_id=$data->quote_footer;
 							$footer_data=DB::table('quotation_footer')->where('id',$footer_id)->first();
 							?>
-							@if($footer_data!='')
-								{!! $footer_data->footer_desc !!}
-							@endif
-						@endif
-						{!! $data->quote_footer_extra !!}
+							<?php if($footer_data!=''): ?>
+								<?php echo $footer_data->footer_desc; ?>
+
+							<?php endif; ?>
+						<?php endif; ?>
+						<?php echo $data->quote_footer_extra; ?>
+
 					</td>
 				</tr>
 			</table>

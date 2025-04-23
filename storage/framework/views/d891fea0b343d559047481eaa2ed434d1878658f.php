@@ -28,7 +28,7 @@
                            <div class="col-md-6">
                                     <div class="form-group">
                                       <label for="package_code" class="field-required">Package Code</label>
-                                      <input type="text" placeholder="Package Code" value="<?php echo e($packagesData->package_code); ?>" name="package_code" class="form-control package_code"    <?php if($action_type=='quote' || $action_type=='quote_edit'): ?> readonly <?php else: ?> required <?php endif; ?>>
+                                      <input type="text" placeholder="Package Code" value="<?php echo e($packagesData->package_code); ?>" name="package_code" class="form-control package_code"    <?php if($action_type=='quote' || $action_type=='quote_edit' || $action_type=='quote_copy'): ?> readonly <?php else: ?> required <?php endif; ?>>
                                       <span class="package_code_availibility"> </span>
                                     </div>
                                   </div>
@@ -130,7 +130,7 @@
                             </div>
 
                             <!-- suitable for -->
-                           <?php if($action_type == 'quote' || $action_type == 'quote_edit'): ?>
+                           <?php if($action_type == 'quote' || $action_type == 'quote_edit' || $action_type == 'quote_copy'): ?>
                            <div class="col-md-12">
                            
                        <label for="admin_remarks">Trip Remarks</label>

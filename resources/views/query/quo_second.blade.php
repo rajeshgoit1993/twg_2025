@@ -182,7 +182,7 @@
 		<div class="col-md-12">
 			<div class="box">
 				<div class="makeflex aligncenter padding10">
-					<a href="{{ URL::to('/query') }}" class="btn btn-success" style="margin-right: 20px"><i class="glyphicon glyphicon-arrow-left"></i> Back</a>
+					<a href="{{ url()->previous() }}" class="btn btn-success" style="margin-right: 20px"><i class="glyphicon glyphicon-arrow-left"></i> Back</a>
 					<span class="pfwmt font-size18">Create Quotation</span>
 				</div>
 				<!-- /.box-header -->
@@ -193,78 +193,22 @@
 						</ul>
 					</div>
 				@endif
+
+				@if (\Session::has('error'))
+					<div class="alert alert-danger">
+						<ul>
+							<li>{!! \Session::get('error') !!}</li>
+						</ul>
+					</div>
+				@endif
 				<div class="panel-body" style="padding: 0px">
 					<!-- /.box-header -->
 					<div class="box-body" style="padding-top: 0px">
 						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-4 appendBottom10">
-									<label>Primary Guest Name</label>
-									<input type="text" class="form-control text-capitalize" name="" readonly="" placeholder="Mr., Ms., Mrs., Blank" value="{{$data->name}}"> 
-								</div>
-								<div class="col-md-4 appendBottom10">
-									<label>Guest Email Address</label>
-									<input type="text" class="form-control text-lowercase" name="" value="{{$data->email}}" readonly="" placeholder="Email Address"> 
-								</div>
-								<div class="col-md-4 appendBottom10">
-									<label>Guest Contact No</label>
-									<input type="text" class="form-control" name="" readonly="" value="{{$data->mobile}}" placeholder="Contact No"> 
-								</div>
-								<div class="col-md-4"></div>
-							</div>
-							<div class="row">
-								<div class="col-md-4 appendBottom10">
-									<label>Tour Name</label>
-									@if(is_numeric($data->packageId))
-										<input type="text" class="form-control" name="package_name" value="{{CustomHelpers::get_package_name($data->packageId)}}" placeholder="Package Name" readonly>
-									@else
-										<input type="text" class="form-control" name="package_name" value="{{$data->packageId}}" placeholder="Package Name" style="text-transform: capitalize" readonly>
-									@endif
-								</div>
-								<div class="col-md-4 appendBottom10">
-									<label>Tour Destination</label>
-									<input type="text" class="form-control text-capitalize" value="{{$data->destinations}}" name="" readonly="" placeholder="Package Destination"> 
-								</div>
-								<div class="col-md-4 appendBottom10">
-									<label>Tour Duration</label>
-									<?php $day_night=(int)filter_var($data->duration,FILTER_SANITIZE_NUMBER_INT); ?>
-									<input type="text" class="form-control text-capitalize" value="{{$day_night-1}} Nights & {{$day_night}} Days" name="duration" readonly="" placeholder="Package Destination"> 
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-4 appendBottom10">
-									<label>No of Adult (+12 yrs)</label>
-									<input type="text" class="form-control" name="" value="{{$data->span_value_adult}}" readonly="" placeholder="Enter No of Adults (+12 yrs)"> 
-								</div>
-								<div class="col-md-4 appendBottom10">
-									<label>No of Children (5 - 12 yrs)</label>
-									<input type="text" class="form-control" name="" value="{{$data->span_value_child}}" readonly="" placeholder="Enter No of Children"> 
-								</div>
-								<div class="col-md-4 appendBottom10">
-									<label>No of Infant (0 - 2 yrs)</label>
-									<input type="text" class="form-control" name="" value="{{$data->span_value_infant}}" readonly="" placeholder="Enter No of Infant (0-5 yrs)"> 
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-4 appendBottom10">
-									<label>Guest Nationality</label>
-									<input type="text" class="form-control text-capitalize" name="" value="{{$data->country_of_residence}}" readonly="" placeholder="Nationality"> 
-								</div>
-								<div class="col-md-4 appendBottom10">
-									<label>Best time to Call</label>
-									<input type="text" class="form-control" name="" value="{{$data->time_call}}" readonly="" placeholder="Best time to Call"> 
-								</div>
-								<div class="col-md-4 appendBottom10">
-									<label>Departure Date</label>
-									<input type="text" class="form-control" name="" value="{{$data->date_arrival}}" readonly="" placeholder="Arrival Date">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<label>Additional Information</label>
-									<input type="text" class="form-control text-capitalize" name="" value="{{$data->remarks}}" readonly="" placeholder="Additional information shared by Guest">  
-								</div>
-							</div>
+
+							@include('query.enquiryDetails.quoteLeadDetails')
+
+						
 						</div>
 					</div>
 					<div style="padding: 0px 10px">
@@ -279,7 +223,7 @@
 							</div>
 							<div class="col-md-4">
 								<label>Quotation Reference No. / Tour Package Name</label>
-								<input type="text" class="form-control" name="q_reference_no" placeholder="Enter Reference No / Tour Package Name" required>
+								<input type="text" class="form-control" name="q_reference_no" placeholder="Enter Reference No / Tour Package Code" required>
 							</div>
 							<div class="col-md-2">
 								<input type="submit" value="IMPORT" class="btn btn-success form-control appendTop20" name="">		

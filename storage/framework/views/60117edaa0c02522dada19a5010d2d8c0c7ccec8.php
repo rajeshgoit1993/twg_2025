@@ -267,8 +267,8 @@
 											    $child_without_bed = 0;
 											    $infant = 0;
 
-											    if ($query->quote1_number_of_adult != '' && $query->quote1_number_of_adult != 0) {
-											        $adult += (int) $query->quote1_number_of_adult;
+											    if ($query->adult != '' && $query->adult != 0) {
+											        $adult += (int) $query->adult;
 											    }
 
 											    if ($query->extra_adult != '' && $query->extra_adult != 0) {
@@ -328,8 +328,8 @@
 										<!-- --------- -->
 
 										<!-- nationality -->
-										<?php if($query->nationality!=""): ?>
-											<p class="q-dtls"><?php echo e($query->nationality); ?></p>
+										<?php if($query->country_of_residence!=""): ?>
+											<p class="q-dtls"><?php echo e($query->country_of_residence); ?></p>
 										<?php endif; ?>
 										</div>
 									</td>
@@ -423,15 +423,14 @@
 											<?php endif; ?> -->
 
 											<!-- tour name & link -->
-											<?php if(is_numeric((int) CustomHelpers::get_query_field((int)$query->query_reference, 'packageId'))): ?>
-											    <?php 
-											        $packageId = (int) CustomHelpers::get_query_field((int)$query->query_reference, 'packageId');
-											        $packageName = $query->package_name;
-											        $href_id = CustomHelpers::custom_encrypt($packageId);
-											        $form_action = url('/Holidays/' . str_slug($packageName)) . '?package_id=' . $href_id;
-											     ?>
-
-											    <?php if(!empty($packageName)): ?> <!-- Check if package name is not empty -->
+											<?php if(is_numeric((int)$query->packageId)): ?>
+											    <?php
+											        $href_id1 = CustomHelpers::custom_encrypt((int)$query->packageId);
+											        $packageName = CustomHelpers::get_package_name((int)$query->packageId);
+											        $form_action = url("/holidays/" . str_slug($packageName)) . '?package_id=' . $href_id1;
+											    ?>
+											    
+											    <?php if(!empty($packageName)): ?>
 											        <div class="pdngTop7"><u><h5>Tour Name</h5></u></div>
 											        <p class="q-dtls">
 											            <a href="<?php echo e($form_action); ?>" target="_blank">
@@ -683,6 +682,22 @@
 									<!-- quote status -->
 									<td id=<?php echo e($query->query_reference); ?>>
 										<!-- booking label -->
+<?php if(Sentinel::check()): ?>
+										<?php if(Sentinel::getUser()->inRole('administrator') || Sentinel::getUser()->inRole('super_admin') || Sentinel::getUser()->inRole('supervisor')): ?>
+
+										<div class="dashboard-inner-table textCenter">
+												<div><u><h5>Assign Consultant</h5></u></div>
+											    <select class="user_assign q-select">
+													<option <?php if($query->assign_id=="0"): ?> selected <?php endif; ?> value="0">Unassigned</option>
+													<?php $__currentLoopData = $employee; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employees): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+													   <option value="<?php echo e($employees->id); ?>" <?php if($query->assign_id==$employees->id): ?> selected <?php endif; ?> ><?php echo e($employees->first_name); ?> <?php echo e($employees->last_name); ?></option>
+													<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+												</select>
+											</div>
+											<?php endif; ?>
+										<?php endif; ?>
+
+
 										<div class="dashboard-inner-table">
 											<table>
 												<tr>

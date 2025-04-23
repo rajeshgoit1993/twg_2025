@@ -422,7 +422,7 @@
 												<option id="0" quotation_no='0' ref_no='0'>Select Quote</option>
 												{{ CustomHelpers::get_quotation_option($query->quo_ref) }}
 											</select> -->
-											<button class="btn-backend-main btn-send-quote send_quote" data-id="{{ $query->query_reference }}">Email Quote</button>
+											<button class="btn-backend-main btn-send-quote send_quote" data-id="{{ $query->id }}">Email Quote</button>
 											@else
 											<a href="#">
 												<button class="btn-backend-main btnInfo btn-danger">Date Expired</button>
@@ -495,6 +495,22 @@
 
 								<!-- lead label -->
 								<td id="{{ $query->query_reference }}">
+
+									@if(Sentinel::check())
+										@if(Sentinel::getUser()->inRole('administrator') || Sentinel::getUser()->inRole('super_admin') || Sentinel::getUser()->inRole('supervisor'))
+
+										<div class="dashboard-inner-table textCenter">
+												<div><u><h5>Assign Consultant</h5></u></div>
+											    <select class="user_assign q-select">
+													<option @if($query->assign_id=="0") selected @endif value="0">Unassigned</option>
+													@foreach($employee as $employees)
+													   <option value="{{ $employees->id }}" @if($query->assign_id==$employees->id) selected @endif >{{ $employees->first_name }} {{ $employees->last_name }}</option>
+													@endforeach
+												</select>
+											</div>
+											@endif
+										@endif
+
 									<!-- booking label -->
 									<div class="dashboard-inner-table">
 										<table>

@@ -2,7 +2,12 @@
 var APP_URL = $('#baseurl').val();
 // Uncomment this line if you need to debug the URL
 // alert(APP_URL);
+let previousquerystatus;
+$(document).on('focus', '.query_status' , function() {
+  // Store the current value before it changes
+  previousquerystatus = $(this).val();
 
+});
 // Handle the form submission for '#follow_ups' form
 $(document).on("submit", "#follow_ups", function(event) {
     // Prevent the default form submission
@@ -372,7 +377,12 @@ $(document).on("submit", "#enquiry_lead_cancel", function(event) {
 });
 
 /************/
-
+function selectpreviousstatus(query_id)
+{
+    console.log(query_id)
+    $('#' + query_id).find('.query_status').val(previousquerystatus);
+    
+}
 $(document).ready(function() {
 
     // Check if the 'lead_follow_up_modal' element exists in the DOM
@@ -384,6 +394,11 @@ $(document).ready(function() {
         // Get the close button for the 'lead_follow_up_modal'
         var span = document.getElementsByClassName("btn_lead_modal_close")[0];
         span.onclick = function() {
+
+            var query_id = $("#query_id_lead_follow_up").val()
+
+           selectpreviousstatus(query_id)
+
             // Hide the 'lead_follow_up_modal' when the close button is clicked
             lead_follow_up_modal.style.display = "none";
         };
@@ -392,6 +407,9 @@ $(document).ready(function() {
         var span_cancelled = document.getElementsByClassName("btn_lead_modal_close_cancelled")[0];
         span_cancelled.onclick = function() {
             // Hide the 'lead_cancelled_modal' when the close button is clicked
+           var query_id = $("#query_id_lead_cancel").val()
+
+           selectpreviousstatus(query_id)
             lead_cancelled_modal.style.display = "none";
         };
 
@@ -399,10 +417,17 @@ $(document).ready(function() {
         window.onclick = function(event) {
             // Check if the click was on the 'lead_follow_up_modal'
             if (event.target == lead_follow_up_modal) {
+                var query_id = $("#query_id_lead_follow_up").val()
+
+           selectpreviousstatus(query_id)
                 lead_follow_up_modal.style.display = "none";
             }
             // Check if the click was on the 'lead_cancelled_modal'
             else if (event.target == lead_cancelled_modal) {
+
+        var query_id = $("#query_id_lead_cancel").val()
+
+           selectpreviousstatus(query_id)
                 lead_cancelled_modal.style.display = "none";
             }
         };
@@ -565,19 +590,22 @@ $(document).ready(function() {
     $(document).on('click', '.submit_status', function() {
 
         // Get the value of the status from a sibling input element
-        var status_value = $(this).siblings('.query_status').val();
+        var status_value = $(this).siblings().children('.query_status').val();
+        var enquiry_ref_no =  $(this).parent().parent().attr('enquiry_ref_no');
+var quote_ref_no =  $(this).parent().parent().attr('quote_ref_no');
+previousquerystatus = status_value;
         // Get the ID of the parent element
-        var id = $(this).parent().attr('id');
+        var id = $(this).parent().parent().attr('id');
 
         // Execute functions based on the status value
         if (status_value == 'lead_cancelled') {
-            cancel_lead_follow_up_data(id);
+            cancel_lead_follow_up_data(id,enquiry_ref_no,quote_ref_no);
         } else if (status_value == 'tour_cancelled') {
             cancel_tour_follow_up_data(id);
         } else if (status_value == 'refund_under_process') {
             refund_under_process_data(id);
         } else if (status_value == 'add_lead_follow_up' || status_value == 'lead_follow_up') {
-            add_lead_follow_up_data(id);
+            add_lead_follow_up_data(id,enquiry_ref_no,quote_ref_no);
         } else if (status_value == 'voucher_issued') {
             voucher_issued_remarks(id);
         } else if (status_value == 'payment_follow_up') {
@@ -1468,14 +1496,17 @@ $(document).ready(function() {
                 break;
         }
     });*/
+    
 
     $(document).on('change', '.query_status', function() {
         var status_value = $(this).val();
-        var id = $(this).parent().attr('id');
+        var id = $(this).parent().parent().parent().attr('id');
+var enquiry_ref_no =  $(this).parent().parent().parent().attr('enquiry_ref_no');
+var quote_ref_no =  $(this).parent().parent().parent().attr('quote_ref_no');
 
         switch (status_value) {
             case 'lead_cancelled':
-                cancel_lead_follow_up_data(id);
+                cancel_lead_follow_up_data(id,enquiry_ref_no,quote_ref_no);
                 break;
             case 'tour_cancelled':
                 cancel_tour_follow_up_data(id);
@@ -1485,7 +1516,7 @@ $(document).ready(function() {
                 break;
             case 'add_lead_follow_up':
             case 'lead_follow_up':
-                add_lead_follow_up_data(id);
+                add_lead_follow_up_data(id,enquiry_ref_no,quote_ref_no);
                 break;
             case 'payment_follow_up':
                 add_payment_follow_up(id);
@@ -1534,12 +1565,22 @@ $(document).ready(function() {
                         }
                     },
                     error: function(xhr) {
-                        swal({
-                            title: "Error!",
-                            text: "Something went wrong. Please try again.",
-                            type: "error",
-                            timer: 2000
-                        });
+                        let errorMessage = "Something went wrong. Please try again.";
+
+    
+    if (xhr.responseJSON && xhr.responseJSON.error) {
+        errorMessage = xhr.responseJSON.error;
+    }
+
+    swal({
+        title: "Error!",
+        text: errorMessage,
+        type: "error",
+        timer: 2500,
+        showConfirmButton: false
+    });
+    selectpreviousstatus(id)
+    
                     }
                 });
                 break;
@@ -1599,8 +1640,10 @@ $(document).ready(function() {
     /************/
 
     /*Handles cancellation of lead follow-up data.*/
-    function cancel_lead_follow_up_data(id) {
+    function cancel_lead_follow_up_data(id,enquiry_ref_no,quote_ref_no) {
         $("#query_id_lead_cancel").val(id); // Set the query ID in the hidden input field
+$(".enq_ref_no").html(enquiry_ref_no);
+$(".quote_ref_no").html(quote_ref_no);
 
         $.ajax({
             url: APP_URL + '/cancel_lead_follow_up_data',
@@ -1720,8 +1763,10 @@ $(document).ready(function() {
     /************/
 
     /*Handles adding lead follow-up data.*/
-    function add_lead_follow_up_data(id) {
+    function add_lead_follow_up_data(id,enquiry_ref_no,quote_ref_no) {
         $("#query_id_lead_follow_up").val(id); // Set the query ID in the hidden input field
+$(".enq_ref_no").html(enquiry_ref_no);
+$(".quote_ref_no").html(quote_ref_no);
 
         $.ajax({
             url: APP_URL + '/add_lead_follow_up_data',

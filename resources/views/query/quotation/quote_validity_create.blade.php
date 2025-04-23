@@ -9,7 +9,7 @@
 									?>
 									<div class="col-md-2">
 									    <label for="quoteValidity">Date valid upto</label>
-									    <input type="text" class="form-control datepicker_s" name="validaty" value="<?php echo $currentDate; ?>">
+									    <input type="text" class="form-control datepicker_s" name="validity" value="<?php echo $currentDate; ?>">
 									</div>
 
 									<!-- trip time validity -->

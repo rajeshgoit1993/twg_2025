@@ -22,6 +22,12 @@ $(document).ready(function () {
                 // Clear the modal body and append the fetched data
                 $("#modal-body").empty().append(data);
 
+$('#date_arrival').datepicker({
+    format: 'dd M yyyy', 
+    autoclose: true,
+    todayHighlight: true,
+    startDate: '0d',
+});
                 // Show the modal
                 $('#editEnquiryModal').modal('show');
             },

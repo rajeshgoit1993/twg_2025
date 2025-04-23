@@ -426,7 +426,7 @@
 												<?php echo e(CustomHelpers::get_quotation_option($query->quo_ref)); ?>
 
 											</select> -->
-											<button class="btn-backend-main btn-send-quote send_quote" data-id="<?php echo e($query->query_reference); ?>">Email Quote</button>
+											<button class="btn-backend-main btn-send-quote send_quote" data-id="<?php echo e($query->id); ?>">Email Quote</button>
 											<?php else: ?>
 											<a href="#">
 												<button class="btn-backend-main btnInfo btn-danger">Date Expired</button>
@@ -499,6 +499,22 @@
 
 								<!-- lead label -->
 								<td id="<?php echo e($query->query_reference); ?>">
+
+									<?php if(Sentinel::check()): ?>
+										<?php if(Sentinel::getUser()->inRole('administrator') || Sentinel::getUser()->inRole('super_admin') || Sentinel::getUser()->inRole('supervisor')): ?>
+
+										<div class="dashboard-inner-table textCenter">
+												<div><u><h5>Assign Consultant</h5></u></div>
+											    <select class="user_assign q-select">
+													<option <?php if($query->assign_id=="0"): ?> selected <?php endif; ?> value="0">Unassigned</option>
+													<?php $__currentLoopData = $employee; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employees): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+													   <option value="<?php echo e($employees->id); ?>" <?php if($query->assign_id==$employees->id): ?> selected <?php endif; ?> ><?php echo e($employees->first_name); ?> <?php echo e($employees->last_name); ?></option>
+													<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+												</select>
+											</div>
+											<?php endif; ?>
+										<?php endif; ?>
+
 									<!-- booking label -->
 									<div class="dashboard-inner-table">
 										<table>

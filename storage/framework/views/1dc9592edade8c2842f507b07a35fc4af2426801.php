@@ -19,8 +19,8 @@
 <!-- Title & Services -->
 <?php
     $price_data_first = CustomHelpers::get_price_part_seperate(
-        $data1->option1_price,
-        $data1->quote1_number_of_adult,
+        $data1->price,
+        $data1->adult,
         $data1->extra_adult,
         $data1->child_with_bed,
         $data1->child_without_bed,
@@ -52,205 +52,189 @@
     </div>
 </div>
 
-<!-- Departure City, Tour Date, Pricing & Quote Validity -->
-<div class="mtourQuoteDatePricingCont">
-    <div class="flex-column">
+<div class="tourQuoteDatePricingCont">
+    <div class="makeflex">
         <!-- Departure City -->
-        <div class="mtourQuoteCityBox">
-            <h4 class="mtourQuoteCityBoxHead">Starting City</h4>
-            <h3 class="mtourQuoteCityName"><?php echo e($data1->sourcecity); ?></h3>
+        <div class="tourQuoteCityBox">
+            <h4 class="tourQuoteCityBoxHead">DEPARTURE CITY</h4>
+            <?php
+                // Fetch city name using sourcecity ID
+                $sourceCityId = $data1->sourcecity ?? 0; // Fallback to 0 if null
+                $sourceCityName = class_exists('CustomHelpers') 
+                    ? CustomHelpers::get_master_table_data('city', 'id', $sourceCityId, 'name') 
+                    : 'N/A'; // Fallback to 'N/A' if helper not available or city not found
+            ?>
+            <h3 class="tourQuoteCityName"><?php echo e($sourceCityName); ?></h3>
         </div>
 
         <!-- Tour Date -->
-        <div class="mtourQuoteDateBox">
-            <h4 class="mtourQuoteDateBoxHead">Tour Date</h4>
+        <div class="tourQuoteDateBox">
+            <h4 class="tourQuoteDateBoxHead">TOUR DATE</h4>
             <?php
-                $originalDate = $data1->tour_date;
-                if ($originalDate == "N" || $originalDate == "") {
-                    $originalDate = date("d-m-Y");
-                }
+                    $originalDate = $data1->tour_date;
+                    
+                    if($originalDate=="N" || $originalDate==""):
+                        $originalDate=date("d-m-Y");
+                    endif;
+                    
+                    $datefrom = str_replace(' ', '', $originalDate);
+                    $datefrom=explode("-", $datefrom);
+                    
+                    $datefrom_year=$datefrom["2"];
+                    $datefrom_day=$datefrom["1"];                   
+                    $datefrom_month=$datefrom["0"];
 
-                $datefrom = str_replace(' ', '', $originalDate);
-                $datefrom = explode("-", $datefrom);
+                    $datefrom=$datefrom_year."-".$datefrom_month."-".$datefrom_day;
+                    
+                    $datefrom = "$datefrom_year-$datefrom_day-$datefrom_month";
+                    $stop_date = $datefrom;
+                    $date_to=$datefrom;
 
-                $datefrom_year = $datefrom[2];
-                $datefrom_day = $datefrom[1];
-                $datefrom_month = $datefrom[0];
-                $datefrom = "$datefrom_year-$datefrom_month-$datefrom_day";
-                $datefrom = "$datefrom_year-$datefrom_day-$datefrom_month";
-                $stop_date = $datefrom;
-                $date_to = $datefrom;
-                $datefrom_print = date("d M Y", strtotime($datefrom));
-                $day_from = date('D', strtotime($datefrom));
+                    $datefrom_print = date("d M Y", strtotime($datefrom));
+                    $day_from = strtotime($datefrom);
+                    $day_from = date('D', $day_from);
+                    
+                    $to_days=$data1->duration-1;
+                    
+                    $stop_date = date('Y-m-d', strtotime($stop_date . ' +'.$to_days.' days'));
+                    $stop_date_print= date("d M Y", strtotime($stop_date));
 
-                $to_days = $data1->duration - 1;
-                $stop_date = date('Y-m-d', strtotime($stop_date . ' +'.$to_days.' days'));
-                $stop_date_print = date("d M Y", strtotime($stop_date));
-                $day_to = date('D', strtotime($stop_date));
-            ?>
-            <h3 class="mtourQuoteDepDate"><?php echo e($datefrom_print); ?></h3>
-            <p class="mtourQuoteDateBoxHead appendTop10">To</p>
-            <p class="mtourQuoteRetDate"><?php echo e($stop_date_print); ?></p>
+                    $day_to = strtotime($stop_date);
+                    $day_to = date('D', $day_to);
+                ?>
+            <h3 class="tourQuoteDepDate"><?php echo e($datefrom_print); ?></h3>
+            <p class="tourQuoteDateBoxHead appendTop10">TO</p>
+            <p class="tourQuoteRetDate"><?php echo e($stop_date_print); ?></p>
         </div>
 
         <!-- Pricing -->
-        <div class="mtourQuotePriceBox">
-            <?php if($data1->option1_price_type == "Per Person"): ?>
+        <div class="tourQuotePriceBox">
+            <?php if(($data1->price_type ?? '') === "Per Person"): ?>
                 <div>
+
                     <div class="makeflexCenterBewtween">
-                        <p class="mtourQuotePriceBoxSubHead">Total Basic Cost</p>
-                        <p class="mtourQuotePriceValue">
-                            <span class="mtourQuoteDefaultCurency"> </span>
-                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_adult'] + $price_data_first['query_total_exadult'] + $price_data_first['query_total_childbed'] + $price_data_first['query_total_childwbed'] + $price_data_first['query_total_infant'] + $price_data_first['query_total_single'])); ?>
+                        <p class="tourQuotePriceBoxSubHead">Total Basic Cost</p>
+                        <p class="tourQuotePriceValue defaultCurrency">
+                           <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller)))); ?>
 
                         </p>
                     </div>
-                    <div class="mtourQuotePriceSeparator"></div>
+                    <div class="tourQuotePriceSeparator"></div>
                     <div class="makeflexCenterBewtween">
-                        <p class="mtourQuotePriceBoxSubHead">Discount (-)</p>
-                        <p class="mtourQuotePriceValue">
-                            <span class="mtourQuoteDefaultCurency"> </span>
-                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_discount_minus_adult'] + $price_data_first['query_discount_minus_exadult'] + $price_data_first['query_discount_minus_childbed'] + $price_data_first['query_discount_minus_childwbed'] + $price_data_first['query_discount_minus_infant'] + $price_data_first['query_discount_minus_single'])); ?>
+                        <p class="tourQuotePriceBoxSubHead">Discount (-)</p>
+                        <p class="tourQuotePriceValue">
+                            <span class="tourQuoteDefaultCurency"> </span>
+                             <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_discount_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller)))); ?>
 
                         </p>
                     </div>
-
-                    <?php if(round($price_data_first['query_total_gst_group'] / ($data1->quote1_number_of_adult + $data1->extra_adult + $data1->child_with_bed + $data1->child_without_bed + $data1->infant + $data1->solo_traveller)) > 0): ?>
-                        <div class="mtourQuotePriceSeparator"></div>
+                    <?php if(round($price_data_first['query_total_gst_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller))>0): ?>
+                        <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="mtourQuotePriceBoxSubHead">GST
-                                <?php if($price_data_first['query_gst_curr'] == 2): ?>
-                                    (<?php echo e($price_data_first['gst_percentage']); ?>%)
-                                <?php endif; ?>
-                            </p>
-                            <p class="mtourQuotePriceValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
-                                <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_gst_adult'] + $price_data_first['query_gst_exadult'] + $price_data_first['query_gst_childbed'] + $price_data_first['query_gst_childwbed'] + $price_data_first['query_gst_infant'] + $price_data_first['query_gst_single']))); ?>
+                            <p class="tourQuotePriceBoxSubHead">GST <?php if($price_data_first['query_gst_curr']==2): ?>&nbsp;(<?php echo e($price_data_first['gst_percentage']); ?>%) <?php endif; ?></p>
+                            <p class="tourQuotePriceValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
+                               <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller)))); ?>
 
                             </p>
                         </div>
                     <?php endif; ?>
-
-                    <?php if(round($price_data_first['query_total_tcs_group'] / ($data1->quote1_number_of_adult + $data1->extra_adult + $data1->child_with_bed + $data1->child_without_bed + $data1->infant + $data1->solo_traveller)) > 0): ?>
-                        <div class="mtourQuotePriceSeparator"></div>
+                    <?php if(round($price_data_first['query_total_tcs_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller))>0): ?>
+                        <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="mtourQuotePriceBoxSubHead">TCS
-                                <?php if($price_data_first['query_tcs_curr'] == 2): ?>
-                                    (<?php echo e($price_data_first['tcs_percentage']); ?>%)
-                                <?php endif; ?>
-                            </p>
-                            <p class="mtourQuotePriceValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
-                                <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_tcs_adult'] + $price_data_first['query_tcs_exadult'] + $price_data_first['query_tcs_childbed'] + $price_data_first['query_tcs_childwbed'] + $price_data_first['query_tcs_infant'] + $price_data_first['query_tcs_single']))); ?>
+                            <p class="tourQuotePriceBoxSubHead">TCS <?php if($price_data_first['query_tcs_curr']==2): ?>&nbsp;(<?php echo e($price_data_first['tcs_percentage']); ?>%) <?php endif; ?></p>
+                            <p class="tourQuotePriceValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
+                                <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller)))); ?>
 
                             </p>
                         </div>
                     <?php endif; ?>
-
-                    <?php if(round($price_data_first['query_total_pg_group'] / ($data1->quote1_number_of_adult + $data1->extra_adult + $data1->child_with_bed + $data1->child_without_bed + $data1->infant + $data1->solo_traveller)) > 0): ?>
-                        <div class="mtourQuotePriceSeparator"></div>
+                   <?php if(round($price_data_first['query_total_pg_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller))>0): ?>
+                        <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="mtourQuotePriceBoxSubHead">PG
-                                <?php if($price_data_first['pg_charges'] == 2): ?>
-                                    (<?php echo e($price_data_first['pgcharges_percentage']); ?>%)
-                                <?php endif; ?>
-                            </p>
-                            <p class="mtourQuotePriceValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
-                                <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_pgcharges_adult'] + $price_data_first['query_pgcharges_exadult'] + $price_data_first['query_pgcharges_childbed'] + $price_data_first['query_pgcharges_childwbed'] + $price_data_first['query_pgcharges_infant'] + $price_data_first['query_pgcharges_single']))); ?>
+                            <p class="tourQuotePriceBoxSubHead">PG <?php if($price_data_first['pg_charges']==2): ?>&nbsp;(<?php echo e($price_data_first['pgcharges_percentage']); ?>%) <?php endif; ?></p>
+                            <p class="tourQuotePriceValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
+                                 <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller)))); ?>
 
                             </p>
                         </div>
                     <?php endif; ?>
-
-                    <div class="mtourQuotePriceSeparator"></div>
+                    <div class="tourQuotePriceSeparator"></div>
                     <div class="flexBetween">
                         <div>
-                            <p class="mtourQuotePriceTotal">Grand Total</p>
-                            <p class="mtourQuotePriceTagline">( <?php echo e($data1->anything); ?> )</p>
+                            <p class="tourQuotePriceTotal">Grand Total</p>
+                            <p class="tourQuotePriceTagline">( <?php echo e($data1->anything); ?> )</p>
                         </div>
                         <div>
-                            <p class="mtourQuotePriceTotalValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
-                                <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_grand_adult'] + $price_data_first['query_grand_exadult'] + $price_data_first['query_grand_childbed'] + $price_data_first['query_grand_childwbed'] + $price_data_first['query_grand_infant'] + $price_data_first['query_grand_single']))); ?>
+                            <p class="tourQuotePriceTotalValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
+                                <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_pricetopay_adult']/($data1->adult+$data1->extra_adult+$data1->child_with_bed+$data1->child_without_bed+$data1->infant+$data1->solo_traveller)))); ?>
 
                             </p>
                         </div>
                     </div>
                 </div>
-            <?php elseif($data1->option1_price_type == "Group Price"): ?>
+           <?php elseif($data1->price_type=="Group Price"): ?>
                 <div>
                     <div class="makeflexCenterBewtween">
                         <p class="tourQuotePriceBoxSubHead">Total Basic Cost</p>
-                        <p class="mtourQuotePriceValue">
-                            <span class="mtourQuoteDefaultCurency"> </span>
-                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_group'])); ?>
+                        <p class="tourQuotePriceValue">
+                            <span class="tourQuoteDefaultCurency"> </span>
+                           <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_group'])); ?>
 
                         </p>
                     </div>
-                    <div class="mtourQuotePriceSeparator"></div>
+                    <div class="tourQuotePriceSeparator"></div>
                     <div class="makeflexCenterBewtween">
-                        <p class="mtourQuotePriceBoxSubHead">Discount (-)</p>
-                        <p class="mtourQuotePriceValue">
-                            <span class="mtourQuoteDefaultCurency"> </span>
-                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_discount_group'])); ?>
+                        <p class="tourQuotePriceBoxSubHead">Discount (-)</p>
+                        <p class="tourQuotePriceValue">
+                            <span class="tourQuoteDefaultCurency"> </span>
+                             <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_discount_group'])); ?>
 
                         </p>
                     </div>
-
-                    <?php if(round($price_data_first['query_total_gst_group']) > 0): ?>
-                        <div class="mtourQuotePriceSeparator"></div>
+                     <?php if(round($price_data_first['query_total_gst_group'])>0): ?>
+                        <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="mtourQuotePriceBoxSubHead">GST
-                                <?php if($price_data_first['query_gst_curr'] == 2): ?>
-                                    (<?php echo e($price_data_first['gst_percentage']); ?>%)
-                                <?php endif; ?>
-                            </p>
-                            <p class="mtourQuotePriceValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
+                            <p class="tourQuotePriceBoxSubHead">GST <?php if($price_data_first['query_gst_curr']==2): ?>&nbsp;(<?php echo e($price_data_first['gst_percentage']); ?>%) <?php endif; ?></p>
+                            <p class="tourQuotePriceValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
                                 <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_gst_group']))); ?>
 
                             </p>
                         </div>
                     <?php endif; ?>
-
-                    <?php if(round($price_data_first['query_total_tcs_group']) > 0): ?>
-                        <div class="mtourQuotePriceSeparator"></div>
+                    <?php if(round($price_data_first['query_total_tcs_group'])>0): ?>
+                        <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="mtourQuotePriceBoxSubHead">TCS
-                                <?php if($price_data_first['query_tcs_curr'] == 2): ?>
-                                    (<?php echo e($price_data_first['tcs_percentage']); ?>%)
-                                <?php endif; ?>
-                            </p>
-                            <p class="mtourQuotePriceValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
+                            <p class="tourQuotePriceBoxSubHead">TCS <?php if($price_data_first['query_tcs_curr']==2): ?>&nbsp;(<?php echo e($price_data_first['tcs_percentage']); ?>%) <?php endif; ?></p>
+                            <p class="tourQuotePriceValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
                                 <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_tcs_group']))); ?>
 
                             </p>
                         </div>
                     <?php endif; ?>
-
-                    <?php if(round($price_data_first['query_total_pg_group']) > 0): ?>
-                        <div class="mtourQuotePriceSeparator"></div>
+                    <?php if(round($price_data_first['query_total_pg_group'])>0): ?>
+                        <div class="tourQuotePriceSeparator"></div>
                         <div class="makeflexCenterBewtween">
-                            <p class="mtourQuotePriceBoxSubHead">PG
-                                <?php if($price_data_first['pg_charges'] == 2): ?>
-                                    (<?php echo e($price_data_first['pgcharges_percentage']); ?>%)
-                                <?php endif; ?>
-                            </p>
-                            <p class="mtourQuotePriceValue">
-                                <span class="mtourQuoteDefaultCurency"> </span>
+                            <p class="tourQuotePriceBoxSubHead">PG <?php if($price_data_first['pg_charges']==2): ?> selected 
+                  (<?php echo e($price_data_first['pgcharges_percentage']); ?>%)
+                   <?php endif; ?></p>
+                            <p class="tourQuotePriceValue">
+                                <span class="tourQuoteDefaultCurency"> </span>
                                 <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_total_pg_group']))); ?>
 
                             </p>
                         </div>
                     <?php endif; ?>
-
-                    <div class="mtourQuotePriceSeparator"></div>
+                    <div class="tourQuotePriceSeparator"></div>
                     <div class="makeflexCenterBewtween">
-                        <p class="mtourQuotePriceTotal">Grand Total</p>
-                        <p class="mtourQuotePriceTotalValue">
-                            <span class="mtourQuoteDefaultCurency"> </span>
+                        <p class="tourQuotePriceTotal">Grand Total</p>
+                        <p class="tourQuotePriceTotalValue">
+                            <span class="tourQuoteDefaultCurency"> </span>
                             <?php echo e(CustomHelpers::get_indian_currency(round($price_data_first['query_pricetopay_adult']))); ?>
 
                         </p>
@@ -261,19 +245,19 @@
     </div>
 
     <!-- Quote Validity -->
-    <?php if($data1->validity_show_on_frontend == 'No'): ?>
-        <?php if($data1->option1_validaty != ""): ?>
-            <div class="mtourQuoteValidity">
-                Quote validity - <?php echo e(date("d M Y", strtotime(str_replace('/', '-', $data1->option1_validaty)))); ?>
+     <?php if($data1->validity_show_on_frontend=='No'): ?>
+        <?php if($data1->quote_validity!=""): ?>
+        <div class="tourQuoteValidity">
+            QUOTE VALIDITY - <?php echo e(date("d M Y", strtotime(str_replace('/', '-', $data1->quote_validaty)))); ?>
 
-            </div>
-            <?php if($data1->validaty_time != '23:59:59'): ?>
-                <?php echo e($data1->validaty_time); ?>
+            <?php if($data1->validity_time!='23:59:59'): ?>
+                <?php echo e($data1->validity_time); ?>
 
-            <?php endif; ?>
+                <?php endif; ?>
+        </div>
         <?php endif; ?>
     <?php else: ?>
-        <div class="mtourQuoteValidity">Pay Immediately</div>
+        <div class="tourQuoteValidity">Pay Immediately</div>
     <?php endif; ?>
 </div>
 
@@ -392,138 +376,162 @@
 
 <!-- Accommodation -->
 <div class="mtourQuoteHotelCont">
-    <h4 class="mtourQuoteHotelHead">ACCOMMODATION</h4>
-    <?php
-        $acco = $data1->option1_accommodation ? unserialize($data1->option1_accommodation) : [];
-        $i = 1;
-    ?>
-    <?php if(is_array($acco) && !empty($acco)): ?>
-        <?php $__currentLoopData = $acco; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $acco_data): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
-            <div class="mtourQuoteHotelBox">
-                <div class="mtourQuoteHotelTitle">
-                    <?php echo e($acco_data["city"]); ?>
+            <h4 class="mtourQuoteHotelHead">ACCOMMODATION</h4>
+            <?php
+                $acco=unserialize($data1->accommodation);
+                $i="1";
 
-                    <?php if($i > 1): ?>
+            ?>
+            <?php $__currentLoopData = $acco; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $acco_data): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                <div class="mtourQuoteHotelBox">
+                    <div class="mtourQuoteHotelTitle"><?php echo e($acco_data["city"]); ?>
+
+                        <?php if($i>1): ?>
                         <br>
-                    <?php endif; ?>
-                </div>
-                <div class="mtourQuoteHotelDescBox">
-                    <div class="flex-column">
-                        <!-- Property Image -->
-                        <div class="mhotelImageBox">
-                            <?php if(array_key_exists("hotel", $acco_data)): ?>
-                                <?php if($acco_data["hotel"] != "" && $acco_data["hotel"] != "other"): ?>
-                                    <img src="<?php echo e(url('/public/uploads/package_hotel/'.CustomHelpers::getpackagerecord($acco_data['hotel'], 'package_hotel', 'hotel_image'))); ?>" alt="img">
-                                <?php elseif($acco_data["hotel"] == "other"): ?>
-                                    <img src="<?php echo e(url('/public/uploads/no-image.png')); ?>" alt="img">
+                        <?php endif; ?>
+                    </div>
+                    <div class="mtourQuoteHotelDescBox">
+                        <div class="flex-column">
+                            <!--Property Image-->
+                            <div class="mhotelImageBox">
+                                <?php if(array_key_exists("hotel",$acco_data)): ?>
+                                    <?php if($acco_data["hotel"]!="" && $acco_data["hotel"]!="other"): ?>
+                                        <img src="<?php echo e(url('/public/uploads/package_hotel/'.CustomHelpers::getpackagerecord($acco_data['hotel'],'package_hotel','hotel_image'))); ?>" alt="img">
+                                        <?php elseif($acco_data["hotel"]=="other"): ?>
+                                        <img src="<?php echo e(url('/public/uploads/no-image.png')); ?>" alt="img">
+                                    <?php endif; ?>
+                                    <?php else: ?>
+                                        <img src="<?php echo e(url('/public/uploads/no-image.png')); ?>" alt="img">
                                 <?php endif; ?>
-                            <?php else: ?>
-                                <img src="<?php echo e(url('/public/uploads/no-image.png')); ?>" alt="img">
-                            <?php endif; ?>
-                        </div>
-                        <div class="mhotelDescBox">
-                            <div class="mhotelTopSection">
-                                <div class="mhotelType">Hotel</div>
-                                <!-- Hotel Name -->
-                                <div class="mtourHotelDtls">
-                                    <h5 class="mhotelName">
-                                        <?php if(array_key_exists("hotel", $acco_data) && $acco_data["hotel"] != "" && $acco_data["hotel"] != "other"): ?>
-                                            <?php echo e(CustomHelpers::getpackagerecord($acco_data["hotel"], 'package_hotel', 'hotelname')); ?>
+                            </div>
+                            <div class="mhotelDescBox">
+                                <div class="mhotelTopSection">
+                                    <div class="mhotelType">Hotel</div>
+                                    <!--Hotel Name-->
+                                    <div class="mtourHotelDtls">
+                                        <h5 class="mhotelName">
+                                            <?php if(array_key_exists("hotel",$acco_data)
+                                                && $acco_data["hotel"]!=""
+                                                && $acco_data["hotel"]!="other"): ?>
+                                                <?php echo e(CustomHelpers::getpackagerecord($acco_data["hotel"],'package_hotel','hotelname')); ?>
 
-                                        <?php elseif(array_key_exists("other_hotel", $acco_data) && $acco_data["other_hotel"] != ""): ?>
-                                            <?php echo e($acco_data["other_hotel"]); ?>
+                                                <?php echo e(CustomHelpers::getpackagerecord($acco_data["hotel"],'package_hotel','hotelname')); ?>
+
+                                            <?php elseif(array_key_exists("other_hotel",$acco_data) && $acco_data["other_hotel"]!=""): ?>
+                                                <?php echo e($acco_data["other_hotel"]); ?>
+
+                                            <?php endif; ?>
+                                        </h5>
+                                    </div>
+                                    <div class="mhotelStarRating">
+                                        <?php if(array_key_exists("star",$acco_data) && $acco_data["star"]!="" && $acco_data["star"]!="other"): ?>
+                                            <?php echo e(CustomHelpers::get_star_rating($acco_data["star"])); ?>
+
+                                        <?php elseif(array_key_exists("star_other",$acco_data) && $acco_data["star_other"]!=""): ?>
+                                            <?php echo e(CustomHelpers::get_star_rating($acco_data["star_other"])); ?>
 
                                         <?php endif; ?>
-                                    </h5>
+                                    </div>
+                                    <!--Destination City Name-->
+                                    <div class="mhotelCityName"><?php echo e($acco_data["city"]); ?></div>
                                 </div>
-                                <div class="mhotelStarRating">
-                                    <?php if(array_key_exists("star", $acco_data) && $acco_data["star"] != "" && $acco_data["star"] != "other"): ?>
-                                        <?php echo e(CustomHelpers::get_star_rating($acco_data["star"])); ?>
 
-                                    <?php elseif(array_key_exists("star_other", $acco_data) && $acco_data["star_other"] != ""): ?>
-                                        <?php echo e(CustomHelpers::get_star_rating($acco_data["star_other"])); ?>
+                                <div class="mhotelFooter">
+                                    <div>
+                                        <?php
+                                                $day1="0";
+                                                $day="0";
+                                            ?>
+                                                <?php if($acco_data!="" && array_key_exists("night",$acco_data)): ?>
+                                                <?php
+                                                    $day1=(int)filter_var($acco_data["night"]["0"], FILTER_SANITIZE_NUMBER_INT);
 
+                                                    $day1=$day1-1;
+                          
+                                                ?>
+                                                <?php endif; ?>
+                                                <?php
+                                                $datefrom_checkin = "$datefrom_year-$datefrom_day-$datefrom_month";
+                                                $checkin_date = date('Y-m-d', strtotime($datefrom_checkin . ' +'.$day1.' days'));
+                                                $checkin_date_print= date("d M Y", strtotime($checkin_date));
+                                                $day_checkin = strtotime($checkin_date);
+                                                $day_checkin = date('D', $day_checkin);
+                                                ?>
+                                                <?php if($acco_data!="" && array_key_exists("night",$acco_data)): ?>
+                                                <?php $__currentLoopData = $acco_data["night"]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $accday): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                <?php $day=(int)filter_var($accday, FILTER_SANITIZE_NUMBER_INT); ?>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+                                                <?php endif; ?>
+                                                <?php
+                                                $datefrom_checkout = "$datefrom_year-$datefrom_day-$datefrom_month";
+                                                $checkout_date = date('Y-m-d', strtotime($datefrom_checkout . ' +'.$day.' days'));
+                                                $checkout_date_print= date("d M Y", strtotime($checkout_date));
+                                                $day_checkout = strtotime($checkout_date);
+                                                $day_checkout = date('D', $day_checkout);
+                                                ?>
+                                       
+
+                                        <div class="flexBetween appendBottom20">
+                                            <!-- Room Type -->
+                                            <div class="mhotelRoomCont">
+                                                <p class="mhotelRoomCont_heading">ROOM TYPE</p>
+                                                <?php if($acco_data["category"]!=""): ?>
+                                                <p class="mhotelRoomCont_type"><?php echo e($acco_data["category"]); ?></p>
+                                                <?php endif; ?>
+                                            </div>
+
+                                            <!-- No of Nights -->
+                                            <div>
+                                                <p class="mhotelDaysBadge_heading">NO OF NIGHTS</p>
+                                                <p class="mhotelDaysBadge_nightCount">
+                                                <?php
+                                                     $date1=date_create($checkin_date);
+                                                     $date2=date_create($checkout_date);
+                                                    $diff=date_diff($date1,$date2);
+                                                    ?>
+                                                    <?php if($diff->format("%a")>1): ?> <?php echo e($diff->format("%a Nights")); ?> <?php else: ?> <?php echo e($diff->format("%a Night")); ?> <?php endif; ?>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!--Check-in & Checkout-->
+                                        <div class="mhotelCheckInOut">
+                                            <div class="mhotelCheckInCont">
+                                                <p class="mhotelCheckInCont_heading">CHECK-IN </p>
+                                                <p class="mhotelCheckInCont_date"><?php echo e($checkin_date_print); ?></p>
+                                            </div>
+                                            <!--<div>
+                                                <h5 class="mhotelDaysBadge_nightCount">
+                                                    <?php
+                                                     $date1=date_create($checkin_date);
+                                                     $date2=date_create($checkout_date);
+                                                    $diff=date_diff($date1,$date2);
+                                                    ?>
+                                                    <?php if($diff->format("%a")>1): ?> <?php echo e($diff->format("%a Nights")); ?> <?php else: ?> <?php echo e($diff->format("%a Night")); ?> <?php endif; ?>
+                                                </h5>
+                                            </div>-->
+                                            <div class="mhotelCheckOutCont">
+                                                <p class="mhotelCheckOutCont_heading">CHECKOUT </p>
+                                                <p class="mhotelCheckOutCont_date"><?php echo e($checkout_date_print); ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Hotel Website -->
+                                    <?php if($acco_data["hotel_link"]!=""): ?>
+                                    <div class="mhotelWebCont">
+                                            <p class="mhotelWebCont_heading">HOTEL WEBSITE</p>
+                                            <p class="mhotelWebCont_name"><?php echo e($acco_data["hotel_link"]); ?></p>
+                                    </div>
                                     <?php endif; ?>
                                 </div>
-                                <!-- Destination City Name -->
-                                <div class="mhotelCityName"><?php echo e($acco_data["city"]); ?></div>
-                            </div>
-
-                            <div class="mhotelFooter">
-                                <div>
-                                    <?php
-                                        $day1 = "0";
-                                        $day = "0";
-                                        if (array_key_exists("night", $acco_data) && is_array($acco_data["night"]) && !empty($acco_data["night"])) {
-                                            $day1 = (int) filter_var($acco_data["night"][0], FILTER_SANITIZE_NUMBER_INT);
-                                            $day1 = $day1 - 1;
-                                            $datefrom_checkin = "$datefrom_year-$datefrom_day-$datefrom_month";
-                                            $checkin_date = date('Y-m-d', strtotime($datefrom_checkin . ' +'.$day1.' days'));
-                                            $checkin_date_print = date("d M Y", strtotime($checkin_date));
-                                            $day_checkin = date('D', strtotime($checkin_date));
-
-                                            foreach ($acco_data["night"] as $accday) {
-                                                $day = (int) filter_var($accday, FILTER_SANITIZE_NUMBER_INT);
-                                            }
-                                            $datefrom_checkout = "$datefrom_year-$datefrom_day-$datefrom_month";
-                                            $checkout_date = date('Y-m-d', strtotime($datefrom_checkout . ' +'.$day.' days'));
-                                            $checkout_date_print = date("d M Y", strtotime($checkout_date));
-                                            $day_checkout = date('D', strtotime($checkout_date));
-                                        }
-                                    ?>
-                                    <div class="flexBetween appendBottom20">
-                                        <!-- Room Type -->
-                                        <div class="mhotelRoomCont">
-                                            <p class="mhotelRoomCont_heading">ROOM TYPE</p>
-                                            <?php if(array_key_exists("category", $acco_data) && $acco_data["category"] != ""): ?>
-                                                <p class="mhotelRoomCont_type"><?php echo e($acco_data["category"]); ?></p>
-                                            <?php endif; ?>
-                                        </div>
-
-                                        <!-- No of Nights -->
-                                        <div>
-                                            <p class="mhotelDaysBadge_heading">NO OF NIGHTS</p>
-                                            <p class="mhotelDaysBadge_nightCount">
-                                                <?php
-                                                    if ($day1 !== "0" && $day !== "0") {
-                                                        $date1 = date_create($checkin_date);
-                                                        $date2 = date_create($checkout_date);
-                                                        $diff = date_diff($date1, $date2);
-                                                        echo $diff->format("%a") > 1 ? $diff->format("%a Nights") : $diff->format("%a Night");
-                                                    }
-                                                ?>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Check-in & Checkout -->
-                                    <div class="mhotelCheckInOut">
-                                        <div class="mhotelCheckInCont">
-                                            <p class="mhotelCheckInCont_heading">CHECK-IN</p>
-                                            <p class="mhotelCheckInCont_date"><?php echo e($checkin_date_print ?? ''); ?></p>
-                                        </div>
-                                        <div class="mhotelCheckOutCont">
-                                            <p class="mhotelCheckOutCont_heading">CHECKOUT</p>
-                                            <p class="mhotelCheckOutCont_date"><?php echo e($checkout_date_print ?? ''); ?></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Hotel Website -->
-                                <?php if(array_key_exists("hotel_link", $acco_data) && $acco_data["hotel_link"] != ""): ?>
-                                    <div class="mhotelWebCont">
-                                        <p class="mhotelWebCont_heading">HOTEL WEBSITE</p>
-                                        <p class="mhotelWebCont_name"><?php echo e($acco_data["hotel_link"]); ?></p>
-                                    </div>
-                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
                 </div>
                 <?php $i++; ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
-        <?php endif; ?>
-    </div>
+        </div>
 
     <!-- Itinerary -->
     <?php 

@@ -309,10 +309,14 @@
 										</div>
 									</td>								
 
+	
 									<!-- ********************** -->
+									 
+
+									
 
 									<!-- lead status -->
-									<td id="{{ $query->id }}">
+									<td id="{{ $query->id }}" enquiry_ref_no="{{$query->enquiry_ref_no}}"  quote_ref_no="NA" >
 										<div class="dashboard-inner-table textCenter">
 											<div><u><h5>Update status</h5></u></div>
 											<div>
@@ -411,6 +415,16 @@
 											        <option value="1" @if($query->lead_verified == "1") selected @endif>Yes</option>
 											    </select>
 										    </div>
+
+										    <div class="dashboard-inner-table textCenter">
+												<div><u><h5>Assign Consultant</h5></u></div>
+											    <select class="user_assign q-select">
+													<option @if($query->assign_id=="0") selected @endif value="0">Unassigned</option>
+													@foreach($employee as $employees)
+													   <option value="{{ $employees->id }}" @if($query->assign_id==$employees->id) selected @endif >{{ $employees->first_name }} {{ $employees->last_name }}</option>
+													@endforeach
+												</select>
+											</div>
 
 										    @if($val == 2)
 												<div class="dashboard-inner-table textCenter">

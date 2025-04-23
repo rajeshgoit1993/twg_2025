@@ -290,7 +290,7 @@ public static function get_package_details($Packages, $return_type)
            $packageData->directPayments = isset($Packages->directPayments) ? $Packages->directPayments : null; 
            $packageData->second_directPayments = isset($Packages->second_directPayments) ? $Packages->second_directPayments : null; 
            $packageData->third_directPayments = isset($Packages->third_directPayments) ? $Packages->third_directPayments : null; 
-           $packageData->quote_validaty = isset($Packages->quote_validaty) ? $Packages->quote_validaty : null;
+           $packageData->quote_validity = isset($Packages->quote_validity) ? $Packages->quote_validity : null;
            $packageData->validity_time = isset($Packages->validity_time) ? $Packages->validity_time : null; 
            $packageData->validity_show_on_frontend = isset($Packages->validity_show_on_frontend) ? $Packages->validity_show_on_frontend : null; 
 
@@ -1529,7 +1529,7 @@ endif;
   public static function get_price_part_seperate($price,$adult,$extra_adult,$child_with_bed,$child_without_bed,$infant,$solo_traveller)
   {
     $price=unserialize($price);
-
+    
     $data1=[
     "quote_airfare" => array_key_exists('quote_airfare',$price) ? $price['quote_airfare'] : 0 ,
     "quote_airfare_remarks" => array_key_exists('quote_airfare_remarks',$price) ? $price['quote_airfare_remarks'] : 0 , 
@@ -4937,71 +4937,35 @@ $sta=CustomHelpers::get_master_table_data('city', 'id', (int)$datavalue->city, '
 
   public static function get_remaining_amount_second($quote_no, $unique_code)
   {
-      // Only use quote1_id from session as per your modified quotation_details_first
+     
       $quote1_id = Session::get($unique_code . 'quote1_id');
   
-      // Since we're only using the Quote model, ignore other quote IDs
-      if ($quote_no != 1) {
-          // Return early or throw an exception if quote_no is not 1, as only Quote model is used
-          return 0; // Or throw new Exception("Invalid quote number: Only quote_no 1 is supported.");
-      }
+      
   
       // Fetch data from Quote model
       $data = Quote::find((int)$quote1_id);
   
-      // Check if data exists
-      if (!$data) {
-          // Handle the case where no quote is found
-          return 0; // Or throw new Exception("Quote not found for ID: $quote1_id");
-      }
-  
-      // Assuming Quote model has these fields; adjust as per your Quote model schema
-      $quote_ref_no = $data->quo_ref; // Ensure 'quo_ref' exists in your Quote model
-      $price = $data->price; // Adjust to the actual price field in your Quote model
-  
-      // Calculate price breakdown (adjust parameters based on your Quote model fields)
-      $price_data = CustomHelpers::get_price_part_seperate(
-          $data->price,
-          $data->number_of_adult ?? 0, // Adjust field names as per your Quote model
-          $data->extra_adult ?? 0,
-          $data->child_with_bed ?? 0,
-          $data->child_without_bed ?? 0,
-          $data->infant ?? 0,
-          $data->solo_traveller ?? 0
-      );
-  
+      $quote_ref_no=$data->quo_ref;
+        $price=$data->price;
+        $price_data=CustomHelpers::get_price_part_seperate($data->price,$data->adult,$data->extra_adult,$data->child_with_bed,$data->child_without_bed,$data->infant,$data->solo_traveller);
+
+
       // Use the calculated price for the adult portion
-      $total_quote_amount = $price_data['query_pricetopay_adult'];
-  
-      // Calculate previous payments, MDR, and GST
+     $total_quote_amount=$price_data['query_pricetopay_adult'];
+
       $previous_amount = DB::table('rt_payments')
-          ->where([
-              ['quote_ref_no', '=', $quote_ref_no],
-              ['status', '=', 1],
-              ['transaction_type', '=', 0]
-          ])
-          ->sum('amount');
-  
+       ->where([['quote_ref_no','=',$quote_ref_no],['status','=',1],['transaction_type','=',0]])
+       ->sum('amount');
       $mdr_amount = DB::table('rt_payments')
-          ->where([
-              ['quote_ref_no', '=', $quote_ref_no],
-              ['status', '=', 1],
-              ['transaction_type', '=', 0]
-          ])
-          ->sum('mdr_amount');
-  
+       ->where([['quote_ref_no','=',$quote_ref_no],['status','=',1],['transaction_type','=',0]])
+       ->sum('mdr_amount');
+
       $gst_on_mdr_amount = DB::table('rt_payments')
-          ->where([
-              ['quote_ref_no', '=', $quote_ref_no],
-              ['status', '=', 1],
-              ['transaction_type', '=', 0]
-          ])
-          ->sum('gst_on_mdr_amount');
-  
-      // Calculate due amount
-      $due_amount = (int)$total_quote_amount - ((int)$previous_amount - ((int)$mdr_amount + (int)$gst_on_mdr_amount));
-  
-      return $due_amount;
+       ->where([['quote_ref_no','=',$quote_ref_no],['status','=',1],['transaction_type','=',0]])
+       ->sum('gst_on_mdr_amount');
+
+       $due_amount=(int)$total_quote_amount-((int)$previous_amount-((int)$mdr_amount+(int)$gst_on_mdr_amount));
+       return $due_amount;
   }
     
   //

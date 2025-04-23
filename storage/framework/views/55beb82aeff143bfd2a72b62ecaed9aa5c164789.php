@@ -6,7 +6,7 @@
 									<div class="col-md-2">
 										<label for="quoteValidity">Quote Validity Date</label>
 										<input type="text" class="
-										datepicker_s form-control" name="validaty" value="<?php echo e(date('d/m/Y' ,strtotime($packagesData->quote_validaty))); ?>">
+										datepicker_s form-control" name="validity" value="<?php echo e(date('d/m/Y' ,strtotime($packagesData->quote_validity))); ?>">
 									</div>
 
 									<!-- trip time validity -->
