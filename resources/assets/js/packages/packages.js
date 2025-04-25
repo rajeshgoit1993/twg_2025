@@ -1062,6 +1062,7 @@ $(document).on("click", ".show_hides", function () {
 
 // tour link copied
 $(document).on("click", ".link", function () {
+
     var link = $(this).attr("link");
     var copyText = document.getElementById(link);
     var $temp = $("<input>");
@@ -1070,6 +1071,18 @@ $(document).on("click", ".link", function () {
     document.execCommand("copy");
     $temp.remove();
     alert("Tour link copied: " + copyText.value);
+});
+
+$(document).on("click", ".btn-whatsapp", function () {
+
+    var link = $(this).attr("link");
+    var copyText = document.getElementById(link);
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val(copyText.value).select();
+    document.execCommand("copy");
+    $temp.remove();
+    alert("whatsapp link copied: " + copyText.value);
 });
 
 // For Add Package Types

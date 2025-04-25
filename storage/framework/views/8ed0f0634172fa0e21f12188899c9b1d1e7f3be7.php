@@ -1,7 +1,7 @@
                             <div class="priceValueBox">
                                 <h4>GRAND TOTAL</h4>
                                 <h3 class="defaultCurencyPay">
-                                    <span class="custom_grand_second">{{CustomHelpers::get_indian_currency($amount)}}</span>
+                                    <span class="custom_grand_second"><?php echo e(CustomHelpers::get_indian_currency($amount)); ?></span>
                                 </h3>
                                 <h5>(inclusive of all taxes)</h5>
                             </div>
@@ -16,72 +16,84 @@
                             ?>
                             <div class="paymentDetails">
                                 <div class="PaxWiseBox">
-                                    @if($adult>0)
+                                    <?php if($adult>0): ?>
                                     <div class="paxValueBox">
                                         <div class="defaultCurencyPay">&nbsp;
-                                            {{CustomHelpers::get_indian_currency($price_data_first['query_total_adult'])}} x {{$adult}}
-                                            <span class="fontSize14 colorA1">{{ $adult == 1 ? 'adult' : 'adults' }}</span>
+                                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_adult'])); ?> x <?php echo e($adult); ?>
+
+                                            <span class="fontSize14 colorA1"><?php echo e($adult == 1 ? 'adult' : 'adults'); ?></span>
                                         </div>
                                         <div class="defaultCurencyPay">&nbsp;
-                                            {{CustomHelpers::get_indian_currency($price_data_first['query_total_adult']*$adult)}}
+                                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_adult']*$adult)); ?>
+
                                         </div>
                                     </div>
-                                    @endif
-                                     @if($extra_adult>0)
+                                    <?php endif; ?>
+                                     <?php if($extra_adult>0): ?>
                                     <div class="paxValueBox">
                                         <div class="defaultCurencyPay">&nbsp;
-                                            {{CustomHelpers::get_indian_currency($price_data_first['query_total_exadult'])}} x {{$extra_adult}}
+                                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_exadult'])); ?> x <?php echo e($extra_adult); ?>
+
                                             <span class="fontSize14 colorA1">Extra bed</span>
                                         </div>
                                         <div class="defaultCurencyPay">&nbsp;
-                                            {{CustomHelpers::get_indian_currency($price_data_first['query_total_exadult']*$extra_adult)}}
+                                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_exadult']*$extra_adult)); ?>
+
                                         </div>
                                     </div>
-                                    @endif
-                                     @if($solo_traveller>0)
+                                    <?php endif; ?>
+                                     <?php if($solo_traveller>0): ?>
                                     <div class="paxValueBox">
                                         <div class="defaultCurencyPay">&nbsp;
-                                            {{CustomHelpers::get_indian_currency($price_data_first['query_total_single'])}} x {{$solo_traveller}}
+                                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_single'])); ?> x <?php echo e($solo_traveller); ?>
+
                                             <span class="fontSize14 colorA1">Single</span>
                                         </div>
                                         <div class="defaultCurencyPay">&nbsp;
-                                            {{CustomHelpers::get_indian_currency($price_data_first['query_total_single']*$solo_traveller)}}
+                                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_single']*$solo_traveller)); ?>
+
                                         </div>
                                     </div>
-                                    @endif
-                                    @if($child_with_bed>0)
+                                    <?php endif; ?>
+                                    <?php if($child_with_bed>0): ?>
                                     <div class="paxValueBox">
                                         <div class="defaultCurencyPay">&nbsp;
-                                            {{CustomHelpers::get_indian_currency($price_data_first['query_total_childbed'])}} x {{$child_with_bed}}
-                                            <span class="fontSize14 colorA1">{{ $child_with_bed == 1 ? 'child with bed' : 'children with bed' }}</span>
+                                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_childbed'])); ?> x <?php echo e($child_with_bed); ?>
+
+                                            <span class="fontSize14 colorA1"><?php echo e($child_with_bed == 1 ? 'child with bed' : 'children with bed'); ?></span>
                                         </div>
                                         <div class="defaultCurencyPay">&nbsp;
-                                            {{CustomHelpers::get_indian_currency($price_data_first['query_total_childbed']*$child_with_bed)}}
+                                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_childbed']*$child_with_bed)); ?>
+
                                         </div>
                                     </div>
-                                    @endif
-                                    @if($child_without_bed>0)
+                                    <?php endif; ?>
+                                    <?php if($child_without_bed>0): ?>
                                     <div class="paxValueBox">
                                         <div class="defaultCurencyPay">&nbsp;
-                                            {{CustomHelpers::get_indian_currency($price_data_first['query_total_childwbed'])}} x {{$child_without_bed}}
-                                            <span class="fontSize14 colorA1">{{ $child_without_bed == 1 ? 'child without bed' : 'children without bed' }}</span>
+                                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_childwbed'])); ?> x <?php echo e($child_without_bed); ?>
+
+                                            <span class="fontSize14 colorA1"><?php echo e($child_without_bed == 1 ? 'child without bed' : 'children without bed'); ?></span>
                                         </div>
                                         <div class="defaultCurencyPay">&nbsp;
-                                            {{CustomHelpers::get_indian_currency($price_data_first['query_total_childwbed']*$child_without_bed)}}
+                                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_childwbed']*$child_without_bed)); ?>
+
                                         </div>
                                     </div>
-                                     @endif
-                                    @if($infant>0)
+                                     <?php endif; ?>
+                                    <?php if($infant>0): ?>
                                     <div class="paxValueBox">
                                         <div class="defaultCurencyPay">&nbsp;
-                                            {{CustomHelpers::get_indian_currency($price_data_first['query_total_infant'])}} x {{$infant}}
+                                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_infant'])); ?> x <?php echo e($infant); ?>
+
                                             <span class="fontSize14 colorA1">infant</span>
                                         </div>
                                         <div class="defaultCurencyPay">&nbsp;
-                                            {{CustomHelpers::get_indian_currency($price_data_first['query_total_infant']*$infant)}}
+                                            <?php echo e(CustomHelpers::get_indian_currency($price_data_first['query_total_infant']*$infant)); ?>
+
                                         </div>
                                     </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                                 <!--Price Section-->
                                 <div class="totalCostBox">
@@ -124,7 +136,7 @@
                                         </div>                      
                                         <div class="makeflex appendTop10 custom_offer_show">
                                             <!-- Check if pricediscountnegative equals 3 -->
-                                            @if($price_data_first['pricediscountnegative']==3)
+                                            <?php if($price_data_first['pricediscountnegative']==3): ?>
                                                 <?php 
                                                     // Fetch coupon data from the database based on coupon_id
                                                     $coupon_data=DB::table('quote_coupon')->where('id',(int)$price_data_first['coupon_id'])->first();
@@ -132,37 +144,40 @@
                                                 <div class="flexOne">
                                                     <!-- Display coupon name or 'NA' if not found -->
                                                     <p class="CouponColor capText flexCenter">
-                                                        @if($coupon_data!='')
-                                                            {{$coupon_data->coupon_name}}
-                                                        @else
+                                                        <?php if($coupon_data!=''): ?>
+                                                            <?php echo e($coupon_data->coupon_name); ?>
+
+                                                        <?php else: ?>
                                                             NA
-                                                        @endif
+                                                        <?php endif; ?>
                                                         <a href="#" class="pointer">
                                                             <span class="deleteIcon apndLeft5 
-                                                                @if(CustomHelpers::get_check_payment_status($quote_ref_no)==1)     
+                                                                <?php if(CustomHelpers::get_check_payment_status($quote_ref_no)==1): ?>     
                                                                     not_allowed
-                                                                @else
+                                                                <?php else: ?>
                                                                     coupon_remove
-                                                                @endif
+                                                                <?php endif; ?>
                                                             " style="margin-top: -8px;">x</span>
                                                         </a>
                                                     </p>
                                                     
                                                     <!-- Display coupon description or 'NA' if not found -->
                                                     <p class="offerTag colorA1">
-                                                        @if($coupon_data!='')
-                                                            {{$coupon_data->coupon_desc}}
-                                                        @else
+                                                        <?php if($coupon_data!=''): ?>
+                                                            <?php echo e($coupon_data->coupon_desc); ?>
+
+                                                        <?php else: ?>
                                                             NA
-                                                        @endif
+                                                        <?php endif; ?>
                                                     </p>
                                                 </div>
                                                 
                                                 <!-- Display total discount amount -->
                                                 <div class="font12 noShrink CouponColor">
-                                                    <span class="defaultCurencyPay"></span>&nbsp;{{number_format($price_data_first['query_total_discount_group'],0)}}
+                                                    <span class="defaultCurencyPay"></span>&nbsp;<?php echo e(number_format($price_data_first['query_total_discount_group'],0)); ?>
+
                                                 </div>                          
-                                            @endif
+                                            <?php endif; ?>
                                             <!-- Uncommented code for additional offers (commented out in original) -->
                                             <!--
                                             <div class="flexOne">
@@ -220,7 +235,7 @@
                                     </div>
 
                                     <!--Fees & Taxes Section-->
-                                    <div class="taxesCont" @if(($price_data_first['query_total_gst_group']+$price_data_first['query_total_tcs_group']+$price_data_first['query_total_pg_group'])>0) @else style="display:none;" @endif>
+                                    <div class="taxesCont" <?php if(($price_data_first['query_total_gst_group']+$price_data_first['query_total_tcs_group']+$price_data_first['query_total_pg_group'])>0): ?> <?php else: ?> style="display:none;" <?php endif; ?>>
                                         <div class="makeflex align-center space-between">
                                             <div class="taxesContHead">Fees & Taxes</div>
                                             <div class="taxesPrice">&#43;&ensp;<span class="defaultCurencyPay"></span>&nbsp; <span class="fee_taxes custom_fee_taxes">  <?php CustomHelpers::get_indian_currency($price_data_first['query_total_gst_group']+$price_data_first['query_total_tcs_group']+$price_data_first['query_total_pg_group']); ?></span></div>
@@ -228,37 +243,37 @@
                                         <!--Taxes Chart-->
                                         <div class="feesTaxesWrap feesTaxesExpandedSec" >
                                             <div class="feesTaxesBox ">
-                                                <div class="feesTaxesBoxRow" @if($price_data_first['query_total_gst_group']>0) @else style="display:none;" @endif>
+                                                <div class="feesTaxesBoxRow" <?php if($price_data_first['query_total_gst_group']>0): ?> <?php else: ?> style="display:none;" <?php endif; ?>>
                                                     <div class="makeflex flexOne">
                                                         <!--<span class="taxesChartNumber">1</span>-->
                                                         <div class="font11 flexOne">
-                                                            <p>GST @if($price_data_first['query_gst_curr']==2)
-                                                          ({{$price_data_first['gst_percentage']}}%)
-                                                            @endif
+                                                            <p>GST <?php if($price_data_first['query_gst_curr']==2): ?>
+                                                          (<?php echo e($price_data_first['gst_percentage']); ?>%)
+                                                            <?php endif; ?>
                                                             </p>
                                                         </div>
                                                     </div>
                                                     <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp;  <span class="custom_gst"><?php CustomHelpers::get_indian_currency($price_data_first['query_total_gst_group']); ?> </span>   </span>
                                                 </div>
-                                                <div class="feesTaxesBoxRow" @if($price_data_first['query_total_tcs_group']>0) @else style="display:none;" @endif>
+                                                <div class="feesTaxesBoxRow" <?php if($price_data_first['query_total_tcs_group']>0): ?> <?php else: ?> style="display:none;" <?php endif; ?>>
                                                     <div class="makeflex flexOne">
                                                         <!--<span class="taxesChartNumber">2</span>-->
                                                         <div class="font11 flexOne">
-                                                            <p>TCS @if($price_data_first['query_tcs_curr']==2)
-                                                                ({{ $price_data_first['tcs_percentage'] }}%)
-                                                            @endif<span class="tcsInfo apndLeft5 i-box">i</span></p>
+                                                            <p>TCS <?php if($price_data_first['query_tcs_curr']==2): ?>
+                                                                (<?php echo e($price_data_first['tcs_percentage']); ?>%)
+                                                            <?php endif; ?><span class="tcsInfo apndLeft5 i-box">i</span></p>
                                                             <p class="greyText">*100% Credit available against tax payable</p>
                                                         </div>
                                                     </div>
                                                     <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp;  <span class="custom_tcs"><?php CustomHelpers::get_indian_currency($price_data_first['query_total_tcs_group']); ?> </span>   </span>
                                                 </div>
-                                                <div class="feesTaxesBoxRow" @if($price_data_first['query_total_pg_group']>0) @else style="display:none;" @endif>
+                                                <div class="feesTaxesBoxRow" <?php if($price_data_first['query_total_pg_group']>0): ?> <?php else: ?> style="display:none;" <?php endif; ?>>
                                                     <div class="makeflex flexOne">
                                                         <!--<span class="taxesChartNumber">3</span>-->
                                                         <div class="font11 flexOne">
-                                                            <p>Booking fees @if($price_data_first['pg_charges']==2)
-                                                                ({{ $price_data_first['pgcharges_percentage'] }}%)
-                                                            @endif</p>
+                                                            <p>Booking fees <?php if($price_data_first['pg_charges']==2): ?>
+                                                                (<?php echo e($price_data_first['pgcharges_percentage']); ?>%)
+                                                            <?php endif; ?></p>
                                                         </div>
                                                     </div>
                                                     <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp;  <span class="custom_pg"><?php CustomHelpers::get_indian_currency($price_data_first['query_total_pg_group']); ?></span>    </span>
@@ -332,7 +347,7 @@
                             </div> -->
 
                             <!-- Book Now Pay Later (bnpl) -->
-                            @if($data->partPayment==1)
+                            <?php if($data->partPayment==1): ?>
                                 <?php 
                                     // Unserialize part payments data
                                     $part_payments = unserialize($data->part_payments);
@@ -340,7 +355,7 @@
                                     $part_payments_sec = CustomHelpers::part_payments($data->part_payments, $price_data_first['query_pricetopay_adult']);
                                 ?>
                                 <!-- Check if the remaining amount is greater than 0 -->
-                                @if($remaining_amount > 0)
+                                <?php if($remaining_amount > 0): ?>
                                     <?php
                                         // Define part payment amounts
                                         $adv_amount = $part_payments_sec['adv_amount'];
@@ -377,7 +392,7 @@
                                                     </div>
                                                     <div class="payFullItem flexCenter">
                                                         <div class="defaultCurencyPay"></div>&nbsp; 
-                                                        <span class="custom_last" style="border-style:none;">{{$show_amount}}</span>
+                                                        <span class="custom_last" style="border-style:none;"><?php echo e($show_amount); ?></span>
                                                     </div>
                                                 </label>
                                             </div>
@@ -385,7 +400,7 @@
                                         !--Pay Later Chart--
                                         <div class="bnplWrapper bnplExpandedSec">
                                             <div class="bnplBox">
-                                                @if($part_payments_sec['adv_amount']!=0)
+                                                <?php if($part_payments_sec['adv_amount']!=0): ?>
                                                     <div class="bnplBoxRow">
                                                         <div class="makeflex flexOne">
                                                             <span class="chartNumber">1</span>
@@ -409,16 +424,16 @@
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp; <span class="custom_first_installment">    {{$part_payments_sec['adv_amount']}}</span></span>
+                                                        <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp; <span class="custom_first_installment">    <?php echo e($part_payments_sec['adv_amount']); ?></span></span>
                                                     </div>
-                                                @endif
+                                                <?php endif; ?>
 
-                                                @if($part_payments_sec['first_part_amount']!=0)
+                                                <?php if($part_payments_sec['first_part_amount']!=0): ?>
                                                     <div class="bnplBoxRow">
                                                         <div class="makeflex flexOne">
                                                             <span class="chartNumber">2</span>
                                                             <div class="font11 flexOne">
-                                                                <p>Before {{$part_payments_sec['first_part_date']}}</p>
+                                                                <p>Before <?php echo e($part_payments_sec['first_part_date']); ?></p>
                                                                 <p class="greyText">
                                                                     <?php 
                                                                     // Check if the total received amount is greater than the advance amount but less than the sum of the advance amount and the first part amount
@@ -440,16 +455,16 @@
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp; <span class="custom_second_installment">   {{$part_payments_sec['first_part_amount']}}</span></span>
+                                                        <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp; <span class="custom_second_installment">   <?php echo e($part_payments_sec['first_part_amount']); ?></span></span>
                                                     </div>
-                                                @endif
+                                                <?php endif; ?>
 
-                                                @if($part_payments_sec['second_part_amount']!=0)
+                                                <?php if($part_payments_sec['second_part_amount']!=0): ?>
                                                     <div class="bnplBoxRow">
                                                         <div class="makeflex flexOne">
                                                             <span class="chartNumber">3</span>
                                                             <div class="font11 flexOne">
-                                                                <p>Before {{$part_payments_sec['second_part_date']}}</p>
+                                                                <p>Before <?php echo e($part_payments_sec['second_part_date']); ?></p>
                                                                 <p class="greyText">
                                                                     <?php 
                                                                     // Check if the total received amount is greater than the sum of the advance amount and the first part amount
@@ -465,9 +480,9 @@
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp; <span class="custom_third_installment">    {{$part_payments_sec['second_part_amount']}}</span></span>
+                                                        <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp; <span class="custom_third_installment">    <?php echo e($part_payments_sec['second_part_amount']); ?></span></span>
                                                     </div>
-                                                @endif
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div> -->
@@ -480,14 +495,15 @@
                                             </div>
                                             <div class="payFullItem makeflex fontBold defaultCurencyPay">&nbsp;
                                                 <span class="custom_last">
-                                                    {{ $show_amount }}
+                                                    <?php echo e($show_amount); ?>
+
                                                 </span>
                                             </div>
                                         </label>
                                         <!--Pay Later Chart-->
                                         <div class="bnplWrapper bnplExpandedSec">
                                             <div class="bnplBox">
-                                                @if($part_payments_sec['adv_amount']!=0)
+                                                <?php if($part_payments_sec['adv_amount']!=0): ?>
                                                     <div class="bnplBoxRow">
                                                         <div class="makeflex flexOne">
                                                             <span class="chartNumber">1</span>
@@ -511,16 +527,16 @@
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp;<span class="custom_first_installment">{{$part_payments_sec['adv_amount']}}</span></span>
+                                                        <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp;<span class="custom_first_installment"><?php echo e($part_payments_sec['adv_amount']); ?></span></span>
                                                     </div>
-                                                @endif
+                                                <?php endif; ?>
 
-                                                @if($part_payments_sec['first_part_amount']!=0)
+                                                <?php if($part_payments_sec['first_part_amount']!=0): ?>
                                                     <div class="bnplBoxRow">
                                                         <div class="makeflex flexOne">
                                                             <span class="chartNumber">2</span>
                                                             <div class="font11 flexOne">
-                                                                <p>Before {{$part_payments_sec['first_part_date']}}</p>
+                                                                <p>Before <?php echo e($part_payments_sec['first_part_date']); ?></p>
                                                                 <p class="greyText">
                                                                     <?php 
                                                                     // Check if the total received amount is greater than the advance amount but less than the sum of the advance amount and the first part amount
@@ -542,16 +558,16 @@
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <span class="bnplPrice defaultCurencyPay"></span>&nbsp;<span class="custom_second_installment">{{ $part_payments_sec['first_part_amount'] }}</span>
+                                                        <span class="bnplPrice defaultCurencyPay"></span>&nbsp;<span class="custom_second_installment"><?php echo e($part_payments_sec['first_part_amount']); ?></span>
                                                     </div>
-                                                @endif
+                                                <?php endif; ?>
 
-                                                @if($part_payments_sec['second_part_amount']!=0)
+                                                <?php if($part_payments_sec['second_part_amount']!=0): ?>
                                                     <div class="bnplBoxRow">
                                                         <div class="makeflex flexOne">
                                                             <span class="chartNumber">3</span>
                                                             <div class="font11 flexOne">
-                                                                <p>Before {{$part_payments_sec['second_part_date']}}</p>
+                                                                <p>Before <?php echo e($part_payments_sec['second_part_date']); ?></p>
                                                                 <p class="greyText">
                                                                     <?php 
                                                                     // Check if the total received amount is greater than the sum of the advance amount and the first part amount
@@ -567,14 +583,14 @@
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp;<span class="custom_third_installment">{{$part_payments_sec['second_part_amount']}}</span></span>
+                                                        <span class="bnplPrice"><span class="defaultCurencyPay"></span>&nbsp;<span class="custom_third_installment"><?php echo e($part_payments_sec['second_part_amount']); ?></span></span>
                                                     </div>
-                                                @endif
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
-                                @endif
-                            @endif
+                                <?php endif; ?>
+                            <?php endif; ?>
 
                             <!--part payment Original-->
                             <!-- <div class="payPartBox" style="display: none;">
@@ -642,7 +658,7 @@
                                             <input type="checkbox" name="acknowledgement" id="acknowledgement" value="1" />
                                             <span class="checkmark paymtAck"></span>
                                         </label>
-                                        <p class="paymtAck-service-text">By proceeding, I confirm that I have read the <a href="{{ URL::to('/Privacy-Policy') }}" class="link-color" target="_blank">Privacy Policy</a> and <a href="{{ URL::to('/User-Agreement') }}" class="link-color" target="_blank">User Agreement</a> of @if(env("WEBSITENAME")==1) The World Gateway @elseif(env("WEBSITENAME")==0) Rapidex Travels @endif.</p>
+                                        <p class="paymtAck-service-text">By proceeding, I confirm that I have read the <a href="<?php echo e(URL::to('/Privacy-Policy')); ?>" class="link-color" target="_blank">Privacy Policy</a> and <a href="<?php echo e(URL::to('/User-Agreement')); ?>" class="link-color" target="_blank">User Agreement</a> of <?php if(env("WEBSITENAME")==1): ?> The World Gateway <?php elseif(env("WEBSITENAME")==0): ?> Rapidex Travels <?php endif; ?>.</p>
                                     </div>
                                         <!-- <input type="checkbox" name="acknowledgement" id="acknowledgement" value="1"> -->
                                         <!-- <p>By proceeding, I confirm that I have read the <a>User Agreement, Terms of Service</a> and <a>Privacy Policy</a> of TheWorldGateway</p> -->
@@ -674,11 +690,11 @@
                                         <input type="text" placeholder="Have a Coupon Code?" value="" class="coupon_value">
                                         <!-- <span class="ctaCoupon couponBtn apply_custom_coupon">Apply</span> -->
                                         <span class="ctaCoupon latoBold font12 linkText 
-                                            @if (CustomHelpers::get_check_payment_status($quote_ref_no) == 1) 
+                                            <?php if(CustomHelpers::get_check_payment_status($quote_ref_no) == 1): ?> 
                                                 not_allowed 
-                                            @else 
+                                            <?php else: ?> 
                                                 apply_custom_coupon 
-                                            @endif ">Apply
+                                            <?php endif; ?> ">Apply
                                         </span>
                                         <small class="latoBold font11 couponStatusNotify"></small>
                                     </div>
@@ -698,35 +714,35 @@
                                             </div>
                                         </label> -->
                                         <span class="coupon_class">
-                                            @foreach($coupons as $coupon)
-                                                @if($coupon->applicable_for == 1)
+                                            <?php $__currentLoopData = $coupons; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coupon): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                <?php if($coupon->applicable_for == 1): ?>
                                                     <?php 
                                                     $check = DB::table('coupon_include_exclude')->where([['coupon_id', $coupon->id], ['ref_id', "quote_" . $quote_ref_no]])->first();
                                                     ?>
-                                                    @if($check == '')
-                                                        @include('payment.coupon_loop')
-                                                    @endif
-                                                @elseif($coupon->applicable_for == 2)
+                                                    <?php if($check == ''): ?>
+                                                        <?php echo $__env->make('payment.coupon_loop', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                                    <?php endif; ?>
+                                                <?php elseif($coupon->applicable_for == 2): ?>
                                                     <?php 
                                                     $check = DB::table('coupon_include_exclude')->where([['coupon_id', $coupon->id], ['ref_id', "quote_" . $quote_ref_no]])->first();
                                                     ?>
-                                                    @if($check == '')
-                                                        @include('payment.coupon_loop')
-                                                    @endif
-                                                @elseif($coupon->applicable_for == 4)
+                                                    <?php if($check == ''): ?>
+                                                        <?php echo $__env->make('payment.coupon_loop', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                                    <?php endif; ?>
+                                                <?php elseif($coupon->applicable_for == 4): ?>
                                                     <?php 
                                                     $check = DB::table('coupon_include_exclude')->where([['coupon_id', $coupon->id], ['ref_id', "quote_" . $quote_ref_no]])->first();
                                                     ?>
-                                                    @if($check != '')
-                                                        @include('payment.coupon_loop')
-                                                    @endif
-                                                @endif
-                                            @endforeach
+                                                    <?php if($check != ''): ?>
+                                                        <?php echo $__env->make('payment.coupon_loop', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                                         </span>
 
-                                        @include('payment.paid_amount')
+                                        <?php echo $__env->make('payment.paid_amount', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                                         
-                                        @include('payment.pay_at_hotel')
+                                        <?php echo $__env->make('payment.pay_at_hotel', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                                     </div>
                                 </div>
                             </div>

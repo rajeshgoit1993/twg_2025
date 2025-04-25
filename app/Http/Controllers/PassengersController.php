@@ -26,6 +26,7 @@ use App\QueryLeadTraveller;
 use App\QueryTraveller;
 use Redirect;
 use App\Coupon;
+use App\Quote;
 
 class PassengersController extends Controller
 {
@@ -350,12 +351,10 @@ class PassengersController extends Controller
         Session::forget($unique_code . 'quoteno');
     }
     Session::set($unique_code . 'quoteno', $quote_no);
-
+  
     // Retrieve quote IDs from the session
     $quote1_id = Session::get($unique_code . 'quote1_id');
-    $quote2_id = Session::get($unique_code . 'quote2_id');
-    $quote3_id = Session::get($unique_code . 'quote3_id');
-    $quote4_id = Session::get($unique_code . 'quote4_id');
+   
 
     // Initialize variables for quote data
     $data = null;
@@ -364,33 +363,21 @@ class PassengersController extends Controller
     $price_data = [];
 
     // Determine the appropriate quotation based on quote number
-    if ($quote_no == 1) {
-        $data = Option1Quotation::find((int)$quote1_id);
+
+        $data = Quote::find((int)$quote1_id);
         $quote_ref_no = $data->quo_ref;
-        $price = $data->option1_price;
+        $price = $data->price;
         $price_data = CustomHelpers::get_price_part_seperate(
-            $data->option1_price,
-            $data->quote1_number_of_adult,
+            $data->price,
+            $data->adult,
             $data->extra_adult,
             $data->child_with_bed,
             $data->child_without_bed,
             $data->infant,
             $data->solo_traveller
         );
-    } elseif ($quote_no == 2) {
-        $data = Option2Quotation::find((int)$quote2_id);
-        $quote_ref_no = $data->quotation_ref_no;
-        $price = $data->option2_price;
-    } elseif ($quote_no == 3) {
-        $data = Option3Quotation::find((int)$quote3_id);
-        $quote_ref_no = $data->quotation_ref_no;
-        $price = $data->option3_price;
-    } elseif ($quote_no == 4) {
-        $data = Option4Quotation::find((int)$quote4_id);
-        $quote_ref_no = $data->quotation_ref_no;
-        $price = $data->option4_price;
-    }
-
+    
+   
     // Set up variables for payment and query reference
     $order_id = time();
     $amount = $price_data['query_pricetopay_adult'] ?? $price;
@@ -398,7 +385,7 @@ class PassengersController extends Controller
     $query = Query::find($query_reference);
 
     // Retrieve lead passenger information
-    $lead_passenger = QueryLeadTraveller::where('email', $data->email)->first();
+    $lead_passenger = QueryLeadTraveller::where('email', $query->email)->first();
     if (empty($lead_passenger)) {
         $lead_passenger = new QueryLeadTraveller;
         $lead_passenger->email = $data->email;
@@ -674,10 +661,10 @@ class PassengersController extends Controller
   {
     $select_item = $request->select_item;
     $select_item_decrypted = CustomHelpers::custom_decrypt($select_item);
-
+   
     $values = $request->values;
     $unique_code = $request->unique_code;
-
+ 
     // Remove duplicates and empty values from the array
     $values_unique = array_filter(array_unique($values));
 
@@ -845,7 +832,7 @@ class PassengersController extends Controller
   {
     $traveller_type = $request->type;
     $selected_item = $request->selected_item;
-
+   
     $passenger = QueryTraveller::find(CustomHelpers::custom_decrypt($selected_item));
     $lead_traveller_id = $passenger->lead_traveller_id;
 
@@ -864,21 +851,34 @@ class PassengersController extends Controller
             ['transaction_type', '=', 0]
         ])->get();
 
-    if (
-        Sentinel::check()
-        && (Sentinel::getUser()->hasAnyRole(['super_admin', 'administrator', 'supervisor', 'agent'])
-            || Sentinel::getUser()->email == $lead_traveler_email_id)
-    ) {
+
+
+ $user = Sentinel::getUser();
+$user_email = $user ? $user->email : null;
+
+// Safely get the first role slug if it exists
+$user_role_slug = $user && $user->roles()->exists()
+    ? $user->roles()->first()->slug
+    : null;
+
+if (Sentinel::check()) {
+    if (in_array($user_role_slug, ['super_admin', 'administrator', 'supervisor', 'agent'])) {
         $error = 'success';
-    } elseif (!Sentinel::check()) {
-        $error = 'Please login with lead passenger id for edit';
+    } elseif ($user_email === $lead_traveller_email) {
+        $error = 'success';
     } else {
-        $error = 'Lead passenger details do not match';
+        $error = 'Lead passenger details not match';
     }
+} elseif (!Sentinel::check() && $payments->isNotEmpty()) {
+    $error = 'Please login with lead passenger ID for edit';
+} else {
+    $error = 'success';
+}
+
 
     // Initialize variables for dates
     $dob = $passport_issue_date = $passport_expire_date = '';
-
+    
     // Prepare month and day options
     $months = '<option selected="" disabled="">MM</option>';
     $days = '<option selected="" disabled="">DD</option>';

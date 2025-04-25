@@ -312,7 +312,7 @@
 										<div class="dashboard-inner-table textCenter">
 											<div><u><h5>Update status</h5></u></div>
 											<div>
-										    <select class="query_status q-select">
+										    <select class="query_status q-select previous_class_{{$query->enquiry_ref_no}}_{{$count}}" dynamic_class_name="previous_class_{{$query->enquiry_ref_no}}_{{$count}}">
 											    @if($val == 'pending_quote')
 											        <option value="pending_quote" @if($query->status == "pending_quote") selected @endif>Pending Quote</option>
 											        <option value="lead_cancelled" @if($query->status == "lead_cancelled") selected @endif>Lead Cancelled</option>

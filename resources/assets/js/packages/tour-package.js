@@ -999,6 +999,7 @@ $(document).on("click", ".show_hides", function () {
 
 // tour link copied
 $(document).on("click", ".link", function () {
+  
     var link = $(this).attr("link");
     var copyText = document.getElementById(link);
     var $temp = $("<input>");

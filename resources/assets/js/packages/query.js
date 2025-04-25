@@ -3,9 +3,11 @@ var APP_URL = $('#baseurl').val();
 // Uncomment this line if you need to debug the URL
 // alert(APP_URL);
 let previousquerystatus;
+let previousqueryclassname;
 $(document).on('focus', '.query_status' , function() {
   // Store the current value before it changes
   previousquerystatus = $(this).val();
+  previousqueryclassname = $(this).attr('dynamic_class_name');
 
 });
 // Handle the form submission for '#follow_ups' form
@@ -66,6 +68,8 @@ $(document).on("submit", "#follow_ups", function(event) {
             // Handle errors here
         }
     });
+
+    
 });
 
 /************/
@@ -377,10 +381,10 @@ $(document).on("submit", "#enquiry_lead_cancel", function(event) {
 });
 
 /************/
-function selectpreviousstatus(query_id)
+function selectpreviousstatus()
 {
-    console.log(query_id)
-    $('#' + query_id).find('.query_status').val(previousquerystatus);
+   
+    $('.' + previousqueryclassname).val(previousquerystatus);
     
 }
 $(document).ready(function() {
@@ -394,11 +398,8 @@ $(document).ready(function() {
         // Get the close button for the 'lead_follow_up_modal'
         var span = document.getElementsByClassName("btn_lead_modal_close")[0];
         span.onclick = function() {
-
-            var query_id = $("#query_id_lead_follow_up").val()
-
-           selectpreviousstatus(query_id)
-
+         
+            selectpreviousstatus()
             // Hide the 'lead_follow_up_modal' when the close button is clicked
             lead_follow_up_modal.style.display = "none";
         };
@@ -406,10 +407,7 @@ $(document).ready(function() {
         // Get the close button for the 'lead_cancelled_modal'
         var span_cancelled = document.getElementsByClassName("btn_lead_modal_close_cancelled")[0];
         span_cancelled.onclick = function() {
-            // Hide the 'lead_cancelled_modal' when the close button is clicked
-           var query_id = $("#query_id_lead_cancel").val()
-
-           selectpreviousstatus(query_id)
+           selectpreviousstatus()
             lead_cancelled_modal.style.display = "none";
         };
 
@@ -417,17 +415,13 @@ $(document).ready(function() {
         window.onclick = function(event) {
             // Check if the click was on the 'lead_follow_up_modal'
             if (event.target == lead_follow_up_modal) {
-                var query_id = $("#query_id_lead_follow_up").val()
-
-           selectpreviousstatus(query_id)
+                selectpreviousstatus()
                 lead_follow_up_modal.style.display = "none";
             }
             // Check if the click was on the 'lead_cancelled_modal'
             else if (event.target == lead_cancelled_modal) {
 
-        var query_id = $("#query_id_lead_cancel").val()
-
-           selectpreviousstatus(query_id)
+         selectpreviousstatus()
                 lead_cancelled_modal.style.display = "none";
             }
         };
@@ -594,6 +588,8 @@ $(document).ready(function() {
         var enquiry_ref_no =  $(this).parent().parent().attr('enquiry_ref_no');
 var quote_ref_no =  $(this).parent().parent().attr('quote_ref_no');
 previousquerystatus = status_value;
+
+ previousqueryclassname = $(this).siblings().children('.query_status').attr('dynamic_class_name');
         // Get the ID of the parent element
         var id = $(this).parent().parent().attr('id');
 

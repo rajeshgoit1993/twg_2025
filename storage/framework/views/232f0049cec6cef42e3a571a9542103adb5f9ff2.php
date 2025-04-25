@@ -323,7 +323,7 @@
 										<div class="dashboard-inner-table textCenter">
 											<div><u><h5>Update status</h5></u></div>
 											<div>
-										    <select class="query_status q-select">
+										    <select class="query_status q-select previous_class_<?php echo e($query->enquiry_ref_no); ?>_<?php echo e($count); ?>" dynamic_class_name="previous_class_<?php echo e($query->enquiry_ref_no); ?>_<?php echo e($count); ?>">
 										        <!-- 
 										        <option value="0" <?php if($query->status=="0"): ?> selected <?php endif; ?>>Select Status</option>
 										        -->

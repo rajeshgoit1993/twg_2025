@@ -314,7 +314,7 @@
 										<div class="dashboard-inner-table textCenter">
 											<div><u><h5>Update status</h5></u></div>
 											<div>
-										    <select class="query_status q-select">
+										    <select class="query_status q-select previous_class_<?php echo e($query->enquiry_ref_no); ?>_<?php echo e($count); ?>" dynamic_class_name="previous_class_<?php echo e($query->enquiry_ref_no); ?>_<?php echo e($count); ?>">
 											    <?php if($val == 'pending_quote'): ?>
 											        <option value="pending_quote" <?php if($query->status == "pending_quote"): ?> selected <?php endif; ?>>Pending Quote</option>
 											        <option value="lead_cancelled" <?php if($query->status == "lead_cancelled"): ?> selected <?php endif; ?>>Lead Cancelled</option>

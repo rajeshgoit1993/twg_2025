@@ -65,6 +65,7 @@ use App\PkgTours;
 use App\Activity;
 use App\Quote;
 use App\PayAtHotelPaymentType;
+use DateTime;
 
 class QueryController extends Controller 
 {
@@ -2776,6 +2777,89 @@ class QueryController extends Controller
     }
 
     /**********************/
+    public function get_quote_validity_date(Request $request)
+    {
+    $quote_id = $request->quote_id;
+    $data = DB::table('quote')
+                ->leftJoin('rt_package_query','rt_package_query.id','=','quote.query_reference')
+                ->where('quote.quo_ref',$quote_id)
+                ->select('quote.*','rt_package_query.enquiry_ref_no')
+                ->first();
+
+    $main_data = view("query.query_modal.modal-popup.action-modal.extend_lead_body_content", compact('data',))->render();
+              
+$date1 = new DateTime(); // today
+$date2 = new DateTime($data->tour_date); // your target date
+$diffDays = 0;
+$start_date = 0;
+
+if ($date2 >= $date1) {
+    $interval = $date1->diff($date2);
+    $diffDays = (int)$interval->format('%a');
+    $start_date = max(0, $diffDays - 2);
+}
+
+
+    $output_data = 
+    [
+'main_data'=>$main_data,
+'diffDays'=>$diffDays,
+'enquiry_ref_no' => $data->enquiry_ref_no,
+        'quote_ref_no' => $quote_id,
+    ];
+
+  return $output_data;
+    }
+    public function update_quote_validity(Request $request)
+{
+    $quote_ref_no = $request->quote_ref_no;
+    $validity_date = $request->validity;
+
+   
+    $validity_timestamp = strtotime(str_replace('/', '-', $validity_date)); 
+
+    $data = Quote::where('quo_ref', $quote_ref_no)->first();
+
+    if (!$data) {
+        return response()->json(['error' => 'Quote not found'], 404);
+    }
+
+    $previous_date = $data->quote_validity;
+    $message = '';
+
+  
+    if ($previous_date != date('Y-m-d', $validity_timestamp)) {
+        $message .= '<p>Validity Date Changed from ' . date('d-m-Y', strtotime($previous_date)) . ' to ' . date('d-m-Y', $validity_timestamp) . '</p>';
+    }
+
+ 
+    if ($data->validity_time != $request->validity_time) {
+        $message .= '<p>Time Changed from ' . $data->validity_time . ' to ' . $request->validity_time . '</p>';
+    }
+
+
+    if ($data->validity_show_on_frontend != $request->validity_show_on_frontend) {
+        $message .= '<p>Show on Frontend Changed from ' . $data->validity_show_on_frontend . ' to ' . $request->validity_show_on_frontend . '</p>';
+    }
+
+
+    if (!empty($message)) {
+        CustomHelpers::save_enquiry_tracker(
+            $data->query_reference,
+            $message,
+            Sentinel::getUser()->id,
+            'validity_update'
+        );
+    }
+
+
+    $data->quote_validity = date('Y-m-d', $validity_timestamp);
+    $data->validity_time = $request->validity_time;
+    $data->validity_show_on_frontend = $request->validity_show_on_frontend;
+    $data->save();
+    echo 'success';
+}
+
    public function save_quote(Request $request)
    {
 
@@ -5667,7 +5751,7 @@ class QueryController extends Controller
             $data->save();
 
             // Check if there is an associated Option1Quotation and update it
-            $data1 = Option1Quotation::where("query_reference", "=", $id)->first();
+            $data1 = Quote::where("query_reference", "=", $id)->first();
             if ($data1) {
                 $data1->assign_id = $assign_id;
                 $data1->save();

@@ -20,40 +20,10 @@
 			</div>
 
             <!-- Modal body-->
-            <div class="lead-modalbody">
+            <div class="lead-modalbody extend_validity_data">
 
             	<!-- Trip Quote Validity Section -->
-            	<div class="row">
-                 	<!-- trip date validity -->
-                 	<div class="col-md-2">
-                 		<label for="quoteValidityDate">Date valid up to</label>
-                 		<input type="text" class="form-control datepicker_trip_validity" name="validaty" id="quoteValidityDate" value="" />
-                 	</div>
-
-                 	<!-- trip time validity -->
-                 	<div class="col-md-3">
-                 		<label for="quoteValidityTime">Time valid up to</label>
-                 		<div class="relativeCont">
-                 			<span class="btn-time-reset-cont reset_class"></span>
-                 		</div>
-                 		<input type="time" class="form-control validity_time" value="" id="quoteValidityTime" name="validity_time" pattern="^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$" placeholder="HH:MM:SS (24 Hours)" required />
-                 	</div>
-
-                 	<!-- pay type -->
-                 	<div class="col-md-2">
-                 		<label>Pay Immediately</label>
-                 		<div class="pay-custom-radio-group makeflex">
-                 			<label class="pay-custom-radio flexOne">
-                 				<input type="radio" value="Yes" name="validity_show_on_frontend" />
-                 				<span class="pay-custom-radio-label">Yes</span>
-                 			</label>
-                 			<label class="pay-custom-radio flexOne">
-                 				<input type="radio" value="No" name="validity_show_on_frontend" checked />
-                 				<span class="pay-custom-radio-label">No</span>
-                 			</label>
-                 		</div>
-                 	</div>
-                 </div>
+            	
                 <!-- End of Trip Quote Validity Section -->
             </div>
 

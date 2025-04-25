@@ -372,6 +372,8 @@ Route::get('/web-leads', 'QueryController@enquiry')->middleware('login')->name('
 
 // Route::get('/Verification-Pending-Add-Lead-Followup', 'QueryController@verification_pending_add_lead_follow_up')->middleware('login');
 Route::get('/lead-verification', 'QueryController@pending_verification')->middleware('login');
+Route::get('/get_quote_validity_date', 'QueryController@get_quote_validity_date')->middleware('login');
+Route::post('/update_quote_validity', 'QueryController@update_quote_validity')->middleware('login');
 
 //Route::get('/quote-sent', 'QueryController@quotation')->middleware('login');
 Route::get('/quote-sent', 'QueryController@quotation')->middleware('login')->name('quoteSent');

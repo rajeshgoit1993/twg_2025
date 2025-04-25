@@ -128,19 +128,12 @@
 										    <div><u><h5>Enquiry Reference No</h5></u></div>
 
 										    {{-- Debugging output --}}
-										    @php
-										        //dd($query); // Dump the entire $query object to see its structure
-										    @endphp
-
+										    
 										    <!-- enquiry reference no -->
-										    @if(isset($query->enq_ref_no))
-										        <p class="q-dtls">
-										        	{{ $query->enq_ref_no }}
-										        </p>
+										    @if(isset($query->enquiry_ref_no))
+										        <p class="q-dtls">#{{ $query->enquiry_ref_no }}</p>
 										    @else
-										        <p class="q-dtls">
-										        	No enquiry id available.
-										        </p>
+										        <p class="q-dtls">No enquiry id available.</p>
 										    @endif
 
 										    <!-- service type -->
@@ -448,12 +441,12 @@
 									<!-- ********************** -->
 									
 									<!-- lead status -->
-									<td id={{ $query->query_reference }}>
+									<td id="{{ $query->query_reference }}" enquiry_ref_no="{{$query->enquiry_ref_no}}"  quote_ref_no="{{$query->quo_ref}}">
 										<div class="dashboard-inner-table textCenter">
 
 											<div><u><h5>Update status</h5></u></div>
-
-											<select class="query_status q-select">
+<div>
+											<select class="query_status q-select previous_class_{{$query->enquiry_ref_no}}_{{$count}}" dynamic_class_name="previous_class_{{$query->enquiry_ref_no}}_{{$count}}">
 												@if($val=='process_booking' || $val=='payment_follow_up' || $val=='under_cancellation' || $val=='confirmation' || $val=='voucher_issued' || $val=='tour_cancelled' || $val=='refund_issued')
 												<?php
 													$quote_no=CustomHelpers::get_query_field($query->query_reference,'accept_quote_no');
@@ -599,7 +592,7 @@
 													<option value="na" @if(CustomHelpers::get_query_field($query->query_reference,'status')!="N" && CustomHelpers::get_query_field($query->query_reference,'status')=="na") selected @endif>Not Applicable</option>
 												@endif
 											</select>
-
+<div>
 											<!-- --------- -->
 
 											<!-- add remarks -->
@@ -1060,8 +1053,14 @@
 
 										<!-- WhatsApp copy -->
 										<div class="btnContainer">
-											<button type="button" class="btn-q btn-whatsapp">WhatsApp</button>
+											<?php 
+$ref=url('/quotes/' . $query->unique_code);
+											?>
+											<input type="hidden" value="We have sent the Tour quote on your email-id. Click on the link to check your quote: {{$ref}}" id="copy_whatsup{{$query->id}}">
+
+											<button type="button" class="btn-q btn-whatsapp" link="copy_whatsup{{$query->id}}">WhatsApp</button>
 										</div>
+
 
 										<!-- --------- -->
 

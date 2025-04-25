@@ -322,7 +322,7 @@
 										        $packageId = (int) CustomHelpers::get_query_field((int)$query->query_reference, 'packageId');
 										        $packageName = $query->title;
 										        $href_id = CustomHelpers::custom_encrypt($packageId);
-										        $form_action = url('/Holidays/' . str_slug($packageName)) . '?package_id=' . $href_id;
+										        $form_action = url('/holidays/' . str_slug($packageName)) . '?package_id=' . $href_id;
 										     ?>
 
 										    <?php if(!empty($packageName)): ?> <!-- Check if package name is not empty -->

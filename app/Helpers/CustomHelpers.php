@@ -875,50 +875,18 @@ endif;
   public static function get_session_query_details($quote_no, $unique_code) {
     // Retrieve session IDs for each quote
     $quote1_id = Session::get($unique_code . 'quote1_id');
-    $quote2_id = Session::get($unique_code . 'quote2_id');
-    $quote3_id = Session::get($unique_code . 'quote3_id');
-    $quote4_id = Session::get($unique_code . 'quote4_id');
-
-    // Initialize variables
+    
     $data = null;
     $quote_ref_no = null;
     $price = null;
 
-    // Retrieve data based on the quote number
-    if ($quote_no == 1 && $quote1_id) {
-        $data = Option1Quotation::find((int)$quote1_id);
-        if ($data) {
-            $quote_ref_no = $data->quo_ref;
-            $price = $data->option1_price;
-            $price_data = CustomHelpers::get_price_part_seperate(
-                $data->option1_price,
-                $data->quote1_number_of_adult,
-                $data->extra_adult,
-                $data->child_with_bed,
-                $data->child_without_bed,
-                $data->infant,
-                $data->solo_traveller
-            );
-        }
-    } elseif ($quote_no == 2 && $quote2_id) {
-        $data = Option2Quotation::find((int)$quote2_id);
-        if ($data) {
-            $quote_ref_no = $data->quotation_ref_no;
-            $price = $data->option2_price;
-        }
-    } elseif ($quote_no == 3 && $quote3_id) {
-        $data = Option3Quotation::find((int)$quote3_id);
-        if ($data) {
-            $quote_ref_no = $data->quotation_ref_no;
-            $price = $data->option3_price;
-        }
-    } elseif ($quote_no == 4 && $quote4_id) {
-        $data = Option4Quotation::find((int)$quote4_id);
-        if ($data) {
-            $quote_ref_no = $data->quotation_ref_no;
-            $price = $data->option4_price;
-        }
-    }
+   $data = DB::table('quote')
+                    ->join('rt_package_query', 'rt_package_query.id', '=', 'quote.query_reference')
+                    ->where('quote.id',(int)$quote1_id)
+                    ->select('quote.*', 'rt_package_query.destinations', 'rt_package_query.assign_id', 'rt_package_query.booking_label', 'rt_package_query.span_value_child_without_bed', 'rt_package_query.enquiry_ref_no', 'rt_package_query.mobile as mobile', 'rt_package_query.email as email', 'rt_package_query.name as name')
+                    ->orderBy('created_at', 'desc')
+                    ->first(); 
+
 
     // Return "Oops" if no data is found
     if (!$data) {
@@ -1389,7 +1357,7 @@ endif;
 
   public static function get_seperate_pass_payment_view($id, $quoteno, $return) {
     // Fetch the data for the given id
-    $data = Option1Quotation::find($id);
+    $data = Quote::find($id);
 
     // Unserialize the room data
     $rooms = unserialize($data->room);
@@ -1529,7 +1497,7 @@ endif;
   public static function get_price_part_seperate($price,$adult,$extra_adult,$child_with_bed,$child_without_bed,$infant,$solo_traveller)
   {
     $price=unserialize($price);
-    
+   
     $data1=[
     "quote_airfare" => array_key_exists('quote_airfare',$price) ? $price['quote_airfare'] : 0 ,
     "quote_airfare_remarks" => array_key_exists('quote_airfare_remarks',$price) ? $price['quote_airfare_remarks'] : 0 , 
@@ -4686,38 +4654,19 @@ $sta=CustomHelpers::get_master_table_data('city', 'id', (int)$datavalue->city, '
        $due_amount=(int)$previous_amount;
        return $due_amount;
   }
+  public static function get_run_time_ref_no($unique_code)
+  {
+     $quote_no=Session::get($unique_code.'quoteno');
+      $quote1_id=Session::get($unique_code.'quote1_id');
+      $data=Quote::find((int)$quote1_id);
+      $quote_ref_no=$data->quo_ref;
 
+      return $quote_ref_no;
+  }
   public static function get_received_amount($unique_code)
   {
-      $quote_no=Session::get($unique_code.'quoteno');
-      $quote1_id=Session::get($unique_code.'quote1_id');
-      $quote2_id=Session::get($unique_code.'quote2_id');
-      $quote3_id=Session::get($unique_code.'quote3_id');
-      $quote4_id=Session::get($unique_code.'quote4_id');
-        if($quote_no==1)
-        {
-        $data=Option1Quotation::find((int)$quote1_id);
-        $quote_ref_no=$data->quo_ref;
-
-        }
-        elseif($quote_no==2)
-        {
-        $data=Option2Quotation::find((int)$quote2_id);
-        $quote_ref_no=$data->quotation_ref_no;
-       
-        }
-        elseif($quote_no==3)
-        {
-         $data=Option3Quotation::find((int)$quote3_id);
-         $quote_ref_no=$data->quotation_ref_no;
-        
-        }
-        elseif($quote_no==4)
-        {
-        $data=Option4Quotation::find((int)$quote4_id);
-        $quote_ref_no=$data->quotation_ref_no;
-       
-        }
+     
+      $quote_ref_no=CustomHelpers::get_run_time_ref_no($unique_code);
     
      $previous_amount = DB::table('rt_payments')
        ->where([['quote_ref_no','=',$quote_ref_no],['status','=',1],['transaction_type','=',0]])
@@ -4737,35 +4686,7 @@ $sta=CustomHelpers::get_master_table_data('city', 'id', (int)$datavalue->city, '
 
   public static function get_remaining_amount($total_quote_amount,$unique_code)
   {
-      $quote_no=Session::get($unique_code.'quoteno');
-      $quote1_id=Session::get($unique_code.'quote1_id');
-      $quote2_id=Session::get($unique_code.'quote2_id');
-      $quote3_id=Session::get($unique_code.'quote3_id');
-      $quote4_id=Session::get($unique_code.'quote4_id');
-        if((int)$quote_no==1)
-        {
-        $data=Option1Quotation::find((int)$quote1_id);
-        $quote_ref_no=$data->quo_ref;
-
-        }
-        elseif((int)$quote_no==2)
-        {
-        $data=Option2Quotation::find((int)$quote2_id);
-        $quote_ref_no=$data->quotation_ref_no;
-       
-        }
-        elseif((int)$quote_no==3)
-        {
-         $data=Option3Quotation::find((int)$quote3_id);
-         $quote_ref_no=$data->quotation_ref_no;
-        
-        }
-        elseif((int)$quote_no==4)
-        {
-        $data=Option4Quotation::find((int)$quote4_id);
-        $quote_ref_no=$data->quotation_ref_no;
-       
-        }
+      $quote_ref_no=CustomHelpers::get_run_time_ref_no($unique_code);
 
      $previous_amount = DB::table('rt_payments')
        ->where([['quote_ref_no','=',$quote_ref_no],['status','=',1],['transaction_type','=',0]])
@@ -4798,35 +4719,7 @@ $sta=CustomHelpers::get_master_table_data('city', 'id', (int)$datavalue->city, '
 
   public static function get_paid_amount($unique_code)
   {
-      $quote_no=Session::get($unique_code.'quoteno');
-      $quote1_id=Session::get($unique_code.'quote1_id');
-      $quote2_id=Session::get($unique_code.'quote2_id');
-      $quote3_id=Session::get($unique_code.'quote3_id');
-      $quote4_id=Session::get($unique_code.'quote4_id');
-        if($quote_no==1)
-        {
-        $data=Option1Quotation::find((int)$quote1_id);
-        $quote_ref_no=$data->quo_ref;
-
-        }
-        elseif($quote_no==2)
-        {
-        $data=Option2Quotation::find((int)$quote2_id);
-        $quote_ref_no=$data->quotation_ref_no;
-       
-        }
-        elseif($quote_no==3)
-        {
-         $data=Option3Quotation::find((int)$quote3_id);
-         $quote_ref_no=$data->quotation_ref_no;
-        
-        }
-        elseif($quote_no==4)
-        {
-        $data=Option4Quotation::find((int)$quote4_id);
-        $quote_ref_no=$data->quotation_ref_no;
-       
-        }
+      $quote_ref_no=CustomHelpers::get_run_time_ref_no($unique_code);
     
      $previous_amount = DB::table('rt_payments')
        ->where([['quote_ref_no','=',$quote_ref_no],['status','=',1],['transaction_type','=',0]])
@@ -4846,35 +4739,7 @@ $sta=CustomHelpers::get_master_table_data('city', 'id', (int)$datavalue->city, '
 
   public static function get_charge_amount($unique_code)
   {
-      $quote_no=Session::get($unique_code.'quoteno');
-      $quote1_id=Session::get($unique_code.'quote1_id');
-      $quote2_id=Session::get($unique_code.'quote2_id');
-      $quote3_id=Session::get($unique_code.'quote3_id');
-      $quote4_id=Session::get($unique_code.'quote4_id');
-        if($quote_no==1)
-        {
-        $data=Option1Quotation::find((int)$quote1_id);
-        $quote_ref_no=$data->quo_ref;
-
-        }
-        elseif($quote_no==2)
-        {
-        $data=Option2Quotation::find((int)$quote2_id);
-        $quote_ref_no=$data->quotation_ref_no;
-       
-        }
-        elseif($quote_no==3)
-        {
-         $data=Option3Quotation::find((int)$quote3_id);
-         $quote_ref_no=$data->quotation_ref_no;
-        
-        }
-        elseif($quote_no==4)
-        {
-        $data=Option4Quotation::find((int)$quote4_id);
-        $quote_ref_no=$data->quotation_ref_no;
-       
-        }
+      $quote_ref_no=CustomHelpers::get_run_time_ref_no($unique_code);
     
      
 
@@ -4894,30 +4759,9 @@ $sta=CustomHelpers::get_master_table_data('city', 'id', (int)$datavalue->city, '
   {
       $quote_no=Session::get($unique_code.'quoteno');
       $quote1_id=Session::get($unique_code.'quote1_id');
-      $quote2_id=Session::get($unique_code.'quote2_id');
-      $quote3_id=Session::get($unique_code.'quote3_id');
-      $quote4_id=Session::get($unique_code.'quote4_id');
-        if($quote_no==1)
-        {
-        $data=Option1Quotation::find((int)$quote1_id);
+      
+        $data=Quote::find((int)$quote1_id);
         $quote_ref_no=$data->quo_ref;
-        }
-        elseif($quote_no==2)
-        {
-        $data=Option2Quotation::find((int)$quote2_id);
-        $quote_ref_no=$data->quotation_ref_no;       
-        }
-        elseif($quote_no==3)
-        {
-         $data=Option3Quotation::find((int)$quote3_id);
-         $quote_ref_no=$data->quotation_ref_no; 
-        }
-        elseif($quote_no==4)
-        {
-        $data=Option4Quotation::find((int)$quote4_id);
-        $quote_ref_no=$data->quotation_ref_no;       
-        }
-    
        
          $previous_amount = DB::table('rt_payments')
        ->where([['quote_ref_no','=',$quote_ref_no],['status','=',1],['transaction_type','=',0]])
