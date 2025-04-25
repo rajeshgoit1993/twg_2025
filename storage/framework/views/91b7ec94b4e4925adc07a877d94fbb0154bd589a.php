@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-
+<link type="text/css" rel="stylesheet" href="<?php echo e(asset('/resources/assets/backend/css/lead-validation.css')); ?>" />
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Main content -->
@@ -19,8 +19,12 @@
                     <div class="box-body" style="padding-top: 0px">
                         <div class="panel-body">
 
+<?php 
+$id = $data->id;
+?>
+<?php echo $__env->make('query.enquiryDetails.edit_enquiry', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                             <!-- Quote Lead Details Starts -->
-                            <?php echo $__env->make('query.enquiryDetails.quoteLeadDetails', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                            <!-- <?php echo $__env->make('query.enquiryDetails.quoteLeadDetails', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> -->
                             <!-- Quote Lead Details Ends -->
 
                             <br>

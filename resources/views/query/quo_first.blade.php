@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-
+<link type="text/css" rel="stylesheet" href="{{ asset('/resources/assets/backend/css/lead-validation.css') }}" />
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Main content -->
@@ -20,8 +20,12 @@
                     <div class="box-body" style="padding-top: 0px">
                         <div class="panel-body">
 
+<?php 
+$id = $data->id;
+?>
+@include('query.enquiryDetails.edit_enquiry')
                             <!-- Quote Lead Details Starts -->
-                            @include('query.enquiryDetails.quoteLeadDetails')
+                            <!-- @include('query.enquiryDetails.quoteLeadDetails') -->
                             <!-- Quote Lead Details Ends -->
 
                             <br>

@@ -535,6 +535,7 @@
 
 @section('custom_js_code')
 
+
 	<!-- page script -->
 	<script type="text/javascript" src='{{ asset ("/resources/assets/backend/js/view-history-view-lead.js") }}'></script>
 
