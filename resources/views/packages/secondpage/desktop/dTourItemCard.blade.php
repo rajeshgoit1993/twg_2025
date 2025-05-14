@@ -17,10 +17,7 @@
 					            $state = is_array(unserialize($package->state)) ? unserialize($package->state) : [];
 					        @endphp
 
-					        @if(in_array($destination_search, $continent) 
-					        	|| in_array($destination_search, $country) 
-					        	|| in_array($destination_search, $state) 
-					        	|| in_array($destination_search, $city))
+					 
 								<!--Tour Item Starts-->
 								<a href="{{ url('/holidays/'. str_slug($package->title) . '? package_id=' . CustomHelpers::custom_encrypt($package->id)) }}" target="_blank">
 									<div class="tourItmCont">
@@ -112,7 +109,10 @@
 															    foreach ($city1 as $row => $col) {
 															        // Display the duration (e.g., "3N") and the city name
 															        echo "<span class='itemDestDuration'>" . htmlspecialchars($days[$row]) . "N&nbsp;</span>";
-															        echo "<span class='itemDestName'>" . htmlspecialchars($city1[$row]) . "</span>";
+															        echo "<span class='itemDestName'>" . 
+CustomHelpers::get_master_table_data('city', 'id', htmlspecialchars($city1[$row]), 'name')
+
+															         . "</span>";
 
 															        // If it's not the last city, display a separator arrow
 															        if ($i < ($city1_count - 1)) {
@@ -134,46 +134,7 @@
 													</div>
 												</div>
 
-												<!-- <div class="tourItemFooter">
-													<h5>Included in this package</h5>
-													@php
-														$package_service=unserialize($package->package_service);
-													@endphp
-													@if(empty($package_service))
-														@else
-														<?php $count_package_service=count($package_service); ?>
-														<?php
-															$ico="";
-															foreach ($icon_data as $icon_data1)
-															{
-															$ico.=$icon_data1->icon_title.",";
-															}
-															$ico1=array_unique(explode(",",$ico));
-														?>
-														<div class="makeflex">
-															@for($i=0;$i<$count_package_service;$i++)
-																@if(in_array($package_service[$i], $ico1))
-																	@if($i=="4")
-																		<div class="dSvcIconCont">
-																			<div class="dSvcIcon">
-																				<img src="{{url('/public/uploads/icons/'.CustomHelpers::getimagename($package_service[$i],'rt_icons','icon'))}}" title="{{  CustomHelpers::getimagename($package_service[$i],'rt_icons','icon_title') }}">
-																			</div>
-																			<div class="dSvcTtl">{{  CustomHelpers::getimagename($package_service[$i],'rt_icons','icon_title') }}</div>
-																		</div>
-																		@else
-																			<div class="dSvcIconCont">
-																				<div class="dSvcIcon">
-																					<img src="{{ url('/public/uploads/icons/'.CustomHelpers::getimagename($package_service[$i],'rt_icons','icon')) }}" title="{{  CustomHelpers::getimagename($package_service[$i],'rt_icons','icon_title') }}">
-																				</div>
-																				<div class="dSvcTtl">{{ CustomHelpers::getimagename($package_service[$i],'rt_icons','icon_title') }}</div>
-																			</div>
-																	@endif
-																	@else
-																@endif
-															@endfor
-														</div>
-													@endif
-												</div> -->
+												
 												<div class="tourItemFooter">
 												    <h5>Included in this package</h5>
 												    @php
@@ -282,8 +243,10 @@
 										            <div class="dItemPriceBoxTop">
 										                <p class="dItemAcutalPrice defaultCurrency">{{ $new_price['actual_price'] }}</p>
 										                <p class="dItemPriceType">
-										                    <span class="dItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> 
-										                    {{ $package->Price_type }}
+										                    <span class="dItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span>
+										                    
+{{PackagePriceHelpers::get_price_type($package->Price_type)}}
+										                    
 										                </p>
 										            </div>
 										        @else
@@ -295,7 +258,8 @@
 										                <!-- Discounted Price -->
 										                <p class="dItemPriceType">
 										                    <span class="dItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> 
-										                    {{ $package->Price_type }}
+										                     
+{{PackagePriceHelpers::get_price_type($package->Price_type)}}
 										                </p>
 
 										                <!-- Price Sub-Tag -->
@@ -325,9 +289,7 @@
 									</div>
 								</a>
 								<!--Tour Item Ends-->
-								@else
-								<?php $msg=""; ?>
-							@endif
+								
 						@endforeach
 				<!-- </div> -->
 					<!--Tour Error Message-->

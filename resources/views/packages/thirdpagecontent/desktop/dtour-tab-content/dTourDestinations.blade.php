@@ -19,10 +19,12 @@
 											<?php
 												$best_time=CustomHelpers::get_destination_data($data,'best_time_desc');
 												$overview=CustomHelpers::get_destination_data($data,'overview');
+
+												
 											?>
 											<div class="collapsible-container">
 												<div class="collapsible-item dItem-box dItem-arrow">
-													<span class="glyphicon glyphicon-map-marker" style="color: #da2128;"></span>&nbsp;{{ $data }},&nbsp;{{ CustomHelpers::get_destination_data($data,'country') }}
+													<span class="glyphicon glyphicon-map-marker" style="color: #da2128;"></span>&nbsp;{{ CustomHelpers::get_master_table_data('city', 'id', (int)$data, 'name') }},&nbsp;{{ CustomHelpers::get_master_table_data('countries', 'id', (int)CustomHelpers::get_destination_data($data,'country'), 'name') }}
 												</div>
 												<!--Collapsible Content-->
 												<div class="collapsible-item-content" id="mob{{ str_slug($data, '-') }}">

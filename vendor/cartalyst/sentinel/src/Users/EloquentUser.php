@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    2.0.18
+ * @version    2.0.14
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2019, Cartalyst LLC
+ * @copyright  (c) 2011-2017, Cartalyst LLC
  * @link       http://cartalyst.com
  */
 
@@ -45,35 +45,6 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
         'last_name',
         'first_name',
         'permissions',
-        'location',
-        'mobile',
-        'signature',
-        'profile_image',
-        'login_status',
-        'email_activation',
-        'usercategory',
-        'subscription',
-        'subscription_service',
-        'tourpackage',
-        'visa',
-        'destination',
-        'visadestination',
-        'lock_header',
-        'lock_header_email',
-        'signature_header',
-        'lock_footer',
-        'lock_footer_email',
-        'quotation_header',
-        'quotation_footer',
-        'lock_before_quote_send',
-        'lock_after_quote_send',
-        'register_type',
-        'social_id',
-        'social_nickname',
-        'social_picture',
-        'social_locale',
-        
-
     ];
 
     /**
@@ -439,9 +410,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      */
     public function delete()
     {
-        $isSoftDeletable = property_exists($this, 'forceDeleting');
-
-        $isSoftDeleted = $isSoftDeletable && ! $this->forceDeleting;
+        $isSoftDeleted = array_key_exists('Illuminate\Database\Eloquent\SoftDeletes', class_uses($this));
 
         if ($this->exists && ! $isSoftDeleted) {
             $this->activations()->delete();

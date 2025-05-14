@@ -6,9 +6,73 @@ window.onload = function () {
     window.scrollTo(0, 0);
 };
 
+$(document).on("click", "#reset", function() {
+    location.reload();
+});
+/**********************/
+// desktop and mobile view by windows width (using desktop-mobile-width.js)
+/*$(document).ready(function() {
+    //Desktop & Mobile View
+    if($(window).width()>=992) {
+        $(".mobile_test_exp").each(function( index ) {
+            $(this).remove()
+        });
+    }
+    else {
+        $(".destop_test_exp").each(function( index ) {
+            $(this).remove()
+        });
+    }
+
+    //Old Modify button for search panel
+    // $("#modify").show();
+    // $("#modify_search").click(function(){
+    //     $("#modify").toggle();
+    // });
+
+    //
+    $(".mobile_filter").click(function() {
+        $(".sorting_content").toggle();
+    });
+});*/
+
+// desktop and mobile view by windows width (using desktop-mobile-width.js)
+/*$(document).ready(function () {    
+    function toggleResponsiveElements() {
+        if (window.matchMedia("(min-width: 992px)").matches) {
+            // Desktop view
+            $(".mobile_test_exp").remove();
+        } else {
+            // Mobile view
+            $(".destop_test_exp").remove();
+        }
+    }
+
+    // // Initial call
+    // toggleResponsiveElements();
+
+    // Optional: Handle window resizing (if elements are dynamically added on resize, else skip this)
+    // $(window).resize(function () {
+    //     toggleResponsiveElements();
+    // });
+});*/
+
+$(document).ready(function () {
+    // Toggle sorting content on mobile filter click
+    $(".mobile_filter").click(function () {
+        $(".sorting_content").toggle();
+    });
+
+    // Old Modify button for search panel (still commented)
+    /*
+    $("#modify").show();
+    $("#modify_search").click(function(){
+        $("#modify").toggle();
+    });
+    */
+});
 
 /**********************/
-
 
 // pagetwo.js
 // mobile page (filter modal)
@@ -53,7 +117,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Function to open the m_SearchModal
         open_mSearchModal.addEventListener('click', () => {
+          /***code here****/
             m_SearchModal.style.display = 'block';
+
+           
+
+
+            $('.select_3').select2({
+        placeholder: "To",
+        dropdownParent: $('#mSearchModal'),
+        allowClear: true,
+        ajax: {
+            url: jQuery("#APP_URL").val() + '/search-destination',
+            type: "GET",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    searchTerm: params.term // term entered by user
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        },
+
+        // Customize selected option display
+        templateSelection: function (data) {
+            if (!data.id || !data.text) {
+                return "To";  // Default placeholder
+            }
+
+            // Example: "Goa, India (13 Packages)" → "Goa"
+            let label = data.text;
+            label = label.replace(/\s*\(.*?\)/, ''); // Remove "(13 Packages)"
+            const shortName = label.split(',')[0].trim(); // Get first part before comma
+
+            return shortName || "To";
+        }
+    });
+
+$('.select_2').select2({
+     dropdownParent: $('#mSearchModal')
+});
+ if (!$("#m_datepicker").data("datepicker")) {
+                $("#m_datepicker").datepicker({
+                    // dateFormat: "d M yy", // Use "yy" for a four-digit year, if needed.
+                    dateFormat: "D, d M yy", // Includes day name
+                    // changeMonth: true,    // Allows month selection from a dropdown.
+                    // changeYear: true,     // Allows year selection from a dropdown.
+                    minDate: 0,             // Prevents selecting dates before today
+                    maxDate: "+12M",        // Limits selection to 6 months ahead
+                    numberOfMonths: [12, 1]  // Display the months vertically
+                    // stepMonths: 2, // Moves two months at a time when navigating.
+                    // showButtonPanel: true // Optional: Adds "Today" and "Done" buttons
+                });
+            }
+
+
         });
 
         // Function to close the m_SearchModal
@@ -440,18 +564,51 @@ $(document).ready(function() {
     // added through destination-search.js in pagetwo.blade (can remove this)
     jQuery('.select2').select2();
 
-    //
-    jQuery('.select3').select2({
-        placeholder: "To",
+    // //
+    // jQuery('.select3').select2({
+    //     placeholder: "To",
+    //     allowClear: true,
+    //     ajax:{
+    //         url: jQuery("#APP_URL").val()+'/search-destination',
+    //         type: "get",
+    //         dataType: 'json',
+    //         delay: 250,
+    //         data: function (params) {
+    //             return {
+    //                 searchTerm: params.term //search term
+    //             };
+    //         },
+    //         processResults: function (response) {
+    //             return {
+    //                 results: response
+    //             };
+    //         },
+    //         cache: true
+    //         },
+    //         templateSelection: formatSelection,
+    // });
+
+    // // Function to format the selected option
+    // function formatSelection(selection) {
+    //     if (!selection.id) {
+    //         return selection.text;
+    //     }
+
+    //     return $('<span>' + selection.id + '</span>');
+    // }
+
+jQuery('.search_package').select2({
+        placeholder: "Enter tour package name",
         allowClear: true,
-        ajax:{
-            url: jQuery("#APP_URL").val()+'/search-destination',
-            type: "get",
+        ajax: {
+            url: jQuery("#APP_URL").val() + '/search-package-title',
+            type: "GET",
             dataType: 'json',
             delay: 250,
             data: function (params) {
                 return {
-                    searchTerm: params.term //search term
+                    searchTerm: params.term ,
+                    destination: $('#destination_search').val()
                 };
             },
             processResults: function (response) {
@@ -460,19 +617,81 @@ $(document).ready(function() {
                 };
             },
             cache: true
-            },
-            templateSelection: formatSelection,
-    });
+        },
 
-    // Function to format the selected option
-    function formatSelection(selection) {
-        if (!selection.id) {
-            return selection.text;
+        // Customize selected option display
+        templateSelection: function (data) {
+            if (!data.id || !data.text) {
+                return "Enter tour package name";  // Default placeholder
+            }
+
+            // Example: "Goa, India (13 Packages)" → "Goa"
+            let label = data.text;
+            label = label.replace(/\s*\(.*?\)/, ''); // Remove "(13 Packages)"
+            const shortName = label.split(',')[0].trim(); // Get first part before comma
+
+            return shortName || "Enter tour package name";
         }
+    });
+$('.search_package').on('select2:select', function (e) {
+    let selectedData = e.params.data;
+    var sort_filter = jQuery('#sort_filter').val()
+    if(sort_filter!='SEL')
+    {  
+     jQuery('#sort_filter').val('SEL'); 
+    }
 
-        return $('<span>' + selection.id + '</span>');
-    }    
+    drop_function()
     
+});
+    // Initialize Select2 for .select3 elements
+    jQuery('.select3').select2({
+        placeholder: "To",
+        allowClear: true,
+        ajax: {
+            url: jQuery("#APP_URL").val() + '/search-destination',
+            type: "GET",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    searchTerm: params.term // term entered by user
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        },
+
+        // Customize selected option display
+        templateSelection: function (data) {
+            if (!data.id || !data.text) {
+                return "To";  // Default placeholder
+            }
+
+            // Example: "Goa, India (13 Packages)" → "Goa"
+            let label = data.text;
+            label = label.replace(/\s*\(.*?\)/, ''); // Remove "(13 Packages)"
+            const shortName = label.split(',')[0].trim(); // Get first part before comma
+
+            return shortName || "To";
+        }
+    });
+    
+
+    
+    // Ensure the placeholder appears in the search input of the dropdown
+    jQuery('.select3').on('select2:open', function () {
+        var searchField = jQuery('.select2-search__field');
+        if (searchField.val() === '') {
+            searchField.attr('placeholder', 'Enter city name');
+        }
+    });
+    
+    // Holiday destination search by theme (pagetwo)
     jQuery(document).on('change.select2','.package_service', function(e) {
         var data_value=jQuery(this).val();
         $("#destination_search").val(data_value);
@@ -487,30 +706,6 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
-    //Desktop & Mobile View
-    if($(window).width()>=992) {
-        $(".mobile_test_exp").each(function( index ) {
-            $(this).remove()
-        });
-    }
-    else {
-        $(".destop_test_exp").each(function( index ) {
-            $(this).remove()
-        });
-    }
-
-    //Old Modify button for search panel
-    /*$("#modify").show();
-    $("#modify_search").click(function(){
-        $("#modify").toggle();
-    });*/
-
-    //
-    $(".mobile_filter").click(function() {
-        $(".sorting_content").toggle();
-    });
-});
 
 $(document).ready(function () {
     // Close the dropdown menu if the user clicks outside of it
@@ -544,7 +739,17 @@ $(document).ready(function () {
 // Event Delegation for Dropdown Actions
 function bindDropdownEvents() {
     // Handle sort filter change
-    $(".sort_filter, #sort_filter").on("change", drop_function);
+    $(".sort_filter, #sort_filter").on("change", function(){
+        var search_package =$(".search_package").val()
+     
+        if(search_package!='')
+        {
+$('.search_package').val(null).trigger('change');
+        }
+        
+
+        drop_function()
+    });
 
     // Stop event propagation for dropdown items
     $(document).on("click", ".dropdown-content .drop", function (e) {
@@ -585,7 +790,7 @@ $(document).ready(function () {
 
 // Utility Function: Collect filter data
 function collectFilterData() {
-    return {
+    return { 
         destination: $("#destination").val(),
         places: getCheckedValues("chk_value"),
         duration: getCheckedValues("duration"),
@@ -595,8 +800,9 @@ function collectFilterData() {
         services_includes: getCheckedValues("services_includes"),
         sut_for: getCheckedValues("sut_for"),
         gen_tags: getCheckedValues("gen_tags"),
-        search_date: $("#search_date").val(),
+        search_date: $("#datepicker_modify").val(),
         sort_filter: $("#sort_filter").val(),
+        search_package : $(".search_package").val(),
         min_price: $(".min-price-label").html(),
         max_price: $(".max-price-label").html(),
         packages_id: $("input[name='pack_id_list[]']").map(function () {
@@ -612,8 +818,8 @@ function collectFilterData() {
 // Core Functionality: Fetch and Update Filtered Data
 function drop_function() {
     // Reset filters
-    $("#refine_search").html("<a href='' id='reset' style=''>Clear filter</a>");
-    $("#refine_mobsearch").html("<a href='' id='mobreset'><button type='button' class='btnFilterReset'>Reset</button></a>");
+    $("#refine_search").html("<a href='#' id='reset' style=''>Clear filter</a>");
+    $("#refine_mobsearch").html("<a href='#' id='mobreset'><button type='button' class='btnFilterReset'>Reset</button></a>");
 
     // Prepare data for the request
     const data = collectFilterData();
@@ -852,9 +1058,11 @@ $("#search3").submit(function(event) {
 
 // destination search (mobile)
 $(document).on("submit","#search4",function() {
-    var destination_search=slug($("#destination_search_mobile").val());
-    var select_theme=slug($("#traveltheme_mobile").val());
 
+var destination_search = slug($("#destination_search").val());
+    var select_theme = slug($("#select_theme").val());
+
+   
     var ROOT_URL = $("#ROOT_URL").val();
 
     // if(destination_search!="" && select_theme=="") {
@@ -1071,8 +1279,9 @@ $(document).ready(function () {
                     gen_tags: getCheckedValues('input[name="gen_tags"]:checked'),
                     search_date: $("#datepicker_modify").val(),
                     sort_filter: $("#sort_filter").val(),
-                    min_price: $(".min-price-label").text().trim(),
-                    max_price: $(".max-price-label").text().trim(),
+                    search_package :  $(".search_package").val(),
+                    min_price: $(".min-price-label").text().match(/\d+/)[0],
+                    max_price: $(".max-price-label").text().match(/\d+/)[0],
                     _token: $('meta[name="csrf-token"]').attr("content"),
                 };
 
@@ -1082,6 +1291,7 @@ $(document).ready(function () {
                     data: data,
                     dataType: "html",
                     success: function (response) {
+
                         if (response.trim() === "<br>") {
                             $(".loader_scroll").html("<p>That's all the options that we have</p>");
                         } else if (response) {

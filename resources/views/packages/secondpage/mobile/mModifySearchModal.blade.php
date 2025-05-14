@@ -22,33 +22,72 @@
 					</div> -->
 
 					<!-- City Name -->
-					<div class="mSearchBox">
+					<!-- <div class="mSearchBox">
 						<label for="tourplace" id="btn_getModal_searchInputs_destination">
 							<div>TO CITY / COUNTRY</div>
 							<input type="text" id="destination_search" name="tourplace" value="" placeholder="Enter Destination" required readonly />
+
+							
+
+						</label>
+					</div> -->
+<form action="#" method="post" autocomplete="off" id="search4" name="search4">
+					<input type="hidden" name="_token" value="{{ Session::token() }}"/>
+<div class="mSearchBox">
+						<label for="tourplace">
+							<div>TO CITY / COUNTRY</div>
+						
+						    <select class="select_3 package_service" id="destination_search" name="destination_search" required>
+						        <option value="{{ $destination_search }}" selected>{{ ucfirst($destination_search) }}</option>
+						    </select>
+						
+
+							
+						    
 						</label>
 					</div>
 
 					<!-- Travel Date -->
 					<div class="mSearchBox">
-						<label for="traveldate" id="btn_getModal_searchInputs_date">
+						<!-- <label for="traveldate" id="btn_getModal_searchInputs_date"> -->
+						<label for="traveldate" >
 							<div>TRAVEL DATE</div>
-							<input type="text" id="date" name="traveldate" value="{{ $date }}" placeholder="Select Travel Date" required readonly />
+							 <input type="text" id="m_datepicker" name="datepicker" value="{{ $date }}" placeholder="Select Date" />
+							<!-- <input type="text" id="date" name="traveldate" value="{{ $date }}" placeholder="Select Travel Date" required readonly /> -->
 						</label>
 					</div>
 
 					<!-- Theme -->
-					<div class="mSearchBox" id="btn_getModal_searchInputs_theme">
+					<!-- <div class="mSearchBox" id="btn_getModal_searchInputs_theme">
 						<label for="traveltheme">
 							<div>THEME</div>
 							<input type="text" id="traveltheme" name="traveltheme" value="" placeholder="Select Theme" required readonly />
 						</label>
-					</div>
+					</div> -->
 
+<div class="mSearchBox" >
+						<label for="traveltheme">
+							<div>THEME</div>
+							<select id="select_theme" name="select_theme" class="select_2">
+							 <?php
+       
+        $options = "<option value=''>All</option>";
+        foreach ($total_themes as $theme_d) {
+            $selected = (strtolower($theme_name) == strtolower($theme_d)) ? "selected" : "";
+            $options .= "<option value='" . htmlspecialchars($theme_d) . "' $selected>" . htmlspecialchars($theme_d) . "</option>";
+        }
+        echo $options;
+    ?>
+							</select>
+						</label>
+					</div>
 					<!-- search -->
 					<div class="appendTop20">
-						<button class="btn_mSearch">Search</button>
+						<button type="submit" class="btn_mSearch btnSearchUpdate">Search</button>
 					</div>
+</form>
+
+
 				</div>
 			</div>
 		</div>

@@ -8,14 +8,14 @@
 					<div class="mSideItemBoxTop">
 						<p class="mSlashedPrice defaultCurrency">{{ $new_price['actual_price'] }}</p>
 						<p class="mPriceTag">
-							<span id="" class="mActualPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> {{ $details->Price_type }}
+							<span id="" class="mActualPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> {{PackagePriceHelpers::get_price_type($details->Price_type)}}
 						</p>
 					</div>
 					@else
 					<div class="mSideItemBoxTop">
 						<p class="mSlashedPrice defaultCurrency">{{ $new_price['actual_price'] }}</p>
 						<p class="mPriceTag">
-							<span id="" class="mActualPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> {{ $details->Price_type }}
+							<span id="" class="mActualPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> {{PackagePriceHelpers::get_price_type($details->Price_type)}}
 						</p>
 						<!--<p class="mPriceSubTag" style="display: none;">*Excluding applicable taxes</p>-->
 						<span class="mPkgOfferTag">

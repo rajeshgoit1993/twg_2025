@@ -5,6 +5,7 @@
 	    // Fetch website-related data from the WebsiteNameHelpers function
 	    // This retrieves key information like social media links, contact details, etc.
 	    $websiteData = getWebsiteData();
+	   
 	@endphp
 
 	<!-- Basic Meta Tags -->

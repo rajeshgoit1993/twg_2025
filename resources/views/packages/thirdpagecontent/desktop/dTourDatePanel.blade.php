@@ -23,10 +23,11 @@
 						<label for="tourDate">Travel Date</label>
 						<input type="text" id="datepicker" name="tourDate" placeholder="Select Date" readonly />
 					</div> -->
-
 					<div class="dSearchInputBox tourDateBox_update" onclick="document.getElementById('datepicker').focus();">
 					    <label for="datepicker">Travel Date</label>
-					    <input type="text" id="datepicker" name="tourDate" placeholder="Select Date" readonly />
+					    <input type="text" id="datepicker" name="tourDate" placeholder="Select Date" readonly 
+
+					    />
 					</div>
 
 					<!--Package Type-->

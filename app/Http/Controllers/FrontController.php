@@ -28,6 +28,10 @@ use App\PkgRatingType;
 use App\QuoteCharges;
 use App\Coupon;
 use App\EnqueryOTPSetting;
+use Illuminate\Support\Facades\Cache; // Laravel Cache (Cache::remember), application-level caching
+use App\City;
+use App\State;
+
 
 class FrontController extends Controller 
 {
@@ -62,7 +66,7 @@ class FrontController extends Controller
         return response()->json(['window_width' => Session::get('window_width')]);
     }
 
-    // ***********************
+    // ****************************************
     
     // tour new price
     function calendar_data_new($id1,$id2,Request $request)
@@ -72,6 +76,10 @@ class FrontController extends Controller
         $Packages = Packages::findOrFail($package_id);
         $pricediscounts = unserialize($Packages->newprices_discounts);
         $new_price=PackagePriceHelpers::get_package_new_price($Packages->newprices,$Packages->adult,$Packages->extra_adult,$Packages->child_with_bed,$Packages->child_without_bed,$Packages->infant,$Packages->solo_traveller);
+
+        $type_of_package = $Packages->Price_type;
+        $new_price['package_pricetopay_adult']=PackagePriceHelpers::get_price_by_packageType($type_of_package,$new_price['package_pricetopay_adult'],$Packages->adult,$Packages->extra_adult,$Packages->child_with_bed,$Packages->child_without_bed,$Packages->infant,$Packages->solo_traveller); 
+
         $start_date=[];
         if(count($pricediscounts)>0)
         {
@@ -691,12 +699,13 @@ class FrontController extends Controller
         endif;
         }
 
-    // ***********************
+    // ****************************************
 
     // third_page_upper_price_change_controller_start
-    public function date_wise_price(Request $request)
+    public function appy_price_type(Request $request)
     {
-        $date=$request->date;
+
+      $date=$request->date;
         $pkg_type=$request->pkg_type;
         $date=date("Y-m-d", strtotime($date));
         $package_id=$request->package_id;
@@ -706,6 +715,7 @@ class FrontController extends Controller
         date('Y-m-d', 1693333800);
         $type='';
         $return_price='';
+
         if($new_price!='na'):
 
         $overall_package_rating=$new_price['overall_package_rating'];
@@ -739,18 +749,83 @@ class FrontController extends Controller
         endif;
         //
 
+     
+        
+        //
+
+        $data=['type'=>$type];
+
+        return $data;  
+    }
+    public function date_wise_price(Request $request)
+    {
+        $date=$request->date;
+        $pkg_type=$request->pkg_type;
+
+        $date=date("Y-m-d", strtotime($date));
+        $package_id=$request->package_id;
+        $type_value=$request->type_value;
+        $details=Packages::find($package_id);
+        $new_price=PackagePriceHelpers::get_new_pricing_data_with_price_type($package_id,$date,$pkg_type);
+        $package_duration = $details->duration;
+        $first_day = $date;
+        $last_day = date('Y-m-d', strtotime("+$package_duration days", strtotime($date)));
+        $date_range = date('d M' , strtotime($first_day)).' - '.date('d M' , strtotime($last_day));
+
+       
+        date('Y-m-d', 1693333800);
+        $type='';
+        $return_price='';
+
         if($new_price!='na'):
+
+        $overall_package_rating=$new_price['overall_package_rating'];
+        $package_rating=$new_price['package_rating'];
+        if(count($overall_package_rating)>0):
+        $type.='<select class="searchPanelUpdate_selectBox pkg_type_two type_value">';
+        foreach($overall_package_rating as $row=>$col):
+
+        $rate=DB::table('rt_pkg_rating_type')->where('id',$row)->first();
+        if($type_value!='On Request'):
+        if($row==$type_value):
+        $type.='<option  selected  value="'.$row.'">'.$rate->name.'</option>';
+        else:
+        $type.='<option value="'.$row.'">'.$rate->name.'</option>';
+        endif;
+        else:
+        if($row==$package_rating):
+        $type.='<option  selected value="'.$row.'">'.$rate->name.'</option>';
+        else:
+        $type.='<option value="'.$row.'">'.$rate->name.'</option>';
+        endif;
+        endif;
+
+        endforeach;
+        $type.='</select>';
+        else:
+        $type.='<input type="text" value="On Request" class="searchPanelUpdate_inputBox" readonly>';
+        endif;
+        else:
+        $type.='<input type="text" value="On Request" class="searchPanelUpdate_inputBox" readonly>';
+        endif;
+        //
+       $type_p=PackagePriceHelpers::get_price_type($details->Price_type);
+
+        if($new_price!='na'):
+
         if(array_key_exists($type_value,$new_price['overall_package_rating'])):
         $package_rating=$new_price['package_rating'];
+        
+
         if($new_price['actual_price']==$new_price['overall_package_rating'][$type_value]):
         $return_price.='<div class="dSideItemBoxTop flexCenter">
         <p class="dSlashedPrice defaultCurrency">'.$new_price['actual_price'].'</p>
-        <p class="dPriceTag"><span class="dActualPrice defaultCurrency">'.$new_price['discount_price'].'</span>'.$details->Price_type.'</p>
+        <p class="dPriceTag"><span class="dActualPrice defaultCurrency">'.$new_price['discount_price'].'</span>'.$type_p.'</p>
         </div>';
         else:
         $return_price.='<div class="dSideItemBoxTop">
         <p class="dSlashedPrice defaultCurrency">'.$new_price['actual_price'].'</p>
-        <p class="dPriceTag"><span class="dActualPrice defaultCurrency">'.$new_price['discount_price'].'</span> '.$details->Price_type.'</p>
+        <p class="dPriceTag"><span class="dActualPrice defaultCurrency">'.$new_price['discount_price'].'</span> '.$type_p.'</p>
         <p class="dPriceSubTag">*Excluding applicable taxes</p>
         <span class="dPkgOfferTag">';
             $tourdiscount = (int)$new_price['actual_price'] - (int)$new_price['discount_price'];
@@ -763,59 +838,27 @@ class FrontController extends Controller
         endif;
         else:
         $package_rating=$new_price['package_rating'];
+
         if($new_price['actual_price']==$new_price['discount_price']):
+
         $return_price.='
         <div class="dSideItemBoxTop">
         <p class="dSlashedPrice defaultCurrency">'.$new_price['actual_price'].'</p>
-        <p class="dPriceTag"><span class="dActualPrice defaultCurrency">'.$details->Price_type.'</p>
+        <p class="dPriceTag"><span class="dActualPrice defaultCurrency">'.$type_p.'</p>
         </div>';
         else:
+
         $return_price.='
         <div class="dSideItemBoxTop">
         <p class="dSlashedPrice defaultCurrency">
         <strike>'.$new_price['actual_price'].'</strike>
         &nbsp;&nbsp;<span class="tourDefaultCurency"></span>'.$new_price['discount_price'].'
         </p>
-        <p class="dPriceTag"><span class="dActualPrice defaultCurrency">'.$details->Price_type.'</p>
+        <p class="dPriceTag"><span class="dActualPrice defaultCurrency">'.$type_p.'</p>
         </div>';
         endif;
         endif;
-        /*if($new_price!='na'):
-        if(array_key_exists($type_value,$new_price['overall_package_rating'])):
-        $package_rating=$new_price['package_rating'];
-        if($new_price['actual_price']==$new_price['overall_package_rating'][$type_value]):
-        $return_price.='<div class="tourItemPriceValueBox">
-        <p class="tourItemPriceValue"><span class="tourDefaultCurency">&nbsp;</span>'.$new_price['actual_price'].'</p>
-        <p class="tourItemPriceType">'.$details->Price_type.'</p>
-        </div>';
-        else:
-        $return_price.='<div class="tourItemPriceValueBox">
-        <p class="tourItemPriceValue">
-        <span class="tourDefaultCurency"></span>
-        <strike>'.$new_price['actual_price'].'</strike>
-        &nbsp;&nbsp;<span class="tourDefaultCurency"></span>'.$new_price['overall_package_rating'][$type_value].'
-        </p>
-        <p class="tourItemPriceType">'.$details->Price_type.'</p>
-        </div>';
-        endif;
-        else:
-        $package_rating=$new_price['package_rating'];
-        if($new_price['actual_price']==$new_price['discount_price']):
-        $return_price.='<div class="tourItemPriceValueBox">
-        <p class="tourItemPriceValue"><span class="tourDefaultCurency">&nbsp;</span>'.$new_price['actual_price'].'</p>
-        <p class="tourItemPriceType">'.$details->Price_type.'</p>
-        </div>';
-        else:
-        $return_price.='<div class="tourItemPriceValueBox">
-        <p class="tourItemPriceValue">
-        <span class="tourDefaultCurency"></span>
-        <strike>'.$new_price['actual_price'].'</strike>
-        &nbsp;&nbsp;<span class="tourDefaultCurency"></span>'.$new_price['discount_price'].'
-        </p>
-        <p class="tourItemPriceType">'.$details->Price_type.'</p>
-        </div>';
-        endif;
-        endif;*/
+        
 
         else:
         $return_price.='<div class="dSideItemBoxTop flexCenter">
@@ -824,7 +867,129 @@ class FrontController extends Controller
         endif;
         //
 
-        $data=['return_price'=>$return_price,'type'=>$type];
+
+        $data=['return_price'=>$return_price,'type'=>$type,'first_day'=>$first_day,'last_day'=>$last_day,'date_range'=>$date_range];
+
+        return $data;
+        //
+    }
+
+
+public function date_wise_price_mobile(Request $request)
+    {
+        $date=$request->date;
+        $pkg_type=$request->pkg_type;
+
+        $date=date("Y-m-d", strtotime($date));
+        $package_id=$request->package_id;
+        $type_value=$request->type_value;
+        $details=Packages::find($package_id);
+        $new_price=PackagePriceHelpers::get_new_pricing_data_with_price_type($package_id,$date,$pkg_type);
+        $package_duration = $details->duration;
+        $first_day = $date;
+        $last_day = date('Y-m-d', strtotime("+$package_duration days", strtotime($date)));
+        $date_range = date('d M' , strtotime($first_day)).' - '.date('d M' , strtotime($last_day));
+
+       
+        date('Y-m-d', 1693333800);
+        $type='';
+        $return_price='';
+
+        if($new_price!='na'):
+
+        $overall_package_rating=$new_price['overall_package_rating'];
+        $package_rating=$new_price['package_rating'];
+        if(count($overall_package_rating)>0):
+        $type.='<select class="searchPanelUpdate_selectBox pkg_type_two type_value">';
+        foreach($overall_package_rating as $row=>$col):
+
+        $rate=DB::table('rt_pkg_rating_type')->where('id',$row)->first();
+        if($type_value!='On Request'):
+        if($row==$type_value):
+        $type.='<option  selected  value="'.$row.'">'.$rate->name.'</option>';
+        else:
+        $type.='<option value="'.$row.'">'.$rate->name.'</option>';
+        endif;
+        else:
+        if($row==$package_rating):
+        $type.='<option  selected value="'.$row.'">'.$rate->name.'</option>';
+        else:
+        $type.='<option value="'.$row.'">'.$rate->name.'</option>';
+        endif;
+        endif;
+
+        endforeach;
+        $type.='</select>';
+        else:
+        $type.='<input type="text" value="On Request" class="searchPanelUpdate_inputBox" readonly>';
+        endif;
+        else:
+        $type.='<input type="text" value="On Request" class="searchPanelUpdate_inputBox" readonly>';
+        endif;
+        //
+       $type_p=PackagePriceHelpers::get_price_type($details->Price_type);
+
+       
+
+if ($new_price != 'na') {
+    if (array_key_exists($type_value, $new_price['overall_package_rating'])) {
+        if ($new_price['actual_price'] == $new_price['overall_package_rating'][$type_value]) {
+            $return_price .= '
+                <div class="mSideItemBoxTop">
+                    <p class="mSlashedPrice defaultCurrency">' . $new_price['actual_price'] . '</p>
+                    <p class="mPriceTag">
+                        <span class="mActualPrice defaultCurrency">' . $new_price['discount_price'] . '</span> ' . $type_p . '
+                    </p>
+                </div>';
+        } else {
+            $tourdiscount = (int)$new_price['actual_price'] - (int)$new_price['discount_price'];
+            $percentage = $tourdiscount / $new_price['actual_price'] * 100;
+
+            $return_price .= '
+                <div class="mSideItemBoxTop">
+                    <p class="mSlashedPrice defaultCurrency">' . $new_price['actual_price'] . '</p>
+                    <p class="mPriceTag">
+                        <span class="mActualPrice defaultCurrency">' . $new_price['discount_price'] . '</span> ' . $type_p . '
+                    </p>
+                    <span class="mPkgOfferTag">' . round($percentage) . '% Off</span>
+                </div>';
+        }
+    } else {
+        if ($new_price['actual_price'] == $new_price['discount_price']) {
+            $return_price .= '
+                <div class="mSideItemBoxTop">
+                    <p class="mSlashedPrice defaultCurrency">' . $new_price['actual_price'] . '</p>
+                    <p class="mPriceTag">
+                        <span class="mActualPrice defaultCurrency"></span> ' . $type_p . '
+                    </p>
+                </div>';
+        } else {
+            $return_price .= '
+                <div class="mSideItemBoxTop">
+                    <p class="mSlashedPrice defaultCurrency">
+                        <strike>' . $new_price['actual_price'] . '</strike>
+                        &nbsp;&nbsp;<span class="tourDefaultCurrency"></span>' . $new_price['discount_price'] . '
+                    </p>
+                    <p class="mPriceTag">
+                        <span class="mActualPrice defaultCurrency"></span> ' . $type_p . '
+                    </p>
+                </div>';
+        }
+    }
+} else {
+    $return_price .= '
+        <div class="mSideItemBoxTop">
+            <p class="mPriceTag_OnRequest">
+                <span class="defaultCurrency"></span> On Request
+            </p>
+        </div>';
+}
+
+        //
+
+
+        $data=['return_price'=>$return_price,'type'=>$type,'first_day'=>$first_day,'last_day'=>$last_day,'date_range'=>$date_range];
+
         return $data;
         //
     }
@@ -957,7 +1122,7 @@ class FrontController extends Controller
         return $data;
     }*/
 
-    // ***********************
+    // ****************************************
 
     // third_page_upper_price_change_controller_end
     /*public function packages(Request $request)
@@ -1025,7 +1190,7 @@ class FrontController extends Controller
         ]);
     }
         
-    // ***********************
+    // ****************************************
 
     // search packages using destination and theme (old working)
     /*public function packages1($id,Request $request)
@@ -1128,8 +1293,8 @@ class FrontController extends Controller
         ]);
     }*/
 
-    // search packages using destination and theme
-    public function packages1($id, Request $request)
+    // search packages using destination and theme (working)
+    /*public function packages1($id, Request $request)
     {
         $date = $request->datepicker;
         $theme_name = '';
@@ -1264,7 +1429,495 @@ class FrontController extends Controller
             'date' => $date,
             'theme_name' => $theme_name,
         ]);
+    }*/
+
+    // tried to map with id to name (not working)
+    /*public function packages1($id, Request $request)
+    {
+        $date = $request->datepicker;
+        $theme_name = '';
+        $destination_search_first = explode("-", $id);
+        $remove_array = ['tour', 'packages'];
+        $destination_search = array_diff($destination_search_first, $remove_array);
+        $destination_search = implode(" ", $destination_search);
+        $destination_search = str_replace(' And ', ' and ', ucwords($destination_search));
+
+        $array = explode("-", $id);
+        $first_value = end($array);
+        $second_value = prev($array);
+
+        // Handle direct package ID (733-tour-packages)
+        if ($first_value != "packages" && $second_value != "tour") {
+            try {
+                $data_id = CustomHelpers::custom_decrypt($request->package_id ?? '');
+            } catch (\Exception $e) {
+                return redirect('/')->withErrors('Invalid package ID.');
+            }
+
+            $Packages = Packages::find($data_id);
+            if (!$Packages) {
+                return redirect('/')->withErrors('Package not found.');
+            }
+
+            $id = $Packages->id;
+            $price = ($Packages->onrequest == 1) ? false : unserialize($Packages->pricing);
+            $images = PackageUploads::where('package_id', $data_id)->orderBy('sort','ASC')->get();
+            $daywise = unserialize($Packages->day_itinerary);
+            $city = unserialize($Packages->city);
+            $country = unserialize($Packages->country);
+            $continent = unserialize($Packages->continent);
+            $state = unserialize($Packages->state);
+            $icon_data = Icons::all();
+            $hoteldata = PackageHotel::all();
+            $status = $Packages->status;
+
+            if ($status == 1) {
+                return view('packages.pagethree', compact(
+                    'Packages', 'price', 'images', 'daywise', 'city',
+                    'country', 'continent', 'state', 'data_id', 'hoteldata', 'icon_data'
+                ));
+            } else {
+                if (Sentinel::check()) {
+                    $userRole = Sentinel::getUser()->roles()->first()->slug;
+                    $allowedRoles = ['super_admin', 'administrator', 'supervisor', 'employee'];
+                    if (in_array($userRole, $allowedRoles)) {
+                        return view('packages.pagethree', compact(
+                            'Packages', 'price', 'images', 'daywise', 'city',
+                            'country', 'continent', 'state', 'data_id', 'hoteldata', 'icon_data'
+                        ));
+                    } else {
+                        return redirect('/');
+                    }
+                } else {
+                    return redirect('/');
+                }
+            }
+        }
+
+        // Map destination name to IDs
+        $continentIds = DB::table('continent')->where('continent_name', 'LIKE', $destination_search . '%')->pluck('id')->toArray();
+        $countryIds = DB::table('countries')->where('name', 'LIKE', $destination_search . '%')->pluck('id')->toArray();
+        $stateIds = DB::table('states')->where('name', 'LIKE', $destination_search . '%')->pluck('id')->toArray();
+        $cityIds = DB::table('city')->where('name', 'LIKE', $destination_search . '%')->pluck('id')->toArray();
+
+        Log::info('Destination Search: ' . $destination_search);
+        Log::info('Matched Continent IDs: ', $continentIds);
+        Log::info('Matched Country IDs: ', $countryIds);
+        Log::info('Matched State IDs: ', $stateIds);
+        Log::info('Matched City IDs: ', $cityIds);
+
+        // Get all packages
+        $allPackages = DB::table('rt_packages')->where('status', 1)->get();
+
+        $filteredPackages = $allPackages->filter(function ($pkg) use ($continentIds, $countryIds, $stateIds, $cityIds) {
+            $pkgContinents = @unserialize($pkg->continent) ?: [];
+            $pkgCountries = @unserialize($pkg->country) ?: [];
+            $pkgStates = @unserialize($pkg->state) ?: [];
+            $pkgCities = @unserialize($pkg->city) ?: [];
+
+            return
+                array_intersect($continentIds, $pkgContinents) ||
+                array_intersect($countryIds, $pkgCountries) ||
+                array_intersect($stateIds, $pkgStates) ||
+                array_intersect($cityIds, $pkgCities);
+        });
+
+        $data = $filteredPackages;
+        $data_ids = $filteredPackages->pluck('id')->toArray();
+        $packages = $filteredPackages->take(3);
+
+        $data1 = DB::table('rt_packages_seo')
+            ->where('destination', 'LIKE', '%' . $destination_search . '%')
+            ->get();
+
+        $icon_data = Icons::all();
+
+        return view("packages.pagetwo", [
+            'data' => $data,
+            'data_ids' => $data_ids,
+            'destination_search' => $destination_search,
+            'icon_data' => $icon_data,
+            'data1' => $data1,
+            'packages' => $packages,
+            'date' => $date,
+            'theme_name' => $theme_name,
+        ]);
+    }*/
+
+
+    // ***********************
+
+    // url showing using id (working)
+    public function packages1($id, Request $request)
+    {
+        $date = $request->datepicker;
+
+        $theme_name = '';
+       
+
+        // Detect if it's a direct package detail view or a destination-based search
+        if (!$this->isDestinationSlug($id)) {
+            return $this->showPackageDetails($request);
+        }
+       if (empty($date)) {
+      $date = date("D, d M Y", strtotime('+60 days'));
+         }
+        
+        if (Session::has('filtered_tour_date')) {
+        Session::forget('filtered_tour_date');
+          }
+    Session::set('filtered_tour_date', $date);
+        // Parse and clean destination slug
+        $destination_search = $this->parseDestinationSlug($id);
+        
+        // Search for packages by destination
+        [$data, $data_ids, $packages] = $this->searchPackagesByDestination($destination_search);
+   
+        // Get SEO meta data
+        $data1 = DB::table('rt_packages_seo')
+            ->where('destination', $destination_search)
+            ->get();
+
+        $icon_data = Icons::all();
+
+   $total_themes = $this->extractThemes($data);
+
+        return view("packages.pagetwo", [
+            'data'                  => $data,
+            'data_ids'              => $data_ids,
+            'destination_search'    => $destination_search,
+            'icon_data'             => $icon_data,
+            'data1'                 => $data1,
+            'packages'              => $packages,
+            'date'                  => $date,
+            'theme_name'            => $theme_name,
+            'total_themes'            => $total_themes,
+        ]);
     }
+
+    
+
+    private function isDestinationSlug(string $id): bool
+    {
+        return Str::endsWith($id, '-tour-packages');
+    }
+
+    private function parseDestinationSlug(string $slug): string
+    {
+        $cleaned = preg_replace('/-?tour-?packages$/i', '', $slug); // remove suffix
+        $cleaned = str_replace('-', ' ', $cleaned);
+        return strtolower($cleaned);
+    }
+
+private function searchPackagesByDestination1(string $destination_search): array
+    {
+        $query = DB::table('rt_packages')
+            ->where('status', '=', '1')
+            ->where(function ($q) use ($destination_search) {
+                $q->where('continent', 'like', '%' . $destination_search . '%')
+                  ->orWhere('country', 'like', '%' . $destination_search . '%')
+                  ->orWhere('state', 'like', '%' . $destination_search . '%')
+                  ->orWhere('city', 'like', '%' . $destination_search . '%');
+            })
+            ->orderBy('sort', 'ASC');
+
+        $results = $query->get();
+
+        return [
+            $results,
+            $results->pluck('id')->toArray(),
+            $results->take(3),
+        ];
+    }
+
+  public function searchPackagesByTheme($destination_search, $select_theme)
+  {
+$countryIds = countries::where('name', $destination_search)->pluck('id');
+
+if (count($countryIds) > 0) {
+    $stateIds = collect(); // initialize as empty collection
+    $cityIds = collect();
+} else {
+    $stateIds = State::where('name', $destination_search)->pluck('id');
+    
+    if (count($stateIds) > 0) {
+        $cityIds = collect();
+    } else {
+        $cityIds = City::where('name', $destination_search)->pluck('id');
+    }
+} 
+
+if ($countryIds->isEmpty() && $stateIds->isEmpty() && $cityIds->isEmpty()) {
+    return [collect(), [], collect()];
+}
+
+$packages = DB::table('rt_packages')
+    ->where('status', '=', '1')
+    ->when($select_theme, function ($query) use ($select_theme) {
+        return $query->where('package_category', 'like', "%{$select_theme}%");
+    })
+    ->orderBy('sort', 'ASC')
+    ->get();
+
+
+
+// Filter packages based on matching city, state, and country
+$filteredData = $packages->filter(function ($package) use ($countryIds, $stateIds, $cityIds) {
+    // Unserialize location data from the package
+    $packageCountries = @unserialize($package->country);
+    $packageStates = @unserialize($package->state);
+    $packageCities = @unserialize($package->city);
+
+    // Default to empty array if not an array
+    $packageCountries = is_array($packageCountries) ? $packageCountries : [];
+    $packageStates = is_array($packageStates) ? $packageStates : [];
+ 
+
+    // Match each location level if we have search input for it
+    $matchCountry = count($countryIds) > 0 ? !empty(array_intersect($packageCountries, $countryIds->toArray())) : true;
+    $matchState   = count($stateIds) > 0 ? !empty(array_intersect($packageStates, $stateIds->toArray())) : true;
+    $matchCity    = count($cityIds) > 0 ? !empty(array_intersect($packageCities, $cityIds->toArray())) : true;
+    // Return true only if all match
+    return $matchCountry && $matchState && $matchCity;
+});
+
+// Reset keys and prepare result
+$results = $filteredData->values();
+
+// Return desired result format
+return [
+    $results,                         // Full filtered collection
+    $results->pluck('id')->toArray(), // Just the IDs
+    $results->take(3),                // First 3 items
+];
+
+
+
+  }
+    private function searchPackagesByDestination(string $destination_search): array
+    {
+
+$countryIds = countries::where('name', $destination_search)->pluck('id');
+
+if (count($countryIds) > 0) {
+    $stateIds = collect(); // initialize as empty collection
+    $cityIds = collect();
+} else {
+    $stateIds = State::where('name', $destination_search)->pluck('id');
+    
+    if (count($stateIds) > 0) {
+        $cityIds = collect();
+    } else {
+        $cityIds = City::where('name', $destination_search)->pluck('id');
+    }
+}
+if ($countryIds->isEmpty() && $stateIds->isEmpty() && $cityIds->isEmpty()) {
+    return [collect(), [], collect()];
+}
+
+$packages = DB::table('rt_packages')
+    ->where('status', '=', '1')
+    ->orderBy('sort', 'ASC')
+    ->get();
+
+// Filter packages based on matching city, state, and country
+$filteredData = $packages->filter(function ($package) use ($countryIds, $stateIds, $cityIds) {
+    // Unserialize location data from the package
+    $packageCountries = @unserialize($package->country);
+    $packageStates = @unserialize($package->state);
+    $packageCities = @unserialize($package->city);
+
+    // Default to empty array if not an array
+    $packageCountries = is_array($packageCountries) ? $packageCountries : [];
+    $packageStates = is_array($packageStates) ? $packageStates : [];
+ 
+
+    // Match each location level if we have search input for it
+    $matchCountry = count($countryIds) > 0 ? !empty(array_intersect($packageCountries, $countryIds->toArray())) : true;
+    $matchState   = count($stateIds) > 0 ? !empty(array_intersect($packageStates, $stateIds->toArray())) : true;
+    $matchCity    = count($cityIds) > 0 ? !empty(array_intersect($packageCities, $cityIds->toArray())) : true;
+    // Return true only if all match
+    return $matchCountry && $matchState && $matchCity;
+});
+
+// Reset keys and prepare result
+$results = $filteredData->values();
+
+// Return desired result format
+return [
+    $results,                         // Full filtered collection
+    $results->pluck('id')->toArray(), // Just the IDs
+    $results->take(3),                // First 3 items
+];
+
+    }
+
+    // map id with name (not working)
+    /*private function searchPackagesByDestination(string $destination_search): array
+    {
+        \Log::info("Looking for destination: $destination_search");
+        // 1. Get matching IDs from name
+        $continentIds = DB::table('continent')->where('continent_name', 'LIKE', "$destination_search%")->pluck('id')->toArray();
+        $countryIds   = DB::table('countries')->where('name', 'LIKE', "$destination_search%")->pluck('id')->toArray();
+        $stateIds     = DB::table('states')->where('name', 'LIKE', "$destination_search%")->pluck('id')->toArray();
+        $cityIds      = DB::table('city')->where('name', 'LIKE', "$destination_search%")->pluck('id')->toArray();
+
+        \Log::info("Matched Continent IDs: " . implode(',', $continentIds));
+        \Log::info("Matched Country IDs: " . implode(',', $countryIds));
+        \Log::info("Matched State IDs: " . implode(',', $stateIds));
+        \Log::info("Matched City IDs: " . implode(',', $cityIds));
+
+        // 2. Query packages using matched IDs
+        $query = DB::table('rt_packages')
+            ->where('status', '=', '1')
+            ->where(function ($q) use ($continentIds, $countryIds, $stateIds, $cityIds) {
+                if (!empty($continentIds)) {
+                    $q->orWhereIn('continent', $continentIds);
+                }
+                if (!empty($countryIds)) {
+                    $q->orWhereIn('country', $countryIds);
+                }
+                if (!empty($stateIds)) {
+                    $q->orWhereIn('state', $stateIds);
+                }
+                if (!empty($cityIds)) {
+                    $q->orWhereIn('city', $cityIds);
+                }
+            })
+            ->orderBy('sort', 'ASC');
+
+        $results = $query->get();
+
+        return [
+            $results,
+            $results->pluck('id')->toArray(),
+            $results->take(3),
+        ];
+    }*/
+
+
+    private function showPackageDetails(Request $request)
+    {
+
+      
+$packageId = str_replace(" ", "+", $request->package_id); 
+
+
+        try {
+            $data_id = CustomHelpers::custom_decrypt($packageId ?? '');
+         
+        } catch (\Exception $e) {
+            return redirect('/')->withErrors('Invalid package ID.');
+        }
+
+        $package = Packages::find($data_id);
+        if (!$package) {
+            return redirect('/')->withErrors('Package not found.');
+        }
+
+        //$price = $package->onrequest == 1 ? false : @unserialize($package->pricing) ?: [];
+        $pricingData = @unserialize($package->pricing);
+        $price = ($package->onrequest == 1 ? false : $pricingData) ?: [];
+        
+        // Get a destination name to show (adjust based on your preference)
+        //$destination_name = $package->city ?? $package->state ?? $package->country ?? $package->continent ?? $package->title ?? 'Holiday';
+
+        $data = [
+            'details'   => $package,
+            'price'     => $price,
+            'images'    => PackageUploads::where('package_id', $data_id)->orderBy('sort', 'ASC')->get(),
+            'daywise'   => @unserialize($package->day_itinerary) ?: [],
+            'city'      => @unserialize($package->city) ?: [],
+            'country'   => @unserialize($package->country) ?: [],
+            'continent' => @unserialize($package->continent) ?: [],
+            'state'     => @unserialize($package->state) ?: [],
+            'id'        => $data_id,
+            'hoteldata' => PackageHotel::all(),
+            'icon_data' => Icons::all(),
+            //'destination_name'  => is_array($destination_name) ? implode(', ', $destination_name) : $destination_name,
+        ];
+
+        if ($package->status == 1 || $this->canViewInactivePackage()) {
+            return view('packages.pagethree', $data);
+        }
+
+        return redirect('/');
+    }
+
+    /*private function showPackageDetails(Request $request)
+    {
+        try {
+            $data_id = CustomHelpers::custom_decrypt($request->package_id ?? '');
+        } catch (\Exception $e) {
+            return redirect('/')->withErrors('Invalid package ID.');
+        }
+
+        $package = Packages::find($data_id);
+        if (!$package) {
+            return redirect('/')->withErrors('Package not found.');
+        }
+
+        $pricingData = @unserialize($package->pricing);
+        $price       = ($package->onrequest == 1 ? false : $pricingData) ?: [];
+
+        // Prepare fallback destination name
+        $destination_name = '';
+        if (!empty($package->city)) {
+            $destination_name = is_array(@unserialize($package->city)) 
+                                ? implode(', ', @unserialize($package->city)) 
+                                : $package->city;
+        } elseif (!empty($package->state)) {
+            $destination_name = is_array(@unserialize($package->state)) 
+                                ? implode(', ', @unserialize($package->state)) 
+                                : $package->state;
+        } elseif (!empty($package->country)) {
+            $destination_name = is_array(@unserialize($package->country)) 
+                                ? implode(', ', @unserialize($package->country)) 
+                                : $package->country;
+        } elseif (!empty($package->continent)) {
+            $destination_name = is_array(@unserialize($package->continent)) 
+                                ? implode(', ', @unserialize($package->continent)) 
+                                : $package->continent;
+        } else {
+            $destination_name = $package->title ?? 'Holiday';
+        }
+
+        $data = [
+            'details'           => $package,
+            'price'             => $price,
+            'images'            => PackageUploads::where('package_id', $data_id)->orderBy('sort', 'ASC')->get(),
+            'daywise'           => @unserialize($package->day_itinerary) ?: [],
+            'city'              => @unserialize($package->city) ?: [],
+            'country'           => @unserialize($package->country) ?: [],
+            'continent'         => @unserialize($package->continent) ?: [],
+            'state'             => @unserialize($package->state) ?: [],
+            'id'                => $data_id,
+            'hoteldata'         => PackageHotel::all(),
+            'icon_data'         => Icons::all(),
+
+            // Add this
+            'destination_search' => $destination_name,
+        ];
+
+        if ($package->status == 1 || $this->canViewInactivePackage()) {
+            return view('packages.pagethree', $data);
+        }
+
+        return redirect('/');
+    }*/
+
+
+    private function canViewInactivePackage(): bool
+    {
+        if (!Sentinel::check()) return false;
+
+        $role = Sentinel::getUser()->roles()->first()->slug;
+        return in_array($role, ['super_admin', 'administrator', 'supervisor', 'employee']);
+    }
+
+
+    // ***********************
+
 
     // search packages using destination and theme
     /*public function packages1($id, Request $request)
@@ -1366,7 +2019,7 @@ class FrontController extends Controller
     }*/
 
 
-    // ***********************
+    // ****************************************
 
     // search destination using theme from search panel
     /*public function packages2($id,$id1,Request $request) 
@@ -1408,6 +2061,15 @@ class FrontController extends Controller
     {
         // Extract and format the destination search term
         $date = $request->datepicker;
+        if (empty($date)) {
+      $date = date("D, d M Y", strtotime('+60 days'));
+         }
+
+          if (Session::has('filtered_tour_date')) {
+        Session::forget('filtered_tour_date');
+          }
+    Session::set('filtered_tour_date', $date);
+
         $destination_search_first = explode("-", $id);
         $remove_array = ['tour', 'packages'];
         $destination_search = array_diff($destination_search_first, $remove_array);
@@ -1415,34 +2077,15 @@ class FrontController extends Controller
         $destination_search = str_replace(' And ', ' and ', ucwords($destination_search));
 
         // Extract and format the selected theme
-        $select_theme = explode("-", $id1);
-        $select_theme = implode(" ", $select_theme);
+        // $select_theme = explode("-", $id1);
+        // $select_theme = implode(" ", $select_theme);
+        // $select_theme = str_replace(' And ', ' and ', ucwords($select_theme));
+        $select_theme = $id1;
         $select_theme = str_replace(' And ', ' and ', ucwords($select_theme));
 
-        // Build the base query
-        $baseQuery = DB::table('rt_packages')
-            ->where('status', '=', '1')
-            ->where(function ($query) use ($destination_search) {
-                $query->orWhere('continent', 'like', '%' . $destination_search . '%')
-                    ->orWhere('country', 'like', '%' . $destination_search . '%')
-                    ->orWhere('state', 'like', '%' . $destination_search . '%')
-                    ->orWhere('city', 'like', '%' . $destination_search . '%');
-            });
+[$data, $data_ids, $packages] = $this->searchPackagesByTheme($destination_search,$select_theme);
+[$data_total_destination, $data_ids_total_destination, $packages_total_destination] = $this->searchPackagesByDestination($destination_search);    
 
-        // If a specific theme is selected, apply the package_category filter
-        /*if (strtolower($select_theme) !== 'all') {
-            $baseQuery->where('package_category', 'like', '%' . $select_theme . '%');
-        }*/
-
-        if (strtolower(trim($select_theme)) !== 'all') {
-            $baseQuery->where('package_category', 'like', '%' . $select_theme . '%');
-        }
-
-        // Get all packages
-        $data = $baseQuery->orderBy('sort', 'ASC')->get();
-
-        // Get top 3 packages
-        $packages = $baseQuery->limit(3)->get();
 
         // Additional data
         $icon_data = Icons::all();
@@ -1450,18 +2093,8 @@ class FrontController extends Controller
             ->where('destination', 'like', '%' . $destination_search . '%')
             ->get();
 
-        // Get package IDs for related data
-        $data_ids = DB::table('rt_packages')
-            ->where('status', '=', '1')
-            ->where(function ($query) use ($destination_search) {
-                $query->orWhere('continent', 'like', '%' . $destination_search . '%')
-                    ->orWhere('country', 'like', '%' . $destination_search . '%')
-                    ->orWhere('state', 'like', '%' . $destination_search . '%')
-                    ->orWhere('city', 'like', '%' . $destination_search . '%');
-            })
-            ->pluck('id')
-            ->toArray();
 
+ $total_themes = $this->extractThemes($data_total_destination);
         // Render the view
         return view("packages.pagetwo", [
             'data' => $data,
@@ -1472,6 +2105,7 @@ class FrontController extends Controller
             'date' => $date,
             'theme_name' => $select_theme,
             'data_ids' => $data_ids,
+            'total_themes'            => $total_themes,
         ]);
     }
 
@@ -2245,7 +2879,7 @@ class FrontController extends Controller
 
     /*--------*/
 
-    // Search for popular destinations in the search panel (desktop) - state and city with package count in default destination list (working)
+    // Search for popular destinations in the search panel (desktop) - state and city with package count in default destination list (working on name) (old)
     /*public function search_destination(Request $request)
     {
         // Initialize response variables
@@ -2422,8 +3056,8 @@ class FrontController extends Controller
 
     /*--------*/
 
-    // Search for popular destinations in the search panel (desktop) - state and city with package count in default destination list
-    public function search_destination(Request $request)
+    // Search for popular destinations in the search panel (desktop) - state and city with package count in default destination list (by Raj)
+    /*public function search_destination(Request $request)
     {
         $destination_search_value = trim($request->searchTerm);
 
@@ -2456,121 +3090,126 @@ class FrontController extends Controller
             return response()->json([["text" => "Popular City", 'children' => $show]]);
         }
 
-     // Fetch matching destinations from the database
-$matchingContinentIds = DB::table('continent')->where('continent_name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
-$matchingCountryIds = DB::table('countries')->where('name', 'LIKE', "$destination_search_value%")->pluck('id','continent_id')->toArray();
-$matchingStateIds   = DB::table('states','country_id')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
-$matchingCityIds    = DB::table('city','state_id')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
-$matchingIds = array_merge($matchingContinentIds, $matchingCountryIds, $matchingStateIds, $matchingCityIds);
 
 
-     $destinations = DB::table('rt_packages')
-    ->where('status', 1)
-    ->get(['continent', 'country', 'state', 'city'])
-    ->filter(function ($package) use ($matchingIds) {
-        $continentIds = @unserialize($package->continent) ?: [];
-        $countryIds = @unserialize($package->country) ?: [];
-        $stateIds = @unserialize($package->state) ?: [];
-        $cityIds = @unserialize($package->city) ?: [];
-
-        return array_intersect($matchingIds, $continentIds) ||
-               array_intersect($matchingIds, $countryIds) ||
-               array_intersect($matchingIds, $stateIds) ||
-               array_intersect($matchingIds, $cityIds);
-    });
-
-$dest = [];
-$dest_val = [];
-
-$continentNames = DB::table('continent')->whereIn('id', $matchingIds)->pluck('continent_name', 'id')->toArray();
-$countryNames = DB::table('countries')->whereIn('id', $matchingIds)->pluck('name', 'id')->toArray();
-$stateNames = DB::table('states')->whereIn('id', $matchingIds)->pluck('name', 'id')->toArray();
-$cityNames = DB::table('city')->whereIn('id', $matchingIds)->pluck('name', 'id')->toArray();
+        // Fetch matching destinations from the database
+        $matchingContinentIds = DB::table('continent')->where('continent_name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $matchingCountryIds = DB::table('countries')->where('name', 'LIKE', "$destination_search_value%")->pluck('id','continent_id')->toArray();
+        $matchingStateIds   = DB::table('states','country_id')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $matchingCityIds    = DB::table('city','state_id')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $matchingIds = array_merge($matchingContinentIds, $matchingCountryIds, $matchingStateIds, $matchingCityIds);
 
 
+         $destinations = DB::table('rt_packages')
+        ->where('status', 1)
+        ->get(['continent', 'country', 'state', 'city'])
+        ->filter(function ($package) use ($matchingIds) {
+            $continentIds = @unserialize($package->continent) ?: [];
+            $countryIds = @unserialize($package->country) ?: [];
+            $stateIds = @unserialize($package->state) ?: [];
+            $cityIds = @unserialize($package->city) ?: [];
 
-       foreach ($destinations as $data) {
-    $continents = unserialize($data->continent) ?: [];
-    $countries = unserialize($data->country) ?: [];
-    $states = unserialize($data->state) ?: [];
-    $cities = unserialize($data->city) ?: [];
+            return array_intersect($matchingIds, $continentIds) ||
+                   array_intersect($matchingIds, $countryIds) ||
+                   array_intersect($matchingIds, $stateIds) ||
+                   array_intersect($matchingIds, $cityIds);
+        });
 
-    foreach ($continents as $continent) {
-        if (isset($continentNames[$continent])) {
-            $dest[$continent] = $continentNames[$continent];
-        }
-    }
+        $dest = [];
+        $dest_val = [];
 
-    foreach ($countries as $country) {
-        if (isset($countryNames[$country])) {
-            $dest[$country] = $countryNames[$country];
-        }
-    }
+        $continentNames = DB::table('continent')->whereIn('id', $matchingIds)->pluck('continent_name', 'id')->toArray();
+        $countryNames = DB::table('countries')->whereIn('id', $matchingIds)->pluck('name', 'id')->toArray();
+        $stateNames = DB::table('states')->whereIn('id', $matchingIds)->pluck('name', 'id')->toArray();
+        $cityNames = DB::table('city')->whereIn('id', $matchingIds)->pluck('name', 'id')->toArray();
 
-    foreach ($states as $index => $state) {
-        if (isset($stateNames[$state])) {
-            $stateName = $stateNames[$state];
-            $countryName = isset($countries[$index]) && isset($countryNames[$countries[$index]]) ? $countryNames[$countries[$index]] : '';
-            $dest[$state] = $countryName ? "$stateName ($countryName)" : $stateName;
-        }
-    }
 
-    foreach ($cities as $index => $city) {
-        if (isset($cityNames[$city])) {
-            $cityName = $cityNames[$city];
-            $stateName = isset($states[$index]) && isset($stateNames[$states[$index]]) ? $stateNames[$states[$index]] : '';
-            $countryName = isset($countries[$index]) && isset($countryNames[$countries[$index]]) ? $countryNames[$countries[$index]] : '';
 
-            if ($stateName && $countryName) {
-                $dest[$city] = "$cityName ($stateName, $countryName)";
-            } elseif ($countryName) {
-                $dest[$city] = "$cityName ($countryName)";
-            } else {
-                $dest[$city] = $cityName;
+        foreach ($destinations as $data) {
+            $continents = unserialize($data->continent) ?: [];
+            $countries = unserialize($data->country) ?: [];
+            $states = unserialize($data->state) ?: [];
+            $cities = unserialize($data->city) ?: [];
+
+            foreach ($continents as $continent) {
+                if (isset($continentNames[$continent])) {
+                    $dest[$continent] = $continentNames[$continent];
+                }
+            }
+
+            foreach ($countries as $country) {
+                if (isset($countryNames[$country])) {
+                    $dest[$country] = $countryNames[$country];
+                }
+            }
+
+            foreach ($states as $index => $state) {
+                if (isset($stateNames[$state])) {
+                    $stateName = $stateNames[$state];
+                    $countryName = isset($countries[$index]) && isset($countryNames[$countries[$index]]) ? $countryNames[$countries[$index]] : '';
+                    $dest[$state] = $countryName ? "$stateName ($countryName)" : $stateName;
+                }
+            }
+
+            foreach ($cities as $index => $city) {
+                if (isset($cityNames[$city])) {
+                    $cityName = $cityNames[$city];
+                    $stateName = isset($states[$index]) && isset($stateNames[$states[$index]]) ? $stateNames[$states[$index]] : '';
+                    $countryName = isset($countries[$index]) && isset($countryNames[$countries[$index]]) ? $countryNames[$countries[$index]] : '';
+
+                    if ($stateName && $countryName) {
+                        $dest[$city] = "$cityName ($stateName, $countryName)";
+                    } elseif ($countryName) {
+                        $dest[$city] = "$cityName ($countryName)";
+                    } else {
+                        $dest[$city] = $cityName;
+                    }
+                }
             }
         }
-    }
-}
 
-$dest = array_unique($dest);
-// $dest = $this->filter_array($dest, strtoupper($destination_search_value[0]));
-      
-$allPackages = DB::table('rt_packages')
-    ->where('status', 1)
-    ->get(['id', 'continent', 'country', 'state', 'city']);
+        $dest = array_unique($dest);
+        // $dest = $this->filter_array($dest, strtoupper($destination_search_value[0]));
+              
+        $allPackages = DB::table('rt_packages')
+            ->where('status', 1)
+            ->get(['id', 'continent', 'country', 'state', 'city']);
 
- $packageCounts = [];
- foreach ($allPackages as $package) {
-    $continents = @unserialize($package->continent) ?: [];
-    $countries = @unserialize($package->country) ?: [];
-    $states = @unserialize($package->state) ?: [];
-    $cities = @unserialize($package->city) ?: [];
+         $packageCounts = [];
+         foreach ($allPackages as $package) {
+            $continents = @unserialize($package->continent) ?: [];
+            $countries = @unserialize($package->country) ?: [];
+            $states = @unserialize($package->state) ?: [];
+            $cities = @unserialize($package->city) ?: [];
 
-    $allDestinations = array_merge($continents, $countries, $states, $cities);
+            $allDestinations = array_merge($continents, $countries, $states, $cities);
 
-    foreach ($allDestinations as $destinationId) {
-        if (!isset($packageCounts[$destinationId])) {
-            $packageCounts[$destinationId] = 0;
+            foreach ($allDestinations as $destinationId) {
+                if (!isset($packageCounts[$destinationId])) {
+                    $packageCounts[$destinationId] = 0;
+                }
+                $packageCounts[$destinationId]++;
+            }
         }
-        $packageCounts[$destinationId]++;
-    }
-}
 
-$show = [];   
-foreach ($dest as $destinationId => $destinationName) {
-    $count = isset($packageCounts[$destinationId]) ? $packageCounts[$destinationId] : 0;
+        $show = [];   
+        foreach ($dest as $destinationId => $destinationName) {
+            $count = isset($packageCounts[$destinationId]) ? $packageCounts[$destinationId] : 0;
 
-    $show[] = [
-        'id' => $destinationId,
-        'text' => "$destinationName ($count Packages)",
-        'value' => $destinationId
-    ];
-}
+            $show[] = [
+                'id' => $destinationId,
+                'text' => "$destinationName ($count Packages)",
+                'value' => $destinationId
+            ];
+        }
+
+
+
 
         return response()->json([["text" => "Suggestion", 'children' => $show]]);
     }
 
-    /*Fetches the state and country for a given destination*/
+    //Fetches the state and country for a given destination
     private function getDestinationStateCountry($destination)
     {
         $data = DB::table('rt_packages')
@@ -2603,9 +3242,1338 @@ foreach ($dest as $destinationId => $destinationName) {
         }
 
         return isset($countries[0]) ? "$destination ({$countries[0]})" : $destination;
+    }*/
+
+    /*--------*/
+
+    /*public function search_destination(Request $request)
+    {
+        $destination_search_value = trim($request->searchTerm);
+
+        if (empty($destination_search_value) || strlen($destination_search_value) <= 1) {
+            // Default destinations logic (optional fallback or modified to use default IDs if needed)
+            return response()->json([]);
+        }
+
+        // Step 1: Match names from individual tables to get IDs
+        $continentIds = DB::table('continent')->where('continent_name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $countryIds   = DB::table('countries')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $stateIds     = DB::table('states')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $cityIds      = DB::table('city')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+
+        $allMatchingIds = array_merge($continentIds, $countryIds, $stateIds, $cityIds);
+
+        // Step 2: Get matching packages
+        $packages = DB::table('rt_packages')
+            ->where('status', 1)
+            ->get(['id', 'continent', 'country', 'state', 'city']);
+
+        $destMap = []; // To hold deduplicated label text
+        foreach ($packages as $pkg) {
+            $pkgContinents = unserialize($pkg->continent) ?: [];
+            $pkgCountries  = unserialize($pkg->country) ?: [];
+            $pkgStates     = unserialize($pkg->state) ?: [];
+            $pkgCities     = unserialize($pkg->city) ?: [];
+
+            foreach ($pkgCities as $i => $cityId) {
+                if (in_array($cityId, $allMatchingIds)) {
+                    $cityName  = CustomHelpers::get_master_table_data('city', 'id', $cityId, 'name');
+                    $stateName = isset($pkgStates[$i]) ? CustomHelpers::get_master_table_data('states', 'id', $pkgStates[$i], 'name') : '';
+                    $countryName = isset($pkgCountries[$i]) ? CustomHelpers::get_master_table_data('countries', 'id', $pkgCountries[$i], 'name') : '';
+                    $label = trim("$cityName ($stateName, $countryName)", ' (,)');
+                    $destMap[$cityId] = $label;
+                }
+            }
+
+            foreach ($pkgStates as $i => $stateId) {
+                if (in_array($stateId, $allMatchingIds)) {
+                    $stateName = CustomHelpers::get_master_table_data('states', 'id', $stateId, 'name');
+                    $countryName = isset($pkgCountries[$i]) ? CustomHelpers::get_master_table_data('countries', 'id', $pkgCountries[$i], 'name') : '';
+                    $label = trim("$stateName ($countryName)", ' (,)');
+                    $destMap[$stateId] = $label;
+                }
+            }
+
+            foreach ($pkgCountries as $countryId) {
+                if (in_array($countryId, $allMatchingIds)) {
+                    $countryName = CustomHelpers::get_master_table_data('countries', 'id', $countryId, 'name');
+                    $destMap[$countryId] = $countryName;
+                }
+            }
+
+            foreach ($pkgContinents as $continentId) {
+                if (in_array($continentId, $allMatchingIds)) {
+                    $continentName = CustomHelpers::get_master_table_data('continent', 'id', $continentId, 'continent_name');
+                    $destMap[$continentId] = $continentName;
+                }
+            }
+        }
+
+        // Step 3: Count packages for each label
+        $response = [];
+        foreach ($destMap as $id => $label) {
+            $packageCount = DB::table('rt_packages')
+                ->where('status', 1)
+                ->where(function ($query) use ($id) {
+                    $query->orWhere('continent', 'like', "%$id%")
+                        ->orWhere('country', 'like', "%$id%")
+                        ->orWhere('state', 'like', "%$id%")
+                        ->orWhere('city', 'like', "%$id%");
+                })
+                ->count();
+
+            $response[] = [
+                'id' => $id,
+                'text' => "$label ($packageCount Packages)",
+                'value' => $label,
+            ];
+        }
+
+        return response()->json([["text" => "Suggestions", "children" => $response]]);
+    }*/
+
+    /*--------*/
+
+    // Home search panel (desktop) - state and city with package count in default (manual)destination list (working) (new)
+    /*public function search_destination(Request $request)
+    {
+        $destination_search_value = trim($request->searchTerm);
+
+        //$defaultDestinations = ['Goa', 'Kerala', 'Sikkim', 'Shimla', 'Rajasthan', 'Singapore', 'Thailand', 'Dubai', 'Australia', 'Bali'];
+
+        // ✅ Show default destinations when search is empty or too short (search id->name)
+        // if (empty($destination_search_value) || strlen($destination_search_value) <= 1) {
+        //     $defaultDestinations = [
+        //         ["id" => 5304, "value" => "Srinagar", "text" => "Srinagar"],
+        //         ["id" => 733, "value" => "Goa", "text" => "Goa"],
+        //         ["id" => 19, "value" => "Kerala", "text" => "Kerala"],
+        //         ["id" => 34, "value" => "Sikkim", "text" => "Sikkim"],
+        //         ["id" => 1262, "value" => "Shimla", "text" => "Shimla"],
+        //         ["id" => 217, "value" => "Thailand", "text" => "Thailand"],
+        //         ["id" => 41391, "value" => "Dubai", "text" => "Dubai"],
+        //         ["id" => 48331, "value" => "Bali", "text" => "Bali"],            
+        //         ["id" => 132, "value" => "Malaysia", "text" => "Malaysia"],
+        //     ];
+
+        //     return response()->json([
+        //         ["text" => "Popular Destinations", "children" => $defaultDestinations]
+        //     ]);
+        // }
+
+        // ✅ Show default destinations when search is empty or too short (search name->id)
+        if (empty($destination_search_value) || strlen($destination_search_value) <= 1) {
+            $defaultNames = ["Goa", "Kerala", "Sikkim", "Shimla", "Thailand", "Dubai", "Bali", "Malaysia"]; // always check on frontend
+            $defaultDestinations = [];
+
+            foreach ($defaultNames as $name) {
+                // Try to find in City
+                $record = DB::table('city')->where('name', $name)->first();
+                if (!$record) {
+                    // Try to find in State
+                    $record = DB::table('states')->where('name', $name)->first();
+                }
+                if (!$record) {
+                    // Try to find in Country
+                    $record = DB::table('countries')->where('name', $name)->first();
+                }
+                if (!$record) {
+                    // Try to find in Continent
+                    $record = DB::table('continent')->where('continent_name', $name)->first();
+                }
+
+                if ($record) {
+                    $defaultDestinations[] = [
+                        'id' => $record->id,
+                        'value' => $name,
+                        'text' => $name,
+                    ];
+                }
+            }
+
+            return response()->json([["text" => "Popular Destinations", "children" => $defaultDestinations]]);
+        }
+
+
+        // Step 1: Match names from individual tables to get IDs
+        $continentIds = DB::table('continent')->where('continent_name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $countryIds   = DB::table('countries')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $stateIds     = DB::table('states')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $cityIds      = DB::table('city')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+
+        $allMatchingIds = array_merge($continentIds, $countryIds, $stateIds, $cityIds);
+
+        // Step 2: Get matching packages
+        $packages = DB::table('rt_packages')
+            ->where('status', 1)
+            ->get(['id', 'continent', 'country', 'state', 'city']);
+
+        $destMap = []; // To hold deduplicated label text
+        foreach ($packages as $pkg) {
+            $pkgContinents = unserialize($pkg->continent) ?: [];
+            $pkgCountries  = unserialize($pkg->country) ?: [];
+            $pkgStates     = unserialize($pkg->state) ?: [];
+            $pkgCities     = unserialize($pkg->city) ?: [];
+
+            foreach ($pkgCities as $i => $cityId) {
+                if (in_array($cityId, $allMatchingIds)) {
+                    $cityName    = CustomHelpers::get_master_table_data('city', 'id', $cityId, 'name');
+                    $stateName   = isset($pkgStates[$i]) ? CustomHelpers::get_master_table_data('states', 'id', $pkgStates[$i], 'name') : '';
+                    $countryName = isset($pkgCountries[$i]) ? CustomHelpers::get_master_table_data('countries', 'id', $pkgCountries[$i], 'name') : '';
+                    $label = trim("$cityName ($stateName, $countryName)", ' (,)');
+                    $destMap[$cityId] = $label;
+                }
+            }
+
+            foreach ($pkgStates as $i => $stateId) {
+                if (in_array($stateId, $allMatchingIds)) {
+                    $stateName   = CustomHelpers::get_master_table_data('states', 'id', $stateId, 'name');
+                    $countryName = isset($pkgCountries[$i]) ? CustomHelpers::get_master_table_data('countries', 'id', $pkgCountries[$i], 'name') : '';
+                    $label = trim("$stateName ($countryName)", ' (,)');
+                    $destMap[$stateId] = $label;
+                }
+            }
+
+            foreach ($pkgCountries as $countryId) {
+                if (in_array($countryId, $allMatchingIds)) {
+                    $countryName = CustomHelpers::get_master_table_data('countries', 'id', $countryId, 'name');
+                    $destMap[$countryId] = $countryName;
+                }
+            }
+
+            foreach ($pkgContinents as $continentId) {
+                if (in_array($continentId, $allMatchingIds)) {
+                    $continentName = CustomHelpers::get_master_table_data('continent', 'id', $continentId, 'continent_name');
+                    $destMap[$continentId] = $continentName;
+                }
+            }
+        }
+
+        // Step 3: Count packages for each label
+        $response = [];
+        foreach ($destMap as $id => $label) {
+            $packageCount = DB::table('rt_packages')
+                ->where('status', 1)
+                ->where(function ($query) use ($id) {
+                    $query->orWhere('continent', 'like', "%$id%")
+                        ->orWhere('country', 'like', "%$id%")
+                        ->orWhere('state', 'like', "%$id%")
+                        ->orWhere('city', 'like', "%$id%");
+                })
+                ->count();
+
+            $response[] = [
+                'id' => $id,
+                'text' => "$label ($packageCount Packages)",
+                'value' => $label,
+            ];
+        }
+
+        return response()->json([
+            ["text" => "Suggestions", "children" => $response]
+        ]);
+    }*/
+
+    /*public function search_destination(Request $request)
+    {
+        $destination_search_value = trim($request->searchTerm);
+
+        // ✅ Show default destinations when search is empty or too short
+        // if (empty($destination_search_value) || strlen($destination_search_value) <= 1) {
+        //     $defaultDestinations = [
+        //         ["id" => 5304, "value" => "Srinagar", "text" => "Srinagar"],
+        //         ["id" => 733, "value" => "Goa", "text" => "Goa"],
+        //         ["id" => 19, "value" => "Kerala", "text" => "Kerala"],
+        //         ["id" => 34, "value" => "Sikkim", "text" => "Sikkim"],
+        //         ["id" => 1262, "value" => "Shimla", "text" => "Shimla"],
+        //         ["id" => 217, "value" => "Thailand", "text" => "Thailand"],
+        //         ["id" => 41391, "value" => "Dubai", "text" => "Dubai"],
+        //         ["id" => 48331, "value" => "Bali", "text" => "Bali"],
+        //         ["id" => 132, "value" => "Malaysia", "text" => "Malaysia"],
+        //     ];
+        //     return response()->json([["text" => "Top Destinations", "children" => $defaultDestinations]]);
+        // }
+
+        // ✅ Show default destinations when search is empty or too short (search name->id) (only City)
+        // if (empty($destination_search_value) || strlen($destination_search_value) <= 1) {
+        //     $defaultNames = ["Goa", "Kerala", "Sikkim", "Shimla", "Thailand", "Dubai", "Bali", "Malaysia"]; // always check on frontend
+        //     $defaultDestinations = [];
+
+        //     foreach ($defaultNames as $name) {
+        //         // Try to find in City
+        //         $record = DB::table('city')->where('name', $name)->first();
+        //         if (!$record) {
+        //             // Try to find in State
+        //             $record = DB::table('states')->where('name', $name)->first();
+        //         }
+        //         if (!$record) {
+        //             // Try to find in Country
+        //             $record = DB::table('countries')->where('name', $name)->first();
+        //         }
+        //         if (!$record) {
+        //             // Try to find in Continent
+        //             $record = DB::table('continent')->where('continent_name', $name)->first();
+        //         }
+
+        //         if ($record) {
+        //             $defaultDestinations[] = [
+        //                 'id' => $record->id,
+        //                 'value' => $name,
+        //                 'text' => $name,
+        //             ];
+        //         }
+        //     }
+
+        //     return response()->json([["text" => "Popular Destinations", "children" => $defaultDestinations]]);
+        // }
+
+        // ✅ Show default destinations when search is empty or too short (search name->id) (City with Country)
+        if (empty($destination_search_value) || strlen($destination_search_value) <= 1) {
+            $defaultNames = ["Goa", "Kerala", "Sikkim", "Shimla", "Thailand", "Dubai", "Bali", "Malaysia"];
+            $defaultDestinations = [];
+
+            foreach ($defaultNames as $name) {
+                $record = null;
+                $label = '';
+
+                // 1. Check in City
+                $record = DB::table('city')->where('name', $name)->first();
+                if ($record) {
+                    $state = DB::table('states')->where('id', $record->state_id)->first();
+                    $country = DB::table('countries')->where('id', $state->country_id ?? null)->first();
+                    $label = $record->name . ', ' . ($country->name ?? '');
+                }
+
+                // 2. Check in State
+                if (!$record) {
+                    $record = DB::table('states')->where('name', $name)->first();
+                    if ($record) {
+                        $country = DB::table('countries')->where('id', $record->country_id)->first();
+                        $label = $record->name . ', ' . ($country->name ?? '');
+                    }
+                }
+
+                // 3. Check in Country
+                if (!$record) {
+                    $record = DB::table('countries')->where('name', $name)->first();
+                    if ($record) {
+                        $continent = DB::table('continent')->where('id', $record->continent_id)->first();
+                        $label = $record->name . ', ' . ($continent->continent_name ?? '');
+                    }
+                }
+
+                // 4. Check in Continent
+                if (!$record) {
+                    $record = DB::table('continent')->where('continent_name', $name)->first();
+                    if ($record) {
+                        $label = $record->continent_name;
+                    }
+                }
+
+                // Push to list if record found
+                if ($record) {
+                    $defaultDestinations[] = [
+                        'id' => $record->id,
+                        'value' => $name,
+                        'text' => $label,
+                    ];
+                }
+            }
+
+            return response()->json([["text" => "Popular Destinations", "children" => $defaultDestinations]]);
+        }
+
+
+
+        // ✅ Match against continent, country, state, city
+        $continentIds = DB::table('continent')->where('continent_name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $countryIds   = DB::table('countries')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $stateIds     = DB::table('states')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $cityIds      = DB::table('city')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+
+        $allMatchingIds = array_merge($continentIds, $countryIds, $stateIds, $cityIds);
+
+        // ✅ Get all active packages
+        $packages = DB::table('rt_packages')
+            ->where('status', 1)
+            ->get(['id', 'continent', 'country', 'state', 'city']);
+
+        // ✅ Helper function to clean labels (city -> state -> country)
+        // $buildLabel = function ($city = '', $state = '', $country = '') {
+        //     $parts = array_filter([$city, $state, $country]);
+        //     return implode(', ', $parts);
+        // };
+
+        // ✅ Helper function to clean labels (city -> country)
+        $buildLabel = function ($city = '', $state = '', $country = '') {
+            $parts = array_filter([$city, $state, $country]);
+            $uniqueParts = array_unique($parts);
+
+            // Example logic: show at least City + Country if different
+            if (count($uniqueParts) === 1) {
+                return $uniqueParts[0]; // Just "Singapore"
+            }
+
+            return implode(', ', $uniqueParts); // "Singapore, Malaysia" etc.
+        };
+
+
+        $destMap = [];
+
+        foreach ($packages as $pkg) {
+            $pkgContinents = unserialize($pkg->continent) ?: [];
+            $pkgCountries  = unserialize($pkg->country) ?: [];
+            $pkgStates     = unserialize($pkg->state) ?: [];
+            $pkgCities     = unserialize($pkg->city) ?: [];
+
+            foreach ($pkgCities as $i => $cityId) {
+                if (in_array($cityId, $allMatchingIds)) {
+                    $cityName    = CustomHelpers::get_master_table_data('city', 'id', $cityId, 'name');
+                    $stateName   = isset($pkgStates[$i]) ? CustomHelpers::get_master_table_data('states', 'id', $pkgStates[$i], 'name') : '';
+                    $countryName = isset($pkgCountries[$i]) ? CustomHelpers::get_master_table_data('countries', 'id', $pkgCountries[$i], 'name') : '';
+                    $label       = $buildLabel($cityName, $stateName, $countryName);
+                    $destMap[$cityId . '-city'] = $label;
+                }
+            }
+
+            foreach ($pkgStates as $i => $stateId) {
+                if (in_array($stateId, $allMatchingIds)) {
+                    $stateName   = CustomHelpers::get_master_table_data('states', 'id', $stateId, 'name');
+                    $countryName = isset($pkgCountries[$i]) ? CustomHelpers::get_master_table_data('countries', 'id', $pkgCountries[$i], 'name') : '';
+                    $label       = $buildLabel($stateName, $countryName);
+                    $destMap[$stateId . '-state'] = $label;
+                }
+            }
+
+            foreach ($pkgCountries as $countryId) {
+                if (in_array($countryId, $allMatchingIds)) {
+                    $countryName = CustomHelpers::get_master_table_data('countries', 'id', $countryId, 'name');
+                    $label       = $buildLabel($countryName);
+                    $destMap[$countryId . '-country'] = $label;
+                }
+            }
+
+            foreach ($pkgContinents as $continentId) {
+                if (in_array($continentId, $allMatchingIds)) {
+                    $continentName = CustomHelpers::get_master_table_data('continent', 'id', $continentId, 'continent_name');
+                    $label         = $buildLabel($continentName);
+                    $destMap[$continentId . '-continent'] = $label;
+                }
+            }
+        }
+
+        // ✅ Deduplicate by label and keep one ID
+        $labelToIdMap = [];
+        foreach ($destMap as $id => $label) {
+            if (!in_array($label, array_keys($labelToIdMap))) {
+                $labelToIdMap[$label] = $id;
+            }
+        }
+
+        // ✅ Final formatted response
+        $response = [];
+        foreach ($labelToIdMap as $label => $id) {
+            $numericId = explode('-', $id)[0]; // strip "-city"/"-state"/etc. suffix
+            $packageCount = DB::table('rt_packages')
+                ->where('status', 1)
+                ->where(function ($query) use ($numericId) {
+                    $query->orWhere('continent', 'like', "%$numericId%")
+                        ->orWhere('country', 'like', "%$numericId%")
+                        ->orWhere('state', 'like', "%$numericId%")
+                        ->orWhere('city', 'like', "%$numericId%");
+                })
+                ->count();
+
+            $response[] = [
+                'id'    => $numericId,
+                'text'  => "$label ($packageCount Packages)",
+                'value' => $label,
+            ];
+        }
+
+        return response()->json([["text" => "Suggestions", "children" => $response]]);
+    }*/
+
+    // Home search panel (desktop) - state and city with package count in default (automatic)destination list (working) (new)
+    /*public function search_destination(Request $request)
+    {
+        $destination_search_value = trim($request->searchTerm);
+
+        // ✅ Show default destinations when search is empty or too short
+        // if (empty($destination_search_value) || strlen($destination_search_value) <= 1) {
+        //     $defaultNames = ["Goa", "Kerala", "Sikkim", "Shimla", "Thailand", "Dubai", "Bali", "Malaysia"];
+        //     $defaultDestinations = [];
+
+        //     foreach ($defaultNames as $name) {
+        //         $record = null;
+        //         $label = '';
+
+        //         // 1. Check in City
+        //         $record = DB::table('city')->where('name', $name)->first();
+        //         if ($record) {
+        //             $state = DB::table('states')->where('id', $record->state_id)->first();
+        //             $country = DB::table('countries')->where('id', $state->country_id ?? null)->first();
+        //             $label = $record->name . ', ' . ($country->name ?? '');
+        //         }
+
+        //         // 2. Check in State
+        //         if (!$record) {
+        //             $record = DB::table('states')->where('name', $name)->first();
+        //             if ($record) {
+        //                 $country = DB::table('countries')->where('id', $record->country_id)->first();
+        //                 $label = $record->name . ', ' . ($country->name ?? '');
+        //             }
+        //         }
+
+        //         // 3. Check in Country
+        //         if (!$record) {
+        //             $record = DB::table('countries')->where('name', $name)->first();
+        //             if ($record) {
+        //                 $continent = DB::table('continent')->where('id', $record->continent_id)->first();
+        //                 $label = $record->name . ', ' . ($continent->continent_name ?? '');
+        //             }
+        //         }
+
+        //         // 4. Check in Continent
+        //         if (!$record) {
+        //             $record = DB::table('continent')->where('continent_name', $name)->first();
+        //             if ($record) {
+        //                 $label = $record->continent_name;
+        //             }
+        //         }
+
+        //         // Push to list if record found
+        //         if ($record) {
+        //             $defaultDestinations[] = [
+        //                 'id' => $record->id,
+        //                 'value' => $name,
+        //                 'text' => $label,
+        //             ];
+        //         }
+        //     }
+
+        //     return response()->json([["text" => "Popular Destinations", "children" => $defaultDestinations]]);
+        // }
+
+        // city and country matching
+        // if (empty($destination_search_value) || strlen($destination_search_value) <= 1) {
+        //     $defaultNames = ["Goa", "Kerala", "Sikkim", "Shimla", "Thailand", "Dubai", "Bali", "Malaysia"];
+        //     $defaultDestinations = [];
+
+        //     foreach ($defaultNames as $name) {
+        //         $record = null;
+        //         $label = '';
+        //         $matchedCity = null;
+
+        //         // 1. Check in City (with specific country match)
+        //         $cities = DB::table('city')->where('name', $name)->get();
+        //         foreach ($cities as $city) {
+        //             $state = DB::table('states')->where('id', $city->state_id)->first();
+        //             $country = DB::table('countries')->where('id', $state->country_id ?? null)->first();
+
+        //             // Check if a package exists for the city-country pair
+        //             $packageExists = DB::table('rt_packages')
+        //                 ->where('city', 'LIKE', "%{$city->id}%")
+        //                 ->where('country', 'LIKE', "%{$country->id}%")
+        //                 ->exists();
+
+        //             if ($packageExists) {
+        //                 // Set the city-country pair with the label "City, Country"
+        //                 $label = $city->name . ', ' . ($country->name ?? '');
+        //                 $matchedCity = $city;
+        //                 break; // stop if we find a match
+        //             }
+        //         }
+
+        //         // 2. Check in State (only if no city-country match was found)
+        //         if (!$matchedCity) {
+        //             $record = DB::table('states')->where('name', $name)->first();
+        //             if ($record) {
+        //                 $country = DB::table('countries')->where('id', $record->country_id)->first();
+        //                 $label = $record->name . ', ' . ($country->name ?? '');
+        //             }
+        //         }
+
+        //         // 3. Check in Country
+        //         if (!$matchedCity && !$record) {
+        //             $record = DB::table('countries')->where('name', $name)->first();
+        //             if ($record) {
+        //                 $continent = DB::table('continent')->where('id', $record->continent_id)->first();
+        //                 $label = $record->name . ($continent ? ', ' . $continent->continent_name : '');
+        //             }
+        //         }
+
+        //         // 4. Check in Continent
+        //         if (!$matchedCity && !$record) {
+        //             $record = DB::table('continent')->where('continent_name', $name)->first();
+        //             if ($record) {
+        //                 $label = $record->continent_name;
+        //             }
+        //         }
+
+        //         // Push to list if record found
+        //         if ($matchedCity) {
+        //             $defaultDestinations[] = [
+        //                 'id' => $matchedCity->id,
+        //                 'value' => $name,
+        //                 'text' => $label,
+        //             ];
+        //         }
+        //     }
+
+        //     return response()->json([["text" => "Popular Destinations", "children" => $defaultDestinations]]);
+        // }
+
+        if (empty($destination_search_value) || strlen($destination_search_value) <= 1) {
+            $defaultNames = ["gangtok", "Kerala", "Sikkim", "Shimla", "Thailand", "Dubai", "Bali", "Malaysia"];
+            $defaultDestinations = [];
+
+            foreach ($defaultNames as $name) {
+                $record = null;
+                $label = '';
+                $matchedDestination = null;
+
+                // 1. City and Country Matching
+                $cities = DB::table('city')->where('name', $name)->get();
+                foreach ($cities as $city) {
+                    $state = DB::table('states')->where('id', $city->state_id)->first();
+                    $country = DB::table('countries')->where('id', $state->country_id ?? null)->first();
+
+                    // Check if a package exists for the city-country pair
+                    $packageExists = DB::table('rt_packages')
+                        ->where('city', 'LIKE', "%{$city->id}%")
+                        ->where('country', 'LIKE', "%{$country->id}%")
+                        ->exists();
+
+                    if ($packageExists) {
+                        $label = $city->name . ', ' . ($country->name ?? '');
+                        $matchedDestination = $city;
+                        break; // stop if we find a match
+                    }
+                }
+
+                // 2. State and Country Matching (if no city-country match)
+                if (!$matchedDestination) {
+                    $states = DB::table('states')->where('name', $name)->get();
+                    foreach ($states as $state) {
+                        $country = DB::table('countries')->where('id', $state->country_id)->first();
+
+                        // Check if a package exists for the state-country pair
+                        $packageExists = DB::table('rt_packages')
+                            ->where('state', 'LIKE', "%{$state->id}%")
+                            ->where('country', 'LIKE', "%{$country->id}%")
+                            ->exists();
+
+                        if ($packageExists) {
+                            $label = $state->name . ', ' . ($country->name ?? '');
+                            $matchedDestination = $state;
+                            break;
+                        }
+                    }
+                }
+
+                // 3. Country and Continent Matching (if no state-country match)
+                if (!$matchedDestination) {
+                    $countries = DB::table('countries')->where('name', $name)->get();
+                    foreach ($countries as $country) {
+                        $continent = DB::table('continent')->where('id', $country->continent_id)->first();
+
+                        // Check if a package exists for the country-continent pair
+                        $packageExists = DB::table('rt_packages')
+                            ->where('country', 'LIKE', "%{$country->id}%")
+                            ->where('continent', 'LIKE', "%{$continent->id}%")
+                            ->exists();
+
+                        if ($packageExists) {
+                            $label = $country->name . ', ' . ($continent->continent_name ?? '');
+                            $matchedDestination = $country;
+                            break;
+                        }
+                    }
+                }
+
+                // 4. Continent Matching (if no country-continent match)
+                if (!$matchedDestination) {
+                    $continents = DB::table('continent')->where('continent_name', $name)->get();
+                    foreach ($continents as $continent) {
+                        // Check if a package exists for the continent
+                        $packageExists = DB::table('rt_packages')
+                            ->where('continent', 'LIKE', "%{$continent->id}%")
+                            ->exists();
+
+                        if ($packageExists) {
+                            $label = $continent->continent_name;
+                            $matchedDestination = $continent;
+                            break;
+                        }
+                    }
+                }
+
+                // Push to list if record found
+                if ($matchedDestination) {
+                    $defaultDestinations[] = [
+                        'id' => $matchedDestination->id,
+                        'value' => $name,
+                        'text' => $label,
+                    ];
+                }
+            }
+
+            return response()->json([["text" => "Popular Destinations", "children" => $defaultDestinations]]);
+        }
+
+        // search destination
+        // ✅ Match against continent, country, state, city
+        $continentIds = DB::table('continent')->where('continent_name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $countryIds   = DB::table('countries')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $stateIds     = DB::table('states')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+        $cityIds      = DB::table('city')->where('name', 'LIKE', "$destination_search_value%")->pluck('id')->toArray();
+
+        $allMatchingIds = array_merge($continentIds, $countryIds, $stateIds, $cityIds);
+
+        // ✅ Get all active packages
+        $packages = DB::table('rt_packages')
+            ->where('status', 1)
+            ->get(['id', 'continent', 'country', 'state', 'city']);
+
+        // ✅ Label builder (based on type)
+        $buildLabel = function ($type, $first = '', $second = '', $third = '') {
+            if ($type === 'city') {
+                return trim("{$first}, {$third}");
+            } elseif ($type === 'state') {
+                return trim("{$first}, {$third}");
+            } elseif ($type === 'country') {
+                return trim("{$first}, {$second}");
+            } elseif ($type === 'continent') {
+                return $first;
+            }
+            return $first;
+        };
+
+        $destMap = [];
+
+        foreach ($packages as $pkg) {
+            $pkgContinents = unserialize($pkg->continent) ?: [];
+            $pkgCountries  = unserialize($pkg->country) ?: [];
+            $pkgStates     = unserialize($pkg->state) ?: [];
+            $pkgCities     = unserialize($pkg->city) ?: [];
+
+            foreach ($pkgCities as $i => $cityId) {
+                if (in_array($cityId, $allMatchingIds)) {
+                    $cityName    = CustomHelpers::get_master_table_data('city', 'id', $cityId, 'name');
+                    $stateId     = $pkgStates[$i] ?? null;
+                    $stateName   = $stateId ? CustomHelpers::get_master_table_data('states', 'id', $stateId, 'name') : '';
+                    $countryId   = $pkgCountries[$i] ?? null;
+                    $countryName = $countryId ? CustomHelpers::get_master_table_data('countries', 'id', $countryId, 'name') : '';
+                    $label       = $buildLabel('city', $cityName, $stateName, $countryName);
+                    $destMap[$cityId . '-city'] = $label;
+                }
+            }
+
+            foreach ($pkgStates as $i => $stateId) {
+                if (in_array($stateId, $allMatchingIds)) {
+                    $stateName   = CustomHelpers::get_master_table_data('states', 'id', $stateId, 'name');
+                    $countryId   = $pkgCountries[$i] ?? null;
+                    $countryName = $countryId ? CustomHelpers::get_master_table_data('countries', 'id', $countryId, 'name') : '';
+                    $label       = $buildLabel('state', $stateName, '', $countryName);
+                    $destMap[$stateId . '-state'] = $label;
+                }
+            }
+
+            foreach ($pkgCountries as $countryId) {
+                if (in_array($countryId, $allMatchingIds)) {
+                    $countryName   = CustomHelpers::get_master_table_data('countries', 'id', $countryId, 'name');
+                    $continentId   = CustomHelpers::get_master_table_data('countries', 'id', $countryId, 'continent_id');
+                    $continentName = CustomHelpers::get_master_table_data('continent', 'id', $continentId, 'continent_name');
+                    $label         = $buildLabel('country', $countryName, $continentName);
+                    $destMap[$countryId . '-country'] = $label;
+                }
+            }
+
+            foreach ($pkgContinents as $continentId) {
+                if (in_array($continentId, $allMatchingIds)) {
+                    $continentName = CustomHelpers::get_master_table_data('continent', 'id', $continentId, 'continent_name');
+                    $label         = $buildLabel('continent', $continentName);
+                    $destMap[$continentId . '-continent'] = $label;
+                }
+            }
+        }
+
+        // ✅ Deduplicate by label and keep one ID
+        $labelToIdMap = [];
+        foreach ($destMap as $id => $label) {
+            if (!in_array($label, array_keys($labelToIdMap))) {
+                $labelToIdMap[$label] = $id;
+            }
+        }
+
+        // ✅ Final formatted response
+        $response = [];
+        foreach ($labelToIdMap as $label => $id) {
+            $numericId = explode('-', $id)[0]; // strip "-city"/"-state"/etc. suffix
+            $packageCount = DB::table('rt_packages')
+                ->where('status', 1)
+                ->where(function ($query) use ($numericId) {
+                    $query->orWhere('continent', 'like', "%$numericId%")
+                        ->orWhere('country', 'like', "%$numericId%")
+                        ->orWhere('state', 'like', "%$numericId%")
+                        ->orWhere('city', 'like', "%$numericId%");
+                })
+                ->count();
+
+            $response[] = [
+                'id'    => $numericId,
+                'text'  => "$label ($packageCount Packages)",
+                'value' => $label,
+            ];
+        }
+
+        return response()->json([["text" => "Suggestions", "children" => $response]]);
+    }*/
+   public function search_package_title(Request $request)
+   {
+     $destination_search_value = trim($request->searchTerm);
+    $destination = trim($request->destination);
+
+    // Assuming this returns Eloquent Collection or array of objects
+    [$data, $data_ids, $packages] = $this->searchPackagesByDestination($destination);
+
+    // If it's not a collection, make it one
+    if (!($data instanceof \Illuminate\Support\Collection)) {
+        $data = collect($data);
     }
 
+    // Sort by title similarity to search term
+    $sortedData = $data->sortByDesc(function ($item) use ($destination_search_value) {
+        similar_text(strtolower($destination_search_value), strtolower($item->title), $percent);
+        return $percent; // Higher percent = more similar
+    })->values(); // Reset keys after sort
+
+    // Optional: Just dump sorted titles
+    $titles = $sortedData->pluck('title');
+
+     $data = collect($titles)->map(function ($title, $index) {
+        return (object) [
+            'id' => $index,
+            'title' => $title
+        ];
+    });
+
+      $sortedData = $data->sortByDesc(function ($item) use ($destination_search_value) {
+        $title = strtolower($item->title);
+        $term = strtolower($destination_search_value);
+
+        // Priority if the term exists in title
+        if (stripos($title, $term) !== false) {
+            return 1000; // Push exact/partial matches to top
+        }
+
+        // Otherwise use similarity
+        similar_text($term, $title, $percent);
+        return $percent;
+    })->values(); // Reset array keys
+
+       $results = $sortedData->map(function ($item) {
+        return [
+            'id' => $item->title,
+            'text' => $item->title
+        ];
+    });
+
+    return response()->json($results);
+ 
+
+   }
+    public function search_destination(Request $request)
+    {
+        
+
+        //*****************
+
+        $destination_search_value = trim($request->searchTerm);
+
+        // ✅ Show default destinations when search is empty or too short
+        if (empty($destination_search_value) || strlen($destination_search_value) <= 1) {
+
+            // ⚡ Cache this block for 60 minutes
+            $defaultDestinations = Cache::remember('popular_destinations_v1', 60, function () {
+                $defaultNames = ["Goa", "Kerala", "Sikkim", "Shimla", "Thailand", "Dubai", "Bali", "Malaysia"];
+                $destinations = [];
+
+                foreach ($defaultNames as $name) {
+                    $record = null;
+                    $label = '';
+                    $matchedDestination = null;
+
+                    // 1. City and Country Matching
+                    $cities = DB::table('city')->where('name', $name)->get();
+                    foreach ($cities as $city) {
+                        $state = DB::table('states')->where('id', $city->state_id)->first();
+                        $country = DB::table('countries')->where('id', $state->country_id ?? null)->first();
+
+                        $packageExists = DB::table('rt_packages')
+                            ->where('city', 'LIKE', "%{$city->id}%")
+                            ->where('country', 'LIKE', "%{$country->id}%")
+                            ->exists();
+
+                        if ($packageExists) {
+                            $label = $city->name . ', ' . ($country->name ?? '');
+                            $matchedDestination = $city;
+                            break;
+                        }
+                    }
+
+                    // 2. State and Country Matching
+                    if (!$matchedDestination) {
+                        $states = DB::table('states')->where('name', $name)->get();
+                        foreach ($states as $state) {
+                            $country = DB::table('countries')->where('id', $state->country_id)->first();
+
+                            $packageExists = DB::table('rt_packages')
+                                ->where('state', 'LIKE', "%{$state->id}%")
+                                ->where('country', 'LIKE', "%{$country->id}%")
+                                ->exists();
+
+                            if ($packageExists) {
+                                $label = $state->name . ', ' . ($country->name ?? '');
+                                $matchedDestination = $state;
+                                break;
+                            }
+                        }
+                    }
+
+                    // 3. Country and Continent Matching
+                    if (!$matchedDestination) {
+                        $countries = DB::table('countries')->where('name', $name)->get();
+                        foreach ($countries as $country) {
+                            $continent = DB::table('continent')->where('id', $country->continent_id)->first();
+
+                            $packageExists = DB::table('rt_packages')
+                                ->where('country', 'LIKE', "%{$country->id}%")
+                                ->where('continent', 'LIKE', "%{$continent->id}%")
+                                ->exists();
+
+                            if ($packageExists) {
+                                $label = $country->name . ', ' . ($continent->continent_name ?? '');
+                                $matchedDestination = $country;
+                                break;
+                            }
+                        }
+                    }
+
+                    // 4. Continent Matching
+                    if (!$matchedDestination) {
+                        $continents = DB::table('continent')->where('continent_name', $name)->get();
+                        foreach ($continents as $continent) {
+                            $packageExists = DB::table('rt_packages')
+                                ->where('continent', 'LIKE', "%{$continent->id}%")
+                                ->exists();
+
+                            if ($packageExists) {
+                                $label = $continent->continent_name;
+                                $matchedDestination = $continent;
+                                break;
+                            }
+                        }
+                    }
+
+                    if ($matchedDestination) {
+                        $destinations[] = [
+                            'id' => $name,
+                            'value' => $name,
+                            'text' => $label,
+                        ];
+                    }
+                }
+
+                return $destinations;
+            });
+
+            return response()->json([["text" => "Popular Destinations", "children" => $defaultDestinations]]);
+        }
+
+        //*****************
+
+       
+
+        // ✅ Match against continent, country, state, city
+        $continentIds = DB::table('continent')
+            ->where('continent_name', 'LIKE', "$destination_search_value%")
+            ->pluck('id')->toArray();
+
+        $countryIds = DB::table('countries')
+            ->where('name', 'LIKE', "$destination_search_value%")
+            ->pluck('id')->toArray();
+
+        $stateIds = DB::table('states')
+            ->where('name', 'LIKE', "$destination_search_value%")
+            ->pluck('id')->toArray();
+
+        $cityIds = DB::table('city')
+            ->where('name', 'LIKE', "$destination_search_value%")
+            ->pluck('id')->toArray();
+
+        $allMatchingIds = array_merge($continentIds, $countryIds, $stateIds, $cityIds);
+
+        // ✅ Get all active packages
+        $packages = DB::table('rt_packages')
+            ->where('status', 1)
+            ->get(['id', 'continent', 'country', 'state', 'city']);
+
+        // ✅ Label builder
+        $buildLabel = function ($type, $first = '', $second = '', $third = '') {
+            if ($type === 'city') {
+                return trim("{$first}, {$third}");
+            } elseif ($type === 'state') {
+                return trim("{$first}, {$third}");
+            } elseif ($type === 'country') {
+                return trim("{$first}, {$second}");
+            } elseif ($type === 'continent') {
+                return $first;
+            }
+            return $first;
+        };
+
+        $destMap = [];
+
+        foreach ($packages as $pkg) {
+            $pkgContinents = unserialize($pkg->continent) ?: [];
+            $pkgCountries  = unserialize($pkg->country) ?: [];
+            $pkgStates     = unserialize($pkg->state) ?: [];
+            $pkgCities     = unserialize($pkg->city) ?: [];
+
+            foreach ($pkgCities as $i => $cityId) {
+                if (in_array($cityId, $allMatchingIds)) {
+                    $cityName    = CustomHelpers::get_master_table_data('city', 'id', $cityId, 'name');
+                    $stateId     = $pkgStates[$i] ?? null;
+                    $stateName   = $stateId ? CustomHelpers::get_master_table_data('states', 'id', $stateId, 'name') : '';
+                    $countryId   = $pkgCountries[$i] ?? null;
+                    $countryName = $countryId ? CustomHelpers::get_master_table_data('countries', 'id', $countryId, 'name') : '';
+                    $label       = $buildLabel('city', $cityName, $stateName, $countryName);
+
+                    $destMap[$cityId . '-city'] = $label;
+                }
+            }
+
+            foreach ($pkgStates as $i => $stateId) {
+                if (in_array($stateId, $allMatchingIds)) {
+                    $stateName   = CustomHelpers::get_master_table_data('states', 'id', $stateId, 'name');
+                    $countryId   = $pkgCountries[$i] ?? null;
+                    $countryName = $countryId ? CustomHelpers::get_master_table_data('countries', 'id', $countryId, 'name') : '';
+                    $label       = $buildLabel('state', $stateName, '', $countryName);
+
+                    $destMap[$stateId . '-state'] = $label;
+                }
+            }
+
+            foreach ($pkgCountries as $countryId) {
+                if (in_array($countryId, $allMatchingIds)) {
+                    $countryName   = CustomHelpers::get_master_table_data('countries', 'id', $countryId, 'name');
+                    $continentId   = CustomHelpers::get_master_table_data('countries', 'id', $countryId, 'continent_id');
+                    $continentName = CustomHelpers::get_master_table_data('continent', 'id', $continentId, 'continent_name');
+                    $label         = $buildLabel('country', $countryName, $continentName);
+
+                    $destMap[$countryId . '-country'] = $label;
+                }
+            }
+
+            foreach ($pkgContinents as $continentId) {
+                if (in_array($continentId, $allMatchingIds)) {
+                    $continentName = CustomHelpers::get_master_table_data('continent', 'id', $continentId, 'continent_name');
+                    $label = $buildLabel('continent', $continentName);
+
+                    $destMap[$continentId . '-continent'] = $label;
+                }
+            }
+        }
+
+        // ✅ Deduplicate by label
+        $labelToIdMap = [];
+
+        foreach ($destMap as $id => $label) {
+            if (!array_key_exists($label, $labelToIdMap)) {
+                $labelToIdMap[$label] = $id;
+            }
+        }
+
+        // ✅ Final formatted response
+        $response = [];
+
+        foreach ($labelToIdMap as $label => $id) {
+            $numericId = explode('-', $id)[0];
+           
+            $packageCount = DB::table('rt_packages')
+                ->where('status', 1)
+                ->where(function ($query) use ($numericId) {
+                    $query->orWhere('continent', 'like', "%$numericId%")
+                          ->orWhere('country', 'like', "%$numericId%")
+                          ->orWhere('state', 'like', "%$numericId%")
+                          ->orWhere('city', 'like', "%$numericId%");
+                })
+                ->count();
+
+            // $response[] = [
+            //     'id'    => $numericId,
+            //     'text'  => "$label ($packageCount Packages)",
+            //     'value' => $label,  
+            // ];
+                $searched_location= explode(',', $label)[0];
+
+                 $response[] = [
+                'id'    => $searched_location,
+                'text'  => "$label ($packageCount Packages)",
+                'value' => $label,  
+            ];
+
+        }
+
+        return response()->json([
+            ["text" => "Suggestions", "children" => $response]
+        ]);
+
+    }
+
+
+    /*--------*/
+
+    //these are to check only (helps to find the destination details)
+
+    // to find city -> state -> country using name - e.g. find Bali located in world in which country and others
+    /*public function search_destination(Request $request)
+    {
+        $destination_search_value = trim($request->searchTerm);
+
+        // ✅ Check if the search term matches multiple locations in the database
+        $cities = DB::table('city')->where('name', 'LIKE', "%$destination_search_value%")->get();
+        $states = DB::table('states')->where('name', 'LIKE', "%$destination_search_value%")->get();
+        $countries = DB::table('countries')->where('name', 'LIKE', "%$destination_search_value%")->get();
+        $continents = DB::table('continent')->where('continent_name', 'LIKE', "%$destination_search_value%")->get();
+
+        $results = [];
+
+        // ✅ Handle Cities
+        if ($cities->count() > 0) {
+            foreach ($cities as $city) {
+                $state = DB::table('states')->where('id', $city->state_id)->first();
+                $country = DB::table('countries')->where('id', $state->country_id)->first();
+                $results[] = [
+                    'id' => $city->id,
+                    'text' => "{$city->name}, {$state->name}, {$country->name}",
+                ];
+            }
+        }
+
+        // ✅ Handle States
+        if ($states->count() > 0) {
+            foreach ($states as $state) {
+                $country = DB::table('countries')->where('id', $state->country_id)->first();
+                $results[] = [
+                    'id' => $state->id,
+                    'text' => "{$state->name}, {$country->name}",
+                ];
+            }
+        }
+
+        // ✅ Handle Countries
+        if ($countries->count() > 0) {
+            foreach ($countries as $country) {
+                $continent = DB::table('continent')->where('id', $country->continent_id)->first();
+                $results[] = [
+                    'id' => $country->id,
+                    'text' => "{$country->name}, {$continent->continent_name}",
+                ];
+            }
+        }
+
+        // ✅ Handle Continents
+        if ($continents->count() > 0) {
+            foreach ($continents as $continent) {
+                $results[] = [
+                    'id' => $continent->id,
+                    'text' => $continent->continent_name,
+                ];
+            }
+        }
+
+        // ✅ If no results found, display a fallback message
+        if (empty($results)) {
+            return response()->json([["text" => "No results found", "children" => []]]);
+        }
+
+        // ✅ Return results
+        return response()->json([["text" => "Suggestions", "children" => $results]]);
+    }*/
+
+    // to find city -> state -> country using name - e.g. find Bali located in world in which country and others
+    /*public function search_destination(Request $request)
+    {
+        $search = trim($request->searchTerm);
+        $results = [];
+
+        // Search cities
+        $cities = DB::table('city')->where('name', 'LIKE', "%$search%")->get();
+        foreach ($cities as $city) {
+            $state = DB::table('states')->where('id', $city->state_id)->first();
+            $country = $state ? DB::table('countries')->where('id', $state->country_id)->first() : null;
+            $continent = $country ? DB::table('continent')->where('id', $country->continent_id)->first() : null;
+
+            $textParts = [$city->name];
+            if ($state) $textParts[] = $state->name;
+            if ($country) $textParts[] = $country->name;
+            if ($continent) $textParts[] = $continent->continent_name;
+
+            $results[] = [
+                'id' => 'city_' . $city->id,
+                'text' => implode(', ', $textParts),
+            ];
+        }
+
+        // Search states
+        $states = DB::table('states')->where('name', 'LIKE', "%$search%")->get();
+        foreach ($states as $state) {
+            $country = DB::table('countries')->where('id', $state->country_id)->first();
+            $continent = $country ? DB::table('continent')->where('id', $country->continent_id)->first() : null;
+
+            $textParts = [$state->name];
+            if ($country) $textParts[] = $country->name;
+            if ($continent) $textParts[] = $continent->continent_name;
+
+            $results[] = [
+                'id' => 'state_' . $state->id,
+                'text' => implode(', ', $textParts),
+            ];
+        }
+
+        // Search countries
+        $countries = DB::table('countries')->where('name', 'LIKE', "%$search%")->get();
+        foreach ($countries as $country) {
+            $continent = DB::table('continent')->where('id', $country->continent_id)->first();
+
+            $textParts = [$country->name];
+            if ($continent) $textParts[] = $continent->continent_name;
+
+            $results[] = [
+                'id' => 'country_' . $country->id,
+                'text' => implode(', ', $textParts),
+            ];
+        }
+
+        // Search continents
+        $continents = DB::table('continent')->where('continent_name', 'LIKE', "%$search%")->get();
+        foreach ($continents as $continent) {
+            $results[] = [
+                'id' => 'continent_' . $continent->id,
+                'text' => $continent->continent_name,
+            ];
+        }
+
+        // Remove duplicates by 'text'
+        $results = collect($results)
+            ->unique('text')                 // remove duplicates
+            ->sortBy(function($item) {
+                $parts = explode(',', $item['text']);
+                return count($parts);        // prioritize more complete (4-part) labels
+            })
+            ->values()
+            ->all();
+
+        // if (empty($results)) {
+        //     return response()->json([["text" => "No results found", "children" => []]]);
+        // }
+
+        return response()->json([["text" => "Suggestions", "children" => $results]]);
+    }*/
+
+    // to find city -> state -> country -> continent using name (Avoid duplicates like Singapore, Asia if Singapore, Singapore, Singapore, Asia already exists)
+    /*public function search_destination(Request $request)
+    {
+        $search = trim($request->searchTerm);
+        $results = [];
+        $usedNames = [];
+
+        // Search cities first (most complete)
+        $cities = DB::table('city')->where('name', 'LIKE', "%$search%")->get();
+        foreach ($cities as $city) {
+            $state = DB::table('states')->where('id', $city->state_id)->first();
+            $country = $state ? DB::table('countries')->where('id', $state->country_id)->first() : null;
+            $continent = $country ? DB::table('continent')->where('id', $country->continent_id)->first() : null;
+
+            $nameKey = strtolower($city->name);
+            if (in_array($nameKey, $usedNames)) continue;
+
+            $textParts = [$city->name];
+            if ($state) $textParts[] = $state->name;
+            if ($country) $textParts[] = $country->name;
+            if ($continent) $textParts[] = $continent->continent_name;
+
+            $results[] = [
+                'id' => 'city_' . $city->id,
+                'text' => implode(', ', $textParts),
+            ];
+            $usedNames[] = $nameKey;
+        }
+
+        // Search states only if not already matched in cities
+        $states = DB::table('states')->where('name', 'LIKE', "%$search%")->get();
+        foreach ($states as $state) {
+            $nameKey = strtolower($state->name);
+            if (in_array($nameKey, $usedNames)) continue;
+
+            $country = DB::table('countries')->where('id', $state->country_id)->first();
+            $continent = $country ? DB::table('continent')->where('id', $country->continent_id)->first() : null;
+
+            $textParts = [$state->name];
+            if ($country) $textParts[] = $country->name;
+            if ($continent) $textParts[] = $continent->continent_name;
+
+            $results[] = [
+                'id' => 'state_' . $state->id,
+                'text' => implode(', ', $textParts),
+            ];
+            $usedNames[] = $nameKey;
+        }
+
+        // Search countries only if not already matched
+        $countries = DB::table('countries')->where('name', 'LIKE', "%$search%")->get();
+        foreach ($countries as $country) {
+            $nameKey = strtolower($country->name);
+            if (in_array($nameKey, $usedNames)) continue;
+
+            $continent = DB::table('continent')->where('id', $country->continent_id)->first();
+
+            $textParts = [$country->name];
+            if ($continent) $textParts[] = $continent->continent_name;
+
+            $results[] = [
+                'id' => 'country_' . $country->id,
+                'text' => implode(', ', $textParts),
+            ];
+            $usedNames[] = $nameKey;
+        }
+
+        // Search continents only if not already matched
+        $continents = DB::table('continent')->where('continent_name', 'LIKE', "%$search%")->get();
+        foreach ($continents as $continent) {
+            $nameKey = strtolower($continent->continent_name);
+            if (in_array($nameKey, $usedNames)) continue;
+
+            $results[] = [
+                'id' => 'continent_' . $continent->id,
+                'text' => $continent->continent_name,
+            ];
+            $usedNames[] = $nameKey;
+        }
+
+        if (empty($results)) {
+            return response()->json([["text" => "No results found", "children" => []]]);
+        }
+
+        return response()->json([["text" => "Suggestions", "children" => $results]]);
+    }*/
+
+
+
     // ****************************************
+
 
     public function filter_array($array, $letter) 
     {
@@ -2721,30 +4689,12 @@ foreach ($dest as $destinationId => $destinationName) {
     // search tour package by theme (desktop)
     public function search_theme(Request $request)
     {
-        $search_theme = $request->search_theme;
-
-        // If "All" (empty theme), fetch all active packages
-        if (empty($search_theme)) {
-            $data = DB::table('rt_packages')
-                ->where('status', '=', '1')
-                ->get();
-            
-            // Debug: Log the data fetched for "All"
-            \Log::info('All packages:', ['data' => $data->toArray()]);
-
-        } else {
-            // If a specific theme is selected, filter by relevant fields
-            $fields = ['city', 'country', 'state', 'continent'];
-            $data = DB::table('rt_packages')
-                ->where('status', '=', '1')
-                ->where(function ($query) use ($fields, $search_theme) {
-                    foreach ($fields as $field) {
-                        $query->orWhere($field, 'like', '%' . $search_theme . '%');
-                    }
-                })
-                ->get();
-        }
-
+        $search_theme = strtolower($request->search_theme);
+        
+        // Search for packages by destination
+        [$data, $data_ids, $packages] = $this->searchPackagesByDestination($search_theme);
+      
+       
         // Check if data is empty
         if ($data->isEmpty()) {
             return response('no_data'); // Send "no_data" if no results are found
@@ -2870,7 +4820,7 @@ foreach ($dest as $destinationId => $destinationName) {
     }*/
 
     // show more packages (home page)
-    public function add_package(Request $request)
+    /*public function add_package(Request $request)
     {
         // Get request parameters
         $custom_length = $request->custom_length;
@@ -2918,7 +4868,249 @@ foreach ($dest as $destinationId => $destinationName) {
 
         // Return JSON response to AJAX call
         return response()->json(['html' => $output]);
-    }
+    }*/
+
+    /*public function add_package(Request $request)
+    {
+        // Get request parameters
+        $custom_length = $request->custom_length;
+        $p_id = !empty($request->id) ? (array) $request->id : [];
+        $content_type = $request->content_type;
+        $limit = $request->limit ?? 4;
+
+        // ✅ Get country IDs for India, Nepal, Bhutan
+        $domesticCountryIds = DB::table('countries')
+            ->whereIn('name', ['India', 'Nepal', 'Bhutan'])
+            ->pluck('id')
+            ->toArray();
+
+        // ✅ International packages (Exclude India, Nepal, Bhutan)
+        if ($content_type !== 'domestic' && $content_type !== 'domestic_mobile') {
+            $packages = DB::table("rt_packages")
+                ->where('status', '1')
+                ->where('front_show', '1')
+                ->whereNotIn('id', $p_id)
+                ->whereNotIn('country', $domesticCountryIds)
+                ->inRandomOrder()
+                ->limit($limit)
+                ->get();
+        }
+        // ✅ Domestic packages (Only India, Nepal, Bhutan)
+        else {
+            $packages = DB::table('rt_packages')
+                ->where('status', '1')
+                ->where('front_show', '1')
+                ->whereNotIn('id', $p_id)
+                ->whereIn('country', $domesticCountryIds)
+                ->inRandomOrder()
+                ->limit($limit)
+                ->get();
+        }
+
+        $output = view('home.add_more_data.index', compact('content_type', 'packages'))->render();
+
+        return response()->json(['html' => $output]);
+    }*/
+
+    // show more packages (home page) (working)
+    /*public function add_package(Request $request)
+    {
+        $content_type = $request->input('content_type');
+
+        // ✅ Define country names to exclude/include
+        $excludedCountryNames = ['India', 'Nepal', 'Bhutan'];
+
+        // ✅ Fetch corresponding country IDs from `countries` table
+        $excludedCountryIds = DB::table('countries')
+            ->whereIn('name', $excludedCountryNames)
+            ->pluck('id')
+            ->toArray();
+
+        // Determine package list based on content type
+        if ($content_type == 'international') {
+            // 🌐 International packages: exclude countries with these IDs
+            $packages = DB::table('rt_packages')
+                ->where('status', '1')
+                ->where('front_show', '1')
+                ->where(function ($query) use ($excludedCountryIds) {
+                    foreach ($excludedCountryIds as $id) {
+                        $query->where('country', 'not like', "%$id%");
+                    }
+                })
+                ->inRandomOrder()
+                ->limit(4)
+                ->get();
+        } else {
+            // 🇮🇳 Domestic packages: include countries with these IDs
+            $packages = DB::table('rt_packages')
+                ->where('status', '1')
+                ->where('front_show', '1')
+                ->where(function ($query) use ($excludedCountryIds) {
+                    foreach ($excludedCountryIds as $id) {
+                        $query->orWhere('country', 'like', "%$id%");
+                    }
+                })
+                ->inRandomOrder()
+                ->limit(4)
+                ->get();
+        }
+
+        // ✅ Render and return as JSON
+        $output = view('home.add_more_data.index', compact('content_type', 'packages'))->render();
+
+        return response()->json(['html' => $output]);
+    }*/
+
+    // Show more packages (Home Page) – Working with serialized `country` support
+    /*public function add_package(Request $request)
+    {
+        $content_type = $request->input('content_type');
+
+        // ✅ Define country names to exclude/include
+        $excludedCountryNames = ['India', 'Nepal', 'Bhutan'];
+
+        // ✅ Fetch corresponding country IDs from `countries` table
+        $excludedCountryIds = DB::table('countries')
+            ->whereIn('name', $excludedCountryNames)
+            ->pluck('id')
+            ->toArray();
+
+        // ✅ Fetch all valid packages
+        $allPackages = DB::table('rt_packages')
+            ->where('status', 1)
+            ->where('front_show', 1)
+            ->get();
+
+        $packages = [];
+
+        foreach ($allPackages as $pkg) {
+            $countryIds = @unserialize($pkg->country);
+            if (!is_array($countryIds)) continue;
+
+            $intersect = array_intersect($excludedCountryIds, $countryIds);
+
+            if ($content_type === 'international' && empty($intersect)) {
+                $packages[] = $pkg;
+            }
+
+            if ($content_type !== 'international' && !empty($intersect)) {
+                $packages[] = $pkg;
+            }
+        }
+
+        // ✅ Shuffle and limit 4
+        $packages = collect($packages)->shuffle()->take(4);
+
+        // ✅ Render and return as JSON
+        $output = view('home.add_more_data.index', compact('content_type', 'packages'))->render();
+
+        return response()->json(['html' => $output]);
+    }*/
+
+    // not repeating the same package
+    /*public function add_package(Request $request)
+    {
+        $content_type = $request->input('content_type');
+        $alreadyLoadedIds = $request->input('already_loaded_ids', []); // Expecting an array of package IDs
+
+        // ✅ Country names to exclude/include
+        $excludedCountryNames = ['India', 'Nepal', 'Bhutan'];
+
+        // ✅ Get country IDs
+        $excludedCountryIds = DB::table('countries')
+            ->whereIn('name', $excludedCountryNames)
+            ->pluck('id')
+            ->toArray();
+
+        // ✅ Get all packages not already shown
+        $allPackages = DB::table('rt_packages')
+            ->where('status', 1)
+            ->where('front_show', 1)
+            ->whereNotIn('id', $alreadyLoadedIds)
+            ->get();
+
+        $packages = [];
+
+        foreach ($allPackages as $pkg) {
+            $countryIds = @unserialize($pkg->country);
+            if (!is_array($countryIds)) continue;
+
+            $intersect = array_intersect($excludedCountryIds, $countryIds);
+
+            if ($content_type === 'international' && empty($intersect)) {
+                $packages[] = $pkg;
+            }
+
+            if ($content_type !== 'international' && !empty($intersect)) {
+                $packages[] = $pkg;
+            }
+        }
+
+        // ✅ Shuffle and limit 4
+        $packages = collect($packages)->shuffle()->take(4);
+
+        $output = view('home.add_more_data.index', compact('content_type', 'packages'))->render();
+
+        return response()->json(['html' => $output]);
+    }*/
+
+    // show more packages (home page) (enhanced) // transferred to HomeController
+    /*public function add_package(Request $request)
+    {
+        $content_type = $request->input('content_type');
+        $alreadyLoadedIds = $request->input('already_loaded_ids', []); // loaded pkgs will not repeat linked to pageone.js
+        $limit = $request->input('limit', 4); // default to 4
+
+        // Define excluded countries for "domestic"
+        $excludedCountryNames = ['India', 'Nepal', 'Bhutan'];
+
+        // Get their IDs
+        $excludedCountryIds = DB::table('countries')
+            ->whereIn('name', $excludedCountryNames)
+            ->pluck('id')
+            ->toArray();
+
+        // Fetch all eligible packages
+        $allPackages = DB::table('rt_packages')
+            ->where('status', 1)
+            ->where('front_show', 1)
+            ->whereNotIn('id', $alreadyLoadedIds) // exclude already shown
+            ->get();
+
+        $packages = [];
+
+        foreach ($allPackages as $pkg) {
+            $countryIds = @unserialize($pkg->country);
+            if (!is_array($countryIds)) continue;
+
+            $intersect = array_intersect($excludedCountryIds, $countryIds);
+
+            if ($content_type === 'international' || $content_type === 'international_mobile') {
+                // International: Should NOT match any excluded
+                if (empty($intersect)) {
+                    $packages[] = $pkg;
+                }
+            } else {
+                // Domestic: Should include any excluded
+                if (!empty($intersect)) {
+                    $packages[] = $pkg;
+                }
+            }
+        }
+
+        // Shuffle and take up to 4
+        $packages = collect($packages)->shuffle()->take($limit);
+
+        // Render view
+        $output = view('home.add_more_data.index', [
+            'content_type' => $content_type,
+            'packages' => $packages
+        ])->render();
+
+        return response()->json(['html' => $output]);
+    }*/
+
+
 
 
     // ****************************************
@@ -3083,7 +5275,7 @@ foreach ($dest as $destinationId => $destinationName) {
         $max_price=$request->max_price;
         $max_price=(int)filter_var($max_price, FILTER_SANITIZE_NUMBER_INT);
         $sort_filter=$request->sort_filter;
-
+    
         //
         if($request->has('services_includes')) {
             $services_includes=$request->services_includes;
@@ -3104,24 +5296,22 @@ foreach ($dest as $destinationId => $destinationName) {
             $gen_tags_count=0;
         }
         $search_date=$request->search_date;
+
         $icons = Icons::all();
         $generals = Gtags::all();
         $suitables = Suitable::all();
-
+      [$data, $data_ids, $package_s] = $this->searchPackagesByDestination($destination);
         //
         if($event_type=="0"):
-            $packages=DB::table('rt_packages')->where([['continent', 'like', '%' . $destination . '%'],['status', '=', '1'],])->orWhere([['country', 'like', '%' . $destination . '%'],['status', '=', '1'],])->orWhere([['city', 'like', '%' . $destination . '%'],['status', '=', '1'],])->orWhere([['state', 'like', '%' . $destination . '%'],['status', '=', '1'],])
-            ->get();
+
+            $packages=$data;
         elseif($event_type=="1"):
-            $packages=DB::table('rt_packages')
-            ->where(function ($query) use ($destination){
-            $query->where([['continent', 'like', '%' . $destination . '%'],['status', '=', '1'],])
-            ->orWhere([['country', 'like', '%' . $destination . '%'],['status', '=', '1'],])
-            ->orWhere([['city', 'like', '%' . $destination . '%'],['status', '=', '1'],])
-            ->orWhere([['state', 'like', '%' . $destination . '%'],['status', '=', '1'],]);
-            })
-            ->whereNotIn('id', $packages_id)
-            ->get();
+        
+            $packages = collect($data)->reject(function ($d) use ($packages_id) {
+    return in_array($d->id, $packages_id);
+})->values();
+
+
         endif;
 
         //1
@@ -6131,13 +8321,27 @@ foreach ($dest as $destinationId => $destinationName) {
             }
             //
             endif;
+      
             foreach($new_price as $pr):
             foreach($pr as $to):
-            $prices[]=['id'=>$to["id"],'price'=>$to["price"],'duration'=>$to["duration"]];
+            $prices[]=['id'=>$to["id"],'price'=>$to["price"],'duration'=>$to["duration"],'title'=>$to["title"]];
             endforeach;
             endforeach;
+           
+           $search = $request->search_package;
+if($search!='')
+{
+  usort($prices, function ($a, $b) use ($search) {
+    similar_text(strtolower($search), strtolower($b['title']), $percentB);
+    similar_text(strtolower($search), strtolower($a['title']), $percentA);
+    return $percentB <=> $percentA; // sort descending (best match on top)
+});  
+}
+
+
             if($sort_filter=="SEL"):
             $p_id=CustomHelpers::get_sel($prices,$min_price,$max_price);
+
             elseif($sort_filter=="PLH"):
             $p_id=CustomHelpers::get_plh($prices,$min_price,$max_price);
             elseif($sort_filter=="PHL"):
@@ -6147,6 +8351,7 @@ foreach ($dest as $destinationId => $destinationName) {
             elseif($sort_filter=="DHL"):
             $p_id=CustomHelpers::get_dhl($prices,$min_price,$max_price);
             endif;
+
             //print_r($p_id);
             $pac_data="";
             $p_id=implode(",", $p_id);
@@ -6155,11 +8360,12 @@ foreach ($dest as $destinationId => $destinationName) {
             $p_id= array_slice($p_id, 0, 3);
             foreach($p_id as $ids):
             $data=DB::table('rt_packages')->where('id','=',$ids)->get();
+
             $pac_data.= view('packages.secondpage.rendersorting_data',compact('data','icon_data','window_width','search_date'))->render();
             endforeach;
 
             echo $pac_data."<br>";
-            //print_r($prices);
+      
     }
 
     // load more packages (page two) (optimized but not working, check with error log)
@@ -6279,6 +8485,4 @@ foreach ($dest as $destinationId => $destinationName) {
             'no_more_data' => count($filteredPackages) === 0, // If no packages, return true
         ]);
     }*/
-
-
 }

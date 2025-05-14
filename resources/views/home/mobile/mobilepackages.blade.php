@@ -48,7 +48,8 @@ $new_price=PackagePriceHelpers::get_new_pricing_data($package->id,date('Y-m-d'))
 
 
 									</p>
-									<p class="mTourPrcTyp">{{ $package->Price_type }}</p>
+									<p class="mTourPrcTyp"> 
+{{PackagePriceHelpers::get_price_type($package->Price_type)}}</p>
 								</div>
 
 
@@ -137,7 +138,10 @@ $new_price=PackagePriceHelpers::get_new_pricing_data($package->id,date('Y-m-d'))
 
 
 									</p>
-									<p class="mTourPrcTyp">{{ $package->Price_type }}</p>
+									<p class="mTourPrcTyp"> 
+
+{{PackagePriceHelpers::get_price_type($package->Price_type)}}
+										
 								</div>
 
 

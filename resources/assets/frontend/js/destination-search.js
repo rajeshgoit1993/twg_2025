@@ -1,4 +1,4 @@
-// holiday destination search box and theme selection 
+// holiday destination search box and theme selection
 $(document).ready(function() {
     // Initialize Select2 on elements with class 'select2'
     jQuery('.select2').select2();
@@ -32,31 +32,46 @@ $(document).ready(function() {
         },
         templateResult: function(data) {
             // Format the dropdown display text
-            return data.text || data.id;
+            return data.text || data.id; // dropdown shows full label, like "Goa, India"
         },
-        templateSelection: function(data) {
-            // Set what gets displayed in the input box after selection
-            // return data.id;  // This will only display the destination name (e.g., "Goa")
-            // Check if a selection is made, if not, return null to keep placeholder
-            if (data.id === '') {
-                return "To";  // Placeholder text
-            }
-            return data.id;  // Return the selected destination name
-        },
-        // language: {
-        //     noResults: function() {
-        //         return "No results found"; // Message when no results match the search
-        //     },
-        //     inputTooShort: function () {
-        //         return "Select or enter city name"; // Placeholder for the input field in the dropdown
+
+        // display only destination (working)
+        // templateSelection: function(data) {
+        //     if (!data.id) {
+        //         return "To";  // Placeholder if nothing is selected
         //     }
+
+        //     // If 'data.text' is like "Goa, India (13 Packages)", extract just "Goa"
+        //     const label = data.text || '';
+        //     const shortName = label.split(',')[0].trim();  // Take only the first part before comma
+
+        //     return shortName;
         // }
+
+        // display only destination (working)
+        templateSelection: function(data) {
+            if (!data.id || !data.text) {
+                return "To";  // Default placeholder
+            }
+
+            // Example: data.text = "Goa, India (13 Packages)"
+            let label = data.text;
+
+            // Remove anything in parentheses (like package count)
+            label = label.replace(/\s*\(.*?\)/, '');
+
+            // Then take the first part before the first comma
+            const shortName = label.split(',')[0].trim();
+
+            return shortName || "To";
+        }
     });
+    
     // Ensure the placeholder appears in the search input of the dropdown
     jQuery('.select3').on('select2:open', function () {
         var searchField = jQuery('.select2-search__field');
         if (searchField.val() === '') {
-            searchField.attr('placeholder', 'Select or enter city name');
+            searchField.attr('placeholder', 'Enter city name');
         }
     });
 
@@ -78,7 +93,7 @@ $(document).ready(function() {
 
         // Make an AJAX POST request to search themes
         // $.post(url, data, function (rdata) {
-        $.post(SEARCH_THEME_URL, data, function (rdata) {
+        $.get(SEARCH_THEME_URL, data, function (rdata) {
             $("#select_theme").html(rdata); // Update the theme select dropdown with the response
         });
     });

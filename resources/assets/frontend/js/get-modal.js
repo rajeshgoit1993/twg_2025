@@ -93,23 +93,28 @@ document.addEventListener('DOMContentLoaded', function() {
     var closeModal_desktop_gallery = document.getElementsByClassName("btnCloseModal_d_gallery")[0];
     var closeModal_mobile_gallery = document.getElementsByClassName("btnCloseModal_m_gallery")[0];
     var closeModal_desktop_cal = document.getElementsByClassName("btnCloseModal_desktop_cal")[0];
+   var today = new Date();
 
     // Only add event listeners if the modal and button elements exist
     if (btn_addEnquiryModal_mobile) {
         btn_addEnquiryModal_mobile.onclick = function() {
             if (enquiryModalMobile) {
-                enquiryModalMobile.style.display = "block";
+
+  const defaultDate = new Date($(".selected_date").html());
+var dActualPrice = $(".mActualPrice").html()
+$("#exp_budget").val('').val(dActualPrice)
+             enquiryModalMobile.style.display = "block";
                 $("#travel_date_modal_mobile_enquiry").datepicker({
                     dateFormat: "d M yy",        // Date format
                     // changeMonth: true,    // Allows month selection from a dropdown.
                     // changeYear: true,     // Allows year selection from a dropdown.
                     //minDate: 0,             // Prevents selecting dates before today
-                    minDate: new Date($("#given_year").val(), $("#given_month").val() - 1, $("#given_date").val()),
+                    minDate:  new Date(today.getFullYear(), today.getMonth(), today.getDate()),
                     maxDate: "+12M",        // Limits selection to 6 months ahead
                     numberOfMonths: [12, 1]  // Display the months vertically
                     // stepMonths: 2, // Moves two months at a time when navigating.
                     // showButtonPanel: true // Optional: Adds "Today" and "Done" buttons                    
-                }).datepicker("setDate", "0");
+                }).datepicker("setDate", defaultDate);
             }
         };
     }
@@ -117,18 +122,22 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btn_addEnquiryModal_desktop) {
         btn_addEnquiryModal_desktop.onclick = function() {
             if (enquiryModalDesktop) {
+                const defaultDate = new Date($("#datepicker").val());
+var dActualPrice = $(".dActualPrice").html()
+$("#exp_budget").val('').val(dActualPrice)
+
                 enquiryModalDesktop.style.display = "block";
                 $("#travel_date_modal_desktop_enquiry").datepicker({
                     dateFormat: "d M yy",        // Date format
                     // changeMonth: true,    // Allows month selection from a dropdown.
                     // changeYear: true,     // Allows year selection from a dropdown.
                     //minDate: 0,             // Prevents selecting dates before today
-                    minDate: new Date($("#given_year").val(), $("#given_month").val() - 1, $("#given_date").val()),
+                    minDate:  new Date(today.getFullYear(), today.getMonth(), today.getDate()),
                     maxDate: "+12M",        // Limits selection to 6 months ahead
                     numberOfMonths: 2       // Show two months simultaneously
                     // stepMonths: 2, // Moves two months at a time when navigating.
                     // showButtonPanel: true // Optional: Adds "Today" and "Done" buttons                    
-                }).datepicker("setDate", "0");
+                }).datepicker("setDate", defaultDate);
             }
         };
     }

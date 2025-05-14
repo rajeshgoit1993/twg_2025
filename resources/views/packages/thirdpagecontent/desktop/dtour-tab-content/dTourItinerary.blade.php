@@ -2,11 +2,15 @@
 									<div class="dTourPkgDesc">
 										<div class="dTourDesc">
 											<h2>Tour Plan</h2>
-											<?php $day_value="1"; ?> 
+											<?php 
+											$day_value="1"; 
+											$inc_date = 0;
+$given_date = $input_date;
+											?> 
 											@foreach($daywise as $day)
 												<div class="dDayPlanBox">
 													<div class="dDayPlan">
-														<h3><?php echo "Day&nbsp;$day_value&nbsp;"; ?></h3>
+														<h3><?php echo "Day&nbsp;$day_value&nbsp;"; ?> (<span class="dynamic_day_{{$day_value}}">{{date('d M Y', strtotime("+$inc_date days", strtotime($given_date)))}}</span>)</h3>
 														<h4>{{$day['title']}}</h4>
 													</div>
 													<div class="dDayDesc">
@@ -54,7 +58,11 @@
 													</div>
 													@endif
 												</div>
-												<?php $day_value++; ?> 
+												<?php 
+												$day_value++;
+												$inc_date++;
+
+												 ?> 
 											@endforeach
 										</div>
 									</div>

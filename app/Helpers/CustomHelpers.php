@@ -30,6 +30,9 @@ use App\EnqueryOTPSetting;
 use App\QueryTraveller;
 use App\Coupon;
 use App\PkgTours;
+use App\countries;
+use App\State;
+use App\City;
 use Session; 
 use Mail;
 
@@ -162,6 +165,62 @@ class CustomHelpers {
        $output=$receipt_for.$last_id;
        return $output;
      }  
+  }
+  public static function get_filtered_packages($packages, $destination_search)
+  {
+
+$countryIds = countries::where('name', $destination_search)->pluck('id');
+
+if (count($countryIds) > 0) {
+    $stateIds = collect(); // initialize as empty collection
+    $cityIds = collect();
+} else {
+    $stateIds = State::where('name', $destination_search)->pluck('id');
+    
+    if (count($stateIds) > 0) {
+        $cityIds = collect();
+    } else {
+        $cityIds = City::where('name', $destination_search)->pluck('id');
+    }
+}
+if ($countryIds->isEmpty() && $stateIds->isEmpty() && $cityIds->isEmpty()) {
+    return [collect(), [], collect()];
+}
+$packages = $packages;
+
+// Filter packages based on matching city, state, and country
+$filteredData = $packages->filter(function ($package) use ($countryIds, $stateIds, $cityIds) {
+    // Unserialize location data from the package
+    $packageCountries = @unserialize($package->country);
+    $packageStates = @unserialize($package->state);
+    $packageCities = @unserialize($package->city);
+
+    // Default to empty array if not an array
+    $packageCountries = is_array($packageCountries) ? $packageCountries : [];
+    $packageStates = is_array($packageStates) ? $packageStates : [];
+ 
+
+    // Match each location level if we have search input for it
+    $matchCountry = count($countryIds) > 0 ? !empty(array_intersect($packageCountries, $countryIds->toArray())) : true;
+    $matchState   = count($stateIds) > 0 ? !empty(array_intersect($packageStates, $stateIds->toArray())) : true;
+    $matchCity    = count($cityIds) > 0 ? !empty(array_intersect($packageCities, $cityIds->toArray())) : true;
+    // Return true only if all match
+    return $matchCountry && $matchState && $matchCity;
+});
+
+// Reset keys and prepare result
+$results = $filteredData->values();
+
+// Return desired result format
+return [
+    $results,                         // Full filtered collection
+    $results->pluck('id')->toArray(), // Just the IDs
+    $results->take(3),                // First 3 items
+];
+
+
+
+
   }
 public static function get_package_details($Packages, $return_type)
 {
@@ -2881,8 +2940,10 @@ endif;
   {
       $prc=array();
       $ids=array();
+
       foreach($prices as $pris)
       {
+
         if($pris["price"]!="" && $min_price>"5000" && $max_price<"400000" && $pris["price"]>=$min_price && $pris["price"]<=$max_price)
         {
          $prc[]=['id'=>$pris["id"],'price'=>$pris["price"],'duration'=>$pris["duration"]];
@@ -2904,6 +2965,7 @@ endif;
          $ids[]=$pris["id"];
         }
       }
+
     return array_unique($ids);
       //return $prc;
     }
@@ -5041,13 +5103,13 @@ $sta=CustomHelpers::get_master_table_data('city', 'id', (int)$datavalue->city, '
           $price = unserialize($data->pricing);
       } else {
           \Log::warning("Package ID: $id has no valid pricing.");
-          return [['id' => $id, 'price' => 0, 'duration' => 0]];
+          return [['id' => $id, 'price' => 0, 'duration' => 0, 'title' => $data->title]];
       }
 
       // Debug each price entry
       if (!$price || !is_array($price)) {
           \Log::error("Package ID: $id pricing data is invalid.");
-          return [['id' => $id, 'price' => 0, 'duration' => 0]];
+          return [['id' => $id, 'price' => 0, 'duration' => 0, 'title' => $data->title]];
       }
 
       $return_value = [];
@@ -5080,7 +5142,7 @@ $sta=CustomHelpers::get_master_table_data('city', 'id', (int)$datavalue->city, '
               $total += $visa_currency * $visa_fare_adult;
           }
 
-          $return_value[] = ['id' => $id, 'price' => $total, 'duration' => $data->duration];
+          $return_value[] = ['id' => $id, 'price' => $total, 'duration' => $data->duration, 'title' => $data->title];
       }
 
       return $return_value;
@@ -5278,72 +5340,9 @@ $sta=CustomHelpers::get_master_table_data('city', 'id', (int)$datavalue->city, '
   public static function get_price($id)
   {
       $data=Packages::find($id);
-      $price=unserialize($data->pricing);
-      $pri=[];
-      foreach($price as $prices):
-      $pri[]=$prices;
-      endforeach;
-      $price_count=count($price);
-      $price=$pri;
-      $price_data="";
-      $final_price_array="";
-      for($i=0;$i<$price_count;$i++)
-      {
-      //$price_adult=$price[$i]["adult_fare_total"];
-      $air_currency=CustomHelpers::get_rate($price[$i]["aircurrency"]);
-      $air_fare_adult=$price[$i]["airfare_adult"];
-      $hotel_currency=CustomHelpers::get_rate($price[$i]["hotelcurrency"]);
-      $hotel_fare_adult=$price[$i]["hotelfare_adult"];
-      $tour_currency=CustomHelpers::get_rate($price[$i]["tourcurrency"]);
-      $tour_fare_adult=$price[$i]["tourfare_adult"];
-      $transfer_currency=CustomHelpers::get_rate($price[$i]["transfercurrency"]);
-      $transfer_fare_adult=$price[$i]["transferfare_adult"];
-      $visa_currency=CustomHelpers::get_rate($price[$i]["visacurrency"]);
-      $visa_fare_adult=$price[$i]["visafare_adult"];
-      $total="0";
-      if($air_fare_adult!="" && $air_fare_adult!="0" && $air_currency!="NA")
-      {
-           $total+=$air_currency*$air_fare_adult;
-      }
-      if($hotel_fare_adult!="" && $hotel_fare_adult!="0" && $hotel_currency!="NA")
-      {
-           $total+=$hotel_currency*$hotel_fare_adult;
-      }
-      if($tour_fare_adult!="" && $tour_fare_adult!="0" && $tour_currency!="NA")
-      {
-           $total+=$tour_currency*$tour_fare_adult;
-      }
-      if($transfer_fare_adult!="" && $transfer_fare_adult!="0" && $transfer_currency!="NA")
-      {
-           $total+=$transfer_currency*$transfer_fare_adult;
-      }
-      if($visa_fare_adult!="" && $visa_fare_adult!="0" && $visa_currency!="NA")
-      {
-           $total+=$visa_currency*$visa_fare_adult;
-      }
-           if($total!="" && $total!="0"):
-           $total=$total;
-           $date_from=strtotime($price[$i]["datefrom"]);
-           $date_to=strtotime($price[$i]["dateto"]);
-           $current_date=strtotime(Date('m/d/Y'));
-           if(($date_from<=$current_date )&&( $date_to>=$current_date ))
-           {
-           $price_data.=$total.',';
-           }
-           endif;
-            }
-      $price_array=explode(",",$price_data);
-      if(count($price_array)>1)
-      {
-      sort($price_array);
-      $price=$price_array["1"];
-      $ad_price=CustomHelpers::moneyFormatIndia($price);
-      return $ad_price;
-      }
-      else
-      {
-      return "On Request";
-      }
+
+     
+       return "NA";
   }
 
   // ***********************

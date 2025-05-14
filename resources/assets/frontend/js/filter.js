@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
 			jQuery(".max-price-label").html( "&#8377;" + ui.values[ 1 ]);
 		}
 	});
-	jQuery("#price-ranges").slider({
+	jQuery(".price-ranges").slider({
 		range: true,
 		min: 5000,
 		max: 400000,
@@ -30,22 +30,23 @@ jQuery(document).ready(function($) {
 			jQuery(".max-price-label").html( "&#8377;" + ui.values[ 1 ]);
 			return  drop_function();
 		}
+
 	});
-	jQuery("#price-ranges_mobile").slider({
-		range: true,
-		min: 5000,
-		max: 400000,
-		values: [ 5000, 400000 ],
-		slide: function( event, ui ) {
-			jQuery(".min-price-label").html( "&#8377;" + ui.values[ 0 ]);
-			jQuery(".max-price-label").html( "&#8377;" + ui.values[ 1 ]);
-			return  drop_function();
-		}
-	});
-	jQuery(".min-price-label").html( "&#8377;" + jQuery("#price-range").slider( "values", 0 ));
-	jQuery(".max-price-label").html( "&#8377;" + jQuery("#price-range").slider( "values", 1 ));
-	jQuery(".min-price-label").html( "&#8377;" + jQuery("#price-ranges").slider( "values", 0 ));
-	jQuery(".max-price-label").html( "&#8377;" + jQuery("#price-ranges").slider( "values", 1 ));
+	// jQuery("#price-ranges_mobile").slider({
+	// 	range: true,
+	// 	min: 5000,
+	// 	max: 400000,
+	// 	values: [ 5000, 400000 ],
+	// 	slide: function( event, ui ) {
+	// 		jQuery(".min-price-label").html( "&#8377;" + ui.values[ 0 ]);
+	// 		jQuery(".max-price-label").html( "&#8377;" + ui.values[ 1 ]);
+	// 		return  drop_function();
+	// 	}
+	// });
+
+	jQuery(".min-price-label").html( "&#8377;" + jQuery(".price-ranges").slider( "values", 0 ));
+	jQuery(".max-price-label").html( "&#8377;" + jQuery(".price-ranges").slider( "values", 1 ));
+
 	jQuery("#rating").slider({
 		range: "min",
 		value: 40,

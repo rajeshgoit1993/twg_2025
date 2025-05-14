@@ -31,6 +31,8 @@ use App\QueryTraveller;
 use App\Passengerinfo;
 use Session;
 use Laravel\Socialite\Facades\Socialite;
+use Jenssegers\Agent\Agent; // for mobile and desktop view
+use Illuminate\Support\Facades\Cache; // Laravel Cache (Cache::remember), application-level caching
 
 
 class HomeController extends Controller 
@@ -161,8 +163,8 @@ class HomeController extends Controller
         return view('home.home',['packages'=>$packages,'packages_domestic'=>$packages_domestic,'img_data'=>$img_data,'testimonial'=>$testimonial]);
     }*/
 
-
-    public function index() 
+    // home page (one view, using width js using client-side)
+    /*public function index() 
     {
         // Define the countries to exclude
         $excludedCountries = ['India', 'Nepal', 'Bhutan'];
@@ -206,10 +208,476 @@ class HomeController extends Controller
             'img_data' => $img_data,
             'testimonial' => $testimonial
         ]);
+    }*/
+
+    // home page (mobile and desktop view using server-side)
+    /*public function index()
+    {
+        $agent = new Agent();
+
+        // Determine device type
+        $isMobile = $agent->isMobile();
+
+        // Define countries to exclude
+        $excludedCountries = ['India', 'Nepal', 'Bhutan'];
+
+        // Fetch international packages
+        $packages = DB::table('rt_packages')
+            ->where('status', '1')
+            ->where('front_show', '1')
+            ->where(function ($query) use ($excludedCountries) {
+                foreach ($excludedCountries as $country) {
+                    $query->where('country', 'not like', "%$country%");
+                }
+            })
+            ->inRandomOrder()
+            ->limit(8)
+            ->get();
+
+        // Fetch domestic packages
+        $packages_domestic = DB::table('rt_packages')
+            ->where('status', '1')
+            ->where('front_show', '1')
+            ->where(function ($query) use ($excludedCountries) {
+                foreach ($excludedCountries as $country) {
+                    $query->orWhere('country', 'like', "%$country%");
+                }
+            })
+            ->inRandomOrder()
+            ->limit(8)
+            ->get();
+
+        // Fetch image data
+        $img_data = Mid_Image::all();
+
+        // Fetch testimonials
+        $testimonial = Testimonial::where('status', 1)->get();
+
+        $data = [
+            'packages' => $packages,
+            'packages_domestic' => $packages_domestic,
+            'img_data' => $img_data,
+            'testimonial' => $testimonial
+        ];
+
+        // Return mobile or desktop view
+        if ($isMobile) {
+            return view('home.mobile.home', $data);
+        } else {
+            return view('home.desktop.home', $data);
+        }
+    }*/
+
+    /*public function index()
+    {
+        // Fetch IDs of countries to exclude (e.g., India, Nepal, Bhutan)
+        $excludedCountryIds = DB::table('countries')
+            ->whereIn('name', ['India', 'Nepal', 'Bhutan'])
+            ->pluck('id')
+            ->toArray();
+
+        // International packages (exclude certain country IDs)
+        $packages = DB::table('rt_packages')
+            ->where('status', '1')
+            ->where('front_show', '1')
+            ->where(function ($query) use ($excludedCountryIds) {
+                foreach ($excludedCountryIds as $countryId) {
+                    $query->whereRaw("NOT FIND_IN_SET(?, REPLACE(REPLACE(country, '\"', ''), ',', ','))", [$countryId]);
+                }
+            })
+            ->inRandomOrder()
+            ->limit(8)
+            ->get();
+
+        // Domestic packages (include only certain country IDs)
+        $packages_domestic = DB::table('rt_packages')
+            ->where('status', '1')
+            ->where('front_show', '1')
+            ->where(function ($query) use ($excludedCountryIds) {
+                foreach ($excludedCountryIds as $countryId) {
+                    $query->orWhereRaw("FIND_IN_SET(?, REPLACE(REPLACE(country, '\"', ''), ',', ','))", [$countryId]);
+                }
+            })
+            ->inRandomOrder()
+            ->limit(8)
+            ->get();
+
+
+        // Other data
+        $img_data = Mid_Image::all();
+        $testimonial = Testimonial::where('status', 1)->get();
+
+        // View decision (device-based rendering)
+        //$agent = new \Jenssegers\Agent\Agent;
+        $agent = new Agent();
+        $isMobile = $agent->isMobile();
+
+        $view = $isMobile ? 'home.mobile.home' : 'home.desktop.home';
+
+        return view($view, compact('packages', 'packages_domestic', 'img_data', 'testimonial'));
+    }*/
+
+    // public function index()
+    // {
+    //     $agent = new Agent();
+
+    //     // Determine device type
+    //     $isMobile = $agent->isMobile();
+
+
+    //     // ******if want to fetch based on country*********
+
+    //     // ✅ Define country names to exclude
+    //     $excludedCountryNames = ['India', 'Nepal', 'Bhutan'];
+
+    //     // ✅ Fetch their corresponding IDs from `countries` table
+    //     $excludedCountryIds = DB::table('countries')
+    //         ->whereIn('name', $excludedCountryNames)
+    //         ->pluck('id')
+    //         ->toArray();
+
+    //     // 🌐 International packages: exclude if country contains any of these IDs
+    //     $packages_international = DB::table('rt_packages')
+    //         ->where('status', '1')
+    //         ->where('front_show', '1')
+    //         ->where(function ($query) use ($excludedCountryIds) {
+    //             foreach ($excludedCountryIds as $id) {
+    //                 $query->where('country', 'not like', "%$id%");
+    //             }
+    //         })
+    //         ->inRandomOrder()
+    //         ->limit(8)
+    //         ->get();
+
+    //     // 🇮🇳 Domestic packages: include if country contains any of these IDs
+    //     $packages_domestic = DB::table('rt_packages')
+    //         ->where('status', '1')
+    //         ->where('front_show', '1')
+    //         ->where(function ($query) use ($excludedCountryIds) {
+    //             foreach ($excludedCountryIds as $id) {
+    //                 $query->orWhere('country', 'like', "%$id%");
+    //             }
+    //         })
+    //         ->inRandomOrder()
+    //         ->limit(8)
+    //         ->get();
+
+
+    //     // ******if want to fetch based on city (some issues, will have to check for intl pkgs)*********
+
+    //     // // Define city names to include for domestic packages
+    //     // $includedCityNames = ['Shimla', 'Manali', 'Darjeeling', 'Munnar'];
+
+    //     // // Define country names to exclude for international packages
+    //     // $excludedCountryNames = ['India', 'Nepal', 'Bhutan'];
+
+    //     // // 🏙️ Get city IDs from names
+    //     // $includedCityIds = DB::table('city')
+    //     //     ->whereIn('name', $includedCityNames)
+    //     //     ->pluck('id')
+    //     //     ->toArray();
+
+    //     // // 🌍 Get country IDs from names
+    //     // $excludedCountryIds = DB::table('countries')
+    //     //     ->whereIn('name', $excludedCountryNames)
+    //     //     ->pluck('id')
+    //     //     ->toArray();
+
+    //     // // 🌐 International Packages (exclude country IDs)
+    //     // $packages_international = DB::table('rt_packages')
+    //     //     ->where('status', '1')
+    //     //     ->where('front_show', '1')
+    //     //     ->where(function ($query) use ($excludedCountryIds) {
+    //     //         foreach ($excludedCountryIds as $countryId) {
+    //     //             $query->where('country', 'not like', "%$countryId%");
+    //     //         }
+    //     //     })
+    //     //     ->inRandomOrder()
+    //     //     ->limit(8)
+    //     //     ->get();
+
+    //     // // 🇮🇳 Domestic Packages (include only selected city IDs)
+    //     // $packages_domestic = DB::table('rt_packages')
+    //     //     ->where('status', '1')
+    //     //     ->where('front_show', '1')
+    //     //     ->where(function ($query) use ($includedCityIds) {
+    //     //         foreach ($includedCityIds as $cityId) {
+    //     //             $query->orWhere('city', 'like', "%$cityId%");
+    //     //         }
+    //     //     })
+    //     //     ->inRandomOrder()
+    //     //     ->limit(8)
+    //     //     ->get();
+
+    //     // *****************************
+
+    //     // Fetch image data (world popular destinations)
+    //     $world_popular_destinations = Mid_Image::all();
+
+    //     // Fetch testimonials
+    //     $testimonial = Testimonial::where('status', 1)->get();
+
+    //     // Pass everything to the view
+    //     $data = [
+    //         'packages' => $packages_international,
+    //         'packages_domestic' => $packages_domestic,
+    //         'img_data' => $world_popular_destinations,
+    //         'testimonial' => $testimonial
+    //     ];
+
+    //     //return view($isMobile ? 'home.mobile.home' : 'home.desktop.home', $data);
+    //     // Return mobile or desktop view
+    //     if ($isMobile) {
+    //         return view('home.mobile.home', $data);
+    //     } else {
+    //         return view('home.desktop.home', $data);
+    //     }
+    // }
+
+    /*public function index()
+    {
+        $agent = new Agent();
+        $isMobile = $agent->isMobile();
+
+        // Countries to exclude for international packages
+        $excludedCountryNames = ['India', 'Nepal', 'Bhutan'];
+        $excludedCountryIds = DB::table('countries')
+            ->whereIn('name', $excludedCountryNames)
+            ->pluck('id')
+            ->toArray();
+
+        $allPackages = DB::table('rt_packages')
+            ->where('status', 1)
+            ->where('front_show', 1)
+            ->get();
+
+        $packages_international = [];
+        $packages_domestic = [];
+
+        foreach ($allPackages as $pkg) {
+            //$countryIds = @unserialize($pkg->country);
+            $countryIds = is_string($pkg->country) ? @unserialize($pkg->country) : null;
+            if (!is_array($countryIds)) continue;
+
+            // If package has any country in the excluded list — it's domestic
+            $intersect = array_intersect($excludedCountryIds, $countryIds);
+
+            if (!empty($intersect)) {
+                $packages_domestic[] = $pkg;
+            } else {
+                $packages_international[] = $pkg;
+            }
+        }
+
+        // Random 8 packages from each group
+        $packages_domestic = collect($packages_domestic)->shuffle()->take(8);
+        $packages_international = collect($packages_international)->shuffle()->take(8);
+
+        $world_popular_destinations = Mid_Image::all();
+        $testimonial = Testimonial::where('status', 1)->get();
+
+        $data = [
+            'packages' => $packages_international,
+            'packages_domestic' => $packages_domestic,
+            'img_data' => $world_popular_destinations,
+            'testimonial' => $testimonial,
+        ];
+
+        return view($isMobile ? 'home.mobile.home' : 'home.desktop.home', $data);
+    }*/
+
+    // with cache (php artisan cache:clear)
+    /*public function index()
+    {
+        $agent = new Agent();
+        $isMobile = $agent->isMobile();
+
+        $excludedCountryNames = ['India', 'Nepal', 'Bhutan'];
+        $excludedCountryIds = Cache::remember('excluded_country_ids', 60 * 60, function () use ($excludedCountryNames) {
+            return DB::table('countries')
+                ->whereIn('name', $excludedCountryNames)
+                ->pluck('id')
+                ->toArray();
+        });
+
+        $packagesData = Cache::remember('home_packages', 60 * 60, function () use ($excludedCountryIds) {
+            $allPackages = DB::table('rt_packages')
+                ->where('status', 1)
+                ->where('front_show', 1)
+                ->get();
+
+            $packages_international = [];
+            $packages_domestic = [];
+
+            foreach ($allPackages as $pkg) {
+                $countryIds = @unserialize($pkg->country);
+                if (!is_array($countryIds)) continue;
+
+                $intersect = array_intersect($excludedCountryIds, $countryIds);
+                if (!empty($intersect)) {
+                    $packages_domestic[] = $pkg;
+                } else {
+                    $packages_international[] = $pkg;
+                }
+            }
+
+            return [
+                'domestic' => collect($packages_domestic)->shuffle()->take(8),
+                'international' => collect($packages_international)->shuffle()->take(8),
+            ];
+        });
+
+        // world popular destinations
+        $world_popular_destinations = Cache::remember('world_popular_destinations_pkgs', 60 * 60, function () {
+            return Mid_Image::all();
+        });
+
+        // testimonials
+        $testimonial = Cache::remember('home_testimonials', 60 * 60, function () {
+            return Testimonial::where('status', 1)->get();
+        });
+
+        $data = [
+            'packages' => $packagesData['international'],
+            'packages_domestic' => $packagesData['domestic'],
+            'img_data' => $world_popular_destinations,
+            'testimonial' => $testimonial,
+        ];
+
+        return view($isMobile ? 'home.mobile.home' : 'home.desktop.home', $data);
+    }*/
+
+    // home page (mobile and desktop view using server-side)
+    // Because this list also doesn’t change every few seconds — it’s okay to refresh once an hour. But we still want the final 8 random packages to change every page load, so we don’t cache the final random selection.
+    public function index()
+    {
+        $agent = new Agent();
+        $isMobile = $agent->isMobile();
+
+        // Countries to exclude for domestic (India + nearby)
+        // Cache excluded countries
+        $excludedCountryNames = ['India', 'Nepal', 'Bhutan'];
+        $excludedCountryIds = Cache::remember('excluded_country_ids', 1440, function () use ($excludedCountryNames) { // 24hrs*60mins
+            return DB::table('countries')
+                ->whereIn('name', $excludedCountryNames)
+                ->pluck('id')
+                ->toArray();
+        });
+
+        // Fetch all front-showing active packages from DB or cache (raw list only)
+        // Cache all front packages
+        $allPackages = Cache::remember('all_front_packages', 60, function () { // 60mins
+            return DB::table('rt_packages')
+                ->where('status', 1)
+                ->where('front_show', 1)
+                ->get();
+        });
+
+        // Separate domestic and international based on country intersection
+        $packages_domestic = [];
+        $packages_international = [];
+
+        foreach ($allPackages as $pkg) {
+            $countryIds = @unserialize($pkg->country);
+            if (!is_array($countryIds)) continue;
+
+            // If package has any country in the excluded list — it's domestic
+            $intersect = array_intersect($excludedCountryIds, $countryIds);
+
+            if (!empty($intersect)) {
+                $packages_domestic[] = $pkg;
+            } else {
+                $packages_international[] = $pkg;
+            }
+        }
+
+        // Shuffle fresh on each request - Random 8 packages from each group
+        $packages_domestic = collect($packages_domestic)->shuffle()->take(8);
+        $packages_international = collect($packages_international)->shuffle()->take(8);
+
+        // Cache world popular destinations
+        $world_popular_destinations = Cache::remember('world_popular_destinations_pkgs', 60 * 60, function () {
+            return Mid_Image::all(); // Fetch all images from the database
+        });
+
+        // Cache testimonials
+        $testimonial = Cache::remember('home_testimonials', 60 * 60, function () {
+            return Testimonial::where('status', 1)->get(); // Fetch active testimonials
+        });
+
+        $data = [
+            'packages'              => $packages_international,
+            'packages_domestic'     => $packages_domestic,
+            'img_data'              => $world_popular_destinations,
+            'testimonial'           => $testimonial,
+        ];
+
+        return view($isMobile ? 'home.home' : 'home.home', $data);
     }
 
-    // home page
-    public function home_index($id) {
+    // add more packages (home page) (enhanced) (using add more package button)
+    public function add_package(Request $request)
+    {
+        $content_type = $request->input('content_type');
+        $alreadyLoadedIds = $request->input('already_loaded_ids', []); // loaded pkgs will not repeat (linked to pageone.js)
+        $limit = $request->input('limit', 4); // default to 4
+
+        // Define excluded countries for "domestic"
+        $excludedCountryNames = ['India', 'Nepal', 'Bhutan'];
+
+        // Get their IDs
+        $excludedCountryIds = DB::table('countries')
+            ->whereIn('name', $excludedCountryNames)
+            ->pluck('id')
+            ->toArray();
+
+        // Fetch all eligible packages
+        $allPackages = DB::table('rt_packages')
+            ->where('status', 1)
+            ->where('front_show', 1)
+            ->whereNotIn('id', $alreadyLoadedIds) // exclude already shown
+            ->get();
+
+        $packages = [];
+
+        foreach ($allPackages as $pkg) {
+            $countryIds = @unserialize($pkg->country);
+            if (!is_array($countryIds)) continue;
+
+            $intersect = array_intersect($excludedCountryIds, $countryIds);
+
+            if ($content_type === 'international' || $content_type === 'international_mobile') {
+                // International: Should NOT match any excluded
+                if (empty($intersect)) {
+                    $packages[] = $pkg;
+                }
+            } else {
+                // Domestic: Should include any excluded
+                if (!empty($intersect)) {
+                    $packages[] = $pkg;
+                }
+            }
+        }
+
+        // Shuffle and take up to 4
+        $packages = collect($packages)->shuffle()->take($limit);
+
+        // Render view
+        $output = view('home.add_more_data.index', [
+            'content_type' => $content_type,
+            'packages' => $packages
+        ])->render();
+
+        return response()->json(['html' => $output]);
+    }
+
+
+    /******************************************/
+
+
+    // home page- not in use
+    /*public function home_index($id) 
+    {
         if(is_numeric($id)):
         $package_count=$id+3;
         $packages = Packages::all()->where('status','1')->take($package_count);
@@ -220,7 +688,7 @@ class HomeController extends Controller
         return view('home.home',['packages'=>$packages,'img_data'=>$img_data,'testimonial'=>$testimonial]);
         else:
         endif;
-        }
+    }*/
 
     // user (post) login
     public function postLogin(Request $request) 

@@ -178,6 +178,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
     ],
 
     /*
@@ -238,6 +239,7 @@ return [
         'PackagePriceHelpers' => App\Helpers\PackagePriceHelpers::class,
         'WebsiteNameHelper' => App\Helpers\WebsiteNameHelper::class,
         'Socialite'=> Laravel\Socialite\Facades\Socialite::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
 
     ],
 

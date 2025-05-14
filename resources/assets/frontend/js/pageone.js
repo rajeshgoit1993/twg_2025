@@ -309,76 +309,81 @@ document.addEventListener('DOMContentLoaded', function() {
 });*/
 
 
-// more tour packages (working)
+// add more packages (working)
 $(document).ready(function () {
-    var totalPackagesLoaded = 0; // Track total loaded packages
+  var totalPackagesLoaded = 0; // Track total loaded packages
 
-    $(document).on("click", ".add_more_pkg", function () {
-        var $this = $(this);
-        if ($this.hasClass("clicked")) return; // Prevent double clicks
+  $(document).on("click", ".add_more_pkg", function () {
+    var $this = $(this);
+    if ($this.hasClass("clicked")) return; // Prevent double clicks
 
-        $this.addClass("clicked"); // Mark as clicked
-        add_packages($this.attr("content_type"), $this); // Pass button reference
-    });
+    $this.addClass("clicked"); // Mark as clicked
+    add_packages($this.attr("content_type"), $this); // Pass button reference
+  });
 
-    function add_packages(content_type, $button) {
-        var custom_length, id, dynamic_pkg_add, load_more_packages;
+  function add_packages(content_type, $button) {
+    var custom_length, id, dynamic_pkg_add, load_more_packages;
 
-        if (content_type === "domestic" || content_type === "domestic_mobile") {
-            custom_length = $(".custom_length_demostic").length;
-            id = $("input[name='pack_id_list_demostic[]']").map(function () {
-                return $(this).val();
-            }).get();
-            dynamic_pkg_add = "dynamic_pkg_add_domestic";
-            load_more_packages = "india-packages";
-        } else if (content_type === "international" || content_type === "international_mobile") {
-            custom_length = $(".custom_length").length;
-            id = $("input[name='pack_id_list[]']").map(function () {
-                return $(this).val();
-            }).get();
-            dynamic_pkg_add = "dynamic_pkg_add";
-            load_more_packages = "international-packages";
-        }
+    if (content_type === "domestic" || content_type === "domestic_mobile") {
+      custom_length = $(".custom_length_demostic").length;
+      id = $("input[name='pack_id_list_demostic[]']").map(function () {
+        return $(this).val();
+      }).get();
+      dynamic_pkg_add = "dynamic_pkg_add_domestic";
+        load_more_packages = "india-packages";
+      } else if (content_type === "international" || content_type === "international_mobile") {
+        custom_length = $(".custom_length").length;
+        id = $("input[name='pack_id_list[]']").map(function () {
+          return $(this).val();
+        }).get();
+        dynamic_pkg_add = "dynamic_pkg_add";
+        load_more_packages = "international-packages";
+      }
 
-        var APP_URL = $("#APP_URL").val();
-        var csrfToken = $("#csrf_token").val();
-        var url = APP_URL + "/add_package";
+      var APP_URL = $("#APP_URL").val();
+      var csrfToken = $("#csrf_token").val();
+      var url = APP_URL + "/add_package";
 
-        $.ajax({
-            url: url,
-            method: "POST", // Use POST for CSRF protection
-            data: { id, custom_length, content_type, _token: csrfToken, limit: 4 }, // Load only 4 at a time
-            dataType: "json", // Expecting JSON response
-            success: function (response) {
-                console.log("AJAX Success:", response); // Debugging
+      $.ajax({
+        url: url,
+        method: "POST", // Use POST for CSRF protection
+        data: { 
+          //id, 
+          already_loaded_ids: id, // this name matches backend now, link with add_pacakge in HomeController
+          custom_length, 
+          content_type, 
+          _token: csrfToken, 
+          limit: 4 }, // Load only 4 at a time
+          dataType: "json", // Expecting JSON response
+          success: function (response) {
+            console.log("AJAX Success:", response); // Debugging
+            if (!response || response.html === "0" || response.html.trim() === "") {
+              alert("No more packages available!");
+              $button.hide(); // Hide button when no more packages
+              return;
+            }
 
-                if (!response || response.html === "0" || response.html.trim() === "") {
-                    alert("No more packages available!");
-                    $button.hide(); // Hide button when no more packages
-                    return;
-                }
+            $("#" + dynamic_pkg_add).append(response.html);
+            totalPackagesLoaded += 4; // Increment count by 4
 
-                $("#" + dynamic_pkg_add).append(response.html);
-                totalPackagesLoaded += 4; // Increment count by 4
+            // Hide button if 8 packages (4+4) are loaded
+            if (totalPackagesLoaded >= 4) {
+              $button.hide();
+            }
 
-                // Hide button if 8 packages (4+4) are loaded
-                if (totalPackagesLoaded >= 4) {
-                    $button.hide();
-                }
-
-                // Ensure lazy loading works
-                if (typeof lazyload === "function") {
-                    lazyload();
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                //console.error("Request failed:", textStatus, errorThrown);
-                alert("Failed to load packages. Please try again.");
-            },
-            complete: function () {
-                $(".add_more_pkg").removeClass("clicked"); // Allow clicks again
-            },
-        });
+            // Ensure lazy loading works
+            if (typeof lazyload === "function") {
+              lazyload();
+            }
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            //console.error("Request failed:", textStatus, errorThrown);
+            alert("Failed to load packages. Please try again.");
+          },
+          complete: function () {
+            $(".add_more_pkg").removeClass("clicked"); // Allow clicks again
+          },
+      });
     }
 });
 
@@ -424,15 +429,18 @@ document.addEventListener('DOMContentLoaded', function() {
   // tour search by theme name
   $("#search2").submit(function () {
     var destination_search = slug($("#destination_search").val());
-
+   
     if (jQuery(window).width() >= 992) {
       var select_theme = slug($("#select_theme").val());
+      
       if (destination_search != "" && select_theme == "") {
+
         document.search2.action = 'holidays/' + destination_search + '-tour-packages'
         } else {
           document.search2.action = 'holidays/' + destination_search + '/theme/' + select_theme
           }
         } else {
+
           if (destination_search != "") {
             document.search2.action = 'holidays/' + destination_search + '-tour-packages'
             }

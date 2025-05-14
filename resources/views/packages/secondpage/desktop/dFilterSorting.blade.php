@@ -52,7 +52,7 @@
 					                        <input type="checkbox" class="dropCheckBox" name="chk_value" value="{{ $package }}">
 					                        <span class="dCheckMark"></span>
 					                        <div class="fullWidth flexBetween">
-					                            <div>{{ $package }}</div>
+					                            <div>{{ CustomHelpers::get_master_table_data('city', 'id', $package, 'name') }}</div>
 					                            <span>({{ count($city_data) }})</span>
 					                        </div>
 					                    </label>
@@ -83,7 +83,7 @@
 					        Budget <i class="dFilterSubHead">per person</i> <span class="dFilterCount">1</span>
 					    </div>
 					    <div id="price" class="dropdown-content dropdown2" style="min-width: 190px;">
-					        <div id="price-ranges" class="budgetSlider"></div>
+					        <div id="price-ranges" class="budgetSlider price-ranges"></div>
 					        <div class="rangeSection">
 					            <span class="min-price-label">₹0</span>
 					            <span> &#8212; </span>
@@ -161,33 +161,20 @@
 					    </div>
 					    <div id="duration" class="dropdown-content dropdown3">
 					        <?php
-					        $duration_data_less_than_7_nights = DB::table('rt_packages')
-					            ->where(function ($query) use ($destination_search) {
-					                $query->where([['continent', 'like', '%' . $destination_search . '%'], ['status', '=', '1'], ['duration', '<=', 7]])
-					                    ->orWhere([['country', 'like', '%' . $destination_search . '%'], ['status', '=', '1'], ['duration', '<=', 7]])
-					                    ->orWhere([['state', 'like', '%' . $destination_search . '%'], ['status', '=', '1'], ['duration', '<=', 7]])
-					                    ->orWhere([['city', 'like', '%' . $destination_search . '%'], ['status', '=', '1'], ['duration', '<=', 7]]);
-					            })
-					            ->get();
+					   $data_seven_nights =  DB::table('rt_packages')
+					  ->where([['status', '=', '1'], ['duration', '<=', 7]])->get();
+			$duration_data_less_than_7_nights = CustomHelpers::get_filtered_packages($data_seven_nights,$destination_search);	 
 
-					        $duration_data_between_8_and_12 = DB::table('rt_packages')
-					            ->where(function ($query) use ($destination_search) {
-					                $query->where([['continent', 'like', '%' . $destination_search . '%'], ['status', '=', '1']])
-					                    ->orWhere([['country', 'like', '%' . $destination_search . '%'], ['status', '=', '1']])
-					                    ->orWhere([['state', 'like', '%' . $destination_search . '%'], ['status', '=', '1']])
-					                    ->orWhere([['city', 'like', '%' . $destination_search . '%'], ['status', '=', '1']]);
-					            })
-					            ->whereBetween('duration', [8, 12])
-					            ->get();
+					       
 
-					        $duration_data_greater_than_12 = DB::table('rt_packages')
-					            ->where(function ($query) use ($destination_search) {
-					                $query->where([['continent', 'like', '%' . $destination_search . '%'], ['status', '=', '1'], ['duration', '>=', 12]])
-					                    ->orWhere([['country', 'like', '%' . $destination_search . '%'], ['status', '=', '1'], ['duration', '>=', 12]])
-					                    ->orWhere([['state', 'like', '%' . $destination_search . '%'], ['status', '=', '1'], ['duration', '>=', 12]])
-					                    ->orWhere([['city', 'like', '%' . $destination_search . '%'], ['status', '=', '1'], ['duration', '>=', 12]]);
-					            })
-					            ->get();
+  $data_8_and_12 =  DB::table('rt_packages')
+					  ->where([['status', '=', '1']])->whereBetween('duration', [8, 12])->get();
+			$duration_data_between_8_and_12 = CustomHelpers::get_filtered_packages($data_8_and_12,$destination_search);
+
+			 $data_more_12 =  DB::table('rt_packages')
+					  ->where([['status', '=', '1'],['duration', '>=', 12]])->get();
+			$duration_data_greater_than_12 = CustomHelpers::get_filtered_packages($data_more_12,$destination_search);
+
 					        ?>
 					        <div class="drop">
 					            <label class="dDropLabel">
@@ -196,11 +183,11 @@
 					                    class="dropCheckBox less_7_nights" 
 					                    name="duration" 
 					                    value="7" 
-					                    {{ $duration_data_less_than_7_nights->count() === 0 ? 'disabled' : '' }}>
+					                    {{ $duration_data_less_than_7_nights[0]->count() === 0 ? 'disabled' : '' }}>
 					                <span class="dCheckMark"></span>
 					                <div class="fullWidth flexBetween">
 					                    <div>Less than 7 nights</div>
-					                    <div>({{ $duration_data_less_than_7_nights->count() }})</div>
+					                    <div>({{ $duration_data_less_than_7_nights[0]->count() }})</div>
 					                </div>
 					            </label>
 					        </div>
@@ -211,11 +198,11 @@
 					                    class="dropCheckBox bet_8to12" 
 					                    name="duration" 
 					                    value="8" 
-					                    {{ $duration_data_between_8_and_12->count() === 0 ? 'disabled' : '' }}>
+					                    {{ $duration_data_between_8_and_12[0]->count() === 0 ? 'disabled' : '' }}>
 					                <span class="dCheckMark"></span>
 					                <div class="fullWidth flexBetween">
 					                    <div>8 to 12 nights</div>
-					                    <div>({{ $duration_data_between_8_and_12->count() }})</div>
+					                    <div>({{ $duration_data_between_8_and_12[0]->count() }})</div>
 					                </div>
 					            </label>
 					        </div>
@@ -226,11 +213,11 @@
 					                    class="dropCheckBox more_12" 
 					                    name="duration" 
 					                    value="12" 
-					                    {{ $duration_data_greater_than_12->count() === 0 ? 'disabled' : '' }}>
+					                    {{ $duration_data_greater_than_12[0]->count() === 0 ? 'disabled' : '' }}>
 					                <span class="dCheckMark"></span>
 					                <div class="fullWidth flexBetween">
 					                    <div>More than 12 nights</div>
-					                    <div>({{ $duration_data_greater_than_12->count() }})</div>
+					                    <div>({{ $duration_data_greater_than_12[0]->count() }})</div>
 					                </div>
 					            </label>
 					        </div>
@@ -286,17 +273,12 @@
 					        $last = end($segments);
 					        $checked = (strtolower($package) === $last) ? "checked" : "";
 
-					        // Count the number of matching packages for the current theme
-					        $theme_data = DB::table('rt_packages')
-					                        ->where('package_category', 'like', '%' . $package . '%')
-					                        ->where('status', 1)
-					                        ->where(function ($query) use ($destination_search) {
-					                            $query->where('continent', 'like', '%' . $destination_search . '%')
-					                                  ->orWhere('country', 'like', '%' . $destination_search . '%')
-					                                  ->orWhere('state', 'like', '%' . $destination_search . '%')
-					                                  ->orWhere('city', 'like', '%' . $destination_search . '%');
-					                        })
-					                        ->count();
+					        
+
+					          $data_packages =  DB::table('rt_packages')
+					  ->where([['status', '=', '1'],['package_category', 'like', '%' . $package . '%']])->get();
+			$theme_data = CustomHelpers::get_filtered_packages($data_packages,$destination_search)[0]->count();
+			               
 					        ?>
 					        <div class="drop">
 					            <label class="dDropLabel">
@@ -357,19 +339,13 @@
 					                // Check if the current package matches the URL segment
 					                $checked = ($package === $lastSegment) ? "checked" : "";
 
-					                // Fetch data for the package
-					                $package_service_wise_data = DB::table('rt_packages')
-					                    ->where([
-					                        ['status', '=', '1'],
-					                        ['package_service', 'like', '%' . $package . '%'],
-					                    ])
-					                    ->where(function ($query) use ($destination_search) {
-					                        $query->orWhere('continent', 'like', '%' . $destination_search . '%')
-					                            ->orWhere('country', 'like', '%' . $destination_search . '%')
-					                            ->orWhere('state', 'like', '%' . $destination_search . '%')
-					                            ->orWhere('city', 'like', '%' . $destination_search . '%');
-					                    })
-					                    ->get();
+					               
+
+					                     $data_package_service =  DB::table('rt_packages')->where([['status', '=', '1'],['package_service', 'like', '%' . $package . '%'],
+					                    ])->get();
+			$package_service_wise_data = CustomHelpers::get_filtered_packages($data_package_service,$destination_search)[0];
+			               
+
 					                ?>
 					                <div class="drop">
 					                    <label class="dDropLabel">
@@ -626,18 +602,13 @@
 					        @foreach($guest_ratings as $rating)
 					        <?php
 					        // Get the count of packages matching the rating and destination search
-					        $guest_rating_wise_data = DB::table('rt_packages')
-					            ->where(function($query) use ($rating, $destination_search) {
-					                $query->where('status', '=', 1)
-					                      ->where('customer_rating', '=', $rating)
-					                      ->where(function($q) use ($destination_search) {
-					                          $q->where('continent', 'like', '%' . $destination_search . '%')
-					                            ->orWhere('country', 'like', '%' . $destination_search . '%')
-					                            ->orWhere('state', 'like', '%' . $destination_search . '%')
-					                            ->orWhere('city', 'like', '%' . $destination_search . '%');
-					                      });
-					            })
-					            ->count(); // Get the count directly from the database
+
+
+					 $data_guest_rating =  DB::table('rt_packages')->where([['status', '=', '1'],['customer_rating', '=', $rating],
+					                    ])->get();
+			$guest_rating_wise_data = CustomHelpers::get_filtered_packages($data_guest_rating,$destination_search)[0]->count(); 
+
+
 					        ?>
 
 					        @if($rating != 0) 
@@ -662,14 +633,38 @@
 		</div>
 	</div>
 	<!--Desktop Filter Ends-->
-
+<style type="text/css">
+	.select2-selection__rendered {
+     width: 300px !important; 
+}
+.dItemSearchBoxWrapper .select2-container--default .select2-selection--single .select2-selection__rendered 
+{
+color: black !important;
+}
+   .dItemSearchBoxWrapper .select2-container--default .select2-selection--single .select2-selection__placeholder {
+        color: black !important;
+    }
+</style>
 	<!--Desktop Sorting Starts-->
 	<div class="dSortingCont">
 		<div class="dPageContainer">
 			<div class="flexBetween">
 				<div class="dItemSearchBoxWrapper">
-					<label for="search_item">Search by:</label>
-					<input type="text" id="search_item" placeholder="Enter tour package name" />
+
+					<div class="dSearchModifyBox tourCityBox_update pointer" onclick="let sel = this.querySelector('select'); sel.focus(); if ($(sel).data('select2')) { $(sel).select2('open'); }">
+						    <label for="search_item">Search by</label>
+						    <select class="search_package" id="search_item" name="search_item" required>
+						       
+						    </select>
+						</div>
+<!-- <label for="search_item">Search by:</label>
+
+					 <select class="search_package" id="search_item" name="destination_search" required -->
+					
+						       
+						    </select>
+
+					<!-- <input type="text" id="" placeholder="Enter tour package name" /> -->
 				</div>
 				<div class="dItemSortingWrapper ">
 					<label for="sort_filter">Sorted by:</label>

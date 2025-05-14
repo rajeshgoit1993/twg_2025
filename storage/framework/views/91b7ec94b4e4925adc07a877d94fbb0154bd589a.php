@@ -24,7 +24,7 @@ $id = $data->id;
 ?>
 <?php echo $__env->make('query.enquiryDetails.edit_enquiry', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                             <!-- Quote Lead Details Starts -->
-                            <!-- <?php echo $__env->make('query.enquiryDetails.quoteLeadDetails', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> -->
+                           
                             <!-- Quote Lead Details Ends -->
 
                             <br>

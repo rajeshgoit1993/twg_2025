@@ -11,23 +11,23 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Support
- * @version    2.0.3
+ * @version    1.2.0
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2019, Cartalyst LLC
- * @link       https://cartalyst.com
+ * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @link       http://cartalyst.com
  */
 
 namespace Cartalyst\Support\Traits;
 
-use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Events\Dispatcher;
 
 trait EventTrait
 {
     /**
      * The event dispatcher instance.
      *
-     * @var \Illuminate\Contracts\Events\Dispatcher
+     * @var \Illuminate\Events\Dispatcher
      */
     protected $dispatcher;
 
@@ -41,7 +41,7 @@ trait EventTrait
     /**
      * Returns the event dispatcher.
      *
-     * @return \Illuminate\Contracts\Events\Dispatcher
+     * @return \Illuminate\Events\Dispatcher
      */
     public function getDispatcher()
     {
@@ -51,7 +51,7 @@ trait EventTrait
     /**
      * Sets the event dispatcher instance.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $dispatcher
+     * @param  \Illuminate\Events\Dispatcher  $dispatcher
      * @return $this
      */
     public function setDispatcher(Dispatcher $dispatcher)
@@ -122,7 +122,7 @@ trait EventTrait
             return;
         }
 
-        $method = $halt ? 'until' : (method_exists($dispatcher, 'fire') ? 'fire' : 'dispatch');
+        $method = $halt ? 'until' : 'fire';
 
         return $dispatcher->{$method}($event, $payload);
     }

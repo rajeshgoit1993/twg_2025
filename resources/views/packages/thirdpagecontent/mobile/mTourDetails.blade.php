@@ -48,7 +48,7 @@
 
 							        // Display duration and city name
 							        echo "<span class='mTourPlaceDuration'>{$dayValue}N&nbsp;</span>";
-							        echo "<div class='mTourCityName'>{$cityValue}</div>";
+							        echo "<div class='mTourCityName'>".CustomHelpers::get_master_table_data('city', 'id', (int)$cityValue, 'name')."</div>";
 
 							        // Add an arrow unless it's the last city
 							        if ($i < ($city1_count - 1)) {
@@ -72,8 +72,32 @@
 						<div class="mSelectDateCont">
 							<div class="mSearchInput_box mobscroll">
 								<div class="mSearchInput_city">{{ $details->sourcecity == null ? 'JoiningDirect' : $details->sourcecity }}</div>
-								<div class="mSearchInput_guest mDot">2 Travellers</div>
-								<div class="mSearchInput_date mDot">15 Nov - 19 Nov</div>
+								<!-- <div class="mSearchInput_guest mDot">2 Travellers</div> -->
+								<div class="mSearchInput_price_type mDot">
+						@if($new_price!='na')
+							<?php  
+								$overall_package_rating=$new_second_price['overall_package_rating'];
+								$package_rating=$new_second_price['package_rating'];
+							?>
+							
+							
+									<?php $rate=DB::table('rt_pkg_rating_type')->where('id',$package_rating)->first(); ?>
+									{{ $rate->name }}
+								
+							
+						@else
+							On Request
+						@endif			
+
+								</div>
+								<div class="mSearchInput_date mDot"><?php 
+
+$package_duration = $details->duration;
+$first_day = $input_date;
+$last_day = date('Y-m-d', strtotime("+$package_duration days", strtotime($first_day)));
+$date_range = date('d M' , strtotime($first_day)).' - '.date('d M' , strtotime($last_day));
+							?>
+						{{$date_range}}</div>
 							</div>
 							<div class="mSearchInput_edit" id="btn_getModal_searchInputs">Edit</div>
 						</div>

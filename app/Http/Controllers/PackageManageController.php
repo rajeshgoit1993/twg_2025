@@ -2377,7 +2377,7 @@ usort($show, function ($a, $b) use ($destination_search_value) {
               $package->accommodation_extra = $request->accommodation_extra;
             }
             $package->Price_title = $request->Price_title;
-            $package->Price_type = $request->Price_type;
+            $package->Price_type = $request->price_type;
             $package->confirmation_type = $request->confirmation_type;
             $package->confirmation_type_upcoming = $request->confirmation_type_upcoming;
             $package->upcoming_title = $request->Price_title_upcoming;

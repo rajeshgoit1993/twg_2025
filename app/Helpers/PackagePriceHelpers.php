@@ -25,12 +25,418 @@ use App\Coupon;
 use App\Helpers\CustomHelpers;
 
 class PackagePriceHelpers {
+
+    public static function get_new_pricing_data_with_price_type($package_id,$given_date, $price_type)
+    {
+            $Packages = Packages::findOrFail($package_id);
+            if($Packages->newprices_discounts!='') {
+            $pricediscounts = unserialize($Packages->newprices_discounts);
+            $new_price=PackagePriceHelpers::get_package_new_price($Packages->newprices,$Packages->adult,$Packages->extra_adult,$Packages->child_with_bed,$Packages->child_without_bed,$Packages->infant,$Packages->solo_traveller);
+
+            $type_of_package = $Packages->Price_type;
+            $new_price['package_pricetopay_adult']=PackagePriceHelpers::get_price_by_packageType($type_of_package,$new_price['package_pricetopay_adult'],$Packages->adult,$Packages->extra_adult,$Packages->child_with_bed,$Packages->child_without_bed,$Packages->infant,$Packages->solo_traveller); 
+
+            $start_date=[];
+            $output='';
+            $overall_package_rating=[];
+            $overall_package_rating_without_date=[];
+            $overall_package_rating_with_date=[];
+            if($Packages->show_status==0)
+            {
+            $output='na';
+            }
+            else
+            {
+            if(is_array($pricediscounts) && count($pricediscounts)>0)
+            {
+            $datef="";
+            $datet="";
+            $total_f="";
+            $total_price="";
+            $cutt_off="";
+            foreach($pricediscounts as $row=>$col):
+            if(array_key_exists('package_rating',$col))
+            {
+            $overall_package_rating_without_date[]=$col['package_rating'];
+            if(count($col)>=30)
+            {
+            $date_array=$col['datefrom'];
+            foreach($date_array as $row_from=>$col_from)
+            {
+            $datefrom=$col['datefrom'][$row_from];
+            $datefrom=explode("/", $datefrom);
+            $datefrom_year=array_key_exists(2,$datefrom) ? $datefrom["2"] : 0;
+            $datefrom_day=$datefrom["0"];
+            $datefrom_month=array_key_exists(1,$datefrom) ? $datefrom["1"] : 0;
+            $datefrom=($datefrom_year."-".$datefrom_month."-".$datefrom_day);
+            $datefrom=date('Y-m-d', strtotime("-0 day", strtotime($datefrom)));
+            $dateto=$col['dateto'][$row_from];
+            $dateto=explode("/", $dateto);
+            $dateto_year=array_key_exists(2,$dateto) ? $dateto["2"] : 0;
+            $dateto_day=$dateto["0"];
+            $dateto_month=array_key_exists(1,$dateto) ? $dateto["1"] : 0;
+            $dateto=$dateto_year."-".$dateto_month."-".$dateto_day;
+            $applicable_for=$col['applicable_for'][$row_from];
+            if($applicable_for=='all')
+            {
+            $over_all_discount_type=$col['over_all_discount_type'][$row_from];
+            if($over_all_discount_type==0)
+            {
+            $output_price=$new_price["package_pricetopay_adult"];
+            }
+            elseif($over_all_discount_type==2)
+            {
+            $precentage_discount_id=$col['normal_discount'][$row_from];
+            $discunt_negative=QuoteCharges::find($precentage_discount_id);
+            $discount_percentage=$discunt_negative->value;
+            $output_price=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$discount_percentage/100));
+            }
+            elseif($over_all_discount_type==3)
+            {
+            $coupon_discount_id=$col['coupon_discount'][$row_from];
+            $coupon=Coupon::find($coupon_discount_id);
+            $coupon_percentage=$coupon->value;
+            $output_price=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$coupon_percentage/100));
+            }
+            else
+            {
+            $output_price=$new_price["package_pricetopay_adult"];
+            }
+            }
+            elseif($applicable_for=='day_wise')
+            {
+            $output_price=$new_price["package_pricetopay_adult"];
+            //for sunday
+            $sunday_discount_type=$col['sunday_discount_type'][$row_from];
+            if($sunday_discount_type==0)
+            {
+            $out_day['Sun']=0;
+            }
+            elseif($sunday_discount_type==2)
+            {
+            $precentage_discount_id=$col['sunday_normal_discount'][$row_from];
+            $discunt_negative=QuoteCharges::find($precentage_discount_id);
+            $discount_percentage=$discunt_negative->value;
+            $out_day['Sun']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$discount_percentage/100));
+            $output_price=$out_day['Sun'];
+            }
+            elseif($sunday_discount_type==3)
+            {
+            $coupon_discount_id=$col['sunday_coupon_discount'][$row_from];
+            $coupon=Coupon::find($coupon_discount_id);
+            $coupon_percentage=$coupon->value;
+            $out_day['Sun']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$coupon_percentage/100));
+            $output_price=$out_day['Sun'];
+            }
+            else
+            {
+            $out_day['Sun']=0;
+            }
+            //for monday
+            $monday_discount_type=$col['monday_discount_type'][$row_from];
+            if($monday_discount_type==0)
+            {
+            $out_day['Mon']=0;
+            }
+            elseif($monday_discount_type==2)
+            {
+            $precentage_discount_id=$col['monday_normal_discount'][$row_from];
+            $discunt_negative=QuoteCharges::find($precentage_discount_id);
+            $discount_percentage=$discunt_negative->value;
+            $out_day['Mon']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$discount_percentage/100));
+            $output_price=$out_day['Mon'];
+            }
+            elseif($monday_discount_type==3)
+            {
+            $coupon_discount_id=$col['monday_coupon_discount'][$row_from];
+            $coupon=Coupon::find($coupon_discount_id);
+            $coupon_percentage=$coupon->value;
+            $out_day['Mon']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$coupon_percentage/100));
+            $output_price=$out_day['Mon'];
+            }
+            else
+            {
+            $out_day['Mon']=0;
+            }
+            //for tuesday
+            $tuesday_discount_type=$col['tuesday_discount_type'][$row_from];
+            if($tuesday_discount_type==0)
+            {
+            $out_day['Tue']=0;
+            }
+            elseif($tuesday_discount_type==2)
+            {
+            $precentage_discount_id=$col['tuesday_normal_discount'][$row_from];
+            $discunt_negative=QuoteCharges::find($precentage_discount_id);
+            $discount_percentage=$discunt_negative->value;
+            $out_day['Tue']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$discount_percentage/100));
+            $output_price=$out_day['Tue'];
+            }
+            elseif($tuesday_discount_type==3)
+            {
+            $coupon_discount_id=$col['tuesday_coupon_discount'][$row_from];
+            $coupon=Coupon::find($coupon_discount_id);
+            $coupon_percentage=$coupon->value;
+            $out_day['Tue']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$coupon_percentage/100));
+            $output_price=$out_day['Tue'];
+            }
+            else
+            {
+            $out_day['Tue']=0;
+            }
+            //for wednesday
+            $wednesday_discount_type=$col['wednesday_discount_type'][$row_from];
+            if($wednesday_discount_type==0)
+            {
+            $out_day['Wed']=0;
+            }
+            elseif($wednesday_discount_type==2)
+            {
+            $precentage_discount_id=$col['wednesday_normal_discount'][$row_from];
+            $discunt_negative=QuoteCharges::find($precentage_discount_id);
+            $discount_percentage=$discunt_negative->value;
+            $out_day['Wed']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$discount_percentage/100));
+            $output_price=$out_day['Wed'];
+            }
+            elseif($wednesday_discount_type==3)
+            {
+            $coupon_discount_id=$col['wednesday_coupon_discount'][$row_from];
+            $coupon=Coupon::find($coupon_discount_id);
+            $coupon_percentage=$coupon->value;
+            $out_day['Wed']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$coupon_percentage/100));
+            $output_price=$out_day['Wed'];
+            }
+            else
+            {
+            $out_day['Wed']=0;
+            }
+            //for thursday
+            $thursday_discount_type=$col['thursday_discount_type'][$row_from];
+            if($thursday_discount_type==0)
+            {
+            $out_day['Thu']=0;
+            }
+            elseif($thursday_discount_type==2)
+            {
+            $precentage_discount_id=$col['thursday_normal_discount'][$row_from];
+            $discunt_negative=QuoteCharges::find($precentage_discount_id);
+            $discount_percentage=$discunt_negative->value;
+            $out_day['Thu']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$discount_percentage/100));
+            $output_price=$out_day['Thu'];
+            }
+            elseif($thursday_discount_type==3)
+            {
+            $coupon_discount_id=$col['thursday_coupon_discount'][$row_from];
+            $coupon=Coupon::find($coupon_discount_id);
+            $coupon_percentage=$coupon->value;
+            $out_day['Thu']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$coupon_percentage/100));
+            $output_price=$out_day['Thu'];
+            }
+            else
+            {
+            $out_day['Thu']=0;
+            }
+            //for friday
+            $friday_discount_type=$col['friday_discount_type'][$row_from];
+            if($friday_discount_type==0)
+            {
+            $out_day['Fri']=0;
+            }
+            elseif($friday_discount_type==2)
+            {
+            $precentage_discount_id=$col['friday_normal_discount'][$row_from];
+            $discunt_negative=QuoteCharges::find($precentage_discount_id);
+            $discount_percentage=$discunt_negative->value;
+            $out_day['Fri']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$discount_percentage/100));
+            $output_price=$out_day['Fri'];
+            }
+            elseif($friday_discount_type==3)
+            {
+            $coupon_discount_id=$col['friday_coupon_discount'][$row_from];
+            $coupon=Coupon::find($coupon_discount_id);
+            $coupon_percentage=$coupon->value;
+            $out_day['Fri']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$coupon_percentage/100));
+            $output_price=$out_day['Fri'];
+            }
+            else
+            {
+            $out_day['Fri']=0;
+            }
+            //for saturday
+            $saturday_discount_type=$col['saturday_discount_type'][$row_from];
+            if($saturday_discount_type==0)
+            {
+            $out_day['Sat']=0;
+            }
+            elseif($saturday_discount_type==2)
+            {
+            $precentage_discount_id=$col['saturday_normal_discount'][$row_from];
+            $discunt_negative=QuoteCharges::find($precentage_discount_id);
+            $discount_percentage=$discunt_negative->value;
+            $out_day['Sat']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$discount_percentage/100));
+            $output_price=$out_day['Sat'];
+            }
+            elseif($saturday_discount_type==3)
+            {
+            $coupon_discount_id=$col['saturday_coupon_discount'][$row_from];
+            $coupon=Coupon::find($coupon_discount_id);
+            $coupon_percentage=$coupon->value;
+            $out_day['Sat']=round($new_price["package_pricetopay_adult"]-($new_price["package_pricetopay_adult"]*$coupon_percentage/100));
+            $output_price=$out_day['Sat'];
+            }
+            else
+            {
+            $out_day['Sat']=0;
+            }
+            }
+            else
+            {
+            $output_price=$new_price["package_pricetopay_adult"];
+            }
+
+            $total_f.=$new_price["package_pricetopay_adult"].",";
+            $total_price.=$new_price["package_pricetopay_adult"].",";
+            $datef.=$datefrom.",";
+            $datet.=$dateto.",";
+            $cutt_off=$col['cuttoffpoint'][$row_from];
+            $today=date('Y-m-d');
+            $limit_days=date("Y-m-d" , strtotime($today. "+$cutt_off days "));
+            while (strtotime($datefrom) <= strtotime($dateto))
+            {
+            // if(strtotime($datefrom)>=strtotime($limit_days))
+            // {
+            //    $start_date[]=$datefrom;
+            // }
+            if(strtotime($datefrom)>=strtotime($given_date) && $output_price>0)
+            {
+            if(!array_key_exists($col['package_rating'],$overall_package_rating_with_date))
+            {
+            $overall_package_rating_with_date[$col['package_rating']]=strtotime($datefrom);
+            }
+            if(strtotime($datefrom)==strtotime($given_date))
+            {
+            $overall_package_rating[$col['package_rating']]=  $output_price;
+            }
+            if($applicable_for=='all')
+            {
+            $daterange[]=array( 'date'=>strtotime($datefrom),'price'=>$output_price,'package_rating'=>$col['package_rating']);
+            }
+            elseif($applicable_for=='day_wise')
+            {
+            $day = date('D', strtotime($datefrom));
+            $daterange[]=array( 'date'=>strtotime($datefrom),'price'=>$out_day[$day],'package_rating'=>$col['package_rating']);
+            }
+            else
+            {
+            $daterange[]=array( 'date'=>strtotime($datefrom),'price'=>$output_price,'package_rating'=>$col['package_rating']);
+            }
+            }
+            $datefrom = date ("Y-m-d", strtotime("+1 day", strtotime($datefrom)));
+            }
+            }
+            }
+            }
+            endforeach;
+
+            if (isset($daterange) && is_array($daterange) && count($daterange) > 0) {
+
+    $key_values = array_column($daterange, 'date');
+    array_multisort($key_values, SORT_ASC, $daterange);
+
+    $overall_package_rating_unique = array_unique($overall_package_rating);
+    $given_timestamp = strtotime($given_date);
+
+  
+    $filtered = array_values(array_filter($daterange, function ($item) use ($given_timestamp, $price_type) {
+        return (int)$item['package_rating'] === (int)$price_type && (int)$item['date'] === $given_timestamp;
+    }));
+
+    if (!empty($filtered)) {
+        $key = array_search($filtered[0], $daterange);
+    } else {
+        // Step 2: Try to match date only
+        $key = array_search($given_timestamp, array_column($daterange, 'date'));
+
+        if ($key === false) {
+            // Step 3: Try to match package_rating only
+            $rating_key = array_search((int)$price_type, array_map('intval', array_column($daterange, 'package_rating')));
+            $key = $rating_key !== false ? $rating_key : 0; // Fallback to index 0
+        }
+    }
+
+    $output = [
+        'discount_price' => $daterange[$key]['price'],
+        'actual_price' => $new_price["package_pricetopay_adult"],
+        'date' => $daterange[$key]['date'],
+        'end_date' => $daterange[count($daterange)-1]['date'],
+        'package_rating' => $daterange[$key]['package_rating'],
+        'overall_package_rating' => $overall_package_rating_unique,
+        'overall_package_rating_without_date' => $overall_package_rating_without_date,
+        'overall_package_rating_with_date' => $overall_package_rating_with_date
+    ];
+}
+
+            else
+            {
+            $output='na';
+            }
+            }
+            else
+            {
+            $output='na';
+            }
+            }
+            }
+            else
+            {
+            $output='na';
+            }
+        
+            return $output;
+    }
+
+  public static function get_price_by_packageType($type_of_package, $total_amount, $adult, $extra_adult, $child_with_bed, $child_without_bed, $infant, $solo_traveller)
+{
+   
+    $adult = (int) $adult;
+    $extra_adult = (int) $extra_adult;
+    $child_with_bed = (int) $child_with_bed;
+    $child_without_bed = (int) $child_without_bed;
+    $infant = (int) $infant;
+    $solo_traveller = (int) $solo_traveller;
+    $total_amount = (float) $total_amount;
+
+    if ($type_of_package == 1 || $type_of_package == 'Per Person') {
+        $total_traveler = $adult + $extra_adult + $child_with_bed + $child_without_bed + $infant + $solo_traveller;
+        $amount = $total_traveler > 0 ? round($total_amount / $total_traveler) : 0;
+    } elseif ($type_of_package == 2 || $type_of_package == 'Per Group') {
+        $amount = $total_amount;
+    } else {
+        $amount = $total_amount;
+    }
+
+    return $amount;
+}
+
+public static function get_price_type($price_type = null)
+{
+    if ($price_type == 1 || $price_type === 'Per Person') {
+        return 'Price Per Person';
+    } elseif ($price_type == 2 || $price_type === 'Per Group') {
+        return 'Price Group';
+    } else {
+        return '';
+    }
+}
     public static function get_new_pricing_data($package_id,$given_date)
     {
             $Packages = Packages::findOrFail($package_id);
             if($Packages->newprices_discounts!='') {
             $pricediscounts = unserialize($Packages->newprices_discounts);
             $new_price=PackagePriceHelpers::get_package_new_price($Packages->newprices,$Packages->adult,$Packages->extra_adult,$Packages->child_with_bed,$Packages->child_without_bed,$Packages->infant,$Packages->solo_traveller);
+            
+            $type_of_package = $Packages->Price_type;
+            $new_price['package_pricetopay_adult']=PackagePriceHelpers::get_price_by_packageType($type_of_package,$new_price['package_pricetopay_adult'],$Packages->adult,$Packages->extra_adult,$Packages->child_with_bed,$Packages->child_without_bed,$Packages->infant,$Packages->solo_traveller); 
             $start_date=[];
             $output='';
             $overall_package_rating=[];
@@ -1262,7 +1668,10 @@ class PackagePriceHelpers {
             $package_paytotal_childwbed=round($package_grand_childwbed*$child_without_bed);
             $package_paytotal_infant=round($package_grand_infant*$infant);
             $package_paytotal_single=round($package_grand_single*$solo_traveller);
+
             $package_pricetopay_adult=$package_paytotal_adult+$package_paytotal_exadult+$package_paytotal_childbed+$package_paytotal_childwbed+$package_paytotal_infant+$package_paytotal_single;
+
+
 
             $data2=["package_tourtotal_adult" => $total_adult,
             "package_tourtotal_exadult" =>$total_exadult,

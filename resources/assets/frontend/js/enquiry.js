@@ -1,6 +1,7 @@
 
 //Enquiry form validation (desktop & mobile)
 function attachEnquiryValidation(formId) {
+
     document[formId].onsubmit = function () {
         return enq(formId);
     };
@@ -104,11 +105,13 @@ function enq(form_ids) {
 	//New Starts
 	else {
 		var app_url_custom=$("#APP_URL").val();
+
 		//else {
 		$.ajax( {
 			url:app_url_custom+'/save_enq_type',
 			type:'get',
 			success:function(data) {
+           
 				if(data=='otp') {
 					var modal = document.getElementById("enquiryModal_mobile");
 					var modal_destop = document.getElementById("enquiryModal_desktop");
@@ -127,8 +130,9 @@ function enq(form_ids) {
 						contentType: false,
 						processData: false,
 						success:function(data) {
+							console.log(data)
 							$("#overlay").fadeOut(300);
-							if(data=='success') {
+							if(data.status=='success') {
 								$('#under_processing').modal('hide');
 								$('#myModal_destop_otp').modal('show');
 								// var myModal_destop_otp = document.getElementById("myModal_destop_otp");
@@ -136,7 +140,7 @@ function enq(form_ids) {
 								// swal("Done !", 'Thank you! Enquiry submitted successfully', "success");
 							} else {
 								$('#under_processing').modal('hide');
-								swal("Error", data, "error");
+								swal("Error", data.message, "error");
 							}
 						},
 						error:function(data) {
@@ -162,10 +166,11 @@ function enq(form_ids) {
 						contentType: false,
 						processData: false,
 						success:function(data) {
+
 							$("#overlay").fadeOut(300);
-							if(data=='success') {
+							if(data.message=='Success') {
 								$('#under_processing').modal('hide');
-								swal("Done !", 'Thank you! Enquiry submitted successfully', "success");
+								 swal("Done !", 'Thank you! Enquiry submitted successfully', "success");
 							} else {
 								swal("Error", data, "error");
 							}

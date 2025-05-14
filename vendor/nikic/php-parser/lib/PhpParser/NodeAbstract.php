@@ -2,9 +2,7 @@
 
 namespace PhpParser;
 
-use PhpParser\Node;
-
-abstract class NodeAbstract implements Node, \JsonSerializable
+abstract class NodeAbstract implements Node
 {
     protected $attributes;
 
@@ -23,12 +21,7 @@ abstract class NodeAbstract implements Node, \JsonSerializable
      * @return string Type of the node
      */
     public function getType() {
-        $className = rtrim(get_class($this), '_');
-        return strtr(
-            substr($className, strlen(Node::class) + 1),
-            '\\',
-            '_'
-        );
+        return strtr(substr(rtrim(get_class($this), '_'), 15), '\\', '_');
     }
 
     /**
@@ -44,8 +37,6 @@ abstract class NodeAbstract implements Node, \JsonSerializable
      * Sets line the node started in.
      *
      * @param int $line Line
-     *
-     * @deprecated
      */
     public function setLine($line) {
         $this->setAttribute('startLine', (int) $line);
@@ -72,28 +63,6 @@ abstract class NodeAbstract implements Node, \JsonSerializable
         return $lastComment;
     }
 
-    /**
-     * Sets the doc comment of the node.
-     *
-     * This will either replace an existing doc comment or add it to the comments array.
-     *
-     * @param Comment\Doc $docComment Doc comment to set
-     */
-    public function setDocComment(Comment\Doc $docComment) {
-        $comments = $this->getAttribute('comments', []);
-
-        $numComments = count($comments);
-        if ($numComments > 0 && $comments[$numComments - 1] instanceof Comment\Doc) {
-            // Replace existing doc comment
-            $comments[$numComments - 1] = $docComment;
-        } else {
-            // Append new comment
-            $comments[] = $docComment;
-        }
-
-        $this->setAttribute('comments', $comments);
-    }
-
     public function setAttribute($key, $value) {
         $this->attributes[$key] = $value;
     }
@@ -112,9 +81,5 @@ abstract class NodeAbstract implements Node, \JsonSerializable
 
     public function getAttributes() {
         return $this->attributes;
-    }
-
-    public function jsonSerialize() {
-        return ['nodeType' => $this->getType()] + get_object_vars($this);
     }
 }

@@ -11,30 +11,30 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Support
- * @version    2.0.3
+ * @version    1.2.0
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2019, Cartalyst LLC
- * @link       https://cartalyst.com
+ * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @link       http://cartalyst.com
  */
 
 namespace Cartalyst\Support\Handlers;
 
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Container\Container;
 
 class EventHandler
 {
     /**
      * The container instance.
      *
-     * @var \Illuminate\Contracts\Container\Container
+     * @var \Illuminate\Container\Container
      */
     protected $app;
 
     /**
      * Constructor.
      *
-     * @param  \Illuminate\Contracts\Container\Container  $app
+     * @param  \Illuminate\Container\Container  $app
      * @return void
      */
     public function __construct(Container $app)

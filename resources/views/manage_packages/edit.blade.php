@@ -219,7 +219,9 @@
                     <!-- -------------------------------------------- -->
 
                     <!-- tour new pricing -->
-                    <?php $new_price=CustomHelpers::get_package_new_price($packagesData->newprices); ?>
+                  <!--   <?php $new_price=CustomHelpers::get_package_new_price($packagesData->newprices); 
+
+                    ?> -->
                     <div id="NewPricing" class="tab-pane fade">
                       <div class="panel-body">
                         <div class="row">

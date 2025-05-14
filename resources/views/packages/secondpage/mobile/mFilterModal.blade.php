@@ -80,7 +80,7 @@
 								                    <input type="checkbox" class="mdropCheckBox" name="chk_value" value="{{ $city }}">
 								                    <span class="mFilter_CheckMark"></span>
 								                    <div class="fullWidth">
-								                        <div>{{ $city }} <span class="mItemCount">({{ $city_count }})</span></div>
+								                        <div>{{ CustomHelpers::get_master_table_data('city', 'id', $city, 'name') }}  <span class="mItemCount">({{ $city_count }})</span></div>
 								                    </div>
 								                </label>
 								            @endif
@@ -92,11 +92,12 @@
 								<div class="mFilter_ItemBox">
 									<h4>Budget <i class="mFilter_ItemSubHead">per person</i></h4>
 									<div id="price" class="mFilter_ItemContent-budget dropdown2" style="display: block;">
-										<div id="price-ranges_mobile" class="mbudgetSlider"></div>
+										<div id="price-ranges_mobile" class="mbudgetSlider price-ranges"></div>
 										<!--<div id="price-ranges" class="drop"></div>-->
 										<div class="mrangeSection">
-											<span class="min-price-label"></span>
-											<span class="max-price-label"></span>
+											<span class="min-price-label">₹0</span>
+					            <span> &#8212; </span>
+					            <span class="max-price-label">₹0</span>
 										</div>
 									</div>
 								</div>
@@ -294,19 +295,9 @@
 
 									    @foreach($guest_ratings as $rating)
 									        <?php
-									            // Get the count of packages matching the rating and destination search
-									            $guest_rating_wise_data = DB::table('rt_packages')
-									                ->where(function($query) use ($rating, $destination_search) {
-									                    $query->where('status', '=', 1)
-									                          ->where('customer_rating', '=', $rating)
-									                          ->where(function($q) use ($destination_search) {
-									                              $q->where('continent', 'like', '%' . $destination_search . '%')
-									                                ->orWhere('country', 'like', '%' . $destination_search . '%')
-									                                ->orWhere('state', 'like', '%' . $destination_search . '%')
-									                                ->orWhere('city', 'like', '%' . $destination_search . '%');
-									                          });
-									                })
-									                ->count();  // Get the count directly from the database
+									           	 $data_guest_rating =  DB::table('rt_packages')->where([['status', '=', '1'],['customer_rating', '=', $rating],
+					                    ])->get();
+			$guest_rating_wise_data = CustomHelpers::get_filtered_packages($data_guest_rating,$destination_search)[0]->count(); 
 									        ?>
 
 									        @if($rating != 0)

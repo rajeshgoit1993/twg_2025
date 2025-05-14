@@ -4958,7 +4958,7 @@ if ($date2 >= $date1) {
         $websiteName = getWebsiteData('name');
         $senderEmail = getWebsiteData('sender_email');
         $replyToEmail = getWebsiteData('reply_to_email');
-        dd($senderEmail, $websiteName, $replyToEmail);
+        // dd($senderEmail, $websiteName, $replyToEmail);
     
         $data = [
             'packageId' => $request->packageId,
@@ -5289,6 +5289,8 @@ if ($date2 >= $date1) {
             'channel_type' => 'required|string',  // Assuming these are required
             'service_type' => 'required|string',  // Assuming these are required
         ]);
+
+        
 
         $query = new Query;
         $query->channel_type = $request->channel_type;
@@ -6513,6 +6515,7 @@ if ($date2 >= $date1) {
         $fields_to_check = [
             'name' => 'Name',
             'email' => 'Email',
+            'country_code' => 'Country Code',
             'mobile' => 'Mobile No',
             'message' => 'Message',
             'city_of_residence' => 'Residence City',

@@ -30,9 +30,10 @@
 		<div class="mEditSearch_Sticky">
 			<div class="mEditSearchCont">
 				<div class="mEditSearchBox mobscroll">
-					<div class="mEditSearchItem">New Delhi</div>
-					<div class="mEditSearchItem mSpaceIcon">2 Travellers</div>
-					<div class="mEditSearchItem mSpaceIcon">15 - 19 Nov</div>
+					<div class="mEditSearchItem">{{ ucfirst($destination_search) }}</div>
+					
+					<div class="mEditSearchItem mSpaceIcon">{{ $date }}</div>
+					<div class="mEditSearchItem mSpaceIcon">{{ count($data) }}<span class="font12">/{{ count($data) }}</span> Packages</div>
 				</div>
 				<!--<div class="mSearchInput_edit" id="btn_getModal_searchInputs">Edit</div>-->
 				<div class="mSearchInput_edit" id="btn_get_mSearchModal">Edit</div>

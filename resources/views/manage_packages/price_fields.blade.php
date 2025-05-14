@@ -142,8 +142,8 @@
 	<div class="form-group">
 		<label class="field-required">Price Type</label>
 		<select class="form-control backgroundColorF2 price_type" name="price_type">
-			<option value="Per Person">Per Person</option>
-			<option value="Group Price">Group Price</option>
+			<option value="1">Per Person</option>
+			<option value="2">Group Price</option>
 		</select>
 	</div>
 </div>

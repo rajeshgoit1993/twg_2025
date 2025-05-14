@@ -35,7 +35,11 @@ $(function () {
     function applyDatepicker() {
         const desktopDatepicker = $("#datepicker");
         const mobileDatepicker = $("#m_datepicker");
-        
+        const defaultDate = new Date(
+    $("#given_year").val(), 
+    $("#given_month").val() - 1, 
+    $("#given_date").val()
+);
         if (window.innerWidth >= 992) {
             // Destroy mobile datepicker if it exists
             if (mobileDatepicker.data("datepicker")) {
@@ -44,15 +48,18 @@ $(function () {
 
             // Initialize desktop datepicker
             if (!desktopDatepicker.data("datepicker")) {
+            	var today = new Date();
                 desktopDatepicker.datepicker({
                     dateFormat: "D, d M yy", // Includes day name
-                    minDate: new Date($("#given_year").val(), $("#given_month").val() - 1, $("#given_date").val()),
+                    // minDate: new Date($("#given_year").val(), $("#given_month").val() - 1, $("#given_date").val()),
+                    minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
                     maxDate: new Date($("#given_end_year").val(), $("#given_end_month").val() - 1, $("#given_end_date").val()),
                     numberOfMonths: 2,       // Show two months simultaneously
                     onSelect: function (dateText) {
-                        get_data();         // Call get_data() on date selection
+                    	get_price_type();   
+                          // Call get_data() on date selection
                     }
-                }).datepicker("setDate", "0"); // Set default date to today
+                }).datepicker("setDate", defaultDate); // Set default date to today
             }
         } else {
             // Destroy desktop datepicker if it exists
@@ -62,12 +69,13 @@ $(function () {
 
             // Initialize mobile datepicker
             if (!mobileDatepicker.data("datepicker")) {
+            	var today = new Date();
                 mobileDatepicker.datepicker({
                     dateFormat: "D, d M yy", // Includes day name
-                    minDate: new Date($("#given_year").val(), $("#given_month").val() - 1, $("#given_date").val()),
+                    minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
                     maxDate: new Date($("#given_end_year").val(), $("#given_end_month").val() - 1, $("#given_end_date").val()),
                     numberOfMonths: [12, 1] // Display the months vertically
-                });
+                }).datepicker("setDate", defaultDate);
             }
 
             // Prevent calendar from opening when input is clicked
@@ -78,6 +86,7 @@ $(function () {
 
             // Add "Change" button functionality for mobile datepicker
             $("#btnChangeDateMobile").off("click").on("click", function () {
+
                 mobileDatepicker.datepicker("show");
             });
         }
@@ -128,6 +137,44 @@ $(document).on("change", ".pkg_type_two", function () {
 });
 
 // Function to fetch data based on selected inputs
+function get_price_type()
+{
+var date = $("#datepicker").val();
+    var package_id = $("#package_value").val();
+    var pkg_type = $(".pkg_type_two").val();
+    var type_value = $(".type_value").val();
+    var APP_URL = $("#test").val();
+    var url = APP_URL + "/get_price_type";
+
+    // Validate required fields
+    if (!date || !package_id || !pkg_type || !type_value) {
+        //alert("Please ensure all fields are filled out before proceeding.");
+        return;
+    }
+var data = {
+        date: date,
+        package_id: package_id,
+        pkg_type: pkg_type,
+        type_value: type_value,
+        _token: $('meta[name="csrf-token"]').attr("content"), // CSRF token from meta tag
+    };
+
+    // Perform AJAX GET request
+    $.get(url, data)
+        .done(function (rdata) {
+            // Update the DOM with the returned data
+           
+            $(".type").html(rdata.type || "No type available");
+             get_data();
+        })
+        .fail(function (xhr, status, error) {
+            // Handle errors (e.g., network issues or server errors)
+            console.error("Error fetching data:", error);
+            alert("Failed to fetch data. Please try again later.");
+        });
+
+
+}
 function get_data() {
     // Retrieve necessary input values
     var date = $("#datepicker").val();
@@ -154,10 +201,33 @@ function get_data() {
 
     // Perform AJAX GET request
     $.get(url, data)
-        .done(function (rdata) {
+        .done(function (rdata) { 
             // Update the DOM with the returned data
             $(".get_update_price").html(rdata.return_price || "No price available");
-            $(".type").html(rdata.type || "No type available");
+            $(".mtype").html(rdata.type || "No type available");
+            $(".dDateRange").html(rdata.date_range || "No type available");
+         var startDate = new Date(rdata.first_day);
+        var endDate = new Date(rdata.last_day);
+       const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        var count = 1;
+        while (startDate <= endDate) {
+            let current = new Date(startDate);
+
+            let dd = String(current.getDate()).padStart(2, '0');
+            let mmm = monthNames[current.getMonth()];
+            let yyyy = current.getFullYear();
+
+            let formattedDate = `${dd} ${mmm} ${yyyy}`;
+
+            $(".dynamic_day_"+count).html('').html(formattedDate)
+
+count = count + 1;
+            startDate.setDate(startDate.getDate() + 1);
+        }
+
+            
         })
         .fail(function (xhr, status, error) {
             // Handle errors (e.g., network issues or server errors)
@@ -189,12 +259,12 @@ $(document).ready(function() {
 	// var url=APP_URL+'/calendar-data/'+package_id+"/"+hidden_value+"/"+package_type+"/"+pkg_type;
 	var url=APP_URL+'/calendar-new-price/'+package_id+"/"+package_type;
 	var sdate=$("#package_type").find('option:selected').attr("pkg_date");
-   
+  
 	$('#calendar').fullCalendar({
 		// defaultDate: new Date(2023, 4, 20),
-		validRange: {
-			start: sdate
-		},
+		// validRange: {
+		// 	start: sdate
+		// },
 		header: {
 			left: 'prev, today',
 			center: 'title',
@@ -215,23 +285,59 @@ $(document).ready(function() {
 		displayEventTime: false,
 		events:url,
 		eventClick: function(calEvent,event, jsEvent, view) {
-			// opens events in a popup window
-			// window.open(event.url, 'gcalevent', 'width=700,height=600');
-			var date=calEvent.start.format();
-			var date_array=new Array();
-			var date_array=date.split('-');
-			// var new_date=(date_array[2]+"/"+date_array[1]+"/"+date_array[0]);
-			var new_date=(date_array[0]+"-"+date_array[1]+"-"+date_array[2]);
-			$("#date_arrival_cal").val('').val(new_date)
-			var hotel_name=$("#package_type").find(":selected").text();
+
+
+var today = new Date();
+var date = calEvent.start.format('YYYY-MM-DD'); // Ensure proper format if using moment.js
+
+// Convert to JavaScript Date object
+var defaultDateObj = new Date(date); // Assuming 'YYYY-MM-DD'
+
+			 var enquiryModalDesktop = document.getElementById("enquiryModal_desktop");
+			 if(enquiryModalDesktop==null)
+			 {
+			 	var enquiryModalMobile = document.getElementById("enquiryModal_mobile");
+		enquiryModalMobile.style.display = "block";
+$("#travel_date_modal_mobile_enquiry").datepicker({
+    dateFormat: "d M yy",                     // Display format
+    minDate: today,                           // Today as minimum selectable date
+    maxDate: "+12M",                          // Up to 12 months ahead
+    numberOfMonths: [12, 1]                   // 12 months in one column
+}).datepicker("setDate", defaultDateObj); 
+
+			 }
+			 else
+			 {
+			 enquiryModalDesktop.style.display = "block";
+
+			
+
+// Initialize datepicker
+$("#travel_date_modal_desktop_enquiry").datepicker({
+    dateFormat: "d M yy",                     // Display format
+    minDate: today,                           // Today as minimum selectable date
+    maxDate: "+12M",                          // Up to 12 months ahead
+    numberOfMonths: [12, 1]                   // 12 months in one column
+}).datepicker("setDate", defaultDateObj);	
+			 }
+			     // Set default selected date
+
+var hotel_name=$("#package_type").find(":selected").text();
 			$("#hotel_pre").val("").val(hotel_name)
 			var event_title=calEvent.title;
 
 			if(event_title!="Send Query") {
-				$("#exp_budget_cal").val("").val(""+event_title)
+				$("#exp_budget").val('').val(event_title)
+				
 			} else {
-				$("#exp_budget_cal").val("").val(event_title)
+				$("#exp_budget").val('').val(event_title)
 			}
+
+
+			// opens events in a popup window
+			// window.open(event.url, 'gcalevent', 'width=700,height=600');
+			
+			
 		},
 
 		viewRender: function(currentView) {
@@ -266,9 +372,9 @@ $(document).ready(function() {
 
 		// full calendar
 		$('#calendar' + i + '').fullCalendar({
-			validRange:  {
-				start: sdate
-			},
+			// validRange:  {
+			// 	start: sdate
+			// },
 			header: {
 				left: 'prev, today',
 				center: 'title',
@@ -291,21 +397,54 @@ $(document).ready(function() {
 			events:url,
 			
 			eventClick: function(calEvent,event, jsEvent, view) {
-				// opens events in a popup window
-				// window.open(event.url, 'gcalevent', 'width=700,height=600');
-				var date=calEvent.start.format();
-				var date_array=new Array();
-				var date_array=date.split('-');
-				var new_date=(date_array[2]+"/"+date_array[1]+"/"+date_array[0]);
-				$("#date_arrival_cal").val('').val(new_date)
-				var hotel_name=$("#package_type").find(":selected").text();
-				$("#hotel_pre").val("").val(hotel_name)
-				var event_title=calEvent.title;
-				if(event_title!="Send Query") {
-					$("#exp_budget_cal").val("").val("Rs " +event_title)
-					} else {
-						$("#exp_budget_cal").val("").val(event_title)
-					}
+				
+var today = new Date();
+var date = calEvent.start.format('YYYY-MM-DD'); // Ensure proper format if using moment.js
+
+// Convert to JavaScript Date object
+var defaultDateObj = new Date(date); // Assuming 'YYYY-MM-DD'
+
+			 var enquiryModalDesktop = document.getElementById("enquiryModal_desktop");
+			 if(enquiryModalDesktop==null)
+			 {
+			 	var enquiryModalMobile = document.getElementById("enquiryModal_mobile");
+		enquiryModalMobile.style.display = "block";
+$("#travel_date_modal_mobile_enquiry").datepicker({
+    dateFormat: "d M yy",                     // Display format
+    minDate: today,                           // Today as minimum selectable date
+    maxDate: "+12M",                          // Up to 12 months ahead
+    numberOfMonths: [12, 1]                   // 12 months in one column
+}).datepicker("setDate", defaultDateObj); 
+
+			 }
+			 else
+			 {
+			 enquiryModalDesktop.style.display = "block";
+
+			
+
+// Initialize datepicker
+$("#travel_date_modal_desktop_enquiry").datepicker({
+    dateFormat: "d M yy",                     // Display format
+    minDate: today,                           // Today as minimum selectable date
+    maxDate: "+12M",                          // Up to 12 months ahead
+    numberOfMonths: [12, 1]                   // 12 months in one column
+}).datepicker("setDate", defaultDateObj);	
+			 }
+			     // Set default selected date
+
+var hotel_name=$("#package_type").find(":selected").text();
+			$("#hotel_pre").val("").val(hotel_name)
+			var event_title=calEvent.title;
+
+			if(event_title!="Send Query") {
+				$("#exp_budget").val('').val(event_title)
+				
+			} else {
+				$("#exp_budget").val('').val(event_title)
+			}
+
+
 			},
 
 			viewRender: function(currentView) {

@@ -17,10 +17,7 @@
 						            $continent = is_array(unserialize($package->continent)) ? unserialize($package->continent) : [];
 						            $state = is_array(unserialize($package->state)) ? unserialize($package->state) : [];
 						        @endphp
-								@if(in_array($destination_search, $continent)
-									|| in_array($destination_search, $country) 
-									|| in_array($destination_search, $state) 
-									|| in_array($destination_search, $city))
+								
 
 									<!--Mobile View-->
 									<a href="{{ url('/holidays/'.str_slug($package->title).'?package_id='.CustomHelpers::custom_encrypt($package->id)) }}" class="pkg_search">
@@ -158,7 +155,11 @@
 																    foreach ($city1 as $row => $col) {
 																        // Display the duration (e.g., "3N") and the city name
 																        echo "<span class='itemDestDuration'>" . htmlspecialchars($days[$row]) . "N&nbsp;</span>";
-																        echo "<span class='itemDestName'>" . htmlspecialchars($city1[$row]) . "</span>";
+																        echo "<span class='itemDestName'>" . 
+
+CustomHelpers::get_master_table_data('city', 'id', htmlspecialchars($city1[$row]), 'name')
+
+																         . "</span>";
 
 																        // If it's not the last city, display a separator arrow
 																        if ($i < ($city1_count - 1)) {
@@ -261,7 +262,8 @@
 														                <p class="mItemAcutalPrice defaultCurrency">{{ $new_price['actual_price'] }}</p>
 														                <p class="mItemPriceType">
 														                    <span class="mItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> 
-														                    {{ $package->Price_type }}
+														                     
+{{PackagePriceHelpers::get_price_type($package->Price_type)}}
 														                </p>
 														            </div>
 														        @else
@@ -273,7 +275,8 @@
 														                <!-- Discounted Price -->
 														                <p class="mItemPriceType">
 														                    <span class="mItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> 
-														                    {{ $package->Price_type }}
+														                     
+{{PackagePriceHelpers::get_price_type($package->Price_type)}}
 														                </p>
 
 														                <!-- Price Sub-Tag -->
@@ -295,7 +298,7 @@
 														    @endif
 														    <!-- Price Box Ends -->
 														</div>													
-														@endif
+														
 														<div class="viewItemCont">
 															<button type="button" class="mBtnViewDtls">View Details</button>
 														</div>

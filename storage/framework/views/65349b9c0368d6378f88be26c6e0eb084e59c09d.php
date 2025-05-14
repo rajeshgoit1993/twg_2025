@@ -202,7 +202,8 @@
 									            <div class="flexCenter">
 									                <p class="dItemAcutalPrice defaultCurrency"><?php echo e($new_price['actual_price']); ?></p>
 									                <p class="dItemPriceType">
-									                	<span class="dItemOfferPrice defaultCurrency"><?php echo e($new_price['discount_price']); ?></span> <?php echo e($package->Price_type); ?>
+									                	<span class="dItemOfferPrice defaultCurrency"><?php echo e($new_price['discount_price']); ?></span>  
+<?php echo e(PackagePriceHelpers::get_price_type($package->Price_type)); ?>
 
 									                </p>
 									            </div>
@@ -210,7 +211,8 @@
 									            <div>
 									                <p class="dItemAcutalPrice defaultCurrency"><?php echo e($new_price['actual_price']); ?></p>
 									                <p class="dItemPriceType">
-									                	<span class="dItemOfferPrice defaultCurrency"><?php echo e($new_price['discount_price']); ?></span> <?php echo e($package->Price_type); ?>
+									                	<span class="dItemOfferPrice defaultCurrency"><?php echo e($new_price['discount_price']); ?></span>  
+<?php echo e(PackagePriceHelpers::get_price_type($package->Price_type)); ?>
 
 									                </p>
 									                <p class="dItemPriceSubTag">*Excluding applicable taxes</p>

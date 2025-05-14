@@ -37,12 +37,13 @@
 
 									<!--Tour Pricing Tab-->
 									<?php
-									$pri=CustomHelpers::get_price($details->id);
-									$price_upcoming=CustomHelpers::get_up_price($details->id);
+
+									
+									
 									?>
-									@if(($pri!="On Request" && $details->onrequest!="1") || ($price_upcoming!="On Request" && $details->upcoming!="1"))
+									
 									<li class="tab-button" data-id="dTourPriceCalendar">Tour&nbsp;Pricing</li>
-									@endif
+									
 								</ul>
 							</div>
 						</div>

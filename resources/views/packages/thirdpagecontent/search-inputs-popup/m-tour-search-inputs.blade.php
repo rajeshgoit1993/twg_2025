@@ -14,10 +14,10 @@
 			<div class="item-container-box">
 				<div class="search-input-item-cont">
 					<div class="search-input-sub-item">
-						<div class="head">From</div>
-						<div class="item-name">New Delhi</div>
+						<div class="head">Starting City</div>
+						<div class="item-name">{{ $details->sourcecity == null ? 'JoiningDirect' : $details->sourcecity }}</div>
 					</div>
-					<div class="btn-edit" id="btn_getModal_searchInputs_city">Change</div>
+					<!-- <div class="btn-edit" id="btn_getModal_searchInputs_city">Change</div> -->
 				</div>
 			</div>
 		</div>
@@ -26,7 +26,7 @@
 				<div class="search-input-item-cont">
 					<div class="search-input-sub-item">
 						<div class="head">Starting On</div>
-						<div class="item-name">15 Nov 2023 Wednesday</div>
+						<div class="item-name selected_date">{{ date('D, d M Y', strtotime($input_date)) }}</div>
 						<!-- <div class="item-name">
 							<input type="text" id="datepicker" name="datepicker" value="{{ date('d M y', strtotime('+2 months')) }}" placeholder="Select Date" />
 								<div class="dateValueCont">
@@ -43,7 +43,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="item-container">
+		<!-- <div class="item-container">
 			<div class="item-container-box">
 				<div class="search-input-item-cont">
 					<div class="search-input-sub-item">
@@ -53,7 +53,34 @@
 					<div class="btn-edit" id="btn_getModal_searchInputs_travellers">Change</div>
 				</div>
 			</div>
+		</div> -->
+
+		<div class="item-container">
+			<div class="item-container-box">
+
+				<div class="search-input-item-cont themeBox_update dSearchInputArrow" onclick="document.querySelector('.mtype_value').focus();">
+						<label for="tourType">Price</label>
+						<div class="mtype">
+						@if($new_price!='na')
+							<?php  
+								$overall_package_rating=$new_second_price['overall_package_rating'];
+								$package_rating=$new_second_price['package_rating'];
+							?>
+							<select id="tourtype" name="tourType" class="pkg_type_two type_value ">
+								@foreach($overall_package_rating as $row=>$col)
+									<?php $rate=DB::table('rt_pkg_rating_type')->where('id',$row)->first(); ?>
+									<option value="{{ $row }}" @if($row==$package_rating) selected @endif>{{ $rate->name }}</option>
+								@endforeach
+							</select>
+						@else
+							<input type="text" value="On Request" class="mtype_value" readonly />
+						@endif
+						</div>
+					</div>
+</div>
+		
 		</div>
+
 		<div class="item-container" style="display: none;">
 			<div class="item-container-box">
 				<div class="search-input-item-cont">
@@ -68,7 +95,7 @@
 		</div>
 		<div class="footer-cont">
 			<div class="traveller-modal-footer">
-				<button class="btn-search-input-apply">Apply</button>
+				<button class="btn-search-input-apply apply_mobile_filter">Apply</button>
 			</div>
 		</div>
 	</div>
@@ -133,7 +160,7 @@
 		</div>
 		<div class="footer-cont">
 			<div class="traveller-modal-footer">
-				<button class="btn-search-input-apply">Done</button>
+				<button class="btn-search-input-apply apply_changed_date" id="apply_changed_date">Done</button>
 			</div>
 		</div>
 	</div>

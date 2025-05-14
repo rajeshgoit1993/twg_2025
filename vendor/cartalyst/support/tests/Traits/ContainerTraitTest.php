@@ -11,11 +11,11 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Support
- * @version    2.0.3
+ * @version    1.2.0
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2019, Cartalyst LLC
- * @link       https://cartalyst.com
+ * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @link       http://cartalyst.com
  */
 
 namespace Cartalyst\Support\Tests\Traits;
@@ -41,7 +41,7 @@ class ContainerTraitTest extends PHPUnit_Framework_TestCase
     {
         $containerTrait = new ContainerTraitStub;
 
-        $container = m::mock('Illuminate\Contracts\Container\Container');
+        $container = m::mock('Illuminate\Container\Container');
 
         $containerTrait->setContainer($container);
 

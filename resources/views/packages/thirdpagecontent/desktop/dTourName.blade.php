@@ -59,7 +59,7 @@
 
 						        // Display duration and city name
 						        echo "<span class='dTourPlaceDuration'>{$dayValue}N&nbsp;</span>";
-						        echo "<div class='dTourCityName'>{$cityValue}</div>";
+						        echo "<div class='dTourCityName'>".CustomHelpers::get_master_table_data('city', 'id', (int)$cityValue, 'name')."</div>";
 
 						        // Add an arrow unless it's the last city
 						        if ($i < ($city1_count - 1)) {

@@ -37,9 +37,22 @@
 @endsection
 
 @section('content')
+<?php
+$input_date = date('Y-m-d', strtotime('+60 days'));
+if (Session::has('filtered_tour_date')) {
+	$i_date = Session::get('filtered_tour_date');
+    $input_date = date('Y-m-d', strtotime($i_date));
+          }
+
+
+?>
 
 <section>
-	<?php $new_price=PackagePriceHelpers::get_new_pricing_data($details->id,date('Y-m-d')); ?>
+	<?php 
+
+	$new_price=PackagePriceHelpers::get_new_pricing_data($details->id,$input_date); 
+
+	?>
 	<input type="hidden" name="" id="package_value" value="{{$id}}">
 
 	@if($new_price!='na')
@@ -55,13 +68,13 @@
 	@else
 
 		<?php 
-			$new_second_price=PackagePriceHelpers::get_new_pricing_data($details->id,date('Y-m-d'));
+			$new_second_price=PackagePriceHelpers::get_new_pricing_data($details->id,$input_date);
 			$futureDate=date('Y-m-d', strtotime('+1 year'));
 		?>
 
-		<input type="hidden" id="given_year" name="" value="{{date('Y')}}">
-		<input type="hidden" id="given_month" name="" value="{{date('m')}}">
-		<input type="hidden" id="given_date" name="" value="{{date('d')}}">
+		<input type="hidden" id="given_year" name="" value="{{date('Y', strtotime($input_date))}}">
+		<input type="hidden" id="given_month" name="" value="{{date('m' , strtotime($input_date))}}">
+		<input type="hidden" id="given_date" name="" value="{{date('d' , strtotime($input_date))}}">
 
 		<input type="hidden" id="given_end_year" name="" value="{{date('Y',strtotime($futureDate))}}">
 		<input type="hidden" id="given_end_month" name="" value="{{date('m',strtotime($futureDate))}}">

@@ -196,14 +196,16 @@
 									            <div class="flexCenter">
 									                <p class="dItemAcutalPrice defaultCurrency">{{ $new_price['actual_price'] }}</p>
 									                <p class="dItemPriceType">
-									                	<span class="dItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> {{ $package->Price_type }}
+									                	<span class="dItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span>  
+{{PackagePriceHelpers::get_price_type($package->Price_type)}}
 									                </p>
 									            </div>
 									        @else
 									            <div>
 									                <p class="dItemAcutalPrice defaultCurrency">{{ $new_price['actual_price'] }}</p>
 									                <p class="dItemPriceType">
-									                	<span class="dItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> {{ $package->Price_type }}
+									                	<span class="dItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span>  
+{{PackagePriceHelpers::get_price_type($package->Price_type)}}
 									                </p>
 									                <p class="dItemPriceSubTag">*Excluding applicable taxes</p>
 									                <span class="dItemOfferTag">

@@ -317,7 +317,8 @@
 							<!-- ******************** -->
 
 							<!-- pricing -->
-							<?php $new_price=PackagePriceHelpers::get_package_new_price(
+							<?php 
+							$new_price=PackagePriceHelpers::get_package_new_price(
 									$packagesData->newprices,
 									$packagesData->adult,
 									$packagesData->extra_adult,
@@ -325,6 +326,8 @@
 									$packagesData->child_without_bed,
 									$packagesData->infant,
 									$packagesData->solo_traveller);
+
+				
 							?>
 
 							<!-- add price -->
@@ -341,8 +344,8 @@
 										<div class="form-group">
 											<label class="field-required">Price Type</label>
 											<select class="form-control backgroundColorF2 price_type" name="price_type">
-												<option value="Per Person" @if($packagesData->Price_type=="Per Person") selected="selected" @endif >Per Person</option>
-												<option value="Per Group" @if($packagesData->Price_type=="Per Group") selected="selected" @endif>Per Group</option>
+												<option value="1" @if($packagesData->Price_type=="Per Person" || $packagesData->Price_type=="1") selected="selected" @endif >Per Person</option>
+												<option value="2" @if($packagesData->Price_type=="Per Group" || $packagesData->Price_type=="2") selected="selected" @endif>Per Group</option>
 											</select>
 										</div>
 									</div>

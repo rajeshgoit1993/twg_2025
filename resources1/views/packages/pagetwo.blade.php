@@ -61,6 +61,7 @@
 
 	<!--Desktop Page-->
 	<div class="destop_test_exp">
+		
 		@include('packages.secondpage.desktop.dModifyPanel')
 		@include('packages.secondpage.desktop.dTourName')
 		@include('packages.secondpage.desktop.dFilterSorting')

@@ -67,7 +67,6 @@ class TestHandler extends AbstractProcessingHandler
 {
     protected $records = array();
     protected $recordsByLevel = array();
-    private $skipReset = false;
 
     public function getRecords()
     {
@@ -80,41 +79,19 @@ class TestHandler extends AbstractProcessingHandler
         $this->recordsByLevel = array();
     }
 
-    public function reset()
-    {
-        if (!$this->skipReset) {
-            $this->clear();
-        }
-    }
-
-    public function setSkipReset($skipReset)
-    {
-        $this->skipReset = $skipReset;
-    }
-
-    public function hasRecords($level)
+    protected function hasRecordRecords($level)
     {
         return isset($this->recordsByLevel[$level]);
     }
 
-    /**
-     * @param string|array $record Either a message string or an array containing message and optionally context keys that will be checked against all records
-     * @param int          $level  Logger::LEVEL constant value
-     */
-    public function hasRecord($record, $level)
+    protected function hasRecord($record, $level)
     {
-        if (is_string($record)) {
-            $record = array('message' => $record);
+        if (is_array($record)) {
+            $record = $record['message'];
         }
 
         return $this->hasRecordThatPasses(function ($rec) use ($record) {
-            if ($rec['message'] !== $record['message']) {
-                return false;
-            }
-            if (isset($record['context']) && $rec['context'] !== $record['context']) {
-                return false;
-            }
-            return true;
+            return $rec['message'] === $record;
         }, $level);
     }
 
@@ -163,7 +140,7 @@ class TestHandler extends AbstractProcessingHandler
     public function __call($method, $args)
     {
         if (preg_match('/(.*)(Debug|Info|Notice|Warning|Error|Critical|Alert|Emergency)(.*)/', $method, $matches) > 0) {
-            $genericMethod = $matches[1] . ('Records' !== $matches[3] ? 'Record' : '') . $matches[3];
+            $genericMethod = $matches[1] . 'Record' . $matches[3];
             $level = constant('Monolog\Logger::' . strtoupper($matches[2]));
             if (method_exists($this, $genericMethod)) {
                 $args[] = $level;

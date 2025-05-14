@@ -781,12 +781,15 @@ Route::POST('/total_single',"PackageManageController@total_single");
 Route::get('/get_cities','UsersController@get_cities');
 Route::post('/get_cities','UsersController@get_cities');
 Route::get("/mid_image","FrontController@mid_image");
+Route::get("/search-package-title","FrontController@search_package_title");
 Route::get("/search-destination","FrontController@search_destination")->name('searchDestination');
 //Route::get("/mobile_destination_search","FrontController@mobile_destination_search");
 Route::get("/date_wise_price","FrontController@date_wise_price");
+Route::get("/date_wise_price_mobile","FrontController@date_wise_price_mobile");
+Route::get("/get_price_type","FrontController@appy_price_type");
 
 // theme based search using destination in search panel
-Route::post("/search_theme","FrontController@search_theme")->name('searchTheme');
+Route::get("/search_theme","FrontController@search_theme")->name('searchTheme');
 Route::post("/search_theme_mobile","FrontController@search_theme_mobile");
 
 // Route::get('/{id}','HomeController@home_index');
@@ -799,7 +802,7 @@ Route::get("/mid_package_data","FrontController@mid_package_data")->name('loadMo
 Route::post("/newsletter","RateController@newsletter");
 
 //load more packages on home
-Route::post("/add_package","FrontController@add_package");
+Route::post("/add_package","HomeController@add_package");
 //Route::get("/add_package","FrontController@add_package");
 
 //

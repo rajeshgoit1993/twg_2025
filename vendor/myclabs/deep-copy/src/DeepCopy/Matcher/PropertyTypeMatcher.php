@@ -2,16 +2,13 @@
 
 namespace DeepCopy\Matcher;
 
-use DeepCopy\Reflection\ReflectionHelper;
-use ReflectionException;
+use ReflectionProperty;
 
 /**
- * Matches a property by its type.
+ * Match a property by its type
  *
- * It is recommended to use {@see DeepCopy\TypeFilter\TypeFilter} instead, as it applies on all occurrences
- * of given type in copied context (eg. array elements), not just on object properties.
- *
- * @final
+ * @deprecated It is recommended to use {@see DeepCopy\TypeFilter\TypeFilter} instead, as it applies on all occurrences
+ *             of given type in copied context (eg. array elements), not just on object properties.
  */
 class PropertyTypeMatcher implements Matcher
 {
@@ -33,19 +30,8 @@ class PropertyTypeMatcher implements Matcher
      */
     public function matches($object, $property)
     {
-        try {
-            $reflectionProperty = ReflectionHelper::getProperty($object, $property);
-        } catch (ReflectionException $exception) {
-            return false;
-        }
-
+        $reflectionProperty = new ReflectionProperty($object, $property);
         $reflectionProperty->setAccessible(true);
-
-        // Uninitialized properties (for PHP >7.4)
-        if (method_exists($reflectionProperty, 'isInitialized') && !$reflectionProperty->isInitialized($object)) {
-            // null instanceof $this->propertyType
-            return false;
-        }
 
         return $reflectionProperty->getValue($object) instanceof $this->propertyType;
     }

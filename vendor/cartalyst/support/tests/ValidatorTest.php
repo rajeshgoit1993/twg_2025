@@ -11,11 +11,11 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Support
- * @version    2.0.3
+ * @version    1.2.0
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2019, Cartalyst LLC
- * @link       https://cartalyst.com
+ * @copyright  (c) 2011-2015, Cartalyst LLC
+ * @link       http://cartalyst.com
  */
 
 namespace Cartalyst\Support\Tests;
@@ -145,7 +145,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
 
     protected function getRealValidator()
     {
-        $trans = new \Illuminate\Translation\Translator(new \Illuminate\Translation\ArrayLoader(), 'en');
+        $trans = new \Symfony\Component\Translation\Translator('en', new \Symfony\Component\Translation\MessageSelector);
+        $trans->addLoader('array', new \Symfony\Component\Translation\Loader\ArrayLoader);
 
         return new IlluminateValidator($trans);
     }

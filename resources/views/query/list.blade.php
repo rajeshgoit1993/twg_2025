@@ -225,7 +225,7 @@
 									<td>
 										<div class="dashboard-inner-table">
 											<!-- destination -->
-											@if(is_numeric((int)$query->packageId))
+											<!-- @if(is_numeric((int)$query->packageId))
 											    <div><u><h5>Destination</h5></u></div>
 											    <?php
 											        $cities = CustomHelpers::get_master_table_data('rt_packages', 'id', (int)$query->packageId, 'city');
@@ -272,7 +272,56 @@
 											    @else
 											        <p class="q-dtls">No destinations available.</p>
 											    @endif
-											@endif
+											@endif -->
+
+											<!-- --------- -->
+
+											
+											<!-- destination (based on city_ids) -->
+											@if(is_numeric((int)$query->packageId))
+											    <div><u><h5>Destination</h5></u></div>
+											    <?php
+											        // Step 1: Get the city field from the package
+											        $city_ids = CustomHelpers::get_master_table_data('rt_packages', 'id', (int)$query->packageId, 'city');
+
+											        // Step 2: Ensure it's an array (deserialize if needed)
+											        $city_ids = is_array($city_ids) ? $city_ids : @unserialize($city_ids);
+
+											        if (!is_array($city_ids)) {
+											            $city_ids = [];
+											        }
+
+											        // Step 3: Resolve each city ID to its name
+											        $city_names = [];
+											        foreach ($city_ids as $city_id) {
+											            $name = CustomHelpers::get_master_table_data('city', 'id', (int)$city_id, 'name');
+											            if (!empty($name)) {
+											                $city_names[] = $name;
+											            }
+											        }
+											    ?>
+
+											    @if(!empty($city_names))
+											        <ul class="q-dtls">
+											            @foreach($city_names as $city)
+											                <li>{{ $city }}</li>
+											            @endforeach
+											        </ul>
+											    @elseif(!empty($query->destinations))
+											        <ul class="q-dtls">
+											            <li>{{ $query->destinations }}</li>
+											        </ul>
+											    @else
+											        <p class="q-dtls">No destination available</p>
+											    @endif
+											@else
+											    @if(!empty($query->destinations))
+											        <p class="q-dtls">{{ $query->destinations }}</p>
+											    @else
+											        <p class="q-dtls">No destinations available.</p>
+											    @endif
+											@endif											
+
 
 											<!-- --------- -->
 

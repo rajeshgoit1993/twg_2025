@@ -71,7 +71,7 @@
 													    foreach ($city1 as $row => $col) {
 													        // Display the duration (e.g., "3N") and the city name
 													        echo "<span class='itemDestDuration'>" . htmlspecialchars($days[$row]) . "N&nbsp;</span>";
-													        echo "<span class='itemDestName'>" . htmlspecialchars($city1[$row]) . "</span>";
+													        echo "<span class='itemDestName'>" . CustomHelpers::get_master_table_data('city', 'id', htmlspecialchars($city1[$row]), 'name') . "</span>";
 
 													        // If it's not the last city, display a separator arrow
 													        if ($i < ($city1_count - 1)) {
@@ -143,12 +143,14 @@
 										@if($new_price['actual_price']==$new_price['discount_price'])
 											<div class="dItemPriceBoxTop flexCenter">
 												<p class="dItemAcutalPrice defaultCurrency">{{ $new_price['actual_price'] }}</p>
-												<p class="dItemPriceType"><span id="" class="dItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> {{ $package->Price_type }}</p>
+												<p class="dItemPriceType"><span id="" class="dItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span>  
+{{PackagePriceHelpers::get_price_type($package->Price_type)}}</p>
 											</div>
 											@else
 											<div class="dItemPriceBoxTop">
 												<p class="dItemAcutalPrice defaultCurrency">{{ $new_price['actual_price'] }}</p>
-												<p class="dItemPriceType"><span id="" class="dItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> {{ $package->Price_type }}</p>
+												<p class="dItemPriceType"><span id="" class="dItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span>  
+{{PackagePriceHelpers::get_price_type($package->Price_type)}}</p>
 												<p class="dItemPriceSubTag">*Excluding applicable taxes</p>
 												<span class="dItemOfferTag">
 												<?php
@@ -250,7 +252,7 @@
 															foreach ($city1 as $row => $col) {
 																// Display the duration (e.g., "3N") and the city name
 																echo "<span class='itemDestDuration'>" . htmlspecialchars($days[$row]) . "N&nbsp;</span>";
-																echo "<span class='itemDestName'>" . htmlspecialchars($city1[$row]) . "</span>";
+																echo "<span class='itemDestName'>" . CustomHelpers::get_master_table_data('city', 'id', htmlspecialchars($city1[$row]), 'name') . "</span>";
 
 																// If it's not the last city, display a separator arrow
 																if ($i < ($city1_count - 1)) {
@@ -317,7 +319,7 @@
 													</div>
 													@php
 														// Fetch updated pricing data for the package
-														$new_price = PackagePriceHelpers::get_new_pricing_data($package->id, date('Y-m-d', strtotime($date)));
+														$new_price = PackagePriceHelpers::get_new_pricing_data($package->id, date('Y-m-d', strtotime($search_date)));
 													@endphp
 
 													@if($new_price != 'na')
@@ -327,7 +329,8 @@
 																<p class="mItemAcutalPrice defaultCurrency">{{ $new_price['actual_price'] }}</p>
 																<p class="mItemPriceType">
 																	<span class="mItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> 
-																	{{ $package->Price_type }}
+																	 
+{{PackagePriceHelpers::get_price_type($package->Price_type)}}
 																</p>
 															</div>
 														@else
@@ -339,7 +342,8 @@
 																<!-- Discounted Price -->
 																<p class="mItemPriceType">
 																	<span class="mItemOfferPrice defaultCurrency">{{ $new_price['discount_price'] }}</span> 
-																	{{ $package->Price_type }}
+																	 
+{{PackagePriceHelpers::get_price_type($package->Price_type)}}
 																</p>
 
 																<!-- Price Sub-Tag -->

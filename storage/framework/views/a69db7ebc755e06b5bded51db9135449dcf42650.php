@@ -226,7 +226,7 @@
 									<td>
 										<div class="dashboard-inner-table">
 											<!-- destination -->
-											<?php if(is_numeric((int)$query->packageId)): ?>
+											<!-- <?php if(is_numeric((int)$query->packageId)): ?>
 											    <div><u><h5>Destination</h5></u></div>
 											    <?php
 											        $cities = CustomHelpers::get_master_table_data('rt_packages', 'id', (int)$query->packageId, 'city');
@@ -273,7 +273,56 @@
 											    <?php else: ?>
 											        <p class="q-dtls">No destinations available.</p>
 											    <?php endif; ?>
-											<?php endif; ?>
+											<?php endif; ?> -->
+
+											<!-- --------- -->
+
+											
+											<!-- destination (based on city_ids) -->
+											<?php if(is_numeric((int)$query->packageId)): ?>
+											    <div><u><h5>Destination</h5></u></div>
+											    <?php
+											        // Step 1: Get the city field from the package
+											        $city_ids = CustomHelpers::get_master_table_data('rt_packages', 'id', (int)$query->packageId, 'city');
+
+											        // Step 2: Ensure it's an array (deserialize if needed)
+											        $city_ids = is_array($city_ids) ? $city_ids : @unserialize($city_ids);
+
+											        if (!is_array($city_ids)) {
+											            $city_ids = [];
+											        }
+
+											        // Step 3: Resolve each city ID to its name
+											        $city_names = [];
+											        foreach ($city_ids as $city_id) {
+											            $name = CustomHelpers::get_master_table_data('city', 'id', (int)$city_id, 'name');
+											            if (!empty($name)) {
+											                $city_names[] = $name;
+											            }
+											        }
+											    ?>
+
+											    <?php if(!empty($city_names)): ?>
+											        <ul class="q-dtls">
+											            <?php $__currentLoopData = $city_names; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $city): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+											                <li><?php echo e($city); ?></li>
+											            <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+											        </ul>
+											    <?php elseif(!empty($query->destinations)): ?>
+											        <ul class="q-dtls">
+											            <li><?php echo e($query->destinations); ?></li>
+											        </ul>
+											    <?php else: ?>
+											        <p class="q-dtls">No destination available</p>
+											    <?php endif; ?>
+											<?php else: ?>
+											    <?php if(!empty($query->destinations)): ?>
+											        <p class="q-dtls"><?php echo e($query->destinations); ?></p>
+											    <?php else: ?>
+											        <p class="q-dtls">No destinations available.</p>
+											    <?php endif; ?>
+											<?php endif; ?>											
+
 
 											<!-- --------- -->
 
